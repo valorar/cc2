@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Tema 5 del Bloque A de Ciencias de la Computación II: Cómo se identifican los equipos con MAC, IPv4 e IPv6, cómo funciona una máscara y qué aportan DNS, DHCP y NAT.">
+<title>Tema 5. Direccionamiento IP y servicios de red · CC2</title><link rel="stylesheet" href="assets/estilos.css"><script src="assets/navegacion.js" defer></script></head>
+<body><a class="skip" href="#contenido">Saltar al contenido</a>
+<div class="progress" aria-hidden="true"><span></span></div>
+<header class="site-header"><div class="header-inner">
+  <a class="brand" href="index.html"><span class="brand-mark">CC2</span><span>Ciencias de la Computación II<small>2.º de Bachillerato · 2026–2027</small></span></a>
+  <nav class="top-nav" aria-label="Navegación principal"><a href="index.html">Índice</a></nav>
+</div></header>
+<main id="contenido">
+<section class="hero"><div class="hero-inner"><div><p class="kicker">Tema 5 · Bloque A · Redes</p><h1>Direccionamiento IP y servicios de red</h1><p class="hero-lead">Cómo se identifican los equipos con MAC, IPv4 e IPv6, cómo funciona una máscara y qué aportan DNS, DHCP y NAT.</p></div><aside class="hero-note"><strong>Pregunta guía</strong><p>¿Cómo sabe tu equipo si debe entregar un paquete directamente o enviarlo al router?</p></aside></div></section>
+<div class="layout"><nav class="toc" aria-label="Índice del tema"><strong>En este tema</strong><ol><li><a href="#mac">Direcciones MAC: repaso y profundización</a></li><li><a href="#ipv4">Direccionamiento IPv4</a></li><li><a href="#ipv6">Introducción a IPv6</a></li><li><a href="#mascaras">Máscaras de red y subredes básicas</a></li><li><a href="#puerta">La puerta de enlace</a></li><li><a href="#servicios">DNS, DHCP y NAT: los tres servicios imprescindibles</a></li><li><a href="#flujo">Del nombre al servidor</a></li><li><a href="#glosario">Glosario</a></li><li><a href="#resumen">Resumen</a></li></ol></nav><article class="paper">
+<p class="lesson-intro">Cómo se identifican los equipos con MAC, IPv4 e IPv6, cómo funciona una máscara y qué aportan DNS, DHCP y NAT.</p><div class="question"><strong>Antes de empezar:</strong> ¿Cómo sabe tu equipo si debe entregar un paquete directamente o enviarlo al router?</div>
+<div class="objectives"><strong>Al terminar serás capaz de…</strong><ul><li>diferenciar direcciones MAC, IPv4 e IPv6</li><li>interpretar una máscara o prefijo básico</li><li>explicar el papel de la puerta de enlace</li><li>relacionar direcciones públicas, privadas y NAT</li><li>describir cómo cooperan DHCP y DNS en una conexión cotidiana</li></ul></div>
+<h2 id="mac">1. Direcciones MAC: repaso y profundización</h2><p>
+    En el Tema 1 vimos que cada adaptador de red trae grabada de fábrica una <strong>dirección MAC</strong> de 12
+    dígitos hexadecimales (48 bits), como <code class="cc2-code">3C:E1:A1:4F:9B:02</code>. Ahora podemos ir un
+    poco más allá: esa dirección se divide en dos mitades de 24 bits cada una.
+  </p><table class="cc2-table">
+<tr><th>Primeros 24 bits (3 primeros pares)</th><th>Últimos 24 bits (3 últimos pares)</th></tr>
+<tr><td><strong>OUI</strong> (Organizationally Unique Identifier): identifica al fabricante del adaptador</td><td>Número de serie único asignado por ese fabricante a esa tarjeta concreta</td></tr>
+</table><p>
+    Por eso, a partir de los primeros dígitos de una dirección MAC es posible averiguar qué empresa fabricó ese
+    adaptador de red (existen bases de datos públicas de OUI para consultarlo). Además de las direcciones
+    normales (unicast, un único destinatario), existen direcciones MAC especiales: la dirección
+    <strong>broadcast</strong> (<code class="cc2-code">FF:FF:FF:FF:FF:FF</code>) significa "para todos los
+    dispositivos de esta red local", y las direcciones <strong>multicast</strong> significan "para un grupo
+    concreto de dispositivos".
+  </p><div class="cc2-concept">
+<strong class="cc2-concept-tag">Concepto clave</strong>
+    La dirección MAC identifica una interfaz dentro del enlace local; normalmente parte de un valor asignado por el fabricante, pero puede configurarse o aleatorizarse. Es una dirección de <strong>capa 2</strong> (enlace de datos, Tema 3), y solo tiene sentido dentro de la misma red local: un router no la usa
+    para decidir hacia dónde encaminar tráfico entre redes distintas — para eso está la dirección IP.
+  </div>
+<h2 id="ipv4">2. Direccionamiento IPv4</h2><p>
+    Una <strong>dirección IPv4</strong> es un identificador de 32 bits que se escribe habitualmente como 4
+    números decimales del 0 al 255, separados por puntos (notación decimal con puntos): por ejemplo,
+    <code class="cc2-code">192.168.1.25</code>. A diferencia de la MAC, la dirección IP no es fija de fábrica:
+    se asigna según en qué red esté conectado el dispositivo en cada momento, y puede cambiar.
+  </p><p>
+    No todas las direcciones IP son iguales. Existen rangos reservados para uso <strong>privado</strong> —los que
+    usan las redes domésticas y de empresa internamente— y el resto son direcciones <strong>públicas</strong>,
+    únicas en todo Internet:
+  </p><table class="cc2-table">
+<tr><th>Rango privado</th><th>Uso típico</th></tr>
+<tr><td>10.0.0.0 – 10.255.255.255</td><td>Redes privadas grandes (empresas, instituciones)</td></tr>
+<tr><td>172.16.0.0 – 172.31.255.255</td><td>Redes privadas de tamaño medio</td></tr>
+<tr><td>192.168.0.0 – 192.168.255.255</td><td>Redes privadas pequeñas: la mayoría de routers domésticos y de aula</td></tr>
+</table><div class="cc2-curio">
+    🌍 <strong>¿Sabías que...?</strong> Las direcciones privadas se pueden repetir en millones de redes distintas
+    a la vez sin ningún problema (tu router de casa probablemente usa <code class="cc2-code">192.168.1.1</code>,
+    igual que millones de routers en el resto del mundo), precisamente porque no son visibles desde fuera de esa
+    red local. Esto es posible gracias al NAT, que veremos en el apartado 6.
+  </div>
+<h2 id="ipv6">3. Introducción a IPv6</h2><p>
+    Como ya vimos en el Tema 1, IPv4 se está agotando (32 bits = unos 4.300 millones de direcciones). IPv6 usa
+    <strong>128 bits</strong>, escritos como 8 grupos de 4 dígitos hexadecimales separados por dos puntos, por
+    ejemplo: <code class="cc2-code">2001:0db8:85a3:0000:0000:8a2e:0370:7334</code>. Para abreviar, se permite
+    quitar los ceros a la izquierda de cada grupo y sustituir una única secuencia de grupos en ceros por
+    <code class="cc2-code">::</code> (solo una vez en toda la dirección): la dirección anterior podría escribirse
+    de forma abreviada como <code class="cc2-code">2001:db8:85a3::8a2e:370:7334</code>.
+  </p><p>
+    Muchas redes actuales funcionan en modo <strong>doble pila</strong> (dual stack): cada dispositivo
+    tiene, a la vez, una dirección IPv4 y una IPv6, y usa una u otra según lo que soporte el servidor con el que
+    se está comunicando.
+  </p>
+<h2 id="mascaras">4. Máscaras de red y subredes básicas</h2><p>
+    La <strong>máscara de red</strong> indica qué parte de una dirección IP identifica a la <em>red</em> y qué
+    parte identifica al <em>dispositivo concreto</em> dentro de esa red. Se escribe con el mismo formato que una
+    IP (por ejemplo <code class="cc2-code">255.255.255.0</code>) o, de forma más compacta, como el número de
+    bits dedicados a la red tras una barra: <strong>notación CIDR</strong> (por ejemplo,
+    <code class="cc2-code">/24</code>).
+  </p><table class="cc2-table">
+<tr><th>Máscara</th><th>Notación CIDR</th><th>Bits de red</th><th>Direcciones de dispositivo posibles</th></tr>
+<tr><td>255.255.255.0</td><td>/24</td><td>24</td><td>254 (de .1 a .254)</td></tr>
+<tr><td>255.255.0.0</td><td>/16</td><td>16</td><td>65 534</td></tr>
+<tr><td>255.0.0.0</td><td>/8</td><td>8</td><td>16 777 214</td></tr>
+</table><p>
+    Ejemplo práctico: si tu equipo tiene la IP <code class="cc2-code">192.168.1.25</code> con máscara
+    <code class="cc2-code">255.255.255.0</code> (/24), los tres primeros números (<code class="cc2-code">192.168.1</code>)
+    identifican la red, y el último número (<code class="cc2-code">.25</code>) identifica tu equipo dentro de
+    ella. Cualquier otro dispositivo cuya IP empiece también por <code class="cc2-code">192.168.1.</code> está en
+    tu misma red local; uno que empiece de otra forma necesitará pasar por un router para comunicarse contigo.
+  </p><div class="cc2-concept">
+<strong class="cc2-concept-tag">Concepto clave</strong>
+    Dos dispositivos solo pueden hablarse directamente (sin pasar por un router) si están en la <strong>misma
+    red</strong>, es decir, si su dirección IP y su máscara sitúan a ambos en el mismo rango. Esta es la
+    comprobación más básica —y más olvidada— cuando algo no conecta: ¿están los dos extremos realmente en la
+    misma red?
+  </div>
+<h2 id="puerta">5. La puerta de enlace</h2><p>
+    La <strong>puerta de enlace</strong> (gateway) es la dirección IP del dispositivo —normalmente el router— al
+    que un equipo envía todo el tráfico que va dirigido <em>fuera</em> de su propia red local. Si tu IP es
+    <code class="cc2-code">192.168.1.25</code> y quieres visitar una página web, tu equipo primero comprueba que
+    esa web no está en tu red local, así que envía la petición a la puerta de enlace (por ejemplo,
+    <code class="cc2-code">192.168.1.1</code>), y es el router quien se encarga de encaminarla hacia Internet.
+  </p>
+<h2 id="servicios">6. DNS, DHCP y NAT: los tres servicios imprescindibles</h2><p>
+    Ya conocimos DNS y DHCP como protocolos de aplicación en el Tema 3; aquí vemos exactamente qué hacen y
+    añadimos un tercer servicio, el NAT, imprescindible para que las direcciones privadas funcionen en Internet.
+  </p><div class="cc2-grid">
+<div class="cc2-card">
+<h3>DNS</h3>
+<p>Traduce nombres fáciles de recordar ("moodle.instituto.es") en la dirección IP real del servidor. Sin
+      DNS, tendrías que memorizar números en vez de nombres para visitar cualquier página.</p>
+</div>
+<div class="cc2-card">
+<h3>DHCP</h3>
+<p>Asigna automáticamente una IP, máscara, puerta de enlace y DNS a cada dispositivo que se conecta a la
+      red, sin que nadie tenga que configurarlo a mano. Es lo que hace que tu móvil "ya tenga Internet" nada más
+      conectarse a un Wi-Fi.</p>
+</div>
+<div class="cc2-card">
+<h3>NAT</h3>
+<p>Traduce las direcciones privadas de tu red local en la única dirección pública que tiene contratada tu
+      router, y viceversa. Gracias al NAT, decenas de dispositivos con IP privada pueden compartir una sola IP
+      pública para salir a Internet.</p>
+</div>
+</div><div class="cc2-note">
+    💡 Sin NAT, cada dispositivo de cada casa del planeta necesitaría su propia dirección IP pública — y ya vimos
+    en el Tema 1 que esas direcciones (en IPv4) son un recurso limitado y prácticamente agotado. El NAT ha sido,
+    durante más de 25 años, uno de los principales "parches" que ha permitido seguir usando IPv4 a pesar de su
+    escasez.
+  </div>
+<h2 id="flujo">7. Una petición completa: del nombre al servidor</h2>
+<ol>
+<li>El equipo obtiene por <strong>DHCP</strong> una IP, una máscara, una puerta de enlace y servidores DNS.</li>
+<li>Al escribir un dominio, consulta al <strong>DNS</strong> para obtener la dirección IP del servidor.</li>
+<li>La máscara decide si el destino está en la red local. Si está fuera, el paquete se entrega a la <strong>puerta de enlace</strong>.</li>
+<li>El router encamina el paquete y normalmente aplica <strong>NAT</strong> para representar a los equipos privados con una dirección pública.</li>
+<li>En cada red local del recorrido, las tramas usan direcciones de enlace; IP mantiene el origen y destino lógicos extremo a extremo, salvo traducciones como NAT.</li>
+</ol>
+<div class="cc2-concept"><strong class="cc2-concept-tag">No las confundas</strong>La MAC identifica una interfaz en el enlace local; la IP identifica lógicamente un destino y permite encaminar entre redes.</div>
+
+<h2 id="glosario">Glosario del tema</h2><dl class="cc2-glosario"><dt>MAC</dt><dd>Identificador de una interfaz usado en la red local; puede estar administrado localmente.</dd><dt>IPv4</dt><dd>Dirección lógica de 32 bits, escrita habitualmente en cuatro números decimales.</dd><dt>IPv6</dt><dd>Dirección lógica de 128 bits, representada en hexadecimal.</dd><dt>Máscara/prefijo</dt><dd>Indica qué bits identifican la red y cuáles el host.</dd><dt>Puerta de enlace</dt><dd>Router al que se envía el tráfico destinado a otras redes.</dd><dt>NAT</dt><dd>Traducción entre direcciones, usada habitualmente al salir de una red privada.</dd></dl>
+<section class="summary"><h2 id="resumen">Resumen esencial</h2><ol><li>MAC actúa en el enlace local; IP permite identificar y encaminar entre redes.</li><li>IPv4 usa 32 bits e IPv6 usa 128 bits.</li><li>La máscara o prefijo separa la parte de red de la parte de host.</li><li>La puerta de enlace recibe el tráfico destinado fuera de la red local.</li><li>DHCP configura, DNS traduce nombres y NAT traduce direcciones.</li><li>Comprender el flujo completo permite interpretar después las pruebas de diagnóstico.</li></ol></section>
+</article></div></main>
+<nav class="topic-footer" aria-label="Navegación entre temas"><a href="tema04.html">← Tema 4</a><a href="tema06.html">Tema 6 →</a></nav>
+<footer class="site-footer">Ciencias de la Computación II · 2.º de Bachillerato · Comunidad de Madrid</footer>
+</body></html>

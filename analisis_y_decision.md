@@ -1,0 +1,42 @@
+# Análisis y decisión pedagógica · Bloque A, versión 3
+
+## Decisión: seis temas
+
+Se crean **seis temas teóricos**. Esta cantidad no se elige para imitar v1, sino para corregir dos desequilibrios de v2: su Tema 2 reúne demasiados conceptos físicos y su Tema 4 mezcla fundamentos de direccionamiento con procedimientos de configuración y diagnóstico.
+
+La secuencia responde a seis preguntas consecutivas:
+
+1. **¿Qué es una red y qué piezas la forman?** Fundamentos, componentes y evolución.
+2. **¿Qué forma y alcance puede tener?** Tipos y topologías.
+3. **¿Por dónde viajan físicamente los datos?** Señales, medios e infraestructura.
+4. **¿Qué reglas organizan la conversación?** Modelos, protocolos y estándares.
+5. **¿Cómo se identifica cada destino y qué servicios sostienen la red?** Direccionamiento y servicios.
+6. **¿Cómo se diseña, configura y repara?** Configuración y diagnóstico.
+
+## Qué se toma de cada versión
+
+| Aportación | v1 | v2 | Tratamiento en v3 |
+|---|:---:|:---:|---|
+| Explicación breve y orientada a problemas | ✓ | | Se conserva en preguntas guía, ejemplos y resúmenes. |
+| Señal analógica/digital, ruido y regeneración | ✓ | | Se incorpora al Tema 3. |
+| Diagnóstico por capas | ✓ | parcial | Se refuerza en los Temas 4 y 6. |
+| Cronología detallada | ✓ | ✓ | Se integra en el Tema 1, donde da contexto. |
+| Componentes y electrónica de red | parcial | ✓ | Se adopta el desarrollo amplio de v2 en el Tema 1. |
+| Topologías e infraestructura física | parcial | ✓ | Se divide entre los Temas 2 y 3. |
+| OSI y TCP/IP, TCP/UDP y protocolos de aplicación | parcial | ✓ | Se reúne en el Tema 4. |
+| MAC, IPv4/IPv6, subredes, DHCP y NAT | parcial | ✓ | Se reúne en el Tema 5. |
+| Configuración y herramientas de diagnóstico | ✓ | ✓ | Se combina y ordena en el Tema 6. |
+
+## Por qué no cuatro o cinco
+
+- **Cuatro temas** reproducirían la estructura de v2, pero mantendrían dos unidades demasiado largas y heterogéneas.
+- **Cinco temas** permitirían separar direccionamiento de configuración, pero aún dejarían tipos, topologías, señales, medios y cableado en un único tema desproporcionado.
+- **Seis temas** ofrecen unidades con una idea central reconocible, una carga más equilibrada y transiciones naturales.
+
+## Criterios editoriales
+
+- Solo se incluye teoría: no hay prácticas, cuestionarios ni ponderaciones.
+- Las páginas son autónomas, adaptables a móvil, imprimibles y navegables con teclado.
+- Cada tema incluye pregunta guía, objetivos, conceptos desarrollados, ejemplos, glosario o resumen.
+- Se eliminan los marcadores de imágenes todavía inexistentes de v2 para no presentar materiales incompletos.
+- Se mantienen enlaces a fuentes curriculares y técnicas ya presentes en los originales.

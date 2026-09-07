@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Tema 3 del Bloque A de Ciencias de la Computación II: Cómo viaja la información por cobre, fibra y aire, qué conectores utiliza y cómo se organiza el cableado de un edificio.">
+<title>Tema 3. Señales, medios e infraestructura física · CC2</title><link rel="stylesheet" href="assets/estilos.css"><script src="assets/navegacion.js" defer></script></head>
+<body><a class="skip" href="#contenido">Saltar al contenido</a>
+<div class="progress" aria-hidden="true"><span></span></div>
+<header class="site-header"><div class="header-inner">
+  <a class="brand" href="index.html"><span class="brand-mark">CC2</span><span>Ciencias de la Computación II<small>2.º de Bachillerato · 2026–2027</small></span></a>
+  <nav class="top-nav" aria-label="Navegación principal"><a href="index.html">Índice</a></nav>
+</div></header>
+<main id="contenido">
+<section class="hero"><div class="hero-inner"><div><p class="kicker">Tema 3 · Bloque A · Redes</p><h1>Señales, medios e infraestructura física</h1><p class="hero-lead">Cómo viaja la información por cobre, fibra y aire, qué conectores utiliza y cómo se organiza el cableado de un edificio.</p></div><aside class="hero-note"><strong>Pregunta guía</strong><p>¿Qué recorrido físico sigue un bit desde un ordenador del aula hasta el switch del armario de comunicaciones?</p></aside></div></section>
+<div class="layout"><nav class="toc" aria-label="Índice del tema"><strong>En este tema</strong><ol><li><a href="#senal">Señal analógica y digital</a></li><li><a href="#medios">Medios de transmisión: guiados y no guiados</a></li><li><a href="#par_trenzado">Par trenzado: UTP, STP y categorías</a></li><li><a href="#coaxial">Cable coaxial</a></li><li><a href="#fibra">Fibra óptica</a></li><li><a href="#comparativa">Comparativa de los medios guiados</a></li><li><a href="#inalambricos">Comunicaciones inalámbricas</a></li><li><a href="#conectores">Conectores y puertos de red</a></li><li><a href="#cableado">Cableado estructurado</a></li><li><a href="#armario">Armarios de comunicaciones y paneles de parcheo</a></li><li><a href="#recorrido">Organización física de una red local: de la roseta al switch</a></li><li><a href="#glosario">Glosario</a></li><li><a href="#resumen">Resumen</a></li></ol></nav><article class="paper">
+<p class="lesson-intro">Cómo viaja la información por cobre, fibra y aire, qué conectores utiliza y cómo se organiza el cableado de un edificio.</p><div class="question"><strong>Antes de empezar:</strong> ¿Qué recorrido físico sigue un bit desde un ordenador del aula hasta el switch del armario de comunicaciones?</div>
+<div class="objectives"><strong>Al terminar serás capaz de…</strong><ul><li>distinguir señal analógica y digital, atenuación y ruido</li><li>comparar par trenzado, coaxial, fibra y medios inalámbricos</li><li>identificar conectores y puertos habituales</li><li>explicar el recorrido de una conexión en un sistema de cableado estructurado</li></ul></div>
+<h2 id="senal">1. La señal: analógica y digital</h2>
+<p>Toda comunicación transporta una <strong>señal</strong> desde un emisor hasta un receptor. Una señal <strong>analógica</strong> varía de forma continua; una señal <strong>digital</strong> utiliza niveles discretos que representan bits.</p>
+<div class="comparacion"><div><h3>Analógica</h3><p>Al amplificarla también se amplifica el ruido acumulado, por lo que se degrada con la distancia.</p></div><div><h3>Digital</h3><p>Un repetidor puede interpretar los niveles y <strong>regenerar</strong> unos y ceros sin arrastrar todo el ruido anterior.</p></div></div>
+<p>En cualquier medio real hay <strong>atenuación</strong>, pérdida de intensidad con la distancia, y <strong>ruido</strong>, perturbaciones que alteran la señal. Ancho de banda, distancia, interferencias, coste y seguridad condicionan la elección del medio.</p>
+<div class="cc2-concept"><strong class="cc2-concept-tag">Idea clave</strong>Digital no significa «sin errores»: significa que, mientras el receptor distinga los niveles, puede reconstruir los bits originales.</div>
+
+<h2 id="medios">2. Medios de transmisión: guiados y no guiados</h2><p>
+    Se llama <strong>medio de transmisión</strong> al canal físico por el que viaja la señal entre dos
+    dispositivos. Se dividen en dos grandes grupos:
+  </p><ul>
+<li><strong>Medios guiados:</strong> la señal viaja confinada dentro de un cable físico. Incluyen el par trenzado, el cable coaxial y la fibra óptica.</li>
+<li><strong>Medios no guiados:</strong> la señal viaja libremente por el aire (o por el espacio), sin ningún cable que la contenga. Incluyen las ondas de radio (Wi-Fi, Bluetooth), las microondas y los infrarrojos.</li>
+</ul><div class="cc2-concept">
+<strong class="cc2-concept-tag">Concepto clave</strong>
+    "Guiado" no significa "mejor": significa que la señal está confinada dentro de un medio físico. La fibra
+    óptica (guiada) es hoy el medio más rápido que existe, muy por encima de cualquier medio no guiado.
+  </div>
+<h2 id="par_trenzado">3. Par trenzado: UTP, STP y categorías</h2><p>
+    El <strong>par trenzado</strong> es, con diferencia, el cable de red más habitual en redes locales. Está
+    formado por varios pares de hilos de cobre trenzados entre sí (normalmente 4 pares, 8 hilos en total): el
+    trenzado no es decorativo, reduce las interferencias que un par de cables puede inducir sobre el otro.
+  </p><table class="cc2-table">
+<tr><th>Tipo</th><th>Significado</th><th>Característica</th></tr>
+<tr><td><strong>UTP</strong></td><td>Unshielded Twisted Pair (par trenzado sin apantallar)</td><td>El más común, más barato y flexible; suficiente en la mayoría de instalaciones</td></tr>
+<tr><td><strong>STP</strong></td><td>Shielded Twisted Pair (par trenzado apantallado)</td><td>Añade una malla metálica que protege frente a interferencias; más caro y rígido, se usa en entornos con mucho ruido eléctrico (fábricas, salas con maquinaria)</td></tr>
+</table><p>
+    El cable de par trenzado se clasifica además por <strong>categorías</strong>, que indican su calidad y la
+    velocidad máxima que soportan:
+  </p><table class="cc2-table">
+<tr><th>Categoría</th><th>Velocidad máxima</th><th>Uso habitual hoy</th></tr>
+<tr><td>Cat 3</td><td>10 Mbit/s</td><td>Obsoleta (telefonía antigua)</td></tr>
+<tr><td>Cat 5</td><td>100 Mbit/s</td><td>Obsoleta</td></tr>
+<tr><td>Cat 5e</td><td>1 Gbit/s</td><td>Todavía muy extendida en instalaciones existentes</td></tr>
+<tr><td>Cat 6</td><td>1-10 Gbit/s (10 Gbit/s a menos de 55 m)</td><td>Estándar habitual en instalaciones nuevas</td></tr>
+<tr><td>Cat 6a</td><td>10 Gbit/s a 100 m</td><td>Recomendada en instalaciones nuevas exigentes</td></tr>
+<tr><td>Cat 7 / Cat 8</td><td>10-40 Gbit/s</td><td>Centros de datos y entornos muy exigentes</td></tr>
+</table><div class="cc2-curio">
+    🌍 <strong>¿Sabías que...?</strong> Aunque compres un cable Cat 6, la velocidad real que obtendrás depende
+    también de la longitud del tramo, de los conectores y de los demás equipos de la red: la categoría marca un
+    máximo teórico, no una garantía.
+  </div>
+<h2 id="coaxial">4. Cable coaxial</h2><p>
+    El <strong>cable coaxial</strong> tiene un núcleo de cobre central rodeado por una capa aislante, una malla
+    metálica y una cubierta exterior. Esta estructura "capa dentro de capa" le da mucho mejor blindaje frente a
+    interferencias que el par trenzado sin apantallar. Fue el medio dominante en las primeras redes Ethernet en
+    bus (años 80) y hoy sigue usándose sobre todo en las redes de televisión por cable y en algunas conexiones
+    de Internet residenciales (tecnología DOCSIS), aunque en redes locales lo ha sustituido casi por completo el
+    par trenzado.
+  </p>
+<h2 id="fibra">5. Fibra óptica</h2><p>
+    La <strong>fibra óptica</strong> transmite la información en forma de <strong>pulsos de luz</strong> en lugar
+    de electricidad, a través de un filamento de vidrio o plástico más fino que un cabello. Al no usar
+    electricidad, es completamente inmune a las interferencias electromagnéticas y permite distancias y
+    velocidades muchísimo mayores que el cobre.
+  </p><table class="cc2-table">
+<tr><th>Tipo</th><th>Núcleo</th><th>Distancia típica</th><th>Uso habitual</th></tr>
+<tr><td><strong>Monomodo</strong></td><td>Muy fino: un solo "camino" de luz</td><td>Decenas de kilómetros</td><td>Enlaces de larga distancia entre ciudades o países, backbone de Internet</td></tr>
+<tr><td><strong>Multimodo</strong></td><td>Más ancho: varios "caminos" de luz a la vez</td><td>Cientos de metros a pocos kilómetros</td><td>Interconexión entre edificios de un mismo campus o entre plantas</td></tr>
+</table><div class="cc2-concept">
+<strong class="cc2-concept-tag">Concepto clave</strong>
+    Cuanto más fino es el núcleo de la fibra, más lejos puede viajar la señal sin degradarse (monomodo), pero
+    también resulta más cara de fabricar y de conectorizar. Por eso el multimodo es habitual en distancias
+    cortas y el monomodo se reserva para los grandes enlaces.
+  </div>
+<h2 id="comparativa">6. Comparativa de los medios guiados</h2><table class="cc2-table">
+<tr><th></th><th>Par trenzado (UTP)</th><th>Cable coaxial</th><th>Fibra óptica</th></tr>
+<tr><td><strong>Velocidad</strong></td><td>Hasta 10 Gbit/s (Cat 6a)</td><td>Moderada</td><td>Cientos de Gbit/s</td></tr>
+<tr><td><strong>Distancia máxima sin repetidor</strong></td><td>~100 m</td><td>Cientos de metros</td><td>Kilómetros (multimodo) a decenas de km (monomodo)</td></tr>
+<tr><td><strong>Interferencias electromagnéticas</strong></td><td>Sensible (menos si es STP)</td><td>Poco sensible</td><td>Inmune (no usa electricidad)</td></tr>
+<tr><td><strong>Coste</strong></td><td>Bajo</td><td>Medio</td><td>Alto (cable y conectorización)</td></tr>
+<tr><td><strong>Facilidad de instalación</strong></td><td>Muy fácil</td><td>Fácil</td><td>Requiere herramientas y técnicos especializados</td></tr>
+<tr><td><strong>Uso típico hoy</strong></td><td>Puesto de trabajo → switch</td><td>TV por cable, Internet residencial (DOCSIS)</td><td>Enlaces troncales, entre edificios, entre ciudades</td></tr>
+</table><div class="cc2-think">
+    🤔 <strong>Para pensar:</strong> en un instituto, es habitual que el tramo desde cada PC hasta el switch del
+    aula sea par trenzado, pero el tramo entre el armario de comunicaciones principal y los armarios de cada
+    planta sea de fibra óptica. ¿Por qué crees que se hace esa distinción?
+  </div>
+<h2 id="inalambricos">7. Comunicaciones inalámbricas</h2><p>
+    Los medios no guiados transmiten la señal por el aire mediante distintos tipos de ondas electromagnéticas:
+  </p><table class="cc2-table">
+<tr><th>Tipo de onda</th><th>Alcance típico</th><th>Ejemplo de uso</th></tr>
+<tr><td><strong>Ondas de radio</strong></td><td>Desde unos metros hasta kilómetros</td><td>Wi-Fi, Bluetooth, redes móviles (4G/5G)</td></tr>
+<tr><td><strong>Microondas</strong></td><td>Kilómetros, requiere visión directa entre antenas</td><td>Enlaces punto a punto entre edificios, comunicaciones vía satélite</td></tr>
+<tr><td><strong>Infrarrojos</strong></td><td>Muy corto, requiere visión directa</td><td>Mandos a distancia; en redes, prácticamente en desuso</td></tr>
+</table><p>
+    Las comunicaciones inalámbricas tienen la enorme ventaja de la movilidad, pero también inconvenientes que no
+    tienen los medios guiados: la señal se debilita con la distancia y los obstáculos (paredes, metal), puede
+    sufrir interferencias de otros dispositivos que usan la misma frecuencia (microondas domésticos, otros
+    routers cercanos) y, al viajar por el aire, es más fácil de interceptar si no está bien cifrada — un motivo
+    más para los estándares de seguridad Wi-Fi (WPA2, WPA3) que vimos en el Tema 1.
+  </p><div class="cc2-curio">
+    🌍 <strong>¿Sabías que...?</strong> El Wi-Fi doméstico habitual usa las bandas de radio de 2,4 GHz y 5 GHz
+    (y, en los routers más recientes, también 6 GHz). La banda de 2,4 GHz llega más lejos y atraviesa mejor las
+    paredes, pero tiene menos "ancho de banda" disponible y sufre más interferencias (la comparten hornos
+    microondas, mandos y otros dispositivos); la de 5 GHz es más rápida pero de menor alcance.
+  </div>
+<h2 id="conectores">8. Conectores y puertos de red</h2><p>
+    Cada medio de transmisión necesita su propio tipo de conector para "engancharse" al dispositivo. Reconocer
+    estos conectores a simple vista es una habilidad muy práctica:
+  </p><table class="cc2-table">
+<tr><th>Conector</th><th>Medio asociado</th><th>Dónde lo encuentras</th></tr>
+<tr><td><strong>RJ-45</strong></td><td>Par trenzado (Ethernet)</td><td>El puerto de red de cualquier PC, switch o router; 8 contactos</td></tr>
+<tr><td><strong>RJ-11</strong></td><td>Cable telefónico de pares</td><td>Líneas telefónicas y algunos módems ADSL; más pequeño que el RJ-45, 4 o 6 contactos</td></tr>
+<tr><td><strong>Conector BNC</strong></td><td>Cable coaxial</td><td>Antiguas redes Ethernet en bus; hoy prácticamente en desuso en LAN</td></tr>
+<tr><td><strong>Conector F</strong></td><td>Cable coaxial</td><td>Instalaciones de TV por cable y algunos módems de Internet residencial</td></tr>
+<tr><td><strong>SC / LC / ST</strong></td><td>Fibra óptica</td><td>Paneles de fibra en armarios de comunicaciones y tarjetas de red específicas</td></tr>
+<tr><td><strong>SFP / SFP+</strong></td><td>Módulo transceptor (cobre o fibra, según el módulo)</td><td>Puertos de switches y routers de gama alta, para intercambiar el tipo de conexión sin cambiar el equipo</td></tr>
+</table><div class="cc2-note">
+    💡 Un error muy común es confundir el RJ-45 (red) con el RJ-11 (teléfono): se parecen a simple vista, pero
+    el RJ-45 es más ancho y tiene más contactos metálicos visibles en la punta.
+  </div>
+<h2 id="cableado">9. Cableado estructurado</h2><p>
+    Cuando un edificio entero necesita cientos de puntos de red (aulas, despachos, biblioteca...), no se puede
+    ir tirando cables sueltos de cualquier manera: cada nuevo cable sería un pequeño caos y cualquier avería sería
+    muy difícil de localizar. La solución es el <strong>cableado estructurado</strong>: un sistema de cableado
+    diseñado de forma organizada y normalizada (según estándares como el TIA/EIA-568), pensado para servir a todo
+    el edificio durante muchos años, independientemente de qué equipos se conecten en cada momento.
+  </p><p>Un sistema de cableado estructurado se organiza, típicamente, en tres subsistemas:</p><div class="cc2-grid">
+<div class="cc2-card">
+<h3>Cableado horizontal</h3>
+<p>Va desde la roseta de cada puesto de trabajo (aula, despacho) hasta el armario de comunicaciones de esa planta. Normalmente par trenzado, con una longitud máxima recomendada de 90 metros.</p>
+</div>
+<div class="cc2-card">
+<h3>Cableado vertical (backbone)</h3>
+<p>Conecta los armarios de comunicaciones de las distintas plantas entre sí y con el armario principal del edificio. Suele ser fibra óptica, por las mayores distancias y velocidades necesarias.</p>
+</div>
+<div class="cc2-card">
+<h3>Cableado de campus</h3>
+<p>Conecta varios edificios de un mismo recinto (por ejemplo, distintos pabellones de un mismo instituto o universidad). Casi siempre fibra óptica, por la distancia entre edificios.</p>
+</div>
+</div><div class="cc2-concept">
+<strong class="cc2-concept-tag">Concepto clave</strong>
+    La idea central del cableado estructurado es la <strong>independencia del uso</strong>: la instalación de
+    cable se diseña una vez, de forma estándar, y sirve durante años sin importar qué ordenadores, teléfonos o
+    aplicaciones se conecten a cada roseta en cada momento.
+  </div>
+<h2 id="armario">10. Armarios de comunicaciones y paneles de parcheo</h2><p>
+    El <strong>armario de comunicaciones</strong> (también llamado <em>rack</em> cuando es una estructura
+    metálica abierta, o <em>gabinete</em> cuando es un armario cerrado) es el espacio físico donde se concentran
+    los elementos activos y pasivos de una red: switches, routers, paneles de parcheo, a veces también
+    servidores. Los racks tienen un ancho estándar de <strong>19 pulgadas</strong> y la altura de cada equipo se
+    mide en <strong>unidades de rack (U)</strong>, donde 1 U equivale a 4,45 cm.
+  </p><p>
+    El <strong>panel de parcheo</strong> (<em>patch panel</em>) es una pieza clave, y a menudo mal entendida: es
+    simplemente un panel con muchos conectores RJ-45 en la parte frontal, donde terminan todos los cables
+    horizontales que llegan de las rosetas de las aulas. En la parte trasera, cada conector va soldado o
+    "impactado" a uno de esos cables. El panel de parcheo <strong>no es un dispositivo activo</strong> (no
+    procesa nada, no tiene electrónica interna): es solo un punto de conexión ordenado.
+  </p><p>
+    Para que una roseta quede activa, se usa un pequeño <strong>cable de parcheo</strong> (patch cord, un cable
+    de red corto) que une el puerto correspondiente del panel de parcheo con un puerto libre del switch. Cambiar
+    a qué switch —o a qué puerto del switch— está conectada una roseta es tan sencillo como mover ese cable
+    corto, sin tocar el cableado que va empotrado en la pared.
+  </p><div class="cc2-curio">
+    🌍 <strong>¿Sabías que...?</strong> En una instalación bien etiquetada, cada puerto del panel de parcheo lleva
+    un código (por ejemplo, "A-204-3": edificio A, aula 204, roseta 3) que coincide con la etiqueta de la propia
+    roseta en la pared. Sin ese etiquetado, localizar una avería en un edificio con cientos de puntos de red
+    sería prácticamente imposible.
+  </div>
+<h2 id="recorrido">11. Organización física de una red local: de la roseta al switch</h2><p>
+    Juntando todo lo visto en el tema, así es el recorrido típico de un cable de red desde tu propio ordenador
+    hasta la salida a Internet del edificio:
+  </p><div class="cc2-timeline">
+<div class="cc2-tl-item">
+<div class="cc2-tl-year">1. Puesto de trabajo</div>
+<p>Tu PC se conecta mediante un cable de par trenzado (patch cord) a la <strong>roseta</strong> de la pared o del suelo técnico.</p>
+</div>
+<div class="cc2-tl-item">
+<div class="cc2-tl-year">2. Cableado horizontal</div>
+<p>Desde la roseta, un cable de par trenzado empotrado en la pared recorre el edificio hasta el armario de comunicaciones de esa planta (máximo recomendado: 90 metros).</p>
+</div>
+<div class="cc2-tl-item">
+<div class="cc2-tl-year">3. Panel de parcheo</div>
+<p>El cable termina en un puerto del panel de parcheo del armario de esa planta.</p>
+</div>
+<div class="cc2-tl-item">
+<div class="cc2-tl-year">4. Cable de parcheo → switch</div>
+<p>Un cable de parcheo corto une ese puerto del panel con un puerto libre del switch de la planta: ahora la roseta está "activa".</p>
+</div>
+<div class="cc2-tl-item">
+<div class="cc2-tl-year">5. Cableado vertical (backbone)</div>
+<p>El switch de cada planta se conecta, normalmente mediante fibra óptica, al armario de comunicaciones principal del edificio.</p>
+</div>
+<div class="cc2-tl-item">
+<div class="cc2-tl-year">6. Salida a Internet</div>
+<p>En el armario principal, un router conecta toda la red interna del edificio con el proveedor de Internet contratado por el centro.</p>
+</div>
+</div><div class="cc2-think">
+    🤔 <strong>Para pensar:</strong> ¿en qué punto exacto de este recorrido pasaríamos de hablar de "topología en
+    estrella" (cada PC de un aula al switch de su planta) a "topología en árbol" (los switches de las distintas
+    plantas conectados de forma jerárquica al armario principal)?
+  </div>
+<h2 id="glosario">Glosario del tema</h2><dl class="cc2-glosario"><dt>Atenuación</dt><dd>Pérdida de intensidad de una señal al recorrer un medio.</dd><dt>Ruido</dt><dd>Perturbación no deseada que puede alterar la información.</dd><dt>UTP/STP</dt><dd>Par trenzado sin/con apantallamiento frente a interferencias.</dd><dt>Fibra monomodo</dt><dd>Fibra de núcleo estrecho para enlaces de gran distancia.</dd><dt>Patch panel</dt><dd>Panel donde terminan y se ordenan los cables fijos de un edificio.</dd><dt>Latiguillo</dt><dd>Cable corto y flexible que enlaza rosetas, paneles, equipos y switches.</dd></dl>
+<section class="summary"><h2 id="resumen">Resumen esencial</h2><ol><li>Las señales reales sufren ruido y atenuación; la señal digital puede regenerarse.</li><li>El par trenzado domina el puesto de trabajo; la fibra destaca en velocidad, distancia e inmunidad electromagnética.</li><li>Wi‑Fi y otras tecnologías comparten el aire y deben gestionar interferencias y cobertura.</li><li>Cada medio necesita conectores y puertos compatibles.</li><li>El cableado estructurado ordena el recorrido desde el equipo y la roseta hasta el rack y el switch.</li></ol></section>
+</article></div></main>
+<nav class="topic-footer" aria-label="Navegación entre temas"><a href="tema02.html">← Tema 2</a><a href="tema04.html">Tema 4 →</a></nav>
+<footer class="site-footer">Ciencias de la Computación II · 2.º de Bachillerato · Comunidad de Madrid</footer>
+</body></html>

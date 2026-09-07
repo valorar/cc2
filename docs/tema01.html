@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Tema 1 del Bloque A de Ciencias de la Computación II: Qué es una red, para qué sirve, qué elementos la hacen posible y cómo evolucionó hasta Internet y el Wi‑Fi actuales.">
+<title>Tema 1. Fundamentos, componentes y evolución de las redes · CC2</title><link rel="stylesheet" href="assets/estilos.css"><script src="assets/navegacion.js" defer></script></head>
+<body><a class="skip" href="#contenido">Saltar al contenido</a>
+<div class="progress" aria-hidden="true"><span></span></div>
+<header class="site-header"><div class="header-inner">
+  <a class="brand" href="index.html"><span class="brand-mark">CC2</span><span>Ciencias de la Computación II<small>2.º de Bachillerato · 2026–2027</small></span></a>
+  <nav class="top-nav" aria-label="Navegación principal"><a href="index.html">Índice</a></nav>
+</div></header>
+<main id="contenido">
+<section class="hero"><div class="hero-inner"><div><p class="kicker">Tema 1 · Bloque A · Redes</p><h1>Fundamentos, componentes y evolución de las redes</h1><p class="hero-lead">Qué es una red, para qué sirve, qué elementos la hacen posible y cómo evolucionó hasta Internet y el Wi‑Fi actuales.</p></div><aside class="hero-note"><strong>Pregunta guía</strong><p>Si tuvieras que montar la red de un aula, ¿qué piezas necesitarías y qué función cumpliría cada una?</p></aside></div></section>
+<div class="layout"><nav class="toc" aria-label="Índice del tema"><strong>En este tema</strong><ol><li><a href="#concepto">¿Qué es una red informática y para qué sirve?</a></li><li><a href="#elementos">Hardware de conexión, electrónica de red y software: tres piezas, no dos</a></li><li><a href="#estaciones">Estaciones de trabajo y adaptadores de red</a></li><li><a href="#clientes_servidores">Servidores y clientes: el modelo cliente-servidor</a></li><li><a href="#electronica">Electrónica de red: switches, routers, bridges y puntos de acceso</a></li><li><a href="#comparativa">Comparativa de dispositivos</a></li><li><a href="#evolucion">Evolución histórica de las redes: de ARPANET a hoy</a></li><li><a href="#glosario">Glosario</a></li><li><a href="#resumen">Resumen</a></li></ol></nav><article class="paper">
+<p class="lesson-intro">Qué es una red, para qué sirve, qué elementos la hacen posible y cómo evolucionó hasta Internet y el Wi‑Fi actuales.</p><div class="question"><strong>Antes de empezar:</strong> Si tuvieras que montar la red de un aula, ¿qué piezas necesitarías y qué función cumpliría cada una?</div>
+<div class="objectives"><strong>Al terminar serás capaz de…</strong><ul><li>explicar qué es una red y qué recursos permite compartir</li><li>distinguir hardware de conexión, electrónica y software de red</li><li>diferenciar clientes, servidores, switches, routers, bridges y puntos de acceso</li><li>situar los hitos principales de ARPANET al Wi‑Fi y la Internet actuales</li></ul></div>
+<h2 id="concepto">1. ¿Qué es una red informática y para qué sirve?</h2><p>
+    Una <strong>red informática</strong> es un conjunto de dispositivos (ordenadores, móviles, impresoras,
+    servidores...) conectados entre sí, mediante cables o de forma inalámbrica, que siguen unas reglas comunes
+    llamadas <strong>protocolos</strong> para poder <strong>intercambiar información</strong> y
+    <strong>compartir recursos</strong>.
+  </p><p>
+    Piensa en una red como en la red de carreteras de una ciudad: las carreteras no sirven de nada por sí solas,
+    sirven porque permiten que las personas y las mercancías se muevan de un sitio a otro siguiendo unas normas de
+    circulación compartidas. Una red informática es igual: los cables y las antenas no importan por sí mismos,
+    importan porque permiten que la <em>información</em> viaje de un dispositivo a otro siguiendo un protocolo común.
+  </p><div class="cc2-concept">
+<strong class="cc2-concept-tag">Concepto clave</strong>
+    Las redes existen, fundamentalmente, para <strong>compartir</strong>: documentos, impresoras, acceso a
+    Internet o información centralizada en un servidor. Los cables y los protocolos son solo el mecanismo que
+    lo hace posible.
+  </div><h3>¿Para qué usamos las redes?</h3><p>Aunque cada red tiene su propósito, casi todas existen por alguna de estas razones:</p><table class="cc2-table">
+<tr><th>Motivo</th><th>Ejemplo cotidiano</th></tr>
+<tr><td><strong>Comunicación</strong></td><td>Enviar un mensaje de WhatsApp, hacer una videollamada, mandar un correo</td></tr>
+<tr><td><strong>Compartir recursos</strong></td><td>Varios ordenadores de una oficina usan la misma impresora en red</td></tr>
+<tr><td><strong>Compartir información</strong></td><td>Guardar un documento en una carpeta compartida para que lo vea todo el equipo</td></tr>
+<tr><td><strong>Centralizar servicios</strong></td><td>Todos los alumnos del instituto acceden al mismo Moodle desde un único servidor</td></tr>
+<tr><td><strong>Ahorrar costes</strong></td><td>Compartir una única conexión a Internet entre todos los dispositivos de una casa</td></tr>
+<tr><td><strong>Colaborar en tiempo real</strong></td><td>Varias personas editando el mismo documento de Google Docs a la vez</td></tr>
+</table><div class="cc2-think">
+    🤔 <strong>Para pensar:</strong> Internet es, en realidad, "la red de redes": millones de redes más pequeñas
+    (la de tu casa, la de tu instituto, la de una empresa...) conectadas entre sí. Cuando visitas una página web,
+    tu petición puede pasar por decenas de redes distintas antes de llegar al servidor que la aloja.
+  </div>
+<h2 id="elementos">2. Hardware de conexión, electrónica de red y software: tres piezas, no dos</h2><p>
+    Es habitual simplificar y decir que una red tiene "hardware" y "software", pero para entender bien cómo
+    funciona conviene distinguir <strong>tres</strong> familias de elementos, no dos:
+  </p><div class="cc2-grid">
+<div class="cc2-card">
+<h3>1. Hardware de conexión</h3>
+<p>Lo que emite y recibe la señal en cada dispositivo final: adaptadores de red, cables, antenas.</p>
+</div>
+<div class="cc2-card">
+<h3>2. Electrónica de red</h3>
+<p>Los dispositivos intermedios que organizan y dirigen el tráfico: switches, routers, puntos de acceso, módems.</p>
+</div>
+<div class="cc2-card">
+<h3>3. Software de red</h3>
+<p>El sistema operativo, la pila de protocolos y los servicios que deciden qué se envía y cómo se interpreta.</p>
+</div>
+</div><div class="cc2-note">
+    💡 Esta distinción evita un error muy común: pensar que un switch o un router son "solo hardware". En
+    realidad son <strong>electrónica de red</strong>: hardware especializado que además ejecuta su propio
+    software interno para decidir por dónde envía cada dato.
+  </div>
+<h2 id="estaciones">3. Estaciones de trabajo y adaptadores de red</h2><p>
+    Se llama <strong>estación de trabajo</strong> a cualquier dispositivo final que usa la red: tu PC del aula, un
+    portátil, una tablet, un móvil o incluso una impresora de red. Son los dispositivos que "quieren conectarse",
+    a diferencia de la electrónica de red, que existe para que esa conexión sea posible.
+  </p><p>
+    Para que una estación de trabajo pueda conectarse a una red necesita un <strong>adaptador de red</strong>
+    (también llamado tarjeta de red o NIC, del inglés <em>Network Interface Card</em>): el hardware de conexión
+    del que hablábamos en el apartado anterior. Hoy en día casi todos los ordenadores llevan dos adaptadores
+    integrados:
+  </p><ul>
+<li><strong>Adaptador Ethernet (cableado):</strong> tiene un puerto RJ-45 donde se conecta un cable de red.</li>
+<li><strong>Adaptador Wi-Fi (inalámbrico):</strong> se conecta a una red sin cables, mediante ondas de radio.</li>
+</ul><p>
+    Cada adaptador usa una <strong>dirección MAC</strong> de 48 bits (por ejemplo, <code>3C:E1:A1:4F:9B:02</code>) para identificarse en la red local. Muchas interfaces traen una dirección asignada por el fabricante, pero el sistema también puede utilizar una dirección administrada localmente o aleatoria. Volveremos sobre ella en el Tema 5.
+  </p>
+<h2 id="clientes_servidores">4. Servidores y clientes: el modelo cliente-servidor</h2><p>
+    En muchas redes, el papel de cada equipo no es simétrico: unos <strong>ofrecen</strong> un servicio de forma
+    permanente y otros lo <strong>solicitan</strong> cuando lo necesitan. A esto se le llama
+    <strong>modelo cliente-servidor</strong>:
+  </p><ul>
+<li>El <strong>servidor</strong> es un equipo (normalmente potente y siempre encendido) que ofrece un
+    servicio: almacenar páginas web, guardar archivos, gestionar el correo, imprimir documentos, asignar
+    direcciones o traducir nombres de dominio.</li>
+<li>El <strong>cliente</strong> es el dispositivo que solicita ese servicio: tu navegador pidiendo una página
+    web, tu ordenador enviando un documento a la impresora de red, tu móvil descargando el correo.</li>
+</ul><p>
+    Como el servidor tiene que estar disponible en todo momento, su caída se nota en <strong>toda la red</strong>
+    a la vez: si el servidor de Moodle del instituto se apaga, ningún alumno puede entrar, aunque su propio
+    ordenador funcione perfectamente.
+  </p><table class="cc2-table">
+<tr><th>Tipo de servidor</th><th>Servicio que ofrece</th><th>Ejemplo real</th></tr>
+<tr><td>Servidor web</td><td>Envía páginas web a quien las solicita</td><td>Los servidores que alojan Wikipedia o YouTube</td></tr>
+<tr><td>Servidor de archivos</td><td>Almacena y comparte documentos</td><td>La carpeta compartida del instituto</td></tr>
+<tr><td>Servidor de correo</td><td>Envía y recibe correos electrónicos</td><td>Los servidores de Gmail</td></tr>
+<tr><td>Servidor de impresión</td><td>Gestiona las impresoras de una red</td><td>La cola de impresión de la biblioteca</td></tr>
+<tr><td>Servidor de aplicaciones</td><td>Ejecuta el software que usan los clientes</td><td>El servidor de Moodle del instituto</td></tr>
+<tr><td>Servidor DNS <span>(lo veremos en el Tema 3-4)</span></td><td>Traduce nombres de página en direcciones IP</td><td>Por qué escribes "google.com" y no una serie de números</td></tr>
+<tr><td>Servidor DHCP <span>(lo veremos en el Tema 4)</span></td><td>Asigna automáticamente direcciones IP a quien se conecta</td><td>Por qué tu móvil "ya tiene Internet" nada más conectarse al Wi-Fi</td></tr>
+</table><div class="cc2-curio">
+    🌍 <strong>¿Sabías que...?</strong> Cuando dices "está caído el servidor" en realidad puede significar cosas muy
+    distintas: puede que el servidor esté apagado, que esté saturado de peticiones, o que sea la red que lo conecta
+    la que ha fallado. Distinguir estos casos es parte de lo que veremos en el Tema 4.
+  </div>
+<h2 id="electronica">5. Electrónica de red: switches, routers, bridges y puntos de acceso</h2><p>
+    Además de las estaciones de trabajo y los servidores, toda red necesita electrónica de red cuyo único trabajo
+    es <strong>interconectar</strong> a los demás. Son los "encargados de tráfico" de la red.
+  </p><h3>5.1. Switch (conmutador)</h3><p>
+    Un <strong>switch</strong> conecta varios dispositivos dentro de una misma red local (por ejemplo, todos los
+    ordenadores de un aula). Cuando un dispositivo envía datos, el switch aprende automáticamente en qué puerto
+    está conectado cada dispositivo (identificándolo por su dirección MAC) y envía la información
+    <strong>solo</strong> al puerto correcto, en lugar de reenviarla a todos los puertos.
+  </p><h3>5.2. Router (encaminador)</h3><p>
+    Un <strong>router</strong> conecta redes <em>distintas</em> entre sí. El ejemplo que todos tenéis en casa: el
+    router conecta vuestra red doméstica con la red de vuestro proveedor de Internet, y decide el mejor camino
+    para que los datos lleguen a su destino. Sin router, tu red local podría funcionar internamente (los
+    dispositivos se verían entre sí), pero no tendría salida al exterior.
+  </p><p>
+    Muchos routers domésticos son en realidad varios dispositivos en uno: router + switch + punto de acceso Wi-Fi,
+    todo en la misma caja. Por eso a veces cuesta distinguir dónde acaba uno y empieza otro.
+  </p><div class="cc2-concept">
+<strong class="cc2-concept-tag">Concepto clave</strong>
+    Switch = conecta <strong>dentro</strong> de una misma red. Router = conecta <strong>redes distintas</strong>
+    entre sí. Es la distinción más importante de todo el tema: casi todo lo demás se entiende a partir de aquí.
+  </div><h3>5.3. Bridge (puente)</h3><p>
+    Un <strong>bridge</strong> es, históricamente, el antecesor del switch: une dos segmentos de una misma red
+    para que funcionen como si fueran uno solo, filtrando qué tráfico pasa de un lado a otro. Hoy en día los
+    bridges dedicados casi han desaparecido (su función la hace un switch), pero el concepto sigue siendo
+    importante: cuando dos redes Wi-Fi se combinan en una sola o cuando se conecta un segmento de fibra con uno de
+    cobre, se está haciendo de "puente" entre ambos.
+  </p><h3>5.4. Punto de acceso (Access Point)</h3><p>
+    Un <strong>punto de acceso</strong> permite que los dispositivos se conecten a una red mediante Wi-Fi, sin
+    cables. No decide caminos como un router ni aprende direcciones MAC como un switch: simplemente "traduce"
+    entre el mundo inalámbrico y el mundo cableado. En un instituto o una oficina grande, es habitual tener varios
+    puntos de acceso repartidos para cubrir todo el edificio con la misma red Wi-Fi — y cada uno de ellos sigue
+    necesitando un cable hasta el switch más cercano: lo único "inalámbrico" es el último tramo, entre el punto de
+    acceso y tu dispositivo.
+  </p>
+<h2 id="comparativa">6. Comparativa de dispositivos</h2><table class="cc2-table">
+<tr><th>Dispositivo</th><th>¿Qué conecta?</th><th>¿Cuándo lo necesitas?</th></tr>
+<tr><td><strong>Switch</strong></td><td>Varios dispositivos dentro de la misma red local</td><td>Cuando tienes varios PC en la misma sala y quieres que se comuniquen entre sí</td></tr>
+<tr><td><strong>Router</strong></td><td>Dos o más redes distintas entre sí</td><td>Cuando tu red local necesita salir a Internet</td></tr>
+<tr><td><strong>Bridge</strong></td><td>Dos segmentos de una misma red</td><td>Cuando quieres unir dos tramos de red como si fueran uno</td></tr>
+<tr><td><strong>Punto de acceso</strong></td><td>Dispositivos inalámbricos con la red cableada</td><td>Cuando quieres ofrecer Wi-Fi sin tender cables hasta cada dispositivo</td></tr>
+</table><div class="cc2-think">
+    🤔 <strong>Para pensar:</strong> en el aula de informática donde dais esta asignatura hay unos 15 ordenadores.
+    ¿Qué dispositivo(s) de esta lista crees que hay entre esos ordenadores y la salida a Internet del instituto?
+    Lo comentaremos en clase.
+  </div>
+<h2 id="evolucion">7. Evolución histórica de las redes: de ARPANET a hoy</h2><h3>Antes de las redes: la era del mainframe</h3><p>
+    Antes de 1969, "usar un ordenador" normalmente significaba sentarse frente a un terminal sin capacidad propia
+    de proceso, conectado a un único ordenador central (<em>mainframe</em>) que repartía su tiempo entre todos los
+    usuarios por turnos. Si ese ordenador central fallaba, todo el mundo se quedaba sin servicio a la vez: no
+    había ninguna alternativa. Entender esto ayuda a valorar lo revolucionario que fue lo que vino después.
+  </p><div class="cc2-timeline">
+<div class="cc2-tl-item">
+<div class="cc2-tl-year">1969 — ARPANET</div>
+<p>La agencia de investigación militar estadounidense ARPA pone en marcha <strong>ARPANET</strong>, la
+      primera red de <strong>conmutación de paquetes</strong> a gran escala, conectando cuatro nodos: UCLA, el
+      Instituto de Investigación de Stanford (SRI), la Universidad de California en Santa Bárbara y la
+      Universidad de Utah. El <strong>29 de octubre de 1969</strong> se transmite el primer mensaje entre dos de
+      estos nodos: un intento de escribir "LOGIN" que se cae justo después de la "O", así que, sin querer, el
+      primer mensaje de la historia de Internet fue "LO".</p>
+</div>
+<div class="cc2-tl-item">
+<div class="cc2-tl-year">Conmutación de paquetes vs. conmutación de circuitos</div>
+<p>La gran novedad técnica de ARPANET fue dividir la información en <strong>paquetes</strong> independientes
+      que viajan por caminos distintos y se reordenan al llegar, en vez de reservar una línea fija de extremo a
+      extremo (como hacía el teléfono tradicional). Esto hace que la red sea mucho más resistente: si un camino
+      falla, los paquetes simplemente toman otro.</p>
+</div>
+<div class="cc2-tl-item">
+<div class="cc2-tl-year">1971 — Primer correo electrónico</div>
+<p>Ray Tomlinson envía el primer mensaje de correo electrónico entre dos ordenadores de ARPANET, y populariza
+      el símbolo <strong>@</strong> para separar el nombre de usuario del nombre del ordenador (hoy, del dominio).</p>
+</div>
+<div class="cc2-tl-item">
+<div class="cc2-tl-year">1976-1977 — Primeras redes internacionales</div>
+<p>El enlace <strong>SATNET</strong>, vía satélite, conecta ARPANET con redes de Europa, dando los primeros
+      pasos hacia lo que más tarde sería una red verdaderamente mundial.</p>
+</div>
+<div class="cc2-tl-item">
+<div class="cc2-tl-year">1 de enero de 1983 — "Flag Day": nace Internet</div>
+<p>Todos los ordenadores de ARPANET cambian de forma coordinada al protocolo <strong>TCP/IP</strong>, el
+      conjunto de reglas de comunicación que seguimos usando hoy. Esta fecha se considera, simbólicamente, el
+      nacimiento de Internet tal y como lo entendemos: una red de redes que habla un idioma común.</p>
+</div>
+<div class="cc2-tl-item">
+<div class="cc2-tl-year">1973 en adelante — Ethernet</div>
+<p>Robert Metcalfe inventa <strong>Ethernet</strong> en el centro de investigación Xerox PARC. Se convierte
+      en el estándar dominante para redes locales cableadas, y lo sigue siendo hoy, décadas después (aunque mucho
+      más rápido: de unos pocos Mbps en sus inicios a varios Gbps actualmente).</p>
+</div>
+<div class="cc2-tl-item">
+<div class="cc2-tl-year">1997-2019 — Wi-Fi: de 2 Mbit/s a casi 10 Gbit/s</div>
+<p>Se publica el estándar <strong>802.11</strong> (lo que hoy llamamos Wi-Fi) y se generaliza rápidamente en
+      hogares, oficinas y centros educativos.</p>
+<table class="cc2-table">
+<tr><th>Estándar</th><th>Año aproximado</th><th>Velocidad máxima</th></tr>
+<tr><td>802.11</td><td>1997</td><td>2 Mbit/s</td></tr>
+<tr><td>802.11b / 802.11a / 802.11g</td><td>1999-2003</td><td>11-54 Mbit/s</td></tr>
+<tr><td>802.11n / 802.11ac</td><td>2009-2013</td><td>600 Mbit/s - 7 Gbit/s</td></tr>
+<tr><td>802.11ax (Wi-Fi 6)</td><td>2019</td><td>~9,6 Gbit/s</td></tr>
+</table>
+</div>
+<div class="cc2-tl-item">
+<div class="cc2-tl-year">Seguridad inalámbrica: WEP → WPA → WPA2 → WPA3</div>
+<p>La seguridad Wi-Fi ha tenido que rehacerse varias veces porque cada versión, tarde o temprano, resultó
+      insuficiente:</p>
+<table class="cc2-table">
+<tr><th>Protocolo</th><th>Año</th><th>Situación actual</th></tr>
+<tr><td>WEP</td><td>1997</td><td>Roto y obsoleto: no debe usarse</td></tr>
+<tr><td>WPA</td><td>2003</td><td>Solución puente, ya superada</td></tr>
+<tr><td>WPA2</td><td>2004</td><td>Estándar mínimo aceptable todavía hoy</td></tr>
+<tr><td>WPA3</td><td>2018</td><td>Estándar recomendado actualmente</td></tr>
+</table>
+<p>(Profundizaremos en por qué fallan estos protocolos en el Bloque B, de Ciberseguridad.)</p>
+</div>
+<div class="cc2-tl-item">
+<div class="cc2-tl-year">IPv6: la respuesta a un problema de números</div>
+<p>El sistema de direcciones "de toda la vida" (IPv4) usa números de 32 bits: unos 4.300 millones de
+      direcciones distintas. En <strong>2011</strong> se declaró oficialmente agotado el bloque principal de
+      direcciones IPv4 disponibles. <strong>IPv6</strong> usa números de 128 bits, multiplicando la cantidad de
+      direcciones posibles hasta más de 340 sextillones. Hoy convivimos con ambos sistemas a la vez (lo que se
+      llama "doble pila"): IPv6 ya transporta una parte muy importante del tráfico de Internet.</p>
+</div>
+</div>
+<h2 id="glosario">Glosario del tema</h2><dl class="cc2-glosario">
+<dt>Red informática</dt><dd>Conjunto de dispositivos conectados entre sí para intercambiar información y compartir recursos, siguiendo protocolos comunes.</dd>
+<dt>Protocolo</dt><dd>Conjunto de reglas que permite que los dispositivos de una red se entiendan entre sí.</dd>
+<dt>Hardware de conexión</dt><dd>Componentes que emiten y reciben la señal en un dispositivo final: adaptadores de red, cables, antenas.</dd>
+<dt>Electrónica de red</dt><dd>Dispositivos intermedios que organizan y dirigen el tráfico: switches, routers, puntos de acceso, módems.</dd>
+<dt>Adaptador de red (NIC)</dt><dd>Componente que permite a un dispositivo conectarse a una red, por cable o por Wi-Fi.</dd>
+<dt>Dirección MAC</dt><dd>Identificador de 48 bits usado por una interfaz dentro del enlace local; puede ser de fábrica o administrado localmente.</dd>
+<dt>Cliente-servidor</dt><dd>Modelo en el que un equipo (servidor) ofrece un servicio de forma permanente y otro (cliente) lo solicita.</dd>
+<dt>Switch</dt><dd>Dispositivo que conecta varios equipos dentro de la misma red local.</dd>
+<dt>Router</dt><dd>Dispositivo que conecta redes distintas entre sí y decide el camino de los datos.</dd>
+<dt>Bridge</dt><dd>Dispositivo (hoy en desuso) que une dos segmentos de una misma red.</dd>
+<dt>Punto de acceso</dt><dd>Dispositivo que permite conectarse a una red mediante Wi-Fi.</dd>
+<dt>Conmutación de paquetes</dt><dd>Método de transmisión que divide la información en paquetes independientes que pueden viajar por caminos distintos.</dd>
+<dt>ARPANET</dt><dd>Primera red de conmutación de paquetes a gran escala (1969), origen de Internet.</dd>
+<dt>TCP/IP</dt><dd>Conjunto de protocolos que rige la comunicación en Internet desde 1983.</dd>
+<dt>Ethernet</dt><dd>Estándar dominante de redes locales cableadas, inventado en 1973.</dd>
+<dt>Wi-Fi (802.11)</dt><dd>Estándar de redes inalámbricas locales, publicado en 1997 y mejorado en velocidad desde entonces.</dd>
+<dt>WEP / WPA / WPA2 / WPA3</dt><dd>Sucesivos estándares de seguridad para proteger redes Wi-Fi; WPA3 es el recomendado hoy.</dd>
+<dt>IPv6</dt><dd>Sistema de direcciones de red de 128 bits, diseñado para no agotar las direcciones disponibles.</dd>
+</dl><div class="cc2-key">
+<h2 id="resumen">Resumen esencial</h2>
+<ol>
+<li>Las redes conectan dispositivos para compartir datos y recursos, siguiendo protocolos comunes.</li>
+<li>Distingue tres piezas: hardware de conexión (adaptadores, cables), electrónica de red (switches, routers, puntos de acceso) y software de red.</li>
+<li>En el modelo cliente-servidor, el servidor ofrece el servicio de forma permanente y el cliente lo solicita cuando lo necesita.</li>
+<li>Switch conecta dentro de una misma red; router conecta redes distintas. Es la distinción más importante del tema.</li>
+<li>Bridge une segmentos de una misma red; punto de acceso da entrada Wi-Fi a la red cableada.</li>
+<li>Internet nació de ARPANET (1969, conmutación de paquetes) y se consolidó con TCP/IP (1983).</li>
+<li>Ethernet (cable) y Wi-Fi (802.11) dominan hoy las redes locales; WPA3 e IPv6 son las versiones actuales de seguridad y direccionamiento.</li>
+</ol>
+</div>
+</article></div></main>
+<nav class="topic-footer" aria-label="Navegación entre temas"><a href="index.html">← Índice del bloque</a><a href="tema02.html">Tema 2 →</a></nav>
+<footer class="site-footer">Ciencias de la Computación II · 2.º de Bachillerato · Comunidad de Madrid</footer>
+</body></html>

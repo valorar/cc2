@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Tema 6 del Bloque A de Ciencias de la Computación II: Cómo planificar una red pequeña, configurar equipos y Wi‑Fi, comprobarla de forma ordenada y localizar averías.">
+<title>Tema 6. Diseño, configuración y diagnóstico de una red local · CC2</title><link rel="stylesheet" href="assets/estilos.css"><script src="assets/navegacion.js" defer></script></head>
+<body><a class="skip" href="#contenido">Saltar al contenido</a>
+<div class="progress" aria-hidden="true"><span></span></div>
+<header class="site-header"><div class="header-inner">
+  <a class="brand" href="index.html"><span class="brand-mark">CC2</span><span>Ciencias de la Computación II<small>2.º de Bachillerato · 2026–2027</small></span></a>
+  <nav class="top-nav" aria-label="Navegación principal"><a href="index.html">Índice</a></nav>
+</div></header>
+<main id="contenido">
+<section class="hero"><div class="hero-inner"><div><p class="kicker">Tema 6 · Bloque A · Redes</p><h1>Diseño, configuración y diagnóstico de una red local</h1><p class="hero-lead">Cómo planificar una red pequeña, configurar equipos y Wi‑Fi, comprobarla de forma ordenada y localizar averías.</p></div><aside class="hero-note"><strong>Pregunta guía</strong><p>Un equipo alcanza a sus compañeros pero no abre páginas web: ¿qué comprobarías, en qué orden y qué concluirías de cada resultado?</p></aside></div></section>
+<div class="layout"><nav class="toc" aria-label="Índice del tema"><strong>En este tema</strong><ol><li><a href="#planificar">Planificar antes de montar</a></li><li><a href="#equipos">Configuración de equipos en una red local</a></li><li><a href="#wifi">Configuración básica de redes inalámbricas</a></li><li><a href="#herramientas">Herramientas de diagnóstico: ping, tracert, ipconfig, nslookup</a></li><li><a href="#problemas">Resolución de problemas básicos de conectividad</a></li><li><a href="#metodo">Método por capas</a></li><li><a href="#glosario">Glosario</a></li><li><a href="#resumen">Resumen</a></li></ol></nav><article class="paper">
+<p class="lesson-intro">Cómo planificar una red pequeña, configurar equipos y Wi‑Fi, comprobarla de forma ordenada y localizar averías.</p><div class="question"><strong>Antes de empezar:</strong> Un equipo alcanza a sus compañeros pero no abre páginas web: ¿qué comprobarías, en qué orden y qué concluirías de cada resultado?</div>
+<div class="objectives"><strong>Al terminar serás capaz de…</strong><ul><li>planificar una LAN pequeña antes de instalarla</li><li>distinguir configuración automática, reserva y configuración estática</li><li>aplicar decisiones básicas de seguridad y cobertura Wi‑Fi</li><li>usar e interpretar herramientas de diagnóstico habituales</li><li>resolver incidencias con un método ascendente por capas</li></ul></div>
+<h2 id="planificar">1. Planificar antes de montar</h2>
+<p>Montar una red sin plan obliga a improvisar y dificulta encontrar fallos. Antes del primer cable conviene fijar:</p>
+<ul><li><strong>Inventario:</strong> cuántos equipos, cuáles son fijos y cuáles móviles, y qué servicios usarán.</li><li><strong>Diseño físico:</strong> ubicación de rosetas, switches, router y puntos de acceso; número de puertos y posibilidad de ampliación.</li><li><strong>Plan lógico:</strong> rango privado, prefijo, puerta de enlace, DHCP y reservas o IP fijas para equipos que deban conservar dirección.</li><li><strong>Seguridad y documentación:</strong> SSID, WPA2/WPA3, credenciales de administración, esquema y registro de cambios.</li></ul>
+<div class="cc2-note">Un esquema con cada equipo, enlace y dirección ahorra más tiempo que intentar recordar la instalación después.</div>
+
+<h2 id="equipos">2. Configuración de equipos en una red local</h2><p>
+    Un equipo puede obtener su configuración de red de dos formas:
+  </p><ul>
+<li><strong>Automática (DHCP):</strong> la opción por defecto en casi todos los dispositivos; el equipo pide
+    los datos al servidor DHCP de la red (normalmente integrado en el router) cada vez que se conecta.</li>
+<li><strong>Manual (IP estática):</strong> se introducen a mano la IP, la máscara, la puerta de enlace y el
+    DNS. Se usa en dispositivos que necesitan una dirección que nunca cambie, como un servidor o una impresora
+    de red.</li>
+</ul><p>
+    En Windows, estos parámetros se consultan y configuran desde <em>Configuración → Red e Internet</em>, o de
+    forma más directa desde el símbolo del sistema con el comando que ya usaste en el Tema 1:
+    <code class="cc2-code">ipconfig /all</code>.
+  </p>
+<h2 id="wifi">3. Configuración básica de redes inalámbricas</h2><p>
+    Configurar el acceso Wi-Fi de un dispositivo implica, como mínimo, estos elementos:
+  </p><table class="cc2-table">
+<tr><th>Parámetro</th><th>Qué es</th></tr>
+<tr><td><strong>SSID</strong></td><td>El nombre de la red Wi-Fi tal y como aparece al buscar redes disponibles</td></tr>
+<tr><td><strong>Contraseña / clave</strong></td><td>La clave de acceso, protegida con WPA2 o WPA3 (Tema 1)</td></tr>
+<tr><td><strong>Banda de frecuencia</strong></td><td>2,4 GHz (más alcance) o 5 GHz (más velocidad, menos alcance); muchos routers ofrecen ambas a la vez</td></tr>
+</table><div class="cc2-think">
+    🤔 <strong>Para pensar:</strong> algunos centros educativos ocultan el SSID de su red administrativa (no
+    aparece al buscar redes) y solo publican el SSID de la red de invitados/alumnado. ¿Qué ventaja de seguridad
+    —y qué limitación real— tiene ocultar el nombre de una red Wi-Fi?
+  </div>
+<h2 id="herramientas">4. Herramientas de diagnóstico: ping, tracert, ipconfig, nslookup</h2><table class="cc2-table">
+<tr><th>Herramienta</th><th>Qué hace</th><th>Ejemplo de uso</th></tr>
+<tr><td><code class="cc2-code">ipconfig /all</code></td><td>Muestra la configuración de red del propio equipo (IP, máscara, gateway, DNS, MAC)</td><td>Comprobar qué configuración tiene tu equipo ahora mismo</td></tr>
+<tr><td><code class="cc2-code">ping</code></td><td>Comprueba si hay conectividad con otro equipo y mide el tiempo de respuesta</td><td><code class="cc2-code">ping 192.168.1.1</code> — ¿responde mi puerta de enlace?</td></tr>
+<tr><td><code class="cc2-code">tracert</code> (Windows) / <code class="cc2-code">traceroute</code> (Linux/Mac)</td><td>Muestra todos los "saltos" (routers) por los que pasa un paquete hasta llegar a su destino</td><td><code class="cc2-code">tracert google.com</code> — ¿en qué punto del camino se pierde la conexión?</td></tr>
+<tr><td><code class="cc2-code">nslookup</code></td><td>Consulta manualmente al servidor DNS a qué IP corresponde un nombre de dominio</td><td><code class="cc2-code">nslookup moodle.instituto.es</code> — ¿el DNS resuelve bien este nombre?</td></tr>
+</table>
+<h2 id="problemas">5. Resolución de problemas básicos de conectividad</h2><p>
+    Cuando "no funciona Internet", conviene comprobar las cosas de dentro hacia fuera, en orden, en vez de
+    probar al azar:
+  </p><div class="cc2-timeline">
+<div class="cc2-tl-item">
+<div class="cc2-tl-year">Paso 1 — ¿Tengo IP?</div>
+<p><code class="cc2-code">ipconfig /all</code>. Si no hay IPv4 asignada (o aparece una IP que empieza por
+      <code class="cc2-code">169.254</code>, señal de que el DHCP ha fallado), el problema está antes de llegar
+      siquiera a la red local.</p>
+</div>
+<div class="cc2-tl-item">
+<div class="cc2-tl-year">Paso 2 — ¿Llego a mi puerta de enlace?</div>
+<p><code class="cc2-code">ping</code> a la IP de la puerta de enlace. Si no responde, el problema está en
+      el cable, el Wi-Fi o el propio router, no en Internet en general.</p>
+</div>
+<div class="cc2-tl-item">
+<div class="cc2-tl-year">Paso 3 — ¿Llego a Internet por IP?</div>
+<p><code class="cc2-code">ping</code> a una IP pública conocida. Si responde, hay salida a Internet; si no,
+      el problema está en el router o en el proveedor.</p>
+</div>
+<div class="cc2-tl-item">
+<div class="cc2-tl-year">Paso 4 — ¿Funciona el DNS?</div>
+<p><code class="cc2-code">nslookup</code> o <code class="cc2-code">ping</code> a un nombre de dominio (no a
+      una IP). Si el ping a una IP pública funciona pero a un nombre de dominio no, el problema es del DNS, no de
+      la conexión en sí.</p>
+</div>
+<div class="cc2-tl-item">
+<div class="cc2-tl-year">Paso 5 — ¿Dónde se pierde exactamente?</div>
+<p><code class="cc2-code">tracert</code> al destino que falla, para ver en qué salto concreto del camino
+      se detienen las respuestas.</p>
+</div>
+</div><div class="cc2-concept">
+<strong class="cc2-concept-tag">Concepto clave</strong>
+    Diagnosticar una red no es "probar cosas hasta que funcione": es comprobar, capa por capa y de dentro hacia
+    fuera, en qué punto exacto deja de responder. Este orden (IP propia → puerta de enlace → Internet → DNS)
+    localiza el problema en pocos pasos en la inmensa mayoría de los casos.
+  </div>
+<h2 id="metodo">6. Método de diagnóstico por capas</h2>
+<p>Una prueba útil debe responder una pregunta concreta. El siguiente orden reduce cambios innecesarios:</p>
+<ol><li><strong>Física:</strong> alimentación, cable, conector, LED, cobertura y puerto.</li><li><strong>Enlace:</strong> adaptador activo, asociación Wi‑Fi y ausencia de bloqueos locales.</li><li><strong>Configuración IP:</strong> dirección, máscara, puerta de enlace y DNS coherentes; comprobar si DHCP respondió.</li><li><strong>Red local:</strong> probar la propia pila y después la puerta de enlace.</li><li><strong>Salida:</strong> probar una IP externa y observar la ruta.</li><li><strong>Nombres y aplicación:</strong> consultar DNS y probar el servicio concreto.</li></ol>
+<table><thead><tr><th>Resultado</th><th>Conclusión probable</th></tr></thead><tbody><tr><td>Falla la puerta de enlace.</td><td>Problema local de enlace, Wi‑Fi o configuración IP.</td></tr><tr><td>Responde una IP externa, pero no un dominio.</td><td>Problema de resolución DNS.</td></tr><tr><td>Resuelve el dominio, pero solo falla una web.</td><td>Problema del servicio, navegador, filtro o servidor remoto.</td></tr><tr><td>La ruta se detiene fuera de la LAN.</td><td>Incidencia de enrutado o del proveedor; un salto que no responde no siempre implica corte.</td></tr></tbody></table>
+<div class="cc2-concept"><strong class="cc2-concept-tag">Regla de trabajo</strong>Cambia una sola cosa cada vez, repite la prueba y documenta el resultado. Si se cambian varios parámetros a la vez, no se sabe cuál resolvió o creó el problema.</div>
+
+<h2 id="glosario">Glosario del tema</h2><dl class="cc2-glosario"><dt>DHCP</dt><dd>Servicio que entrega automáticamente la configuración IP.</dd><dt>SSID</dt><dd>Nombre público con el que se anuncia una red Wi‑Fi.</dd><dt>Ping</dt><dd>Prueba de alcance y tiempo de respuesta mediante ICMP.</dd><dt>Traceroute/tracert</dt><dd>Muestra los saltos observables hacia un destino.</dd><dt>Nslookup</dt><dd>Consulta un servidor DNS.</dd><dt>APIPA</dt><dd>Autoconfiguración IPv4 169.254.0.0/16 usada cuando no responde DHCP.</dd></dl>
+<section class="summary"><h2 id="resumen">Resumen esencial</h2><ol><li>Una red mantenible empieza con inventario, esquema, plan de direcciones y documentación.</li><li>DHCP simplifica los puestos; reservas o direcciones fijas ayudan en servidores e impresoras.</li><li>El Wi‑Fi necesita cobertura, canal y seguridad WPA2/WPA3 con buena contraseña.</li><li>Cada herramienta responde una pregunta: configuración, alcance, ruta o resolución de nombres.</li><li>El diagnóstico progresa desde lo físico hasta la aplicación.</li><li>Se cambia una variable cada vez y se registra el resultado.</li></ol></section>
+</article></div></main>
+<nav class="topic-footer" aria-label="Navegación entre temas"><a href="tema05.html">← Tema 5</a><a href="index.html">Índice del bloque →</a></nav>
+<footer class="site-footer">Ciencias de la Computación II · 2.º de Bachillerato · Comunidad de Madrid</footer>
+</body></html>

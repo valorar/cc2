@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Tema 4 del Bloque A de Ciencias de la Computación II: Cómo dividen OSI y TCP/IP la comunicación en capas, cómo se encapsulan los datos y qué protocolos intervienen.">
+<title>Tema 4. Modelos, protocolos y estándares · CC2</title><link rel="stylesheet" href="assets/estilos.css"><script src="assets/navegacion.js" defer></script></head>
+<body><a class="skip" href="#contenido">Saltar al contenido</a>
+<div class="progress" aria-hidden="true"><span></span></div>
+<header class="site-header"><div class="header-inner">
+  <a class="brand" href="index.html"><span class="brand-mark">CC2</span><span>Ciencias de la Computación II<small>2.º de Bachillerato · 2026–2027</small></span></a>
+  <nav class="top-nav" aria-label="Navegación principal"><a href="index.html">Índice</a></nav>
+</div></header>
+<main id="contenido">
+<section class="hero"><div class="hero-inner"><div><p class="kicker">Tema 4 · Bloque A · Redes</p><h1>Modelos, protocolos y estándares</h1><p class="hero-lead">Cómo dividen OSI y TCP/IP la comunicación en capas, cómo se encapsulan los datos y qué protocolos intervienen.</p></div><aside class="hero-note"><strong>Pregunta guía</strong><p>Cuando escribes una dirección web, ¿qué conversaciones y envoltorios hacen posible que llegue la respuesta correcta?</p></aside></div></section>
+<div class="layout"><nav class="toc" aria-label="Índice del tema"><strong>En este tema</strong><ol><li><a href="#protocolo">Qué es un protocolo</a></li><li><a href="#osi">El modelo OSI: 7 capas</a></li><li><a href="#tcp_ip">El modelo TCP/IP: 4 capas</a></li><li><a href="#encapsulacion">Encapsulación y transmisión de datos</a></li><li><a href="#tcp_udp">Protocolos de transporte: TCP y UDP</a></li><li><a href="#aplicacion">Protocolos de aplicación: HTTP/HTTPS, DNS, DHCP, FTP, SMTP, IMAP</a></li><li><a href="#ieee">Ethernet, Wi-Fi y Bluetooth: los estándares IEEE 802</a></li><li><a href="#diagnostico_capas">Diagnóstico por capas</a></li><li><a href="#glosario">Glosario</a></li><li><a href="#resumen">Resumen</a></li></ol></nav><article class="paper">
+<p class="lesson-intro">Cómo dividen OSI y TCP/IP la comunicación en capas, cómo se encapsulan los datos y qué protocolos intervienen.</p><div class="question"><strong>Antes de empezar:</strong> Cuando escribes una dirección web, ¿qué conversaciones y envoltorios hacen posible que llegue la respuesta correcta?</div>
+<div class="objectives"><strong>Al terminar serás capaz de…</strong><ul><li>explicar qué es un protocolo y por qué se usan capas</li><li>relacionar OSI con TCP/IP</li><li>describir encapsulación, segmentos, paquetes, tramas y bits</li><li>comparar TCP y UDP y reconocer protocolos de aplicación</li><li>asociar Ethernet, Wi‑Fi y Bluetooth con la familia IEEE 802</li></ul></div>
+<h2 id="protocolo">1. Qué es un protocolo</h2><p>
+    Un <strong>protocolo</strong> es un conjunto de reglas que definen cómo se comunican dos o más dispositivos:
+    qué formato tienen los mensajes, en qué orden se envían, cómo se detectan errores y qué hacer si algo falla.
+    No es un concepto exclusivo de la informática: cuando llamas por teléfono, sigues un protocolo humano (dices
+    "¿diga?", el otro responde, os identificáis, habláis por turnos, os despedís antes de colgar). Si alguien se
+    salta esas reglas, la comunicación falla o resulta confusa — exactamente igual que si dos ordenadores
+    intentaran hablar con reglas distintas.
+  </p><div class="cc2-concept">
+<strong class="cc2-concept-tag">Concepto clave</strong>
+    Para que dos dispositivos se comuniquen no basta con que estén conectados físicamente (Temas 1 y 2): además
+    tienen que hablar el mismo protocolo. Un cable de red no garantiza el entendimiento, igual que compartir una
+    línea telefónica no garantiza que dos personas hablen el mismo idioma.
+  </div>
+<h2 id="osi">2. El modelo OSI: 7 capas</h2><p>
+    Como la comunicación en red es un problema enorme y complejo, en los años 80 la ISO (Organización
+    Internacional de Normalización) propuso dividirlo en <strong>7 capas</strong> independientes: el
+    <strong>modelo OSI</strong> (Open Systems Interconnection). Cada capa resuelve un problema concreto y solo se
+    comunica con la capa inmediatamente superior e inferior, sin necesidad de saber cómo funcionan las demás.
+  </p><table class="cc2-table">
+<tr><th>Capa</th><th>Nombre</th><th>Qué resuelve</th><th>Ejemplo</th></tr>
+<tr><td>7</td><td>Aplicación</td><td>La interacción directa con el usuario o la app</td><td>Tu navegador pidiendo una página web</td></tr>
+<tr><td>6</td><td>Presentación</td><td>Formato, cifrado y compresión de los datos</td><td>Cifrado TLS, compresión de una imagen</td></tr>
+<tr><td>5</td><td>Sesión</td><td>Abrir, mantener y cerrar la "conversación" entre dos equipos</td><td>Mantener tu sesión iniciada en una web</td></tr>
+<tr><td>4</td><td>Transporte</td><td>Entregar los datos de forma fiable (o rápida) de extremo a extremo</td><td>TCP, UDP</td></tr>
+<tr><td>3</td><td>Red</td><td>Encaminar los datos entre redes distintas, mediante direcciones</td><td>IP, routers</td></tr>
+<tr><td>2</td><td>Enlace de datos</td><td>Transmitir datos entre dos dispositivos directamente conectados</td><td>Ethernet, Wi-Fi, switches, direcciones MAC</td></tr>
+<tr><td>1</td><td>Física</td><td>La señal eléctrica, óptica o de radio real que viaja por el medio</td><td>Cables, conectores, antenas (Tema 2)</td></tr>
+</table><div class="cc2-note">
+    💡 Una forma de recordar el orden de las 7 capas (de la 1 a la 7) es la frase mnemotécnica: "<em>Física, Enlace,
+    Red, Transporte, Sesión, Presentación, Aplicación</em>" — o cualquier frase absurda que te ayude a recordar
+    las iniciales F-E-R-T-S-P-A.
+  </div>
+<h2 id="tcp_ip">3. El modelo TCP/IP: 4 capas</h2><p>
+    El modelo OSI es sobre todo un modelo <strong>teórico</strong> de referencia. En la práctica, Internet
+    funciona sobre un modelo más simple y anterior en el tiempo: el <strong>modelo TCP/IP</strong>, con solo 4
+    capas, que es el que de verdad implementan los sistemas operativos y los dispositivos de red.
+  </p><table class="cc2-table">
+<tr><th>Capa TCP/IP</th><th>Capas OSI equivalentes</th><th>Protocolos típicos</th></tr>
+<tr><td>Aplicación</td><td>Aplicación + Presentación + Sesión (7, 6, 5)</td><td>HTTP, HTTPS, DNS, DHCP, FTP, SMTP, IMAP</td></tr>
+<tr><td>Transporte</td><td>Transporte (4)</td><td>TCP, UDP</td></tr>
+<tr><td>Internet</td><td>Red (3)</td><td>IP (IPv4, IPv6)</td></tr>
+<tr><td>Acceso a la red</td><td>Enlace de datos + Física (2, 1)</td><td>Ethernet, Wi-Fi</td></tr>
+</table><div class="cc2-think">
+    🤔 <strong>Para pensar:</strong> si el modelo TCP/IP es el que realmente se usa, ¿por qué crees que se sigue
+    enseñando el modelo OSI, más complejo y con capas que en la práctica se fusionan? Pista: piensa en lo útil
+    que es tener un vocabulario común y muy detallado para describir un problema, aunque la solución final lo
+    simplifique.
+  </div>
+<h2 id="encapsulacion">4. Encapsulación y transmisión de datos</h2><p>
+    Cuando envías un dato (por ejemplo, un mensaje de chat), este va pasando por las capas del modelo de arriba
+    hacia abajo, y en cada capa se le añade una pequeña "etiqueta" de control (una cabecera) con la información
+    que esa capa necesita. A este proceso se le llama <strong>encapsulación</strong>, y la unidad de datos recibe
+    un nombre distinto en cada capa:
+  </p><table class="cc2-table">
+<tr><th>Capa</th><th>Nombre de la unidad de datos (PDU)</th><th>Qué añade</th></tr>
+<tr><td>Aplicación</td><td>Datos</td><td>El contenido en sí (el mensaje, la petición web...)</td></tr>
+<tr><td>Transporte</td><td>Segmento (TCP) / Datagrama (UDP)</td><td>Puertos de origen y destino, control de errores</td></tr>
+<tr><td>Internet</td><td>Paquete</td><td>Direcciones IP de origen y destino</td></tr>
+<tr><td>Acceso a la red</td><td>Trama</td><td>Direcciones MAC de origen y destino</td></tr>
+<tr><td>Física</td><td>Bits</td><td>Nada más: es la señal eléctrica/óptica/de radio en sí</td></tr>
+</table><p>
+    En el equipo que recibe los datos ocurre el proceso inverso, llamado <strong>desencapsulación</strong>: cada
+    capa va quitando su propia cabecera y entregando lo que queda a la capa superior, hasta que la aplicación
+    recibe únicamente el dato original.
+  </p><div class="cc2-concept">
+<strong class="cc2-concept-tag">Concepto clave</strong>
+    Cada capa solo entiende su propia cabecera. Un switch (capa 2) lee la dirección MAC de una trama, pero no
+    necesita ni "ve" la dirección IP que hay dentro; un router (capa 3) sí necesita mirar la dirección IP del
+    paquete para decidir por dónde encaminarlo.
+  </div>
+<h2 id="tcp_udp">5. Protocolos de transporte: TCP y UDP</h2><p>
+    En la capa de transporte conviven dos protocolos con filosofías opuestas:
+  </p><table class="cc2-table">
+<tr><th></th><th>TCP</th><th>UDP</th></tr>
+<tr><td><strong>Nombre completo</strong></td><td>Transmission Control Protocol</td><td>User Datagram Protocol</td></tr>
+<tr><td><strong>Conexión</strong></td><td>Orientado a conexión: establece un "saludo" (three-way handshake) antes de enviar datos</td><td>Sin conexión: envía directamente, sin comprobaciones previas</td></tr>
+<tr><td><strong>Fiabilidad</strong></td><td>Garantiza que los datos llegan, en orden y sin errores (reenvía lo que se pierde)</td><td>No garantiza nada: si un paquete se pierde, se pierde</td></tr>
+<tr><td><strong>Velocidad</strong></td><td>Más lento (por todo el control que hace)</td><td>Más rápido y con menos sobrecarga</td></tr>
+<tr><td><strong>Uso típico</strong></td><td>Páginas web, correo, transferencia de archivos: cuando es imprescindible que no falte ni un byte</td><td>Videollamadas, streaming en directo, videojuegos online: cuando es preferible perder un dato antes que retrasarse</td></tr>
+</table><div class="cc2-curio">
+    🌍 <strong>¿Sabías que...?</strong> En una videollamada, si se pierde un fragmento de audio o vídeo, es
+    preferible que se note un pequeño "parpadeo" a que la aplicación se detenga a esperar y reenviar ese
+    fragmento perdido: por eso las videollamadas usan UDP y no TCP.
+  </div>
+<h2 id="aplicacion">6. Protocolos de aplicación: HTTP/HTTPS, DNS, DHCP, FTP, SMTP, IMAP</h2><p>
+    En la capa de aplicación es donde viven los protocolos con los que interactúas más directamente, aunque no
+    los veas. Cada uno resuelve una tarea concreta y usa un <strong>puerto</strong> estándar para que el equipo
+    receptor sepa a qué aplicación entregar los datos:
+  </p><table class="cc2-table">
+<tr><th>Protocolo</th><th>Puerto habitual</th><th>Para qué sirve</th></tr>
+<tr><td><strong>HTTP</strong></td><td>80</td><td>Transferir páginas web, sin cifrar</td></tr>
+<tr><td><strong>HTTPS</strong></td><td>443</td><td>Transferir páginas web cifradas (HTTP + TLS, ver Bloque B)</td></tr>
+<tr><td><strong>DNS</strong></td><td>53</td><td>Traducir nombres de dominio ("google.com") en direcciones IP</td></tr>
+<tr><td><strong>DHCP</strong></td><td>67 / 68</td><td>Asignar automáticamente una dirección IP a un dispositivo que se conecta</td></tr>
+<tr><td><strong>FTP</strong></td><td>20 / 21</td><td>Transferir archivos entre dos equipos</td></tr>
+<tr><td><strong>SMTP</strong></td><td>25 / 587</td><td>Enviar correo electrónico</td></tr>
+<tr><td><strong>IMAP</strong></td><td>143 / 993</td><td>Consultar y sincronizar el correo electrónico recibido (dejándolo en el servidor)</td></tr>
+</table><div class="cc2-note">
+    💡 Fíjate en la diferencia entre SMTP e IMAP: uno sirve para <strong>enviar</strong> correo y el otro para
+    <strong>consultarlo</strong>. Es un error muy habitual pensar que un único protocolo se encarga de todo el
+    correo electrónico.
+  </div><div class="cc2-think">
+    🤔 <strong>Para pensar:</strong> profundizaremos en DNS y DHCP con mucho más detalle en el Tema 4, cuando
+    hablemos de direccionamiento. De momento, ¿sabrías explicar por qué hace falta DNS si en realidad los
+    ordenadores solo se localizan por direcciones IP?
+  </div>
+<h2 id="ieee">7. Ethernet, Wi-Fi y Bluetooth: los estándares IEEE 802</h2><p>
+    Las tecnologías de las capas 1 y 2 (física y enlace de datos) que ya conocías de los Temas 1 y 2 —Ethernet,
+    Wi-Fi— están definidas por estándares internacionales publicados por el <strong>IEEE</strong> (Institute of
+    Electrical and Electronics Engineers), agrupados bajo el número <strong>802</strong>.
+  </p><table class="cc2-table">
+<tr><th>Estándar</th><th>Tecnología</th><th>Qué define</th></tr>
+<tr><td><strong>IEEE 802.3</strong></td><td>Ethernet</td><td>Redes locales cableadas: cómo se forman las tramas, cómo se accede al cable, velocidades soportadas</td></tr>
+<tr><td><strong>IEEE 802.11</strong></td><td>Wi-Fi</td><td>Redes locales inalámbricas: frecuencias, velocidades, seguridad (ver también Tema 1)</td></tr>
+<tr><td><strong>IEEE 802.15</strong></td><td>Bluetooth y redes de área personal (WPAN)</td><td>Comunicación inalámbrica de corto alcance y bajo consumo entre dispositivos cercanos</td></tr>
+</table><p>
+<strong>Bluetooth</strong> merece una mención propia: a diferencia de Wi-Fi (pensado para conectar muchos
+    dispositivos a una red mayor), Bluetooth está diseñado para conexiones directas de corto alcance entre pocos
+    dispositivos —auriculares, teclados, ratones, relojes inteligentes— con un consumo de energía mucho menor.
+    Es, en la práctica, la tecnología que hace posible las redes <strong>PAN</strong> (Personal Area Network)
+    que ya mencionamos en el Tema 2.
+  </p><div class="cc2-concept">
+<strong class="cc2-concept-tag">Concepto clave</strong>
+    Ethernet, Wi-Fi y Bluetooth no compiten entre sí: cada uno resuelve un problema distinto (red local cableada,
+    red local inalámbrica, conexión directa de corto alcance) y es habitual que los tres convivan en el mismo
+    dispositivo a la vez — tu portátil probablemente tiene tarjeta Ethernet, Wi-Fi y Bluetooth simultáneamente.
+  </div>
+<h2 id="diagnostico_capas">8. Pensar y diagnosticar por capas</h2>
+<p>Las capas no son solo teoría: ofrecen un orden de diagnóstico. Se empieza por la parte más cercana y fácil de comprobar y se asciende solo cuando funciona.</p>
+<table><thead><tr><th>Síntoma</th><th>Capa sospechosa</th><th>Primera comprobación</th></tr></thead><tbody>
+<tr><td>No hay luz de enlace.</td><td>Física</td><td>Cable, conector, cobertura y puerto del switch.</td></tr>
+<tr><td>Hay enlace, pero el equipo no alcanza su puerta de enlace.</td><td>Enlace o Internet/red</td><td>Adaptador, MAC, IP y máscara.</td></tr>
+<tr><td>Un servicio responde lentamente o pierde datos.</td><td>Transporte</td><td>Conectividad, congestión y uso de TCP o UDP.</td></tr>
+<tr><td>Funciona una aplicación pero otra no.</td><td>Aplicación</td><td>Protocolo, servicio, puerto lógico y nombre DNS.</td></tr>
+</tbody></table>
+<div class="cc2-think">Una misma comunicación usa muchas capas a la vez. Localizar la primera capa que falla evita cambiar configuraciones al azar.</div>
+
+<h2 id="glosario">Glosario del tema</h2><dl class="cc2-glosario"><dt>Protocolo</dt><dd>Conjunto de reglas que permite comunicarse a entidades equivalentes.</dd><dt>Encapsulación</dt><dd>Adición sucesiva de cabeceras al bajar por las capas.</dd><dt>Segmento/datagrama</dt><dd>Unidad de datos de la capa de transporte para TCP/UDP.</dd><dt>Paquete</dt><dd>Unidad de datos de la capa de Internet o red.</dd><dt>Trama</dt><dd>Unidad de datos de la capa de enlace.</dd><dt>Puerto lógico</dt><dd>Número que identifica una aplicación o servicio dentro de un equipo.</dd></dl>
+<section class="summary"><h2 id="resumen">Resumen esencial</h2><ol><li>OSI explica la comunicación en siete capas; TCP/IP agrupa las funciones en cuatro.</li><li>Encapsular es añadir información de control al bajar; el receptor la retira al subir.</li><li>TCP prioriza entrega fiable y ordenada; UDP reduce control y latencia.</li><li>Los protocolos de aplicación resuelven tareas como web, nombres, correo o asignación de direcciones.</li><li>IEEE 802 agrupa estándares de redes locales como Ethernet, Wi‑Fi y Bluetooth.</li><li>El diagnóstico por capas localiza la primera función que no trabaja correctamente.</li></ol></section>
+</article></div></main>
+<nav class="topic-footer" aria-label="Navegación entre temas"><a href="tema03.html">← Tema 3</a><a href="tema05.html">Tema 5 →</a></nav>
+<footer class="site-footer">Ciencias de la Computación II · 2.º de Bachillerato · Comunidad de Madrid</footer>
+</body></html>

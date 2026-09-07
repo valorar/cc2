@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Tema 2 del Bloque A de Ciencias de la Computación II: Cómo se clasifican las redes por alcance y medio, y cómo condiciona su topología el coste, la ampliación y la tolerancia a fallos.">
+<title>Tema 2. Tipos de redes y topologías · CC2</title><link rel="stylesheet" href="assets/estilos.css"><script src="assets/navegacion.js" defer></script></head>
+<body><a class="skip" href="#contenido">Saltar al contenido</a>
+<div class="progress" aria-hidden="true"><span></span></div>
+<header class="site-header"><div class="header-inner">
+  <a class="brand" href="index.html"><span class="brand-mark">CC2</span><span>Ciencias de la Computación II<small>2.º de Bachillerato · 2026–2027</small></span></a>
+  <nav class="top-nav" aria-label="Navegación principal"><a href="index.html">Índice</a></nav>
+</div></header>
+<main id="contenido">
+<section class="hero"><div class="hero-inner"><div><p class="kicker">Tema 2 · Bloque A · Redes</p><h1>Tipos de redes y topologías</h1><p class="hero-lead">Cómo se clasifican las redes por alcance y medio, y cómo condiciona su topología el coste, la ampliación y la tolerancia a fallos.</p></div><aside class="hero-note"><strong>Pregunta guía</strong><p>¿Por qué una red escolar suele parecer una estrella y, a la vez, puede formar parte de una red mundial?</p></aside></div></section>
+<div class="layout"><nav class="toc" aria-label="Índice del tema"><strong>En este tema</strong><ol><li><a href="#alcance">Tipos de redes según su extensión: LAN, MAN y WAN</a></li><li><a href="#cable_o_wifi">Redes cableadas e inalámbricas</a></li><li><a href="#topologias">Topologías de red: estrella, bus, anillo, árbol y malla</a></li><li><a href="#elegir">Elegir una arquitectura</a></li><li><a href="#glosario">Glosario</a></li><li><a href="#resumen">Resumen</a></li></ol></nav><article class="paper">
+<p class="lesson-intro">Cómo se clasifican las redes por alcance y medio, y cómo condiciona su topología el coste, la ampliación y la tolerancia a fallos.</p><div class="question"><strong>Antes de empezar:</strong> ¿Por qué una red escolar suele parecer una estrella y, a la vez, puede formar parte de una red mundial?</div>
+<div class="objectives"><strong>Al terminar serás capaz de…</strong><ul><li>clasificar redes como LAN, MAN o WAN</li><li>diferenciar conexión cableada e inalámbrica sin confundirla con el alcance</li><li>reconocer estrella, bus, anillo, árbol y malla</li><li>justificar una topología a partir de necesidades reales</li></ul></div>
+<h2 id="alcance">1. Tipos de redes según su extensión: LAN, MAN y WAN</h2><p>
+    No es lo mismo conectar los ordenadores de un aula que conectar todos los institutos de la Comunidad de
+    Madrid. La forma más habitual de clasificar una red es por su <strong>extensión geográfica</strong>: cuánto
+    territorio abarca.
+  </p><table class="cc2-table">
+<tr><th>Tipo</th><th>Nombre completo</th><th>Extensión típica</th><th>Ejemplo</th></tr>
+<tr><td><strong>PAN</strong></td><td>Personal Area Network</td><td>Unos pocos metros</td><td>Tus auriculares Bluetooth conectados al móvil</td></tr>
+<tr><td><strong>LAN</strong></td><td>Local Area Network</td><td>Un edificio o un campus</td><td>La red de un instituto o de una vivienda</td></tr>
+<tr><td><strong>MAN</strong></td><td>Metropolitan Area Network</td><td>Una ciudad</td><td>La red que interconecta los edificios municipales de una ciudad</td></tr>
+<tr><td><strong>WAN</strong></td><td>Wide Area Network</td><td>Un país, un continente o el planeta entero</td><td>Internet, o la red privada de un banco con sucursales en varios países</td></tr>
+</table><p>
+    Las <strong>LAN</strong> son las que tenéis más cerca: la red del aula de informática, la de vuestra casa. Se
+    caracterizan por pertenecer a una única organización, tener alta velocidad y estar bajo el control de quien
+    la administra (el instituto decide qué cable, qué switch, qué configuración usar). Las <strong>WAN</strong>,
+    en cambio, conectan LAN distintas entre sí a través de largas distancias, normalmente contratando líneas a un
+    operador de telecomunicaciones: nadie es dueño de "toda" Internet, pero sí de los tramos que la componen.
+  </p><div class="cc2-concept">
+<strong class="cc2-concept-tag">Concepto clave</strong>
+    Cuanto mayor es la extensión de una red, más difícil (y cara) resulta controlarla por completo: una LAN la
+    administra un único centro; una WAN como Internet es, en realidad, la suma de miles de redes administradas
+    por organizaciones distintas que se han puesto de acuerdo en usar los mismos protocolos.
+  </div><div class="cc2-curio">
+    🌍 <strong>¿Sabías que...?</strong> La red interna de un instituto (aulas, biblioteca, secretaría, sala de
+    profesores) es una única LAN aunque el edificio tenga varias plantas y decenas de puntos de red: lo que
+    define el tipo de red no es el número de cables, sino que todo pertenece a la misma organización y ocupa un
+    espacio geográfico reducido.
+  </div>
+<h2 id="cable_o_wifi">2. Redes cableadas e inalámbricas</h2><p>
+    Otra forma de clasificar una red, independiente de la anterior, es según si la señal viaja por un
+    <strong>medio físico</strong> (un cable) o por el <strong>aire</strong> (ondas de radio). Ambas formas
+    conviven casi siempre en la misma red: el aula de informática puede tener PCs conectados por cable y, al
+    mismo tiempo, dar cobertura Wi-Fi a los portátiles de los profesores.
+  </p><table class="cc2-table">
+<tr><th></th><th>Redes cableadas</th><th>Redes inalámbricas</th></tr>
+<tr><td><strong>Velocidad</strong></td><td>Muy alta y estable</td><td>Alta, pero variable según distancia e interferencias</td></tr>
+<tr><td><strong>Seguridad</strong></td><td>Más difícil de interceptar (hay que acceder físicamente al cable)</td><td>La señal viaja por el aire: cualquiera dentro del alcance puede intentar captarla</td></tr>
+<tr><td><strong>Movilidad</strong></td><td>Nula: el dispositivo debe quedarse donde llega el cable</td><td>Total dentro del área de cobertura</td></tr>
+<tr><td><strong>Instalación</strong></td><td>Requiere tender cable físicamente por el edificio</td><td>Rápida de desplegar, pero requiere varios puntos de acceso para cubrir un edificio grande</td></tr>
+<tr><td><strong>Coste inicial</strong></td><td>Mayor (cable, canaletas, mano de obra)</td><td>Menor en equipos, pero puede necesitar más puntos de acceso</td></tr>
+</table><div class="cc2-think">
+    🤔 <strong>Para pensar:</strong> en muchos institutos y empresas, los servidores y los equipos fijos se
+    conectan siempre por cable, aunque exista Wi-Fi disponible. ¿Por qué crees que se prefiere el cable para los
+    equipos que no se mueven?
+  </div>
+<h2 id="topologias">3. Topologías de red: estrella, bus, anillo, árbol y malla</h2><p>
+    La <strong>topología</strong> de una red es la forma en que están organizadas las conexiones entre sus
+    dispositivos. No se trata solo de estética: la topología elegida determina qué pasa si un cable se rompe,
+    cuánto cable hace falta, y cómo de fácil es añadir un nuevo equipo a la red.
+  </p><h3>3.1. Topología en estrella</h3><p>
+    Todos los dispositivos se conectan a un único punto central (normalmente un switch). Es, con diferencia, la
+    topología más usada hoy en redes locales: cuando conectas tu PC del aula al switch mediante un cable de red,
+    estás formando parte de una topología en estrella.
+  </p><ul>
+<li><strong>Ventaja principal:</strong> si un cable falla, solo se desconecta ese equipo; el resto de la red sigue funcionando.</li>
+<li><strong>Inconveniente principal:</strong> si falla el punto central (el switch), toda la red se cae a la vez.</li>
+</ul><h3>3.2. Topología en bus</h3><p>
+    Todos los dispositivos comparten un único cable troncal, al que se conectan mediante derivaciones. Fue muy
+    habitual en las primeras redes Ethernet (con cable coaxial), pero hoy está prácticamente en desuso.
+  </p><ul>
+<li><strong>Ventaja principal:</strong> necesita poco cable.</li>
+<li><strong>Inconveniente principal:</strong> si el cable troncal se rompe en cualquier punto, toda la red deja de funcionar; además, solo puede transmitir un dispositivo a la vez sin que las señales choquen.</li>
+</ul><h3>3.3. Topología en anillo</h3><p>
+    Cada dispositivo se conecta exactamente con otros dos, formando un círculo cerrado. La información viaja de
+    equipo en equipo hasta llegar a su destino. Fue la base de la tecnología <em>Token Ring</em> de IBM en los
+    años 80, hoy obsoleta en redes locales, aunque el principio de anillo sigue usándose en algunas redes de
+    fibra óptica de larga distancia por su capacidad de "autocurarse" si se rompe en un solo punto (el tráfico da
+    la vuelta por el otro lado del anillo).
+  </p><ul>
+<li><strong>Ventaja principal:</strong> reparte el acceso al medio de forma ordenada, sin colisiones.</li>
+<li><strong>Inconveniente principal:</strong> si se rompe un único enlace (y no hay doble anillo), toda la red puede quedar dividida o caída.</li>
+</ul><h3>3.4. Topología en árbol</h3><p>
+    Es, en realidad, una combinación de varias estrellas conectadas entre sí de forma jerárquica: un switch
+    "raíz" conecta con varios switches "rama", y cada uno de estos con sus propios equipos. Es exactamente cómo
+    se organiza la red de un edificio de varias plantas: cada planta tiene su propio switch (o su propio armario
+    de comunicaciones), y todos esos switches se conectan a un switch central en el armario principal.
+  </p><ul>
+<li><strong>Ventaja principal:</strong> escala muy bien en edificios grandes: cada planta o departamento se gestiona de forma independiente.</li>
+<li><strong>Inconveniente principal:</strong> si falla un switch "rama" alto en la jerarquía, se cae también todo lo que dependía de él.</li>
+</ul><h3>3.5. Topología en malla</h3><p>
+    Cada dispositivo se conecta con varios (o con todos) los demás, de forma que existen múltiples caminos
+    posibles entre dos puntos cualesquiera. Es la topología más robusta frente a fallos: si un enlace se cae,
+    casi siempre hay una ruta alternativa. Es también la más cara, porque necesita muchísimo más cable
+    (o muchos más enlaces inalámbricos) que las demás. Internet, a nivel de sus enlaces troncales entre países,
+    funciona en gran medida como una malla parcial: hay múltiples rutas posibles entre casi cualquier par de
+    puntos del planeta.
+  </p><ul>
+<li><strong>Ventaja principal:</strong> máxima tolerancia a fallos: no existe un único punto cuya caída afecte a toda la red.</li>
+<li><strong>Inconveniente principal:</strong> coste y complejidad muy altos si se implementa de forma completa (cada nodo con todos los demás).</li>
+</ul><table class="cc2-table">
+<tr><th>Topología</th><th>Punto fuerte</th><th>Punto débil</th><th>¿Se usa hoy?</th></tr>
+<tr><td>Estrella</td><td>Un fallo de cable no afecta al resto</td><td>El punto central es crítico</td><td>Sí, la más usada en redes locales actuales</td></tr>
+<tr><td>Bus</td><td>Poco cable</td><td>Un corte deja la red entera sin servicio</td><td>Prácticamente en desuso</td></tr>
+<tr><td>Anillo</td><td>Reparto ordenado del acceso al medio</td><td>Un corte puede aislar partes de la red</td><td>Casi en desuso en LAN; sigue en algunas redes troncales de fibra</td></tr>
+<tr><td>Árbol</td><td>Escala bien en edificios grandes</td><td>Depende de la jerarquía de switches</td><td>Sí, habitual en edificios con varias plantas</td></tr>
+<tr><td>Malla</td><td>Máxima tolerancia a fallos</td><td>Coste y cableado muy altos</td><td>Sí, en enlaces troncales críticos e Internet</td></tr>
+</table><div class="cc2-note">
+    💡 En la práctica, la mayoría de redes reales no son "puras": una red de instituto suele ser, en el fondo,
+    un árbol de estrellas (varios switches de planta, cada uno formando su propia estrella, conectados entre
+    sí de forma jerárquica).
+  </div>
+<h2 id="elegir">4. Elegir una arquitectura con criterio</h2>
+<p>Las clasificaciones anteriores responden a preguntas distintas y pueden combinarse. La red de un instituto puede ser una <strong>LAN</strong>, usar una <strong>estrella extendida</strong>, tener puestos <strong>cableados</strong> y dispositivos <strong>inalámbricos</strong>, y conectarse a una WAN: Internet.</p>
+<table><thead><tr><th>Necesidad</th><th>Decisión razonable</th><th>Motivo</th></tr></thead><tbody>
+<tr><td>Aula con puestos fijos</td><td>Ethernet en estrella</td><td>Rendimiento estable y averías fáciles de aislar.</td></tr>
+<tr><td>Biblioteca con portátiles</td><td>Wi‑Fi con varios puntos de acceso</td><td>Movilidad y cobertura distribuida.</td></tr>
+<tr><td>Dos edificios del centro</td><td>Estrella/árbol con enlace troncal</td><td>Permite organizar por plantas y ampliar por zonas.</td></tr>
+<tr><td>Servicio crítico</td><td>Rutas redundantes o malla parcial</td><td>Evita que un único enlace deje el servicio aislado.</td></tr>
+</tbody></table>
+<div class="cc2-concept"><strong class="cc2-concept-tag">Criterio clave</strong>No existe una topología universalmente mejor: se elige equilibrando coste, rendimiento, facilidad de ampliación y tolerancia a fallos.</div>
+
+<h2 id="glosario">Glosario del tema</h2><dl class="cc2-glosario"><dt>LAN</dt><dd>Red de área local: vivienda, aula, oficina o edificio.</dd><dt>MAN</dt><dd>Red metropolitana que interconecta sedes dentro de una ciudad.</dd><dt>WAN</dt><dd>Red de gran extensión que enlaza regiones o países.</dd><dt>Topología</dt><dd>Forma física o lógica en la que se conectan los nodos.</dd><dt>Nodo</dt><dd>Dispositivo o punto conectado a una red.</dd><dt>Redundancia</dt><dd>Duplicación de enlaces o equipos para evitar un punto único de fallo.</dd></dl>
+<section class="summary"><h2 id="resumen">Resumen esencial</h2><ol><li>LAN, MAN y WAN clasifican una red por su extensión, no por su velocidad.</li><li>Cable e inalámbrico pueden convivir en la misma LAN.</li><li>La estrella domina las LAN modernas porque facilita ampliar y aislar averías.</li><li>Bus y anillo ayudan a comprender la evolución; árbol y malla responden a redes mayores o más críticas.</li><li>Cada diseño equilibra coste, cobertura, rendimiento, ampliación y tolerancia a fallos.</li></ol></section>
+</article></div></main>
+<nav class="topic-footer" aria-label="Navegación entre temas"><a href="tema01.html">← Tema 1</a><a href="tema03.html">Tema 3 →</a></nav>
+<footer class="site-footer">Ciencias de la Computación II · 2.º de Bachillerato · Comunidad de Madrid</footer>
+</body></html>

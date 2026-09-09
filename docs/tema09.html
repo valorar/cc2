@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Tema 9 de CC2: seguridad de redes y aplicaciones, hacking ético y marco legal.">
+  <title>Tema 9. Seguridad de redes, aplicaciones y hacking ético · CC2</title>
+  <link rel="stylesheet" href="assets/estilos.css">
+  <script src="assets/navegacion.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#contenido">Saltar al contenido</a>
+<div class="progress" aria-hidden="true"><span></span></div>
+<header class="site-header"><div class="header-inner">
+  <a class="brand" href="index.html"><span class="brand-mark">CC2</span><span>Ciencias de la Computación II<small>2.º de Bachillerato · 2026–2027</small></span></a>
+  <nav class="top-nav" aria-label="Navegación principal"><a href="index.html">Índice</a></nav>
+</div></header>
+<main id="contenido">
+<section class="hero"><div class="hero-inner"><div>
+  <p class="kicker">Tema 9 · Bloque B · Ciberseguridad</p>
+  <h1>Seguridad de redes, aplicaciones y hacking ético</h1>
+  <p class="hero-lead">Cómo se protege una red y su tráfico, por qué una aplicación debe desconfiar de sus entradas y qué convierte una auditoría técnica en una actividad ética y legal.</p>
+</div><aside class="hero-note"><strong>Pregunta guía</strong><p>Cuando usas el Wi‑Fi de una cafetería para entrar en una aplicación, ¿qué defensas dependen de la red, cuáles de la aplicación y cuáles de tus decisiones?</p></aside></div></section>
+<div class="layout">
+<nav class="toc" aria-label="Índice del tema"><strong>En este tema</strong><ol>
+  <li><a href="#firewall">Cortafuegos: IP y puerto</a></li>
+  <li><a href="#proxy">Proxy frente a NAT</a></li>
+  <li><a href="#vpn">VPN: un túnel cifrado</a></li>
+  <li><a href="#wifi">Seguridad Wi‑Fi</a></li>
+  <li><a href="#integridad">Integridad, IDS e IPS</a></li>
+  <li><a href="#aplicaciones">Seguridad de aplicaciones</a></li>
+  <li><a href="#hacking_etico">Hacking ético</a></li>
+  <li><a href="#auditoria">Fases de una auditoría</a></li>
+  <li><a href="#legal">Marco legal y límites</a></li>
+  <li><a href="#glosario">Glosario</a></li>
+  <li><a href="#resumen">Resumen</a></li>
+  <li><a href="#fuentes">Fuentes</a></li>
+</ol></nav>
+<article class="paper">
+<p class="lesson-intro">En el Bloque A aprendimos cómo circulan los datos. Ahora añadimos controles para decidir qué tráfico pasa, detectar cambios y reducir riesgos sin olvidar que ninguna barrera sustituye al uso responsable.</p>
+<div class="question"><strong>Antes de empezar:</strong> piensa en tu móvil conectado al Wi‑Fi de una biblioteca. ¿Qué podría proteger el punto de acceso? ¿Qué debería proteger la aplicación? ¿Qué debes comprobar tú?</div>
+<div class="objectives"><strong>Al terminar serás capaz de…</strong><ul>
+  <li>explicar qué hacen un cortafuegos, un proxy, una VPN y un IDS/IPS</li>
+  <li>relacionar estas defensas con IP, puertos y NAT del Tema 5</li>
+  <li>valorar los riesgos de una red Wi‑Fi abierta y de un portal cautivo</li>
+  <li>reconocer fallos de validación, inyección, XSS y exposición de datos sin reproducir ataques</li>
+  <li>distinguir el hacking ético de una intrusión y ordenar las fases de una auditoría autorizada</li>
+  <li>aplicar la regla legal de permiso, alcance y tiempo definidos</li>
+</ul></div>
+
+<h2 id="firewall">1. Cortafuegos: reglas por dirección IP y puerto</h2>
+<p>Un <strong>cortafuegos</strong> o <em>firewall</em> controla el tráfico que entra o sale según unas reglas. Es parecido al control de acceso de un edificio: comprueba datos del “sobre” de cada paquete para decidir si lo deja pasar.<sup><a href="#fuente_12">[12]</a></sup></p>
+<p>Aquí reaparecen dos conceptos del <strong>Bloque A</strong>: la <strong>dirección IP</strong> identifica el origen o destino lógico y el <strong>puerto</strong> orienta el tráfico hacia un servicio. Una regla puede permitir un servicio desde la red del centro o bloquear conexiones entrantes no solicitadas.</p>
+<div class="tabla_responsiva"><table>
+  <thead><tr><th scope="col">Criterio</th><th scope="col">Pregunta que responde</th><th scope="col">Ejemplo cotidiano e inerte</th></tr></thead>
+  <tbody>
+    <tr><td>IP de origen o destino</td><td>¿De dónde viene o adónde va?</td><td>Permitir un recurso solo a la red interna del instituto.</td></tr>
+    <tr><td>Puerto y protocolo</td><td>¿A qué clase de servicio se dirige?</td><td>Dejar disponible la web pública, pero no un servicio de administración.</td></tr>
+    <tr><td>Dirección del tráfico</td><td>¿Entra o sale?</td><td>Bloquear una petición inesperada desde Internet hacia un portátil.</td></tr>
+    <tr><td>Estado de la conexión</td><td>¿Es una respuesta a una comunicación iniciada?</td><td>Permitir que vuelva la página solicitada por el navegador.</td></tr>
+  </tbody>
+</table></div>
+<div class="cc2-concept"><strong class="cc2-concept-tag">Defensa por capas</strong>Un cortafuegos reduce la superficie expuesta, pero una regla mal definida, un servicio vulnerable o una decisión engañosa del usuario pueden dejar otros caminos abiertos. No es una protección absoluta.</div>
+
+<h2 id="proxy">2. Proxy de aplicación frente a NAT del Tema 5</h2>
+<p>Un <strong>proxy</strong> actúa como intermediario para una aplicación: recibe una petición y la realiza en su nombre. Puede aplicar políticas, registrar solicitudes o guardar en <strong>caché</strong> contenidos frecuentes.</p>
+<p>En el <strong>Tema 5</strong> vimos que <strong>NAT</strong> traduce direcciones y puertos para que varios equipos con IP privada compartan una dirección pública. Aunque ambos quedan “en medio”, su finalidad no es la misma.</p>
+<div class="tabla_responsiva"><table>
+  <thead><tr><th scope="col">Aspecto</th><th scope="col">Proxy de aplicación</th><th scope="col">NAT (Tema 5)</th></tr></thead>
+  <tbody>
+    <tr><td>Qué hace</td><td>Recibe una petición de una aplicación y la realiza como intermediario.</td><td>Traduce direcciones IP y, habitualmente, puertos entre redes.</td></tr>
+    <tr><td>Qué comprende</td><td>Puede interpretar el protocolo de la aplicación que gestiona.</td><td>Trabaja principalmente con información de red y transporte.</td></tr>
+    <tr><td>Usos habituales</td><td>Filtrado, control de acceso, registro y caché.</td><td>Compartir una IP pública y conectar una red privada con el exterior.</td></tr>
+    <tr><td>¿Es una defensa completa?</td><td>No; solo controla el tráfico que pasa por él y según su configuración.</td><td>No; ocultar direcciones privadas no sustituye a un cortafuegos.</td></tr>
+  </tbody>
+</table></div>
+<div class="cc2-note">En casa, el router suele combinar NAT, cortafuegos y punto de acceso en una sola caja. Que compartan aparato no significa que sean la misma función.</div>
+
+<h2 id="vpn">3. VPN: un túnel cifrado sobre una red no fiable</h2>
+<p>Una <strong>VPN</strong> crea un túnel cifrado entre el dispositivo y un punto remoto. Es como introducir las comunicaciones en un conducto opaco: quienes controlan el tramo intermedio tienen más difícil leerlas o modificarlas.<sup><a href="#fuente_15">[15]</a></sup></p>
+<p>En teletrabajo, una VPN permite acceder de forma protegida a recursos internos. En una Wi‑Fi no fiable protege el tramo hasta el servidor VPN; la seguridad posterior depende de los servicios y del proveedor.</p>
+<div class="aviso"><strong>Dos límites que debes recordar</strong>Una VPN <strong>no proporciona anonimato total</strong>: el proveedor de la VPN, los servicios visitados y otros actores pueden disponer de información identificativa. Tampoco convierte en fiable una página maliciosa: si entregas tus credenciales a un sitio falso, el túnel habrá protegido el trayecto, no tu decisión.</div>
+<div class="cc2-think">🤔 <strong>Para pensar:</strong> HTTPS y VPN pueden coexistir. HTTPS protege la comunicación con el sitio web; la VPN protege el tramo hasta su punto de salida. Son capas con límites distintos.</div>
+
+<h2 id="wifi">4. Wi‑Fi abiertas, WPA2/WPA3 y portales cautivos</h2>
+<p>Las ondas de una red inalámbrica llegan más allá de una habitación, por lo que la protección del enlace importa. En la vida diaria podemos encontrar varios escenarios:<sup><a href="#fuente_13">[13]</a></sup><sup><a href="#fuente_14">[14]</a></sup></p>
+<div class="cc2-grid">
+  <div class="cc2-card"><h3>Red abierta</h3><p>No exige clave para asociarse. El enlace Wi‑Fi no aporta cifrado de acceso compartido; conviene evitar operaciones sensibles y comprobar que los servicios usan HTTPS.</p></div>
+  <div class="cc2-card"><h3>WPA2 o WPA3</h3><p>Protegen el enlace inalámbrico cuando están bien configurados. WPA3 es la opción más moderna; WPA2 sigue siendo habitual. Una contraseña débil o compartida sin control reduce la protección.</p></div>
+  <div class="cc2-card"><h3>Portal cautivo</h3><p>Muestra una página para aceptar condiciones, identificarse o pagar antes de dar acceso a Internet. Controla el acceso, pero por sí solo no cifra la red.</p></div>
+</div>
+<div class="aviso"><strong>Portal no significa cifrado</strong>Ver una pantalla de bienvenida o introducir un número de habitación no demuestra que el enlace Wi‑Fi esté cifrado ni que toda la navegación sea segura.</div>
+<h3>Decisiones prudentes fuera de casa</h3>
+<ul><li>Confirmar el nombre exacto de la red para evitar imitaciones.</li><li>Preferir datos móviles o WPA2/WPA3 para operaciones sensibles.</li><li>Comprobar HTTPS y no ignorar alertas de certificado.</li><li>Desactivar la conexión automática y olvidar la red al terminar.</li><li>Mantener el equipo actualizado y no compartir archivos sin necesidad.</li></ul>
+
+<h2 id="integridad">5. Verificadores de integridad, IDS e IPS</h2>
+<p>También hay que descubrir cambios inesperados. Un <strong>verificador de integridad</strong> conserva una referencia —por ejemplo, un <em>hash</em> del Tema 8— y la compara después. Un cambio indica que el archivo no es idéntico, aunque podría deberse a una actualización legítima.</p>
+<p>Un <strong>IDS</strong> (<em>Intrusion Detection System</em>) observa actividad y busca indicios anómalos o patrones conocidos. Su función principal es <strong>alertar</strong>. Un <strong>IPS</strong> (<em>Intrusion Prevention System</em>) se sitúa en posición de intervenir y <strong>puede bloquear</strong> tráfico sospechoso.</p>
+<div class="tabla_responsiva"><table>
+  <thead><tr><th scope="col">Sistema</th><th scope="col">Analogía</th><th scope="col">Respuesta</th><th scope="col">Límite</th></tr></thead>
+  <tbody>
+    <tr><td>Verificador de integridad</td><td>Un sello que permite notar si una caja cambió.</td><td>Señala diferencias respecto a la referencia.</td><td>No explica por sí solo quién cambió el archivo ni por qué.</td></tr>
+    <tr><td>IDS</td><td>Una alarma que vigila y avisa.</td><td><strong>Alerta</strong> para que se investigue.</td><td>Puede generar falsos positivos o no reconocer una novedad.</td></tr>
+    <tr><td>IPS</td><td>Una alarma capaz de cerrar una puerta.</td><td><strong>Puede bloquear</strong> automáticamente.</td><td>Un bloqueo erróneo puede afectar a tráfico legítimo.</td></tr>
+  </tbody>
+</table></div>
+<div class="cc2-concept"><strong class="cc2-concept-tag">Diferencia esencial</strong>IDS detecta y alerta; IPS añade capacidad de prevención y puede bloquear. Ambos necesitan reglas actualizadas, contexto y revisión humana.</div>
+
+<h2 id="aplicaciones">6. Seguridad de aplicaciones: desconfiar de las entradas</h2>
+<p>Una red protegida también puede transportar una petición dañina hacia una aplicación autorizada. Por eso debe considerar <strong>no fiable cualquier dato recibido</strong>: formularios, parámetros, archivos, cookies o datos de otro servicio.<sup><a href="#fuente_16">[16]</a></sup></p>
+<p><strong>Validar entradas</strong> es comprobar en el servidor el tipo, longitud, formato y valores esperados. También hay que limitar privilegios, codificar la salida, proteger secretos y mostrar solo lo necesario.</p>
+<div class="tabla_responsiva"><table>
+  <thead><tr><th scope="col">Riesgo</th><th scope="col">Pseudoejemplo inerte</th><th scope="col">Idea defensiva</th></tr></thead>
+  <tbody>
+    <tr><td>Inyección</td><td>Una app espera un “nombre”, pero mezcla literalmente lo recibido con una orden interna.</td><td>Separar datos e instrucciones, validar y usar mecanismos parametrizados.</td></tr>
+    <tr><td>XSS</td><td>Un comentario se presenta como si fuera contenido activo de la página en vez de texto.</td><td>Codificar la salida, sanear cuando proceda y aplicar políticas del navegador.</td></tr>
+    <tr><td>Exposición de datos</td><td>Una pantalla de error enseña información interna o una respuesta incluye más datos de los necesarios.</td><td>Minimizar datos, controlar acceso, cifrar y usar mensajes de error prudentes.</td></tr>
+  </tbody>
+</table></div>
+<div class="cc2-note"><strong>Analogía:</strong> un formulario es como una ventanilla que pide “fecha de nacimiento”. Si recibe una novela o una instrucción para el sistema, no debe obedecerla: debe rechazarla como dato inválido.</div>
+<div class="aviso"><strong>Enfoque seguro del tema</strong>Estos fallos se explican para reconocer principios defensivos. No se incluyen cargas de ataque, órdenes ni procedimientos aplicables contra sistemas reales.</div>
+
+<h2 id="hacking_etico">7. Hacking ético: finalidad, autorización y responsabilidad</h2>
+<p>El <strong>hacking ético</strong> evalúa con autorización la seguridad para encontrar debilidades y ayudar a corregirlas. Se diferencia por el <strong>permiso</strong>, la finalidad defensiva, los límites y la comunicación responsable.<sup><a href="#fuente_17">[17]</a></sup></p>
+<div class="comparacion">
+  <div><h3>Auditoría ética</h3><ul><li>Existe permiso expreso.</li><li>Hay objetivos y límites documentados.</li><li>Se minimiza el impacto.</li><li>Se protegen evidencias y datos.</li><li>Se entrega un informe para corregir.</li></ul></div>
+  <div><h3>Intrusión no autorizada</h3><ul><li>No existe permiso válido.</li><li>El propietario desconoce la actividad.</li><li>Puede interrumpir servicios o exponer datos.</li><li>No se vuelve legítima por curiosidad, habilidad o buena intención.</li></ul></div>
+</div>
+<p>Encontrar un posible fallo por casualidad no autoriza a explorarlo. Hay que detenerse y comunicarlo mediante el canal oficial del responsable.</p>
+
+<h2 id="auditoria">8. Fases de una auditoría de seguridad autorizada</h2>
+<p>Una auditoría se planifica antes de comprobar. Sus fases permiten entender, verificar con límites, explicar y mejorar.<sup><a href="#fuente_18">[18]</a></sup></p>
+<div class="cc2-timeline">
+  <div class="cc2-tl-item"><div class="cc2-tl-year">0 — Autorización y planificación</div><p>Se identifican responsable, sistemas incluidos y excluidos, fechas, técnicas permitidas, tratamiento de datos y canal de emergencia. Sin esta fase no se empieza.</p></div>
+  <div class="cc2-tl-item"><div class="cc2-tl-year">1 — Reconocimiento</div><p>Se reúne información autorizada sobre el entorno para comprender qué se va a revisar. No equivale a investigar sin límites.</p></div>
+  <div class="cc2-tl-item"><div class="cc2-tl-year">2 — Análisis</div><p>Se revisan configuraciones y señales de posibles debilidades. Un indicio no se presenta todavía como vulnerabilidad confirmada.</p></div>
+  <div class="cc2-tl-item"><div class="cc2-tl-year">3 — Explotación controlada</div><p>Solo si el acuerdo lo permite, se demuestra el riesgo con el mínimo impacto, sin persistencia ni acceso innecesario a datos. En clase se sustituye por simulaciones aisladas.</p></div>
+  <div class="cc2-tl-item"><div class="cc2-tl-year">4 — Informe y corrección</div><p>Se documentan evidencias, riesgo, límites y recomendaciones comprensibles. Después se verifica que las medidas aplicadas resuelven el problema.</p></div>
+</div>
+<div class="cc2-think">🤔 <strong>Para pensar:</strong> “He ejecutado una herramienta y aparecieron diez avisos” no es un informe. Hace falta interpretar falsos positivos, prioridad, impacto y medidas de mejora.</div>
+
+<h2 id="legal">9. Marco legal y límites</h2>
+<div class="aviso"><strong>Regla legal imprescindible</strong>Solo se examinan <strong>sistemas propios</strong> o sistemas para los que existe <strong>permiso expreso</strong>, con <strong>alcance y tiempo definidos</strong>. Que un sistema sea accesible desde Internet no significa que esté autorizado probarlo.</div>
+<p>En España, acceder o facilitar acceso a sistemas vulnerando medidas de seguridad y sin autorización puede tener consecuencias penales. La Circular 3/2017 de la Fiscalía General del Estado analiza el artículo 197 bis del Código Penal.<sup><a href="#fuente_19">[19]</a></sup> Los datos personales o secretos hallados se protegen y tratan solo para la finalidad autorizada.</p>
+<ul>
+  <li><strong>Permiso:</strong> debe proceder de quien tiene capacidad para autorizar y quedar documentado.</li>
+  <li><strong>Alcance:</strong> concreta equipos, cuentas, aplicaciones, pruebas permitidas y exclusiones.</li>
+  <li><strong>Tiempo:</strong> fija cuándo empieza y termina la autorización.</li>
+  <li><strong>Proporcionalidad:</strong> se usa la comprobación menos invasiva.</li>
+  <li><strong>Datos:</strong> se minimiza el acceso y se custodian las evidencias.</li>
+  <li><strong>Comunicación:</strong> los hallazgos se entregan por el canal acordado.</li>
+</ul>
+<div class="cc2-concept"><strong class="cc2-concept-tag">En el aula</strong>Las actividades deben realizarse en simuladores, laboratorios aislados o materiales creados para aprender. Nunca sobre la Wi‑Fi del centro, cuentas ajenas, páginas reales ni dispositivos de otras personas.</div>
+
+<h2 id="glosario">Glosario del tema</h2>
+<dl class="cc2-glosario">
+  <dt>Cortafuegos</dt><dd>Sistema que permite o bloquea tráfico según reglas, como origen, destino, puerto, protocolo o estado.</dd>
+  <dt>Puerto</dt><dd>Número lógico que ayuda a dirigir una comunicación hacia un servicio de un equipo.</dd>
+  <dt>Proxy</dt><dd>Intermediario que recibe y realiza peticiones de una aplicación y puede filtrarlas, registrarlas o almacenarlas en caché.</dd>
+  <dt>NAT</dt><dd>Traducción de direcciones y puertos entre redes; no equivale a un proxy ni sustituye a un cortafuegos.</dd>
+  <dt>VPN</dt><dd>Túnel cifrado entre un dispositivo y un punto remoto sobre una red que puede no ser fiable.</dd>
+  <dt>Portal cautivo</dt><dd>Página previa que controla el acceso a una red; por sí sola no cifra el enlace Wi‑Fi.</dd>
+  <dt>Integridad</dt><dd>Propiedad que permite detectar modificaciones no autorizadas o accidentales en la información.</dd>
+  <dt>IDS</dt><dd>Sistema de detección de intrusiones: observa, identifica indicios y alerta.</dd>
+  <dt>IPS</dt><dd>Sistema de prevención de intrusiones: además de detectar, puede bloquear actividad sospechosa.</dd>
+  <dt>Validación de entradas</dt><dd>Comprobación de que un dato cumple tipo, formato, longitud y valores esperados antes de usarlo.</dd>
+  <dt>Inyección</dt><dd>Fallo que permite que datos no fiables sean interpretados como parte de una instrucción.</dd>
+  <dt>XSS</dt><dd>Inyección de contenido activo en una página que debería tratar la entrada como datos.</dd>
+  <dt>Hacking ético</dt><dd>Evaluación autorizada y limitada de la seguridad con finalidad defensiva y comunicación responsable.</dd>
+  <dt>Alcance</dt><dd>Conjunto documentado de sistemas, fechas y acciones incluidas o excluidas de una auditoría.</dd>
+</dl>
+
+<section class="summary"><h2 id="resumen">Resumen esencial</h2><ol>
+  <li>El cortafuegos decide qué tráfico pasa; puede usar IP, puerto, protocolo, dirección y estado.</li>
+  <li>El proxy intermedia una aplicación; NAT traduce direcciones y puertos como vimos en el Tema 5.</li>
+  <li>Una VPN cifra un túnel, pero no da anonimato total ni vuelve fiable un sitio malicioso.</li>
+  <li>WPA2/WPA3 protegen el enlace Wi‑Fi; una red abierta y un portal cautivo no garantizan cifrado.</li>
+  <li>Un verificador detecta cambios; IDS alerta e IPS puede bloquear.</li>
+  <li>Las aplicaciones deben validar entradas, separar datos de instrucciones y reducir la exposición.</li>
+  <li>El hacking ético tiene permiso, finalidad defensiva, límites y comunicación responsable.</li>
+  <li>La auditoría recorre planificación, reconocimiento, análisis, comprobación controlada e informe.</li>
+  <li>Solo se actúa sobre sistemas propios o con permiso expreso, alcance y tiempo definidos.</li>
+</ol></section>
+
+<h2 id="fuentes">Fuentes y lecturas de referencia</h2>
+<ul>
+  <li id="fuente_12">[12] <a href="https://csrc.nist.gov/glossary/term/firewall">NIST: definición de <em>firewall</em></a>.</li>
+  <li id="fuente_13">[13] <a href="https://www.incibe.es/node/506666">INCIBE: riesgos y recomendaciones al usar redes Wi‑Fi</a>.</li>
+  <li id="fuente_14">[14] <a href="https://www.incibe.es/sites/default/files/contenidos/guias/doc/guia-de-seguridad-en-redes-wifi.pdf">INCIBE: Guía de seguridad en redes Wi‑Fi (PDF)</a>.</li>
+  <li id="fuente_15">[15] <a href="https://www.incibe.es/incibe-cert/blog/teletrabajo-vpn-y-otras-recomendaciones">INCIBE-CERT: teletrabajo y VPN</a>.</li>
+  <li id="fuente_16">[16] <a href="https://owasp.org/Top10/2025/A05_2025-Injection">OWASP Top 10 2025: Injection</a>.</li>
+  <li id="fuente_17">[17] <a href="https://www.incibe.es/ed2026/talento-hacker/blog/descubre-que-es-el-hacking-etico">INCIBE: qué es el hacking ético</a>.</li>
+  <li id="fuente_18">[18] <a href="https://www.incibe.es/ed2026/talento-hacker/blog/auditoria-de-ciberseguridad-que-es-para-que-sirve-y-como-formarte-en-este-campo">INCIBE: auditoría de ciberseguridad</a>.</li>
+  <li id="fuente_19">[19] <a href="https://boe.es/buscar/doc.php?id=FIS-C-2017-00003">BOE: Circular 3/2017 de la Fiscalía General del Estado, con referencia al artículo 197 bis</a>.</li>
+</ul>
+<p><small>Material didáctico; no sustituye asesoramiento jurídico.</small></p>
+</article>
+</div>
+</main>
+<nav class="topic-footer" aria-label="Navegación entre temas"><a href="tema08.html">← Tema 8</a><a href="index.html">Índice del bloque →</a></nav>
+<footer class="site-footer">Ciencias de la Computación II · 2.º de Bachillerato · Comunidad de Madrid</footer>
+</body>
+</html>

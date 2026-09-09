@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Tema 8 de Ciencias de la Computación II: criptografía, autenticación, identidad digital, MFA y protección de documentos.">
+<title>Tema 8. Criptografía, autenticación e identidad digital · CC2</title><link rel="stylesheet" href="assets/estilos.css"><script src="assets/navegacion.js" defer></script></head>
+<body><a class="skip" href="#contenido">Saltar al contenido</a>
+<div class="progress" aria-hidden="true"><span></span></div>
+<header class="site-header"><div class="header-inner">
+  <a class="brand" href="index.html"><span class="brand-mark">CC2</span><span>Ciencias de la Computación II<small>2.º de Bachillerato · 2026–2027</small></span></a>
+  <nav class="top-nav" aria-label="Navegación principal"><a href="index.html">Índice</a></nav>
+</div></header>
+<main id="contenido">
+<section class="hero"><div class="hero-inner"><div><p class="kicker">Tema 8 · Bloque B · Ciberseguridad</p><h1>Criptografía, autenticación e identidad digital</h1><p class="hero-lead">Cómo protegemos mensajes y documentos, demostramos quiénes somos y decidimos quién puede acceder a cada recurso.</p></div><aside class="hero-note"><strong>Pregunta guía</strong><p>Cuando aparece un candado en el navegador, ¿qué está protegido realmente y qué no podemos deducir de él?</p></aside></div></section>
+<div class="layout"><nav class="toc" aria-label="Índice del tema"><strong>En este tema</strong><ol><li><a href="#cifrado">Cifrado y hash</a></li><li><a href="#claves">Simétrico y asimétrico</a></li><li><a href="#protocolos">HTTPS, TLS y SSH</a></li><li><a href="#contrasenas">Contraseñas</a></li><li><a href="#identidad">Identificación y autenticación</a></li><li><a href="#mfa">Autenticación multifactor</a></li><li><a href="#firma">Firma y certificados digitales</a></li><li><a href="#documentos">Protección de documentos</a></li><li><a href="#glosario">Glosario</a></li><li><a href="#resumen">Resumen</a></li><li><a href="#fuentes">Fuentes</a></li></ol></nav><article class="paper">
+<p class="lesson-intro">La seguridad digital no depende de un único “código secreto”. Combina técnicas criptográficas, pruebas de identidad y decisiones de acceso para proteger datos y personas.</p>
+<div class="question"><strong>Antes de empezar:</strong> imagina tres objetos: un sobre cerrado, una huella dactilar y una firma. Los tres ayudan a proteger información, pero no garantizan lo mismo. Esa diferencia organiza todo el tema.</div>
+<div class="objectives"><strong>Al terminar serás capaz de…</strong><ul><li>distinguir cifrado, hash y firma digital</li><li>explicar por qué los sistemas modernos combinan criptografía simétrica y asimétrica</li><li>interpretar correctamente el candado HTTPS</li><li>separar identificación, autenticación y autorización</li><li>justificar el uso de contraseñas únicas, gestores y MFA</li><li>reconocer el papel de certificados, DNIe y Cl@ve</li><li>elegir medidas adecuadas para proteger y eliminar documentos</li></ul></div>
+
+<h2 id="cifrado">1. Cifrado y hash: secreto frente a huella</h2>
+<p>La <strong>criptografía</strong> reúne técnicas para proteger información incluso cuando viaja o se almacena en lugares que no controlamos. Dos herramientas fundamentales son el cifrado y las funciones hash, pero resuelven problemas distintos.<sup><a href="#fuente_6">[6]</a></sup><sup><a href="#fuente_11">[11]</a></sup></p>
+<div class="cc2-grid">
+<div class="cc2-card"><h3>Cifrado: el sobre cerrado</h3><p>Transforma un dato legible en otro ininteligible mediante una clave. Quien posee la clave adecuada puede <strong>descifrarlo</strong> y recuperar el contenido. Su objetivo principal es la <strong>confidencialidad</strong>.</p></div>
+<div class="cc2-card"><h3>Hash: la huella</h3><p>Resume datos de cualquier tamaño en una huella de longitud fija. Está diseñado para que no sea viable reconstruir el original a partir de ella. Sirve para detectar cambios y apoyar la <strong>integridad</strong>.</p></div>
+</div>
+<div class="tabla_responsiva"><table class="cc2-table"><thead><tr><th>Técnica</th><th>Pregunta que responde</th><th>¿Es reversible?</th><th>Ejemplo</th></tr></thead><tbody>
+<tr><td><strong>Cifrado</strong></td><td>¿Quién puede leerlo?</td><td>Sí, con la clave correcta</td><td>Un archivo cifrado en un portátil</td></tr>
+<tr><td><strong>Hash</strong></td><td>¿Ha cambiado?</td><td>No está pensado para revertirse</td><td>Comparar la huella publicada de una descarga</td></tr>
+<tr><td><strong>Firma digital</strong></td><td>¿Quién lo firmó y sigue intacto?</td><td>No “descifra” el documento</td><td>Firmar una solicitud electrónica</td></tr>
+</tbody></table></div>
+<p>Una buena función hash hace que un cambio mínimo produzca una huella muy distinta y dificulta encontrar dos contenidos con la misma huella. <strong>Un hash por sí solo no demuestra autoría</strong>: cualquiera puede calcularlo. Para asociar integridad e identidad se necesita, por ejemplo, una firma digital.</p>
+<div class="cc2-concept"><strong class="cc2-concept-tag">Tres propiedades diferentes</strong><strong>Confidencialidad</strong>: que no lean el dato. <strong>Integridad</strong>: que una alteración sea detectable. <strong>Autenticidad</strong>: que podamos comprobar su origen. Una herramienta puede aportar una o varias, pero no deben confundirse.</div>
+
+<h2 id="claves">2. Cifrado simétrico y asimétrico</h2>
+<p>Una <strong>clave criptográfica</strong> es un valor que controla una operación criptográfica. No es necesariamente una contraseña: una contraseña la recuerda una persona; una clave suele ser larga, generada y gestionada por software.</p>
+<div class="comparacion">
+<div><h3>Simétrico: una llave compartida</h3><p>La misma clave cifra y descifra. Es como una caja con una sola llave de la que ambas personas tienen copia. Es rápido y apropiado para grandes cantidades de datos, pero obliga a compartir esa clave de forma segura.</p></div>
+<div><h3>Asimétrico: pareja de llaves</h3><p>Cada identidad dispone de una <strong>clave pública</strong>, que puede difundirse, y una <strong>clave privada</strong>, que debe custodiarse. Lo realizado con una tiene una relación verificable con la otra. Facilita acordar secretos y crear firmas, aunque es más costoso.</p></div>
+</div>
+<div class="tabla_responsiva"><table><thead><tr><th>Aspecto</th><th>Simétrico</th><th>Asimétrico</th></tr></thead><tbody><tr><td>Claves</td><td>Una clave secreta compartida</td><td>Una pública y una privada relacionadas</td></tr><tr><td>Ventaja</td><td>Rapidez y eficiencia</td><td>No exige compartir la clave privada</td></tr><tr><td>Reto</td><td>Entregar y custodiar el secreto común</td><td>Comprobar a quién pertenece la clave pública</td></tr><tr><td>Uso típico</td><td>Cifrar archivos, discos y sesiones</td><td>Autenticar, firmar y establecer claves</td></tr></tbody></table></div>
+<div class="cc2-note">Los sistemas reales suelen ser <strong>híbridos</strong>: usan mecanismos asimétricos para autenticar y establecer secretos, y cifrado simétrico para proteger después el volumen principal de datos. No compiten; se complementan.</div>
+
+<h2 id="protocolos">3. Protocolos seguros: HTTPS, TLS y SSH</h2>
+<p>Un protocolo define reglas para que dos sistemas se entiendan. <strong>TLS</strong> protege comunicaciones en red aportando cifrado y comprobaciones de integridad, además de autenticar normalmente al servidor mediante un certificado. <strong>HTTPS</strong> es HTTP transportado dentro de una conexión protegida por TLS.</p>
+<h3>Una conexión HTTPS, simplificada</h3>
+<div class="cc2-timeline">
+<div class="cc2-tl-item"><div class="cc2-tl-year">1 — El navegador inicia la conversación</div><p>Propone versiones y opciones criptográficas compatibles al servidor.</p></div>
+<div class="cc2-tl-item"><div class="cc2-tl-year">2 — El servidor presenta su certificado</div><p>El certificado vincula el dominio con una clave pública. El navegador comprueba, entre otras cosas, el dominio, las fechas y la cadena de confianza de la entidad certificadora.</p></div>
+<div class="cc2-tl-item"><div class="cc2-tl-year">3 — Se acuerdan secretos de sesión</div><p>Mediante criptografía de clave pública y un intercambio de claves, ambas partes obtienen secretos compartidos sin enviarlos como texto visible. El proceso autentica al servidor y deriva claves temporales.</p></div>
+<div class="cc2-tl-item"><div class="cc2-tl-year">4 — Continúa el tráfico cifrado</div><p>Las peticiones y respuestas viajan con cifrado simétrico, más eficiente, y con protección frente a modificaciones durante la conexión.</p></div>
+</div>
+<div class="aviso"><strong>Lo que el candado no promete</strong>HTTPS protege la <strong>conexión entre tu navegador y el dominio mostrado</strong>. No garantiza que la empresa sea honesta, que el producto sea real ni que el contenido sea seguro. Una web fraudulenta también puede tener HTTPS. Hay que revisar el dominio y desconfiar de mensajes, pagos o descargas inesperados.</div>
+<p><strong>SSH</strong> (<em>Secure Shell</em>) permite acceder y administrar otro equipo de forma remota mediante un canal cifrado. Puede autenticar con contraseña, aunque son habituales los pares de claves: el servidor conserva la clave pública autorizada y la persona protege su clave privada. Aceptar sin comprobar la clave de un servidor desconocido puede permitir una suplantación.</p>
+
+<h2 id="contrasenas">4. Contraseñas: proteger el secreto y su almacenamiento</h2>
+<p>Una contraseña debe ser <strong>larga, difícil de adivinar y única para cada servicio</strong>. Una frase de paso suele ser más resistente y recordable que una palabra corta con sustituciones previsibles.<sup><a href="#fuente_8">[8]</a></sup></p>
+<ul><li><strong>Longitud:</strong> aumenta enormemente las combinaciones posibles. Conviene priorizarla sobre reglas artificiales.</li><li><strong>Unicidad:</strong> reutilizar una contraseña convierte la filtración de un servicio en la llave de muchos otros.</li><li><strong>Gestor de contraseñas:</strong> genera y guarda claves únicas; la persona recuerda una contraseña maestra sólida y protege el gestor con MFA.</li><li><strong>Respuesta a una filtración:</strong> cambiar la contraseña afectada —y cualquier reutilización—, cerrar sesiones si el servicio lo permite y revisar actividad.</li></ul>
+<h3>¿Cómo debería almacenarlas un servicio?</h3>
+<p>Un servicio responsable no necesita recuperar la contraseña original. Guarda un <strong>hash especializado para contraseñas</strong> junto con una <strong>sal</strong> aleatoria diferente para cada cuenta. Al iniciar sesión, aplica el mismo proceso a la contraseña introducida y compara resultados.</p>
+<div class="cc2-concept"><strong class="cc2-concept-tag">La analogía de la huella</strong>El servicio compara huellas, no debería guardar una copia legible de la llave. La sal hace que dos personas con la misma contraseña no tengan la misma huella almacenada. Además, el cálculo se diseña deliberadamente lento para dificultar pruebas masivas.</div>
+<p>El hash no vuelve invulnerable una contraseña débil: si se roba la base de datos, un atacante puede probar candidatos y comparar resultados. Por eso importan la longitud, la unicidad y un método de almacenamiento adecuado.</p>
+
+<h2 id="identidad">5. Identificación, autenticación y autorización</h2>
+<p>En la entrada de un concierto ocurren tres pasos: dices qué entrada o identidad reclamas, demuestras que te corresponde y el personal decide a qué zona puedes pasar. En un sistema digital sucede algo equivalente.</p>
+<div class="tabla_responsiva"><table class="cc2-table"><thead><tr><th>Proceso</th><th>Pregunta</th><th>Ejemplo</th></tr></thead><tbody>
+<tr><td><strong>Identificación</strong></td><td>¿Quién dices ser?</td><td>Introducir un nombre de usuario o un correo</td></tr>
+<tr><td><strong>Autenticación</strong></td><td>¿Puedes demostrarlo?</td><td>Validar una contraseña y una app de códigos</td></tr>
+<tr><td><strong>Autorización</strong></td><td>¿Qué puedes hacer?</td><td>Permitir leer una carpeta, pero no borrarla</td></tr>
+</tbody></table></div>
+<p>Autenticarse no concede acceso a todo. Una alumna y una profesora pueden entrar correctamente en la misma plataforma y tener permisos distintos. Aplicar el <strong>mínimo privilegio</strong> significa conceder solo los permisos necesarios durante el tiempo necesario.</p>
+<p>Las pruebas de autenticación suelen pertenecer a tres familias:</p>
+<ul><li><strong>Algo que sabes:</strong> contraseña o PIN.</li><li><strong>Algo que tienes:</strong> móvil, tarjeta criptográfica o llave de seguridad.</li><li><strong>Algo que eres:</strong> una característica biométrica, como huella o rostro.</li></ul>
+<div class="cc2-note">La biometría es cómoda, pero no es secreta ni reemplazable como una contraseña. Normalmente desbloquea una credencial guardada en el dispositivo y debe acompañarse de un método alternativo seguro.</div>
+
+<h2 id="mfa">6. Autenticación multifactor: una segunda barrera</h2>
+<p>La <strong>autenticación multifactor</strong> (MFA) exige pruebas de al menos dos familias diferentes. Contraseña más contraseña son dos pasos, pero un solo factor; contraseña más aplicación de códigos combina conocimiento y posesión.<sup><a href="#fuente_7">[7]</a></sup></p>
+<div class="tabla_responsiva"><table><thead><tr><th>Segundo factor</th><th>Fortaleza</th><th>Precaución</th></tr></thead><tbody>
+<tr><td>Llave de seguridad</td><td>Muy resistente al phishing cuando usa protocolos adecuados</td><td>Registrar una alternativa de recuperación</td></tr>
+<tr><td>Aplicación autenticadora</td><td>Genera códigos temporales sin depender de cobertura</td><td>No introducir códigos en páginas cuyo dominio no sea correcto</td></tr>
+<tr><td>Aviso en una app</td><td>Cómodo y ligado al dispositivo</td><td>No aprobar solicitudes inesperadas; comprobar los datos mostrados</td></tr>
+<tr><td>SMS</td><td>Mejor que usar solo contraseña</td><td>Más expuesto a fraude de SIM e interceptación que otras opciones</td></tr>
+</tbody></table></div>
+<div class="aviso"><strong>Fatiga de MFA</strong>Un atacante puede provocar muchos avisos esperando que la víctima acepte uno por cansancio. Una solicitud no iniciada por ti se rechaza: no es una notificación rutinaria, sino una señal de intento de acceso.</div>
+<p>Los <strong>códigos de recuperación</strong> también permiten entrar. Deben guardarse fuera de la cuenta protegida y en un lugar seguro; una captura en la misma nube puede quedar inaccesible justo cuando hace falta.</p>
+
+<h2 id="firma">7. Firma y certificados digitales: DNIe, Cl@ve y correo</h2>
+<p>Una <strong>firma digital</strong> vincula un documento con la clave privada de quien firma. De forma simplificada, el software calcula el hash del documento y genera sobre esa huella un valor verificable con la clave pública. Así se puede comprobar que el contenido no cambió y que la firma corresponde a la clave privada asociada.<sup><a href="#fuente_9">[9]</a></sup></p>
+<div class="cc2-concept"><strong class="cc2-concept-tag">Firmar no es cifrar</strong>Una firma digital puede acompañar a un documento totalmente legible: aporta autenticidad e integridad, no confidencialidad. Para ocultar el contenido hay que cifrarlo además.</div>
+<p>Queda una pregunta: ¿cómo sabemos de quién es una clave pública? Un <strong>certificado digital</strong> vincula esa clave con una identidad o dominio y está firmado por una entidad certificadora. El navegador o la aplicación comprueban esa cadena de confianza. El certificado es público; la clave privada asociada no debe compartirse.<sup><a href="#fuente_10">[10]</a></sup></p>
+<div class="tabla_responsiva"><table class="cc2-table"><thead><tr><th>Sistema</th><th>Papel principal</th><th>Aclaración</th></tr></thead><tbody>
+<tr><td><strong>DNIe</strong></td><td>Identificación y firma electrónica mediante certificados</td><td>Los certificados residen en el chip; su uso requiere custodiar tarjeta y PIN</td></tr>
+<tr><td><strong>Cl@ve</strong></td><td>Identificación y autenticación ante administraciones públicas</td><td>Es una plataforma de acceso con varios métodos; no es sinónimo de certificado digital</td></tr>
+<tr><td><strong>Correo firmado</strong></td><td>Comprobar origen e integridad del mensaje</td><td>No oculta el texto: el cifrado de correo es una función distinta</td></tr>
+</tbody></table></div>
+<p>Una firma manuscrita escaneada es una imagen copiable: no ofrece comprobaciones criptográficas. La confianza exige proteger la clave privada y comprobar que el certificado no esté caducado o revocado.</p>
+
+<h2 id="documentos">8. Protección de documentos: cifrado y borrado seguro</h2>
+<p>Un documento puede filtrarse mientras se envía, mientras permanece guardado o después de que creamos haberlo eliminado. La protección debe acompañar todo su ciclo de vida.</p>
+<div class="cc2-grid">
+<div class="cc2-card"><h3>En tránsito</h3><p>Usar canales protegidos, como HTTPS, y verificar destinatario y dominio. Cifrar el propio archivo añade protección si atraviesa varios servicios.</p></div>
+<div class="cc2-card"><h3>En reposo</h3><p>Cifrar el dispositivo o archivo, limitar permisos, bloquear la sesión y mantener copias de seguridad también protegidas.</p></div>
+<div class="cc2-card"><h3>Al compartir</h3><p>Enviar solo lo necesario, revisar metadatos y destinatarios, fijar caducidad cuando sea posible y comunicar claves por un canal distinto.</p></div>
+<div class="cc2-card"><h3>Al retirar</h3><p>Eliminar copias, enlaces compartidos, papelera y versiones. Para soportes reutilizados, emplear la función de borrado seguro recomendada por el fabricante o destruirlos si procede.</p></div>
+</div>
+<p>“Borrar” suele eliminar la referencia al archivo, no todos sus restos. En discos magnéticos puede usarse sobrescritura; en SSD y memorias flash, su reparto interno hace que sobrescribir un archivo no sea fiable. Son preferibles el borrado seguro, el restablecimiento criptográfico o la destrucción según la sensibilidad.</p>
+<div class="cc2-note"><strong>Cifrar desde el principio</strong>Si todo el disco estaba cifrado y la clave se destruye de forma efectiva, los restos resultan ininteligibles. Pero hay que localizar también copias sincronizadas, adjuntos, copias de seguridad y dispositivos antiguos: borrar el original no borra sus duplicados.</div>
+
+<h2 id="glosario">Glosario del tema</h2>
+<dl class="cc2-glosario">
+<dt>Criptografía</dt><dd>Técnicas para proteger información, comunicaciones e identidades mediante operaciones controladas por claves.</dd>
+<dt>Cifrado</dt><dd>Transformación reversible con la clave adecuada para mantener la confidencialidad.</dd>
+<dt>Hash</dt><dd>Huella de longitud fija calculada a partir de datos; permite detectar modificaciones.</dd>
+<dt>Clave simétrica</dt><dd>Secreto compartido que sirve para cifrar y descifrar.</dd>
+<dt>Clave pública</dt><dd>Parte difundible de un par asimétrico, usada para verificar o establecer secretos según el sistema.</dd>
+<dt>Clave privada</dt><dd>Parte secreta de un par asimétrico; debe permanecer bajo control de su titular.</dd>
+<dt>TLS</dt><dd>Protocolo que protege conexiones mediante autenticación, cifrado e integridad.</dd>
+<dt>HTTPS</dt><dd>Comunicación HTTP protegida por TLS.</dd>
+<dt>Sal</dt><dd>Dato aleatorio añadido antes de calcular el hash de una contraseña para diferenciar resultados y dificultar ataques.</dd>
+<dt>MFA</dt><dd>Autenticación que combina pruebas de dos o más familias distintas.</dd>
+<dt>Firma digital</dt><dd>Mecanismo criptográfico para comprobar integridad y relación con una clave privada.</dd>
+<dt>Certificado digital</dt><dd>Documento electrónico que vincula una identidad o dominio con una clave pública.</dd>
+</dl>
+
+<section class="summary"><h2 id="resumen">Resumen esencial</h2><ol>
+<li>El cifrado protege la confidencialidad; el hash funciona como huella; la firma relaciona integridad y autoría criptográfica.</li>
+<li>El cifrado simétrico es rápido y el asimétrico facilita autenticación e intercambio de claves; TLS combina ambos.</li>
+<li>HTTPS protege la conexión con el dominio mostrado, pero el candado no demuestra que la web sea honesta.</li>
+<li>Las contraseñas deben ser largas y únicas; un gestor y un almacenamiento con hash especializado y sal reducen riesgos.</li>
+<li>Identificar es declarar quién eres, autenticar es demostrarlo y autorizar es decidir tus permisos.</li>
+<li>MFA combina factores diferentes y limita el daño causado por una contraseña robada.</li>
+<li>Firmar no cifra. Los certificados vinculan claves públicas con identidades; DNIe y Cl@ve cumplen papeles relacionados pero distintos.</li>
+<li>Proteger documentos exige cuidar tránsito, almacenamiento, copias, permisos y eliminación.</li>
+</ol></section>
+
+<h2 id="fuentes">Fuentes y ampliación</h2>
+<ul>
+<li id="fuente_6">[6] <a href="https://www.incibe.es/ciudadania/tematicas/cifrado">INCIBE: Cifrado</a>.</li>
+<li id="fuente_7">[7] <a href="https://www.incibe.es/ciudadania/tematicas/contrasenas-seguras/autenticacion-de-dos-factores">INCIBE: Autenticación de dos factores</a>.</li>
+<li id="fuente_8">[8] <a href="https://www.incibe.es/index.php/ciudadania/tematicas/contrasenas-seguras">INCIBE: Contraseñas seguras</a>.</li>
+<li id="fuente_9">[9] <a href="https://www.cert.fnmt.es/curso-de-criptografia/criptografia-de-clave-asimetrica/firma-digital">FNMT: Firma digital</a>.</li>
+<li id="fuente_10">[10] <a href="https://www.cert.fnmt.es/curso-de-criptografia/certificados-digitales">FNMT: Certificados digitales</a>.</li>
+<li id="fuente_11">[11] <a href="https://csrc.nist.gov/glossary/term/hash" lang="en">NIST: Hash</a> (en inglés).</li>
+</ul>
+</article></div></main>
+<nav class="topic-footer" aria-label="Navegación entre temas"><a href="tema07.html">← Tema 7</a><a href="tema09.html">Tema 9 →</a></nav>
+<footer class="site-footer">Ciencias de la Computación II · 2.º de Bachillerato · Comunidad de Madrid</footer>
+</body></html>

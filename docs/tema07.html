@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Tema 7 de Ciencias de la Computación II: amenazas, malware, ingeniería social, identidad digital, respuesta ante incidentes y defensas básicas.">
+  <title>Tema 7. Amenazas, malware y factor humano · CC2</title>
+  <link rel="stylesheet" href="assets/estilos.css">
+  <script src="assets/navegacion.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#contenido">Saltar al contenido</a>
+<div class="progress" aria-hidden="true"><span></span></div>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="index.html"><span class="brand-mark">CC2</span><span>Ciencias de la Computación II<small>2.º de Bachillerato · 2026–2027</small></span></a>
+    <nav class="top-nav" aria-label="Navegación principal"><a href="index.html">Índice</a></nav>
+  </div>
+</header>
+<main id="contenido">
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <p class="kicker">Tema 7 · Bloque B · Ciberseguridad</p>
+        <h1>Amenazas, malware y factor humano</h1>
+        <p class="hero-lead">Qué protegemos, cómo entran las amenazas y por qué las decisiones humanas son una parte esencial de la seguridad.</p>
+      </div>
+      <aside class="hero-note" aria-label="Pregunta guía del tema 7">
+        <strong>Pregunta guía</strong>
+        <p>Si recibes un mensaje urgente que parece proceder de alguien conocido, ¿qué señales comprobarías antes de confiar?</p>
+      </aside>
+    </div>
+  </section>
+
+  <div class="layout">
+    <nav class="toc" aria-label="Índice del tema">
+      <strong>En este tema</strong>
+      <ol>
+        <li><a href="#principios">Principios de seguridad</a></li>
+        <li><a href="#malware">Tipos de malware</a></li>
+        <li><a href="#vectores">Vectores de entrada</a></li>
+        <li><a href="#vulnerabilidades">Vulnerabilidades</a></li>
+        <li><a href="#social">Ingeniería social</a></li>
+        <li><a href="#identidad">Huella e identidad digital</a></li>
+        <li><a href="#incidente">Actuación ante un incidente</a></li>
+        <li><a href="#defensas">Defensas y buenos hábitos</a></li>
+        <li><a href="#glosario">Glosario</a></li>
+        <li><a href="#resumen">Resumen</a></li>
+        <li><a href="#fuentes">Fuentes</a></li>
+      </ol>
+    </nav>
+
+    <article class="paper">
+      <p class="lesson-intro">La ciberseguridad consiste en reconocer qué puede salir mal, reducir el riesgo y saber responder con calma.</p>
+      <div class="question"><strong>Antes de empezar:</strong> ¿Qué tiene más valor en tu móvil: el aparato, los archivos, las cuentas o tu identidad?</div>
+      <div class="objectives">
+        <strong>Al terminar serás capaz de…</strong>
+        <ul>
+          <li>explicar confidencialidad, integridad y disponibilidad;</li>
+          <li>distinguir malware, vectores y vulnerabilidades;</li>
+          <li>detectar ingeniería social y suplantaciones;</li>
+          <li>relacionar huella digital, privacidad y reputación;</li>
+          <li>responder ante una infección o cuenta comprometida.</li>
+        </ul>
+      </div>
+
+      <h2 id="principios">1. Principios de seguridad: qué queremos proteger</h2>
+      <p>Un sistema seguro no es simplemente un sistema «sin virus». La información y los servicios deben conservar tres propiedades, conocidas como <strong>principios CIA</strong> por sus iniciales en inglés (<em>Confidentiality, Integrity, Availability</em>):</p>
+      <div class="tabla_responsiva">
+        <table>
+          <caption>Los tres principios básicos de la seguridad de la información</caption>
+          <thead><tr><th scope="col">Principio</th><th scope="col">Pregunta que responde</th><th scope="col">Ejemplo cercano</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Confidencialidad</strong></td><td>¿Solo accede quien tiene permiso?</td><td>Las calificaciones no deben quedar visibles para cualquier persona.</td></tr>
+            <tr><td><strong>Integridad</strong></td><td>¿La información sigue siendo correcta y completa?</td><td>Un trabajo entregado no debe poder alterarse sin autorización.</td></tr>
+            <tr><td><strong>Disponibilidad</strong></td><td>¿El dato o servicio está accesible cuando se necesita?</td><td>La plataforma educativa debe funcionar durante el plazo de entrega.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Piensa en una taquilla: limitar quién la abre protege la confidencialidad; impedir cambios, la integridad; y poder abrirla cuando hace falta, la disponibilidad.</p>
+      <h3>Seguridad activa y seguridad pasiva</h3>
+      <p>La <strong>seguridad activa</strong> previene, detecta o bloquea: actualizar, autenticar o analizar archivos. La <strong>seguridad pasiva</strong> limita el daño y facilita la recuperación: copias, registros y planes de respuesta.</p>
+      <div class="cc2-concept"><strong class="cc2-concept-tag">Concepto clave</strong>Prevenir y recuperarse se complementan: ninguna barrera es infalible.</div>
+
+      <h2 id="malware">2. Tipos de malware: no todo funciona igual</h2>
+      <p><strong>Malware</strong> es software usado para causar daño. Las categorías pueden solaparse.<sup><a href="#fuente_1">[1]</a></sup></p>
+      <div class="tabla_responsiva">
+        <table>
+          <caption>Principales tipos de malware</caption>
+          <thead><tr><th scope="col">Tipo</th><th scope="col">Rasgo principal</th><th scope="col">Efecto posible</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Virus</strong></td><td>Se inserta en otro archivo o programa y suele necesitar que se ejecute.</td><td>Altera archivos y se copia al compartir el elemento infectado.</td></tr>
+            <tr><td><strong>Gusano</strong></td><td>Se replica y se propaga por redes sin depender de un archivo huésped.</td><td>Infecta otros equipos y consume recursos con rapidez.</td></tr>
+            <tr><td><strong>Troyano</strong></td><td>Se presenta como una aplicación legítima o atractiva.</td><td>Abre una puerta de acceso, roba datos o instala otras amenazas.</td></tr>
+            <tr><td><strong>Ransomware</strong></td><td>Bloquea el dispositivo o cifra los datos para exigir un rescate.</td><td>Impide acceder a documentos y servicios.</td></tr>
+            <tr><td><strong>Spyware</strong></td><td>Recopila información sin conocimiento o consentimiento válido.</td><td>Observa hábitos, datos personales o credenciales.</td></tr>
+            <tr><td><strong>Adware</strong></td><td>Muestra publicidad invasiva y puede rastrear la actividad.</td><td>Modifica el navegador, degrada el equipo o invade la privacidad.</td></tr>
+            <tr><td><strong>Keylogger</strong></td><td>Registra pulsaciones del teclado u otras entradas.</td><td>Captura contraseñas, mensajes o datos introducidos.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="cc2-note">Un equipo lento no demuestra por sí solo que exista malware: diagnosticar no es adivinar.</div>
+
+      <h2 id="vectores">3. Vectores de entrada: las puertas que utiliza un ataque</h2>
+      <p>Un <strong>vector de ataque</strong> es la vía de entrada. El malware es la carga dañina; el vector, el camino que utiliza.</p>
+      <ul>
+        <li><strong>Adjuntos:</strong> documentos, archivos comprimidos o supuestas facturas que ocultan contenido malicioso.</li>
+        <li><strong>Enlaces:</strong> páginas que imitan un inicio de sesión, descargas engañosas o direcciones parecidas a las legítimas.</li>
+        <li><strong>Descargas:</strong> programas obtenidos de fuentes no fiables, versiones modificadas o instaladores que añaden software no deseado.</li>
+        <li><strong>Dispositivos USB:</strong> archivos infectados o dispositivos manipulados que pasan de un equipo a otro.</li>
+        <li><strong>Aplicaciones falsas:</strong> copias de juegos, utilidades o servicios que solicitan permisos desproporcionados.</li>
+      </ul>
+      <p>El canal no garantiza seguridad: una cuenta real puede haber sido robada. Antes de actuar, verifica <strong>origen, contexto, dirección y permisos</strong>.</p>
+      <div class="cc2-think"><strong>Para reflexionar:</strong> un mensaje inesperado afirma ser de una compañera y pide revisar «ya» un documento compartido. El nombre y la foto coinciden. ¿Qué datos del contexto podrían confirmar la petición por un canal distinto?</div>
+
+      <h2 id="vulnerabilidades">4. Vulnerabilidades: debilidades que se pueden aprovechar</h2>
+      <p>Una <strong>vulnerabilidad</strong> es una debilidad de diseño, programación, configuración o uso. No es un ataque: aumenta la posibilidad de daño. El <strong>riesgo</strong> depende de la probabilidad y del impacto.</p>
+      <div class="cc2-grid">
+        <section class="cc2-card">
+          <h3>Sistemas sin actualizar</h3>
+          <p>Conservan errores conocidos que una actualización podía corregir. Aplazar indefinidamente un parche mantiene abierta una debilidad documentada.</p>
+        </section>
+        <section class="cc2-card">
+          <h3>Configuraciones por defecto</h3>
+          <p>Credenciales iniciales, permisos excesivos o servicios innecesarios facilitan accesos que deberían haberse limitado.</p>
+        </section>
+        <section class="cc2-card">
+          <h3>Contraseñas débiles o repetidas</h3>
+          <p>Una clave breve, previsible o reutilizada convierte la filtración de un servicio en un riesgo para muchas cuentas.</p>
+        </section>
+      </div>
+      <p>También hay debilidades organizativas: permisos excesivos, procedimientos confusos o presión para actuar deprisa. Los controles comprensibles reducen errores.</p>
+      <div class="cc2-concept"><strong class="cc2-concept-tag">Amenaza, vulnerabilidad y riesgo</strong>La amenaza es lo que podría causar daño; la vulnerabilidad es la debilidad que puede aprovechar; el riesgo combina la posibilidad de que ocurra con sus consecuencias.</div>
+
+      <h2 id="social">5. Ingeniería social: atacar decisiones en lugar de máquinas</h2>
+      <p>La <strong>ingeniería social</strong> reúne técnicas de manipulación que buscan que una persona revele información, entregue dinero, conceda acceso o ejecute una acción. Suele explotar emociones normales: urgencia, miedo, curiosidad, confianza, autoridad o deseo de ayudar.<sup><a href="#fuente_2">[2]</a></sup></p>
+      <div class="tabla_responsiva">
+        <table>
+          <caption>Formas habituales de ingeniería social</caption>
+          <thead><tr><th scope="col">Técnica</th><th scope="col">Canal o forma</th><th scope="col">Señales de alerta</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Phishing</strong></td><td>Correo o página que suplanta a una entidad.</td><td>Petición inesperada, dominio extraño, enlace distinto del texto, amenaza o premio.</td></tr>
+            <tr><td><strong>Smishing</strong></td><td>Mensaje SMS o mensajería móvil fraudulenta.</td><td>Paquete retenido, pago urgente, enlace acortado o solicitud de datos.</td></tr>
+            <tr><td><strong>Vishing</strong></td><td>Llamada de voz que suplanta a soporte, banco u organismo.</td><td>Presión para facilitar códigos, instalar algo o actuar sin colgar.</td></tr>
+            <tr><td><strong>Suplantación</strong></td><td>Uso de una identidad ajena o aparente autoridad.</td><td>Cambio de canal, tono inusual, petición secreta o datos que no encajan.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Un logotipo y una redacción correcta no prueban autenticidad. La defensa es <strong>detenerse y usar un canal independiente</strong>: abrir la aplicación oficial o llamar a un número obtenido por otra vía.</p>
+      <aside class="aviso" aria-label="Advertencia sobre códigos de verificación"><strong>Nunca compartas códigos de verificación</strong>Una entidad legítima no necesita que le dictes el código de un solo uso que acaba de enviarte para que tú confirmes una operación. Ese código puede ser la última barrera de tu cuenta.</aside>
+
+      <h3>Un caso ficticio: el mensaje a Lucía</h3>
+      <p>Lucía recibe un SMS: «Tu cuenta educativa será suspendida hoy. Verifica tus datos aquí». El enlace abre una página casi idéntica a la habitual. Lucía nota tres señales: no esperaba el aviso, el mensaje fuerza una decisión inmediata y el dominio no coincide exactamente. En vez de usar el enlace, abre la web del centro desde un marcador conocido y consulta al responsable por el canal habitual. El supuesto problema no existe.</p>
+      <p>La clave fue romper la urgencia y verificar por otra vía, un método útil aunque cambie el aspecto del engaño.</p>
+
+      <h2 id="identidad">6. Huella, identidad digital, privacidad y reputación</h2>
+      <p>La <strong>identidad digital</strong> nos representa mediante perfiles, cuentas y publicaciones. La <strong>huella digital</strong> es el rastro de nuestra actividad: desde una foto hasta metadatos o registros. Privacidad es poder decidir qué se comparte, con quién y para qué.<sup><a href="#fuente_4">[4]</a></sup></p>
+      <ul>
+        <li><strong>Reputación:</strong> otros forman una impresión con información propia, ajena o falsa.</li>
+        <li><strong>Exposición:</strong> ubicación, rutinas o amistades facilitan engaños personalizados.</li>
+        <li><strong>Control:</strong> perder una cuenta permite hablar en nuestro nombre.</li>
+        <li><strong>Permanencia:</strong> borrar no elimina las copias que otros conserven.</li>
+      </ul>
+      <div class="cc2-think"><strong>Para reflexionar:</strong> antes de publicar, piensa si el contenido seguiría siendo adecuado fuera de contexto. Revisa audiencia, permisos y localización.</div>
+
+      <h2 id="incidente">7. Cómo actuar ante un incidente</h2>
+      <p>Accesos desconocidos, cambios no solicitados, mensajes ajenos, archivos inaccesibles o alertas son posibles síntomas. No prueban la causa, pero justifican actuar con calma.</p>
+      <div class="cc2-timeline">
+        <div class="cc2-tl-item"><div class="cc2-tl-year">1. Detener y aislar</div><p>No introducir más credenciales ni pagar. Ante indicios claros de infección, desconectar la red puede frenar la propagación. No borrar datos.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">2. Pedir ayuda y delimitar</div><p>Avisar a una persona adulta responsable y al soporte, si lo hay. Identificar qué dispositivo, cuenta o dato puede estar afectado.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">3. Proteger las cuentas</div><p>Desde un dispositivo fiable, cambiar primero la clave del correo, cerrar sesiones y activar autenticación multifactor. No reutilizar contraseñas.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">4. Conservar evidencias</div><p>Guardar mensajes, direcciones, fechas, capturas y avisos. No reenviar el contenido dañino.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">5. Recuperar y vigilar</div><p>Seguir al soporte, revisar la actividad, analizar el equipo y recuperar copias fiables. Avisar a contactos si recibieron mensajes suplantados.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">6. Comunicar o denunciar</div><p>Ante amenazas, fraude, acoso o robo de identidad, acudir con las evidencias a los canales oficiales.</p></div>
+      </div>
+      <aside class="aviso" aria-label="Ayuda ante incidentes de seguridad"><strong>Ayuda especializada</strong>El <a href="https://www.incibe.es/linea-de-ayuda-en-ciberseguridad">017 de INCIBE</a> ofrece asesoramiento en ciberseguridad.<sup><a href="#fuente_5">[5]</a></sup> <strong>No es un canal de denuncia</strong>; orienta sobre los pasos y recursos adecuados.</aside>
+      <p>Pagar un rescate no garantiza recuperar archivos. Ante ransomware: aísla, conserva evidencias y pide ayuda.</p>
+
+      <h2 id="defensas">8. Defensas: varias capas y buenos hábitos</h2>
+      <p>La <strong>defensa en profundidad</strong> combina medidas. Como al proteger una bicicleta con candado y un lugar visible, cada capa cubre una parte del riesgo.<sup><a href="#fuente_3">[3]</a></sup></p>
+      <div class="tabla_responsiva">
+        <table>
+          <caption>Defensas y finalidad principal</caption>
+          <thead><tr><th scope="col">Defensa</th><th scope="col">Qué aporta</th><th scope="col">Límite que conviene recordar</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Antivirus y antimalware</strong></td><td>Detectan, bloquean o aíslan muchas amenazas conocidas y comportamientos sospechosos.</td><td>No convierten en seguro cualquier archivo ni sustituyen el criterio.</td></tr>
+            <tr><td><strong>Actualizaciones</strong></td><td>Corrigen vulnerabilidades y mejoran las protecciones del sistema y las aplicaciones.</td><td>Deben proceder del mecanismo o fuente oficial.</td></tr>
+            <tr><td><strong>Copias de seguridad</strong></td><td>Permiten recuperar información tras borrado, avería, robo o ransomware.</td><td>Una copia conectada permanentemente puede verse afectada también; hay que comprobar que se restaura.</td></tr>
+            <tr><td><strong>Contraseñas únicas y robustas</strong></td><td>Evitan que la filtración de un servicio abra los demás.</td><td>Una clave puede ser robada; la autenticación multifactor añade otra barrera.</td></tr>
+            <tr><td><strong>Permisos mínimos</strong></td><td>Limita el acceso de aplicaciones y cuentas a lo necesario.</td><td>Requiere revisar permisos con el tiempo.</td></tr>
+            <tr><td><strong>Verificación antes de actuar</strong></td><td>Reduce engaños basados en urgencia, autoridad o suplantación.</td><td>Debe realizarse por un canal independiente, no respondiendo al mismo mensaje.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Estos controles funcionan mejor con hábitos constantes: bloquear el dispositivo, descargar desde fuentes oficiales, revisar permisos, proteger las cuentas principales y compartir solo la información necesaria.</p>
+      <div class="cc2-concept"><strong class="cc2-concept-tag">Defensa por capas</strong>Tecnología, hábitos, copias y respuesta cubren riesgos distintos.</div>
+
+      <h2 id="glosario">Glosario del tema</h2>
+      <dl class="cc2-glosario">
+        <dt>Confidencialidad</dt><dd>Propiedad que limita el acceso a la información a las personas o sistemas autorizados.</dd>
+        <dt>Integridad</dt><dd>Garantía de que los datos se mantienen correctos y no se modifican sin autorización.</dd>
+        <dt>Disponibilidad</dt><dd>Capacidad de acceder a la información o al servicio cuando se necesita.</dd>
+        <dt>Malware</dt><dd>Software creado o usado con una finalidad dañina.</dd>
+        <dt>Vector de ataque</dt><dd>Vía empleada para alcanzar un sistema o inducir una acción insegura.</dd>
+        <dt>Vulnerabilidad</dt><dd>Debilidad que puede ser aprovechada para afectar a un sistema o sus datos.</dd>
+        <dt>Ingeniería social</dt><dd>Manipulación de personas para obtener información, dinero, acceso o una acción.</dd>
+        <dt>Phishing</dt><dd>Suplantación mediante mensajes o páginas que buscan robar datos o provocar acciones.</dd>
+        <dt>Huella digital</dt><dd>Rastro de datos dejado por la actividad de una persona en entornos digitales.</dd>
+        <dt>Autenticación multifactor</dt><dd>Verificación de identidad mediante dos o más factores de distinta clase.</dd>
+        <dt>Copia de seguridad</dt><dd>Copia separada de datos que permite recuperarlos tras una pérdida o alteración.</dd>
+        <dt>Incidente de seguridad</dt><dd>Suceso que compromete o amenaza la confidencialidad, integridad o disponibilidad.</dd>
+      </dl>
+
+      <section class="summary">
+        <h2 id="resumen">Resumen esencial</h2>
+        <ol>
+          <li>La seguridad protege la confidencialidad, la integridad y la disponibilidad.</li>
+          <li>La seguridad activa previene y detecta; la pasiva limita daños y permite recuperar.</li>
+          <li>Virus, gusano, troyano, ransomware, spyware, adware y keylogger describen comportamientos distintos que pueden combinarse.</li>
+          <li>Adjuntos, enlaces, descargas, USB y aplicaciones falsas son vectores, no pruebas automáticas de infección.</li>
+          <li>Actualizar, cambiar configuraciones iniciales y evitar contraseñas repetidas reduce vulnerabilidades.</li>
+          <li>La ingeniería social explota emociones y contexto; detenerse y verificar por otro canal rompe el engaño.</li>
+          <li>La huella digital influye en privacidad, seguridad y reputación propia y ajena.</li>
+          <li>Ante un incidente: detener, pedir ayuda, proteger cuentas, conservar evidencias, recuperar y comunicar.</li>
+          <li>La defensa más sólida combina herramientas, actualizaciones, copias, autenticación y buenos hábitos.</li>
+        </ol>
+      </section>
+
+      <section aria-labelledby="fuentes">
+        <h2 id="fuentes">Fuentes y recursos fiables</h2>
+        <ul>
+          <li id="fuente_1">[1] <a href="https://www.incibe.es/ciudadania/tematicas/virus-amenazas">INCIBE — Virus y amenazas</a></li>
+          <li id="fuente_2">[2] <a href="https://www.incibe.es/ciudadania/formacion/guias/guia-de-ciberataques">INCIBE — Guía de ciberataques</a></li>
+          <li id="fuente_3">[3] <a href="https://www.incibe.es/index.php/ciudadania/tematicas/configuraciones-dispositivos">INCIBE — Configuraciones de dispositivos</a></li>
+          <li id="fuente_4">[4] <a href="https://www.aepd.es/documento/marco-conocimientos-privacidad-y-seguridad.pdf">AEPD — Marco de conocimientos de privacidad y seguridad en el ámbito educativo (PDF)</a></li>
+          <li id="fuente_5">[5] <a href="https://www.incibe.es/linea-de-ayuda-en-ciberseguridad">INCIBE — Línea de Ayuda en Ciberseguridad 017</a></li>
+        </ul>
+      </section>
+    </article>
+  </div>
+</main>
+<nav class="topic-footer" aria-label="Navegación entre temas">
+  <a href="tema06.html">← Tema 6</a>
+  <a href="tema08.html">Tema 8 →</a>
+</nav>
+<footer class="site-footer">Ciencias de la Computación II · 2.º de Bachillerato · Comunidad de Madrid</footer>
+</body>
+</html>

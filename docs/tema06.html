@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Tema 6 del Bloque A de Ciencias de la Computación II: Cómo planificar una red pequeña, configurar equipos y Wi‑Fi, comprobarla de forma ordenada y localizar averías.">
 <title>Tema 6. Diseño, configuración y diagnóstico de una red local · CC2</title><link rel="stylesheet" href="assets/estilos.css"><script src="assets/navegacion.js" defer></script></head>
@@ -33,23 +33,23 @@
   </p>
 <h2 id="wifi">3. Configuración básica de redes inalámbricas</h2><p>
     Configurar el acceso Wi-Fi de un dispositivo implica, como mínimo, estos elementos:
-  </p><table class="cc2-table">
-<tr><th>Parámetro</th><th>Qué es</th></tr>
+  </p><div class="tabla_responsiva"><table class="cc2-table">
+<thead><tr><th>Parámetro</th><th>Qué es</th></tr></thead><tbody>
 <tr><td><strong>SSID</strong></td><td>El nombre de la red Wi-Fi tal y como aparece al buscar redes disponibles</td></tr>
 <tr><td><strong>Contraseña / clave</strong></td><td>La clave de acceso, protegida con WPA2 o WPA3 (Tema 1)</td></tr>
 <tr><td><strong>Banda de frecuencia</strong></td><td>2,4 GHz (más alcance) o 5 GHz (más velocidad, menos alcance); muchos routers ofrecen ambas a la vez</td></tr>
-</table><div class="cc2-think">
+</tbody></table></div><div class="cc2-think">
     🤔 <strong>Para pensar:</strong> algunos centros educativos ocultan el SSID de su red administrativa (no
     aparece al buscar redes) y solo publican el SSID de la red de invitados/alumnado. ¿Qué ventaja de seguridad
     —y qué limitación real— tiene ocultar el nombre de una red Wi-Fi?
   </div>
-<h2 id="herramientas">4. Herramientas de diagnóstico: ping, tracert, ipconfig, nslookup</h2><table class="cc2-table">
-<tr><th>Herramienta</th><th>Qué hace</th><th>Ejemplo de uso</th></tr>
+<h2 id="herramientas">4. Herramientas de diagnóstico: ping, tracert, ipconfig, nslookup</h2><div class="tabla_responsiva"><table class="cc2-table">
+<thead><tr><th>Herramienta</th><th>Qué hace</th><th>Ejemplo de uso</th></tr></thead><tbody>
 <tr><td><code class="cc2-code">ipconfig /all</code></td><td>Muestra la configuración de red del propio equipo (IP, máscara, gateway, DNS, MAC)</td><td>Comprobar qué configuración tiene tu equipo ahora mismo</td></tr>
 <tr><td><code class="cc2-code">ping</code></td><td>Comprueba si hay conectividad con otro equipo y mide el tiempo de respuesta</td><td><code class="cc2-code">ping 192.168.1.1</code> — ¿responde mi puerta de enlace?</td></tr>
 <tr><td><code class="cc2-code">tracert</code> (Windows) / <code class="cc2-code">traceroute</code> (Linux/Mac)</td><td>Muestra todos los "saltos" (routers) por los que pasa un paquete hasta llegar a su destino</td><td><code class="cc2-code">tracert google.com</code> — ¿en qué punto del camino se pierde la conexión?</td></tr>
 <tr><td><code class="cc2-code">nslookup</code></td><td>Consulta manualmente al servidor DNS a qué IP corresponde un nombre de dominio</td><td><code class="cc2-code">nslookup moodle.instituto.es</code> — ¿el DNS resuelve bien este nombre?</td></tr>
-</table>
+</tbody></table></div>
 <h2 id="problemas">5. Resolución de problemas básicos de conectividad</h2><p>
     Cuando "no funciona Internet", conviene comprobar las cosas de dentro hacia fuera, en orden, en vez de
     probar al azar:
@@ -96,6 +96,6 @@
 <h2 id="glosario">Glosario del tema</h2><dl class="cc2-glosario"><dt>DHCP</dt><dd>Servicio que entrega automáticamente la configuración IP.</dd><dt>SSID</dt><dd>Nombre público con el que se anuncia una red Wi‑Fi.</dd><dt>Ping</dt><dd>Prueba de alcance y tiempo de respuesta mediante ICMP.</dd><dt>Traceroute/tracert</dt><dd>Muestra los saltos observables hacia un destino.</dd><dt>Nslookup</dt><dd>Consulta un servidor DNS.</dd><dt>APIPA</dt><dd>Autoconfiguración IPv4 169.254.0.0/16 usada cuando no responde DHCP.</dd></dl>
 <section class="summary"><h2 id="resumen">Resumen esencial</h2><ol><li>Una red mantenible empieza con inventario, esquema, plan de direcciones y documentación.</li><li>DHCP simplifica los puestos; reservas o direcciones fijas ayudan en servidores e impresoras.</li><li>El Wi‑Fi necesita cobertura, canal y seguridad WPA2/WPA3 con buena contraseña.</li><li>Cada herramienta responde una pregunta: configuración, alcance, ruta o resolución de nombres.</li><li>El diagnóstico progresa desde lo físico hasta la aplicación.</li><li>Se cambia una variable cada vez y se registra el resultado.</li></ol></section>
 </article></div></main>
-<nav class="topic-footer" aria-label="Navegación entre temas"><a href="tema05.html">← Tema 5</a><a href="index.html">Índice del bloque →</a></nav>
+<nav class="topic-footer" aria-label="Navegación entre temas"><a href="tema05.html">← Tema 5</a><a href="tema07.html">Tema 7 →</a></nav>
 <footer class="site-footer">Ciencias de la Computación II · 2.º de Bachillerato · Comunidad de Madrid</footer>
 </body></html>

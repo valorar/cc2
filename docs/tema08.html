@@ -24,7 +24,7 @@
 <div class="tabla_responsiva"><table class="cc2-table"><thead><tr><th>Técnica</th><th>Pregunta que responde</th><th>¿Es reversible?</th><th>Ejemplo</th></tr></thead><tbody>
 <tr><td><strong>Cifrado</strong></td><td>¿Quién puede leerlo?</td><td>Sí, con la clave correcta</td><td>Un archivo cifrado en un portátil</td></tr>
 <tr><td><strong>Hash</strong></td><td>¿Ha cambiado?</td><td>No está pensado para revertirse</td><td>Comparar la huella publicada de una descarga</td></tr>
-<tr><td><strong>Firma digital</strong></td><td>¿Quién lo firmó y sigue intacto?</td><td>No “descifra” el documento</td><td>Firmar una solicitud electrónica</td></tr>
+<tr><td><strong>Firma digital</strong></td><td>¿Es auténtico y sigue intacto?</td><td>No “descifra” el documento</td><td>Firmar una solicitud electrónica</td></tr>
 </tbody></table></div>
 <p>Una buena función hash hace que un cambio mínimo produzca una huella muy distinta y dificulta encontrar dos contenidos con la misma huella. <strong>Un hash por sí solo no demuestra autoría</strong>: cualquiera puede calcularlo. Para asociar integridad e identidad se necesita, por ejemplo, una firma digital.</p>
 <div class="cc2-concept"><strong class="cc2-concept-tag">Tres propiedades diferentes</strong><strong>Confidencialidad</strong>: que no lean el dato. <strong>Integridad</strong>: que una alteración sea detectable. <strong>Autenticidad</strong>: que podamos comprobar su origen. Una herramienta puede aportar una o varias, pero no deben confundirse.</div>
@@ -100,7 +100,7 @@
 <div class="cc2-card"><h3>Al compartir</h3><p>Enviar solo lo necesario, revisar metadatos y destinatarios, fijar caducidad cuando sea posible y comunicar claves por un canal distinto.</p></div>
 <div class="cc2-card"><h3>Al retirar</h3><p>Eliminar copias, enlaces compartidos, papelera y versiones. Para soportes reutilizados, emplear la función de borrado seguro recomendada por el fabricante o destruirlos si procede.</p></div>
 </div>
-<p>“Borrar” suele eliminar la referencia al archivo, no todos sus restos. En discos magnéticos puede usarse sobrescritura; en SSD y memorias flash, su reparto interno hace que sobrescribir un archivo no sea fiable. Son preferibles el borrado seguro, el restablecimiento criptográfico o la destrucción según la sensibilidad.</p>
+<p>“Borrar” suele eliminar la referencia al archivo, no todos sus restos. En discos magnéticos puede usarse sobrescritura; en SSD y memorias flash, su reparto interno hace que sobrescribir un archivo no sea fiable. Son preferibles el borrado seguro, el <strong>borrado criptográfico</strong> —que inutiliza la clave con la que estaban cifrados los datos— o la destrucción, según la sensibilidad.</p>
 <div class="cc2-note"><strong>Cifrar desde el principio</strong>Si todo el disco estaba cifrado y la clave se destruye de forma efectiva, los restos resultan ininteligibles. Pero hay que localizar también copias sincronizadas, adjuntos, copias de seguridad y dispositivos antiguos: borrar el original no borra sus duplicados.</div>
 
 <h2 id="glosario">Glosario del tema</h2>

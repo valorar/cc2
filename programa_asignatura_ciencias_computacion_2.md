@@ -68,22 +68,18 @@ Cómo planificar una red pequeña, configurar equipos y Wi‑Fi, comprobarla de 
 
 ## Bloque B — Seguridad en sistemas informáticos y redes
 
-### Tema 7. Amenazas, vulnerabilidades y malware
+### Tema 7. Amenazas, malware y factor humano
 
 Qué se protege en un sistema informático, qué tipos de malware y vectores de ataque existen, cómo se aprovechan de las vulnerabilidades y del factor humano, qué hábitos básicos previenen la mayoría de los ataques y cómo actuar ante un engaño o una cuenta comprometida.
 
-- principios de la seguridad: confidencialidad, integridad y disponibilidad.
-- seguridad activa y pasiva: prevenir frente a reaccionar y recuperarse.
+- principios de la seguridad: confidencialidad, integridad y disponibilidad; seguridad activa y pasiva.
 - tipos de malware: virus, gusanos, troyanos, ransomware, spyware, adware y keyloggers.
 - vectores de entrada: adjuntos, enlaces, descargas, dispositivos USB y aplicaciones falsas.
 - vulnerabilidades: sistemas sin actualizar, configuraciones por defecto y contraseñas débiles.
 - ingeniería social: phishing, smishing, vishing y suplantación de identidad.
 - huella e identidad digital: reputación, privacidad y exposición en redes sociales.
-- síntomas de infección y actuación ante un equipo comprometido.
-- actuación ante una cuenta robada o suplantada: evidencias, cambios de contraseña y denuncia.
-- antivirus y antimalware: qué detectan, qué no y por qué no bastan por sí solos.
-- actualizaciones y copias de seguridad como primera línea de defensa.
-- buenas prácticas: fuentes fiables, bloqueo de sesión y desconfianza ante lo urgente.
+- actuación ante un incidente: síntomas de infección, cuenta robada, evidencias y denuncia.
+- defensas: antivirus y antimalware, actualizaciones, copias de seguridad y buenas prácticas.
 
 ### Tema 8. Criptografía, autenticación e identidad digital
 
@@ -96,19 +92,18 @@ Cómo la criptografía garantiza la confidencialidad y la integridad, cómo se d
 - verificación e identificación: algo que se sabe, se tiene o se es.
 - autenticación multifactor como segunda barrera frente a la contraseña.
 - firma y certificados digitales: DNIe, Cl@ve y correo electrónico.
-- protección de documentos y comunicaciones: cifrado de archivos y borrado seguro de información.
+- protección de documentos: cifrado de archivos y borrado seguro de información.
 
 ### Tema 9. Seguridad de redes, aplicaciones y hacking ético
 
 Cómo se defiende el perímetro de una red y se vigila su tráfico, por qué las aplicaciones son también objetivo de ataque y qué es el hacking ético dentro de su marco legal.
 
 - seguridad perimetral: cortafuegos con reglas por dirección IP y puerto.
-- proxy: intermediario entre el equipo e internet, con filtrado y caché; no confundir con el NAT.
+- proxy: intermediario de aplicación con filtrado y caché, frente al NAT del tema 5.
 - VPN: túnel cifrado sobre redes no fiables.
 - seguridad de la red inalámbrica: redes abiertas, WPA2/WPA3 y portales cautivos.
 - verificadores de integridad y sistemas de detección y prevención de intrusiones (IDS/IPS).
-- seguridad de aplicaciones: validación de entradas y no confiar en los datos del usuario.
-- vulnerabilidades frecuentes, citadas como ejemplos: inyección de código (SQL), guiones en páginas web (XSS) y exposición de datos.
+- seguridad de aplicaciones: validación de entradas y desconfianza de los datos del usuario; inyección de código, XSS y exposición de datos.
 - hacking ético: concepto, objetivos y diferencias con la actividad delictiva.
 - fases de una auditoría de seguridad: reconocimiento, análisis, explotación controlada e informe.
 - marco legal y límites: permiso y alcance, Código Penal y protección de datos.

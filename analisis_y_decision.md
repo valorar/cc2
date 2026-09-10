@@ -2,7 +2,7 @@
 
 ## Decisión: seis temas
 
-Se crean **seis temas teóricos**. Esta cantidad no se elige para imitar v1, sino para corregir dos desequilibrios de v2: su Tema 2 reúne demasiados conceptos físicos y su Tema 4 mezcla fundamentos de direccionamiento con procedimientos de configuración y diagnóstico.
+Se crean **seis temas teóricos**. Esta cantidad evita dos desequilibrios: una unidad que reúna demasiados conceptos físicos y otra que mezcle fundamentos de direccionamiento con procedimientos de configuración y diagnóstico.
 
 La secuencia responde a seis preguntas consecutivas:
 
@@ -13,23 +13,9 @@ La secuencia responde a seis preguntas consecutivas:
 5. **¿Cómo se identifica cada destino y qué servicios sostienen la red?** Direccionamiento y servicios.
 6. **¿Cómo se diseña, configura y repara?** Configuración y diagnóstico.
 
-## Qué se toma de cada versión
-
-| Aportación | v1 | v2 | Tratamiento definitivo |
-|---|:---:|:---:|---|
-| Explicación breve y orientada a problemas | ✓ | | Se conserva en preguntas guía, ejemplos y resúmenes. |
-| Señal analógica/digital, ruido y regeneración | ✓ | | Se incorpora al Tema 3. |
-| Diagnóstico por capas | ✓ | parcial | Se refuerza en los Temas 4 y 6. |
-| Cronología detallada | ✓ | ✓ | Se integra en el Tema 1, donde da contexto. |
-| Componentes y electrónica de red | parcial | ✓ | Se adopta el desarrollo amplio de v2 en el Tema 1. |
-| Topologías e infraestructura física | parcial | ✓ | Se divide entre los Temas 2 y 3. |
-| OSI y TCP/IP, TCP/UDP y protocolos de aplicación | parcial | ✓ | Se reúne en el Tema 4. |
-| MAC, IPv4/IPv6, subredes, DHCP y NAT | parcial | ✓ | Se reúne en el Tema 5. |
-| Configuración y herramientas de diagnóstico | ✓ | ✓ | Se combina y ordena en el Tema 6. |
-
 ## Por qué no cuatro o cinco
 
-- **Cuatro temas** reproducirían la estructura de v2, pero mantendrían dos unidades demasiado largas y heterogéneas.
+- **Cuatro temas** mantendrían dos unidades demasiado largas y heterogéneas.
 - **Cinco temas** permitirían separar direccionamiento de configuración, pero aún dejarían tipos, topologías, señales, medios y cableado en un único tema desproporcionado.
 - **Seis temas** ofrecen unidades con una idea central reconocible, una carga más equilibrada y transiciones naturales.
 
@@ -38,12 +24,12 @@ La secuencia responde a seis preguntas consecutivas:
 - Solo se incluye teoría: no hay prácticas, cuestionarios ni ponderaciones.
 - Las páginas son autónomas, adaptables a móvil, imprimibles y navegables con teclado.
 - Cada tema incluye pregunta guía, objetivos, conceptos desarrollados, ejemplos, glosario o resumen.
-- Se eliminan los marcadores de imágenes todavía inexistentes de v2 para no presentar materiales incompletos.
-- Se mantienen enlaces a fuentes curriculares y técnicas ya presentes en los originales.
+- No se incluyen marcadores de imágenes inexistentes: no se publican materiales incompletos.
+- Se incluyen enlaces a fuentes curriculares y técnicas.
 
 ## Bloque C — Decisión: cuatro temas
 
-Se crean **cuatro temas teóricos**: fundamentos de imagen, edición de imágenes y gráficos vectoriales, audio y vídeo. Esta estructura conserva la separación de audio y vídeo de la versión 2 y evita que toda la representación y edición de imagen quede acumulada en una sola unidad.
+Se crean **cuatro temas teóricos**: fundamentos de imagen, edición de imágenes y gráficos vectoriales, audio y vídeo. Esta estructura mantiene audio y vídeo como unidades propias y evita que toda la representación y edición de imagen quede acumulada en una sola unidad.
 
 La secuencia responde a cuatro preguntas consecutivas:
 
@@ -51,16 +37,6 @@ La secuencia responde a cuatro preguntas consecutivas:
 2. **¿Cómo se crean y transforman recursos visuales?** Edición rasterizada con GIMP y creación vectorial con Inkscape.
 3. **¿Cómo se representa y produce el sonido?** Digitalización, formatos, grabación y mezcla con Audacity.
 4. **¿Cómo se integran imagen, texto y sonido en el tiempo?** Montaje y lenguaje audiovisual con Kdenlive.
-
-### Qué se toma de cada versión
-
-| Aportación | v1 | v2 | Tratamiento definitivo |
-|---|:---:|:---:|---|
-| Imagen rasterizada y vectorial, resolución, color y formatos | ✓ | ✓ | Se reúne en el Tema 10 como base común. |
-| Edición rasterizada y creación vectorial | ✓ | ✓ | Se desarrolla en el Tema 11 con GIMP e Inkscape. |
-| Audio y vídeo en un único tema | ✓ | | Se descarta para evitar una unidad demasiado heterogénea. |
-| Audio como tema propio | | ✓ | Se adopta en el Tema 12 y se refuerzan digitalización, mezcla y exportación. |
-| Vídeo y lenguaje audiovisual como tema propio | | ✓ | Se adopta en el Tema 13 como integración final de medios. |
 
 ### Por qué no tres o cinco
 
@@ -97,22 +73,11 @@ La secuencia responde a seis preguntas:
 5. **¿Cómo cambia la programación en otros entornos?** Jupyter Notebook y Thonny, panorama de aplicaciones móviles y una introducción breve al software adaptativo, la inteligencia artificial, el aprendizaje automático y los agentes.
 6. **¿Cómo integramos o ampliamos lo aprendido?** Proyecto personal voluntario.
 
-### Qué se toma de cada versión
-
-| Aportación | v1 | v2 | Tratamiento definitivo |
-|---|:---:|:---:|---|
-| Reactivación de Python y funciones | ✓ | desarrollada en tres temas | Se concentra en el Tema 14 sin repetir CC I. |
-| Colecciones y ficheros | unidos | separados | Se reúnen en el Tema 15 como ciclo de tratamiento y persistencia de datos. |
-| Clases y objetos | ✓ | ✓ | Se conserva como Tema 16 propio y de alcance introductorio. |
-| Depuración, pruebas y mejora | ✓ | ✓ | Se sistematiza en el Tema 17 y se practica desde el inicio. |
-| Entornos móviles y software adaptativo | mención | ✓ | Se conocen y comparan en el Tema 18, sin exigir una aplicación móvil completa; el software adaptativo se trata de forma breve y se relaciona con IA, aprendizaje automático y agentes. |
-| Proyecto final | obligatorio | obligatorio | Se transforma en el Tema 19, ampliación voluntaria. |
-
 ### Por qué cinco temas obligatorios
 
 - **Cuatro temas** obligarían a mezclar contenidos nuevos y distintos, o a dejar entornos móviles y software adaptativo como menciones marginales.
 - **Cinco temas** permiten una progresión práctica y cubren todo el currículo sin depender del proyecto personal.
-- **Seis o más temas obligatorios** reproducirían la fragmentación de la versión 2 y dedicarían demasiado espacio a contenidos básicos ya estudiados en CC I.
+- **Seis o más temas obligatorios** fragmentarían el bloque y dedicarían demasiado espacio a contenidos básicos ya estudiados en CC I.
 
 ### Decisiones metodológicas
 

@@ -2,7 +2,7 @@
 
 ## 2.º de Bachillerato · optativa · Comunidad de Madrid
 
-Documento de referencia de los contenidos teóricos de la asignatura, organizado según los bloques oficiales del currículo. Esta versión integra el Bloque A y el Bloque B (temas 1 a 9); los bloques C y D se incorporarán cuando su programa esté definido. No incluye prácticas ni instrumentos de evaluación, que se tratarán por separado.
+Documento de referencia de los contenidos teóricos de la asignatura, organizado según los bloques oficiales del currículo. Esta versión integra los bloques A, B y C (temas 1 a 13); el Bloque D se incorporará cuando su programa esté definido. No incluye prácticas ni instrumentos de evaluación, que se tratarán por separado.
 
 ## Bloque A — Las redes informáticas
 
@@ -110,7 +110,56 @@ Cómo se defiende el perímetro de una red y se vigila su tráfico, por qué las
 
 ## Bloque C — Software: herramientas y aplicaciones
 
-Pendiente de desarrollo: imagen, audio y vídeo digitales. Se incorporará a este documento cuando su programa esté definido.
+### Tema 10. Fundamentos de la imagen digital
+
+Cómo se representa una imagen digital, qué diferencias existen entre mapas de bits y gráficos vectoriales y cómo influyen la resolución, el color, la compresión y el formato en su calidad y uso.
+
+- imagen digital, píxel, dimensiones, resolución y tamaño.
+- digitalización y profundidad de color.
+- imagen rasterizada frente a imagen vectorial.
+- modos de color: escala de grises, color indexado, RGB, HSV y CMYK.
+- formatos gráficos, transparencia y compatibilidad.
+- compresión con y sin pérdida.
+- creación, compresión, exportación y elección del formato según el destino.
+
+### Tema 11. Edición de imágenes y gráficos vectoriales
+
+Cómo transformar, corregir y combinar imágenes con GIMP, crear gráficos con Inkscape y exportar cada trabajo con una intención visual y de acuerdo con su finalidad.
+
+- capas, selecciones, máscaras y transparencia.
+- recorte, cambio de tamaño, resolución y transformaciones.
+- ajustes de luminosidad, contraste y color.
+- reparación, retoque, filtros y efectos.
+- composición, equilibrio, contraste y jerarquía visual.
+- formas, trazados, nodos y texto en gráficos vectoriales.
+- relación entre recursos rasterizados y vectoriales.
+- conservación del archivo editable y exportación para pantalla o impresión.
+
+### Tema 12. Audio digital y edición multipista
+
+Cómo se digitaliza el sonido, qué determina su calidad y cómo grabarlo, editarlo y mezclarlo con Audacity para obtener una pieza sonora clara y adecuada a su propósito.
+
+- onda sonora, frecuencia, amplitud y canales.
+- frecuencia de muestreo y profundidad de bits.
+- formatos de audio, conversión y compresión.
+- grabación, importación, selección y recorte.
+- edición multipista, mezcla y sincronización.
+- volumen, tono, velocidad, normalización y reducción de ruido.
+- fundidos, efectos y uso intencionado del sonido.
+- creación, compresión y exportación según la calidad, el tamaño y el destino.
+
+### Tema 13. Vídeo digital y lenguaje audiovisual
+
+Cómo se representa y organiza el vídeo, cómo construir un montaje con Kdenlive y cómo utilizar imagen, sonido, títulos y ritmo con una intención comunicativa.
+
+- resolución, relación de aspecto y fotogramas por segundo.
+- formatos, códecs, contenedores y compresión.
+- planificación, encuadre, composición, continuidad y ritmo.
+- importación y organización del material.
+- línea de tiempo, pistas, recortes, montaje y transiciones.
+- incorporación, mezcla y sincronización del sonido.
+- títulos, subtítulos, filtros y efectos especiales.
+- creación, renderizado y exportación según la calidad, el tamaño y el destino.
 
 ## Bloque D — Programación
 
@@ -122,10 +171,13 @@ Para el Bloque A, la reorganización conserva todos los núcleos teóricos expre
 
 Para el Bloque B, los tres temas de la propuesta se renumeran como temas 7 a 9 —identificadores tema07, tema08 y tema09— a continuación del Bloque A. Cubren por nombre todas las líneas del currículo oficial: técnicas contra el malware; criptografía, protocolos seguros, uso de claves y protección de documentos; sistemas de verificación e identificación; seguridad perimetral (cortafuegos y VPN); verificadores de integridad y sistemas de detección de intrusiones; seguridad en lenguajes y aplicaciones; y hacking ético. La ingeniería social, el phishing, la huella digital, las copias de seguridad y el marco legal del hacking ético amplían el texto oficial con contenidos formativos cercanos al alumnado, dentro de su espíritu y sin nivel de ingeniería.
 
+Para el Bloque C, se eligen cuatro temas en lugar de agrupar imagen, audio y vídeo en solo tres. La imagen necesita distinguir sus fundamentos —representación, resolución, color, formatos y compresión— de la edición rasterizada y la creación vectorial. Audio y vídeo permanecen separados porque poseen procesos, formatos y lenguajes propios. La secuencia comprender → crear recursos visuales → producir sonido → integrar un montaje audiovisual distribuye mejor la carga y aprovecha el software disponible en el aula: GIMP, Inkscape, Audacity y Kdenlive.
+
 ## Alineación con los criterios de evaluación
 
 - Bloque A (temas 1–6): criterios 1.1, 1.2, 2.1 y 2.2.
 - Bloque B (temas 7–9): criterio 2.3.
+- Bloque C (temas 10–13): criterios 3.1 y 3.2.
 
 ## Fuentes curriculares mantenidas
 

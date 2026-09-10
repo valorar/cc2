@@ -164,11 +164,11 @@ Cómo se representa y organiza el vídeo, cómo construir un montaje con Kdenliv
 
 ## Bloque D — Programación
 
-### Tema 14. Python en Google Colab: reactivación y diseño de programas
+### Tema 14. Python en Jupyter Notebook: reactivación y diseño de programas
 
 Cómo recuperar lo aprendido en Ciencias de la Computación I, trabajar desde el primer momento con código Python ejecutable y dividir un problema en funciones comprobables y documentadas sin recurrir al pseudocódigo.
 
-- Google Colab: cuadernos, celdas, ejecución y estado de la sesión.
+- Jupyter Notebook: concepto de Notebook, celdas, ejecución y estado de la sesión.
 - repaso aplicado de variables, tipos, operadores, entrada y salida.
 - condicionales y bucles dentro de pequeños programas completos.
 - funciones, parámetros, argumentos y valores de retorno.
@@ -179,7 +179,7 @@ Cómo recuperar lo aprendido en Ciencias de la Computación I, trabajar desde el
 
 ### Tema 15. Colecciones, procesamiento y persistencia de datos
 
-Cómo escoger estructuras de almacenamiento, procesar conjuntos de datos y conservar o intercambiar los resultados mediante ficheros desde Google Colab.
+Cómo escoger estructuras de almacenamiento, procesar conjuntos de datos y conservar o intercambiar los resultados mediante ficheros desde un Jupyter Notebook.
 
 - listas, tuplas, diccionarios y conjuntos.
 - acceso, modificación, recorrido, búsqueda, ordenación, filtrado y agregación.
@@ -187,7 +187,7 @@ Cómo escoger estructuras de almacenamiento, procesar conjuntos de datos y conse
 - elección de la colección adecuada para cada problema.
 - lectura y escritura de ficheros con gestores de contexto.
 - formatos de texto, CSV y JSON.
-- rutas, codificación y almacenamiento temporal en Google Colab.
+- rutas, codificación y almacenamiento temporal en un Notebook.
 - carga, validación, transformación y exportación de datos.
 
 ### Tema 16. Clases y objetos: modelar un problema
@@ -218,10 +218,10 @@ Cómo localizar la causa de un fallo, comprobar que una corrección funciona y m
 
 ### Tema 18. Entornos, aplicaciones móviles y software adaptativo
 
-Cómo cambia la programación entre Google Colab y un IDE como Thonny, qué posibilidades ofrecen los entornos de creación de aplicaciones móviles y cómo se relaciona el software adaptativo con la inteligencia artificial, el aprendizaje automático y los agentes.
+Cómo cambia la programación entre Jupyter Notebook y un IDE como Thonny, qué posibilidades ofrecen los entornos de creación de aplicaciones móviles y cómo se relaciona el software adaptativo con la inteligencia artificial, el aprendizaje automático y los agentes.
 
 - componentes de un entorno: editor, ejecución, consola, depurador y bibliotecas.
-- Google Colab frente a Thonny: cuadernos, programas, archivos y ejecución.
+- Jupyter Notebook frente a Thonny: Notebooks, programas, archivos y ejecución.
 - criterios para elegir un entorno según el tipo de programa, los recursos disponibles y la forma de ejecución o distribución.
 - posibilidades y límites de los entornos locales y en la nube.
 - panorama de los entornos para crear aplicaciones móviles.
@@ -250,7 +250,7 @@ Para el Bloque B, los tres temas de la propuesta se renumeran como temas 7 a 9 �
 
 Para el Bloque C, se eligen cuatro temas en lugar de agrupar imagen, audio y vídeo en solo tres. La imagen necesita distinguir sus fundamentos —representación, resolución, color, formatos y compresión— de la edición rasterizada y la creación vectorial. Audio y vídeo permanecen separados porque poseen procesos, formatos y lenguajes propios. La secuencia comprender → crear recursos visuales → producir sonido → integrar un montaje audiovisual distribuye mejor la carga y aprovecha el software disponible en el aula: GIMP, Inkscape, Audacity y Kdenlive.
 
-Para el Bloque D, se eligen cinco temas obligatorios y un proyecto voluntario. No se repiten en unidades independientes la sintaxis, las estructuras de control y las funciones ya trabajadas en Ciencias de la Computación I: se reactivan programando desde la primera sesión en Google Colab. Colecciones y ficheros forman una misma secuencia de tratamiento y persistencia de datos; clases y objetos, depuración y calidad, y la exploración de otros entornos conservan temas propios. El alumnado planifica mediante ejemplos, casos de prueba, funciones y organización incremental del código, sin convertir el pseudocódigo en contenido del curso. Los entornos móviles y el software adaptativo se trabajan de forma obligatoria en el Tema 18, de modo que ningún saber ni criterio oficial depende del proyecto voluntario.
+Para el Bloque D, se eligen cinco temas obligatorios y un proyecto voluntario. No se repiten en unidades independientes la sintaxis, las estructuras de control y las funciones ya trabajadas en Ciencias de la Computación I: se reactivan programando desde la primera sesión en Jupyter Notebook. Colecciones y ficheros forman una misma secuencia de tratamiento y persistencia de datos; clases y objetos, depuración y calidad, y la exploración de otros entornos conservan temas propios. El alumnado planifica mediante ejemplos, casos de prueba, funciones y organización incremental del código, sin convertir el pseudocódigo en contenido del curso. Los entornos móviles y el software adaptativo se trabajan de forma obligatoria en el Tema 18, de modo que ningún saber ni criterio oficial depende del proyecto voluntario.
 
 ## Alineación con los criterios de evaluación
 

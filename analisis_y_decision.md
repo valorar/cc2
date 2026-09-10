@@ -90,11 +90,11 @@ Se crean **cinco temas obligatorios**, del 14 al 18, y un **Tema 19 voluntario**
 
 La secuencia responde a seis preguntas:
 
-1. **¿Cómo retomamos Python y estructuramos una solución?** Código ejecutable, funciones y casos de prueba en Google Colab.
+1. **¿Cómo retomamos Python y estructuramos una solución?** Código ejecutable, funciones y casos de prueba en Jupyter Notebook.
 2. **¿Cómo organizamos y conservamos datos?** Colecciones, procesamiento y ficheros.
 3. **¿Cómo modelamos entidades con estado y comportamiento?** Clases y objetos.
 4. **¿Cómo encontramos fallos y demostramos que una corrección funciona?** Depuración, excepciones y pruebas.
-5. **¿Cómo cambia la programación en otros entornos?** Google Colab y Thonny, panorama de aplicaciones móviles y una introducción breve al software adaptativo, la inteligencia artificial, el aprendizaje automático y los agentes.
+5. **¿Cómo cambia la programación en otros entornos?** Jupyter Notebook y Thonny, panorama de aplicaciones móviles y una introducción breve al software adaptativo, la inteligencia artificial, el aprendizaje automático y los agentes.
 6. **¿Cómo integramos o ampliamos lo aprendido?** Proyecto personal voluntario.
 
 ### Qué se toma de cada versión
@@ -116,8 +116,8 @@ La secuencia responde a seis preguntas:
 
 ### Decisiones metodológicas
 
-- Python se utiliza desde la primera sesión y Google Colab es el entorno principal.
-- Thonny se utiliza brevemente como segundo entorno Python para comparar el trabajo con cuadernos y programas y practicar la depuración paso a paso.
+- Python se utiliza desde la primera sesión y Jupyter Notebook es el modelo de trabajo principal; en clase se accede mayoritariamente mediante el servicio Google Colab.
+- Thonny se utiliza brevemente como segundo entorno Python para comparar el trabajo con Notebooks y programas y practicar la depuración paso a paso.
 - No se incluye pseudocódigo. El profesor explica oralmente los algoritmos y la planificación se concreta con ejemplos, entradas, salidas, casos de prueba, funciones y código incremental.
 - La biblioteca estándar y los docstrings se introducen de forma básica; los módulos propios y los programas distribuidos en varios archivos se reservan para posibles ampliaciones.
 - Colecciones y ficheros se estudian juntos, pero en secciones diferenciadas.
@@ -126,13 +126,13 @@ La secuencia responde a seis preguntas:
 - Depuración y pruebas aparecen desde el Tema 14 y se formalizan en el Tema 17.
 - Los puntos de interrupción y la inspección de variables se practican con Thonny; `logging` y la organización en varios archivos no se incorporan al programa obligatorio.
 - El Tema 18 presenta y compara entornos para aplicaciones móviles, pero no exige desarrollar una aplicación móvil ni aprender otro lenguaje.
-- El control de versiones no se añade al Tema 18; la conservación de versiones del proyecto voluntario puede resolverse con copias y el historial del cuaderno.
+- El control de versiones no se añade al Tema 18; la conservación de versiones del proyecto voluntario puede resolverse con copias y el historial del Notebook.
 - Los fundamentos del software adaptativo se reducen a una introducción y se conectan con conceptos actuales de inteligencia artificial, *machine learning* y agentes.
 - El Tema 19 solo amplía o integra aprendizajes ya cubiertos; no es necesario para completar el bloque.
 
 ### Cobertura curricular
 
-- El Tema 14 cubre el uso de Google Colab, la elaboración de programas sencillos y su planificación y estructuración.
+- El Tema 14 cubre el uso de Jupyter Notebook —principalmente mediante Google Colab en el aula—, la elaboración de programas sencillos y su planificación y estructuración.
 - El Tema 15 cubre estructuras de almacenamiento y lectura y escritura de datos.
 - El Tema 16 cubre clases, objetos y organización modular.
 - El Tema 17 cubre elaboración, depuración, pruebas y mejora de programas.

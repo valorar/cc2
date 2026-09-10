@@ -296,7 +296,7 @@ exito = libro.prestar()</code></pre>
       <div class="cc2-think"><strong>Criterio práctico:</strong> empieza con la representación más sencilla que mantenga el programa claro. Considera una clase cuando puedas nombrar una entidad, describir su estado, identificar comportamientos propios y formular reglas que deban cumplirse en todas sus instancias.</div>
 
       <h2 id="organizacion">8. Organización modular de una aplicación sencilla</h2>
-      <p>Una aplicación es <strong>modular</strong> cuando se divide en partes con responsabilidades comprensibles y relaciones explícitas. Un módulo de Python es un archivo que contiene definiciones y sentencias; otros módulos pueden reutilizar sus nombres mediante <code>import</code>.<sup><a href="#fuente_88">[88]</a></sup> En este tema importa primero la organización conceptual: aunque todo se escriba inicialmente en un cuaderno o un solo archivo, conviene reconocer las capas.</p>
+      <p>Una aplicación es <strong>modular</strong> cuando se divide en partes con responsabilidades comprensibles y relaciones explícitas. Un módulo de Python es un archivo que contiene definiciones y sentencias; otros módulos pueden reutilizar sus nombres mediante <code>import</code>.<sup><a href="#fuente_88">[88]</a></sup> En este tema importa primero la organización conceptual: aunque todo se escriba inicialmente en un Notebook o un solo archivo, conviene reconocer las capas.</p>
       <div class="cc2-grid">
         <section class="cc2-card">
           <h3>Modelo</h3>
@@ -321,7 +321,7 @@ exito = libro.prestar()</code></pre>
         <div class="cc2-tl-item"><div class="cc2-tl-year">3 — Proteger reglas</div><p>El modelo acepta o rechaza el préstamo según su estado, sin depender de cómo se mostrará el resultado.</p></div>
         <div class="cc2-tl-item"><div class="cc2-tl-year">4 — Presentar y guardar</div><p>La interfaz comunica el resultado y la persistencia conserva el nuevo estado.</p></div>
       </div>
-      <div class="cc2-note"><strong>Ampliación no obligatoria:</strong> si la aplicación creciera, estas responsabilidades podrían separarse en archivos como <code>modelos.py</code>, <code>persistencia.py</code> y <code>app.py</code>. En el trabajo obligatorio basta reconocer y aplicar la organización conceptual dentro de un cuaderno o un solo archivo. Dividir sin criterio puede esconder el recorrido de los datos y complicar un programa pequeño.</div>
+      <div class="cc2-note"><strong>Ampliación no obligatoria:</strong> si la aplicación creciera, estas responsabilidades podrían separarse en archivos como <code>modelos.py</code>, <code>persistencia.py</code> y <code>app.py</code>. En el trabajo obligatorio basta reconocer y aplicar la organización conceptual dentro de un Notebook o un solo archivo. Dividir sin criterio puede esconder el recorrido de los datos y complicar un programa pequeño.</div>
       <div class="cc2-concept"><strong class="cc2-concept-tag">Una historia completa</strong>Los datos entran desde un fichero, se convierten en objetos, colaboran dentro de una colección, cambian mediante métodos que preservan reglas y vuelven a una representación guardable. La modularidad consiste en que cada parte conozca lo necesario, no en multiplicar archivos.</div>
 
       <h2 id="glosario">Glosario del tema</h2>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Tema 15 de Ciencias de la Computación II: colecciones de Python, procesamiento, ficheros, texto, CSV, JSON y persistencia temporal en Google Colab.">
+  <meta name="description" content="Tema 15 de Ciencias de la Computación II: colecciones de Python, procesamiento, ficheros, texto, CSV, JSON y persistencia en Jupyter Notebooks.">
   <title>Tema 15. Colecciones, procesamiento y persistencia de datos · CC2</title>
   <link rel="stylesheet" href="assets/estilos.css">
   <script src="assets/navegacion.js" defer></script>
@@ -23,7 +23,7 @@
       <div>
         <p class="kicker">Tema 15 · Bloque D · Programación</p>
         <h1>Colecciones, procesamiento y persistencia de datos</h1>
-        <p class="hero-lead">Cómo representar varios datos, transformarlos con Python y conservar o intercambiar los resultados mediante ficheros desde Google Colab.</p>
+        <p class="hero-lead">Cómo representar varios datos, transformarlos con Python y conservar o intercambiar los resultados mediante ficheros desde un Jupyter Notebook.</p>
       </div>
       <aside class="hero-note" aria-label="Pregunta guía del tema 15">
         <strong>Pregunta guía</strong>
@@ -42,7 +42,7 @@
         <li><a href="#eleccion">Elección de la colección</a></li>
         <li><a href="#ficheros">Ficheros y gestores de contexto</a></li>
         <li><a href="#formatos">Texto, CSV y JSON</a></li>
-        <li><a href="#rutas">Rutas, codificación y Colab</a></li>
+        <li><a href="#rutas">Rutas, codificación y Notebooks</a></li>
         <li><a href="#flujo">Carga, validación, transformación y exportación</a></li>
         <li><a href="#glosario">Glosario</a></li>
         <li><a href="#resumen">Resumen</a></li>
@@ -62,7 +62,7 @@
           <li>elegir una colección de acuerdo con las operaciones necesarias;</li>
           <li>leer y escribir ficheros de forma segura con <code>with</code>;</li>
           <li>diferenciar texto plano, CSV y JSON y utilizar sus módulos estándar;</li>
-          <li>trabajar con rutas, UTF-8 y el almacenamiento temporal de Google Colab;</li>
+          <li>trabajar con rutas, UTF-8 y el almacenamiento temporal asociado a una sesión de Notebook;</li>
           <li>organizar un flujo de carga, validación, transformación y exportación.</li>
         </ul>
       </div>
@@ -288,7 +288,7 @@ with open("salida.json", "w", encoding="utf-8") as salida:
       <p><code>ensure_ascii=False</code> conserva letras como <code>ñ</code> de forma legible en un fichero UTF-8; <code>indent=2</code> facilita la lectura humana a cambio de algunos bytes. Los conjuntos no son serializables directamente en JSON: antes hay que convertirlos, por ejemplo, en listas, y aceptar que JSON no conserva el significado de «conjunto».</p>
       <div class="cc2-concept"><strong class="cc2-concept-tag">Formato no equivale a contenido válido</strong>Un documento puede ser JSON sintácticamente correcto y aun así carecer de las claves que necesita el programa. El analizador comprueba la sintaxis del formato; la aplicación debe comprobar el esquema y el significado.</div>
 
-      <h2 id="rutas">7. Rutas, codificación y almacenamiento temporal en Google Colab</h2>
+      <h2 id="rutas">7. Rutas, codificación y almacenamiento temporal en un Notebook</h2>
       <h3>Rutas: localizar sin unir cadenas a mano</h3>
       <p>Una ruta indica dónde se encuentra un fichero dentro del sistema. Puede ser <strong>relativa</strong> al directorio de trabajo o <strong>absoluta</strong> desde la raíz. <code>pathlib.Path</code> representa rutas como objetos y permite unir componentes con <code>/</code>, comprobar existencia y crear carpetas de manera más legible que concatenando separadores manualmente.<sup><a href="#fuente_76">[76]</a></sup></p>
       <pre tabindex="0" aria-label="Código Python desplazable horizontalmente"><code>from pathlib import Path
@@ -297,14 +297,14 @@ carpeta = Path("datos")
 carpeta.mkdir(exist_ok=True)
 ruta_salida = carpeta / "resumen.json"
 print(ruta_salida.resolve())</code></pre>
-      <p>Una ruta relativa idéntica puede apuntar a lugares diferentes si cambia el directorio de trabajo. En Colab puede consultarse con <code>Path.cwd()</code>. Antes de leer, <code>ruta.exists()</code> ayuda a distinguir un fichero ausente de un error posterior de contenido, aunque entre la comprobación y la apertura el estado todavía podría cambiar.</p>
+      <p>Una ruta relativa idéntica puede apuntar a lugares diferentes si cambia el directorio de trabajo. En la sesión de un Notebook puede consultarse con <code>Path.cwd()</code>. Antes de leer, <code>ruta.exists()</code> ayuda a distinguir un fichero ausente de un error posterior de contenido, aunque entre la comprobación y la apertura el estado todavía podría cambiar.</p>
 
       <h3>Codificación: traducir entre texto y bytes</h3>
       <p>Un fichero almacena bytes; una cadena de Python contiene caracteres Unicode. La <strong>codificación</strong> establece la traducción. Python usa la codificación indicada en <code>open</code>; declararla como <code>encoding="utf-8"</code> hace el fichero más predecible entre entornos. El HOWTO oficial explica la diferencia entre puntos de código Unicode, cadenas y secuencias de bytes.<sup><a href="#fuente_77">[77]</a></sup></p>
       <p>Si un fichero fue guardado con otra codificación, abrirlo como UTF-8 puede producir <code>UnicodeDecodeError</code> o caracteres incorrectos. No se debe «arreglar» el problema eliminando tildes: hay que identificar la codificación de origen y convertir conscientemente. En modo binario no se indica <code>encoding</code>, porque el programa recibe y escribe bytes.</p>
 
-      <h3>El disco de ejecución de Colab es temporal</h3>
-      <p>Un cuaderno de Google Colab ejecuta código en una máquina virtual privada para la cuenta. Esa máquina se elimina tras un periodo de inactividad y tiene una vida máxima; por tanto, los ficheros guardados solo en el entorno de ejecución no deben considerarse persistentes. Colab también señala que los límites y tiempos pueden variar.<sup><a href="#fuente_78">[78]</a></sup></p>
+      <h3>El disco de ejecución no forma parte del Notebook</h3>
+      <p>El archivo <code>.ipynb</code> conserva las celdas y sus resultados guardados, pero no incorpora automáticamente los demás ficheros creados por el programa. En Google Colab, el Notebook ejecuta código en una máquina virtual privada para la cuenta. Esa máquina se elimina tras un periodo de inactividad y tiene una vida máxima; por tanto, los ficheros guardados solo en el entorno de ejecución no deben considerarse persistentes. Colab también señala que los límites y tiempos pueden variar.<sup><a href="#fuente_78">[78]</a></sup></p>
       <div class="comparacion">
         <div>
           <h3>Entorno de ejecución</h3>
@@ -312,10 +312,10 @@ print(ruta_salida.resolve())</code></pre>
         </div>
         <div>
           <h3>Almacenamiento persistente</h3>
-          <p>El resultado que deba conservarse se descarga al equipo o se copia a un almacenamiento externo autorizado, como Google Drive. Montar Drive da al cuaderno acceso a los archivos del usuario y exige tratar permisos y datos sensibles con cuidado.</p>
+          <p>El resultado que deba conservarse se descarga al equipo o se copia a un almacenamiento externo autorizado, como Google Drive. Montar Drive da al Notebook acceso a los archivos del usuario y exige tratar permisos y datos sensibles con cuidado.</p>
         </div>
       </div>
-      <p>El cuaderno oficial de E/S de Colab muestra mecanismos para subir ficheros desde el navegador, descargar resultados y montar Google Drive.<sup><a href="#fuente_79">[79]</a></sup> Para entradas pequeñas puede usarse <code>files.upload()</code>; para entregar una salida, <code>files.download(ruta)</code>. La subida debe realizarla una persona en la interfaz y el nombre recibido debe comprobarse, porque no siempre coincide con el que esperaba el programa.</p>
+      <p>El Notebook oficial de E/S de Colab muestra mecanismos para subir ficheros desde el navegador, descargar resultados y montar Google Drive.<sup><a href="#fuente_79">[79]</a></sup> Para entradas pequeñas puede usarse <code>files.upload()</code>; para entregar una salida, <code>files.download(ruta)</code>. La subida debe realizarla una persona en la interfaz y el nombre recibido debe comprobarse, porque no siempre coincide con el que esperaba el programa.</p>
       <pre tabindex="0" aria-label="Código Python desplazable horizontalmente"><code>from google.colab import files
 
 subidos = files.upload()       # devuelve {nombre: bytes}
@@ -398,7 +398,7 @@ media = sum(r["nota"] for r in validos) / len(validos) if validos else None</cod
           <li><code>with open(...)</code> delimita el uso del fichero y asegura su cierre; el modo de apertura determina si se lee, añade o reemplaza contenido.</li>
           <li>Texto plano requiere un convenio; CSV representa tablas; JSON representa estructuras anidadas con tipos básicos.</li>
           <li>Las rutas deben construirse de forma portable y el texto debe abrirse con una codificación explícita, normalmente UTF-8.</li>
-          <li>El almacenamiento del entorno de ejecución de Colab es temporal; una salida importante debe descargarse o copiarse y verificarse fuera de la sesión.</li>
+          <li>El Notebook y su entorno de ejecución no son lo mismo; en Google Colab, una salida importante debe descargarse o copiarse y verificarse fuera de la sesión temporal.</li>
           <li>Un flujo fiable separa carga, validación, transformación y exportación, conserva el original y vuelve a comprobar el fichero producido.</li>
         </ol>
       </section>
@@ -415,7 +415,7 @@ media = sum(r["nota"] for r in validos) / len(validos) if validos else None</cod
           <li id="fuente_76">[76] <a href="https://docs.python.org/3/library/pathlib.html" lang="en">Documentación de Python — Rutas orientadas a objetos con <code>pathlib</code></a> (en inglés).</li>
           <li id="fuente_77">[77] <a href="https://docs.python.org/3/howto/unicode.html" lang="en">Documentación de Python — Unicode HOWTO</a> (en inglés).</li>
           <li id="fuente_78">[78] <a href="https://research.google.com/colaboratory/faq.html" lang="en">Google Colab — Preguntas frecuentes sobre entornos de ejecución y límites</a> (en inglés).</li>
-          <li id="fuente_79">[79] <a href="https://colab.research.google.com/notebooks/io.ipynb" lang="en">Google Colab — Cuaderno oficial de carga, descarga y E/S</a> (en inglés).</li>
+          <li id="fuente_79">[79] <a href="https://colab.research.google.com/notebooks/io.ipynb" lang="en">Google Colab — Notebook oficial de carga, descarga y E/S</a> (en inglés).</li>
         </ul>
       </section>
     </article>

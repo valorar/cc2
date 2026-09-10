@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Tema 18 de Ciencias de la Computación II: entornos de programación, Google Colab y Thonny, aplicaciones móviles, software adaptativo, inteligencia artificial, machine learning y agentes.">
+  <meta name="description" content="Tema 18 de Ciencias de la Computación II: Jupyter Notebook y Thonny, entornos de programación, aplicaciones móviles, software adaptativo, inteligencia artificial, machine learning y agentes.">
   <title>Tema 18. Entornos, aplicaciones móviles y software adaptativo · CC2</title>
   <link rel="stylesheet" href="assets/estilos.css">
   <script src="assets/navegacion.js" defer></script>
@@ -37,7 +37,7 @@
       <strong>En este tema</strong>
       <ol>
         <li><a href="#componentes">Componentes de un entorno</a></li>
-        <li><a href="#colab_thonny">Google Colab frente a Thonny</a></li>
+        <li><a href="#notebook_thonny">Jupyter Notebook frente a Thonny</a></li>
         <li><a href="#criterios">Criterios para elegir</a></li>
         <li><a href="#local_nube">Entornos locales y en la nube</a></li>
         <li><a href="#moviles">Panorama de entornos móviles</a></li>
@@ -52,12 +52,12 @@
 
     <article class="paper">
       <p class="lesson-intro">Programar no consiste solo en escribir instrucciones: también implica escoger herramientas, ejecutar en un contexto concreto y comprender cómo la aplicación recibe eventos y conserva su estado. Este tema amplía el trabajo en Python con una comparación de entornos, presenta el desarrollo móvil como panorama y ofrece una introducción prudente al software adaptativo y a conceptos actuales de inteligencia artificial. Con ello se desarrollan los saberes y criterios del Bloque D sin exigir la creación de una aplicación móvil completa.<sup><a href="#fuente_100">[100]</a></sup></p>
-      <div class="question"><strong>Antes de empezar:</strong> piensa en un cuaderno de Colab, un programa abierto en Thonny y una aplicación del teléfono. Los tres contienen software, pero no organizan igual la edición, la ejecución, los archivos, la interacción ni la distribución.</div>
+      <div class="question"><strong>Antes de empezar:</strong> piensa en un Jupyter Notebook abierto en Google Colab, un programa abierto en Thonny y una aplicación del teléfono. Los tres contienen software, pero no organizan igual la edición, la ejecución, los archivos, la interacción ni la distribución.</div>
       <div class="objectives">
         <strong>Al terminar serás capaz de…</strong>
         <ul>
           <li>distinguir editor, sistema de ejecución, consola, depurador y bibliotecas;</li>
-          <li>comparar Google Colab y Thonny sin declarar uno universalmente mejor;</li>
+          <li>comparar Jupyter Notebook y Thonny sin declarar uno universalmente mejor, e identificar Google Colab como el servicio de Notebooks usado en clase;</li>
           <li>elegir un entorno según el programa, los recursos y su forma de uso;</li>
           <li>valorar posibilidades, dependencias y límites del trabajo local y en la nube;</li>
           <li>reconocer distintos tipos de entornos para crear aplicaciones móviles;</li>
@@ -74,7 +74,7 @@
           <caption>Componentes que conviene distinguir</caption>
           <thead><tr><th scope="col">Componente</th><th scope="col">Función</th><th scope="col">Qué no debe confundirse con él</th><th scope="col">Manifestación posible</th></tr></thead>
           <tbody>
-            <tr><td><strong>Editor</strong></td><td>Permite escribir y modificar código; puede añadir coloreado, sangría, autocompletado y avisos.</td><td>Editar no ejecuta necesariamente el programa ni demuestra que sea correcto.</td><td>Una celda de código en Colab o la ventana de edición de un archivo <code>.py</code> en Thonny.</td></tr>
+            <tr><td><strong>Editor</strong></td><td>Permite escribir y modificar código; puede añadir coloreado, sangría, autocompletado y avisos.</td><td>Editar no ejecuta necesariamente el programa ni demuestra que sea correcto.</td><td>Una celda de un Notebook en Colab o la ventana de edición de un archivo <code>.py</code> en Thonny.</td></tr>
             <tr><td><strong>Sistema de ejecución</strong></td><td>Interpreta o ejecuta el código en un proceso, una máquina o un dispositivo determinados.</td><td>La interfaz visible puede estar en un equipo y la ejecución ocurrir en otro.</td><td>El entorno de ejecución remoto de Colab o el intérprete de Python configurado en Thonny.</td></tr>
             <tr><td><strong>Consola</strong></td><td>Muestra salidas y errores y, si es interactiva, acepta expresiones u órdenes breves.</td><td>No sustituye al editor para conservar un programa estructurado.</td><td>La salida bajo una celda o la consola interactiva de Python.</td></tr>
             <tr><td><strong>Depurador</strong></td><td>Permite pausar, avanzar y observar valores para entender una ejecución.</td><td>No corrige por sí solo la causa del fallo ni sustituye las pruebas.</td><td>Ejecución paso a paso, pila de llamadas, variables o puntos de interrupción.</td></tr>
@@ -85,33 +85,34 @@
       <p>A estos componentes pueden sumarse explorador de archivos, documentación, pruebas, diseñador de interfaces, emulador, perfilador o herramientas de empaquetado. Un entorno educativo puede ocultar parte de esa complejidad; uno profesional puede exponerla. Más paneles no significan automáticamente una herramienta mejor: la cuestión es qué información necesita la tarea sin sobrecargar a quien programa.</p>
       <div class="cc2-concept"><strong class="cc2-concept-tag">Interfaz y ejecución pueden estar separadas</strong>En un servicio de nube, el navegador presenta el editor, pero el código puede ejecutarse en una máquina remota. En un IDE local, editor e intérprete suelen estar en el mismo ordenador. Esta diferencia afecta a archivos, recursos, permisos y continuidad de la sesión.</div>
 
-      <h2 id="colab_thonny">2. Google Colab frente a Thonny: cuadernos, programas, archivos y ejecución</h2>
-      <p><strong>Google Colab</strong> organiza el trabajo como un cuaderno Jupyter formado por celdas de texto y código. El documento se guarda en formato <code>.ipynb</code>, mientras que el código se ejecuta en un entorno de ejecución que puede reiniciarse o desaparecer. Google advierte que las máquinas virtuales administradas se eliminan tras un periodo de inactividad, tienen una vida máxima y aplican límites de recursos variables.<sup><a href="#fuente_101">[101]</a></sup></p>
-      <p><strong>Thonny</strong> es un IDE orientado al aprendizaje de Python. Integra editor de archivos, consola, ejecución y un depurador visual simplificado; su distribución puede incluir Python para reducir la dificultad de instalación inicial.<sup><a href="#fuente_102">[102]</a></sup> Aquí interesa comparar su modelo de trabajo con el cuaderno, no repetir el procedimiento de depuración paso a paso desarrollado en el Tema 17.</p>
+      <h2 id="notebook_thonny">2. Jupyter Notebook frente a Thonny: Notebooks, programas, archivos y ejecución</h2>
+      <p><strong>Jupyter Notebook</strong> es la aplicación web clásica para crear y editar documentos computacionales formados por celdas de texto y código. Estos Notebooks se guardan normalmente en formato <code>.ipynb</code>; el documento, la interfaz que lo edita y el proceso que ejecuta el código son elementos relacionados, pero distintos.<sup><a href="#fuente_112">[112]</a></sup></p>
+      <p>En clase utilizaremos mayoritariamente <strong>Google Colab</strong>, un servicio alojado de Jupyter Notebooks. En Colab, el entorno de ejecución puede reiniciarse o desaparecer: Google advierte que las máquinas virtuales administradas se eliminan tras un periodo de inactividad, tienen una vida máxima y aplican límites de recursos variables.<sup><a href="#fuente_101">[101]</a></sup></p>
+      <p><strong>Thonny</strong> es un IDE orientado al aprendizaje de Python. Integra editor de archivos, consola, ejecución y un depurador visual simplificado; su distribución puede incluir Python para reducir la dificultad de instalación inicial.<sup><a href="#fuente_102">[102]</a></sup> Aquí interesa comparar su modelo de trabajo con el Notebook, no repetir el procedimiento de depuración paso a paso desarrollado en el Tema 17.</p>
       <div class="tabla_responsiva" tabindex="0" aria-label="Tabla desplazable horizontalmente">
         <table>
-          <caption>Comparación razonada entre Colab y Thonny</caption>
-          <thead><tr><th scope="col">Aspecto</th><th scope="col">Google Colab</th><th scope="col">Thonny</th><th scope="col">Consecuencia</th></tr></thead>
+          <caption>Comparación razonada entre Jupyter Notebook y Thonny</caption>
+          <thead><tr><th scope="col">Aspecto</th><th scope="col">Jupyter Notebook en Colab</th><th scope="col">Thonny</th><th scope="col">Consecuencia</th></tr></thead>
           <tbody>
-            <tr><td><strong>Unidad principal</strong></td><td>Cuaderno con celdas de texto, código y resultados.</td><td>Programa guardado normalmente como archivo <code>.py</code>.</td><td>Colab favorece explicación y exploración por bloques; Thonny se aproxima a un programa ejecutado de principio a fin.</td></tr>
-            <tr><td><strong>Orden de ejecución</strong></td><td>Las celdas pueden ejecutarse en un orden diferente al visual.</td><td>Al ejecutar un archivo, Python comienza normalmente desde su primera instrucción.</td><td>Un cuaderno puede conservar un estado que no se reproduce al ejecutar todo desde cero.</td></tr>
-            <tr><td><strong>Estado</strong></td><td>Variables, importaciones y archivos temporales viven en la sesión de ejecución, no en el texto del cuaderno.</td><td>El proceso conserva estado mientras se ejecuta; al iniciar de nuevo el programa, reconstruye ese estado desde el código y sus datos.</td><td>Guardar el documento no equivale a guardar la memoria de la ejecución.</td></tr>
-            <tr><td><strong>Archivos</strong></td><td>El cuaderno puede persistir, pero los archivos de la máquina virtual suelen ser temporales si no se descargan o guardan aparte.</td><td>Los archivos se encuentran normalmente en el almacenamiento local y permanecen hasta que se modifican o borran.</td><td>Hay que identificar siempre dónde vive cada dato.</td></tr>
+            <tr><td><strong>Unidad principal</strong></td><td>Notebook con celdas de texto, código y resultados.</td><td>Programa guardado normalmente como archivo <code>.py</code>.</td><td>Colab favorece explicación y exploración por bloques; Thonny se aproxima a un programa ejecutado de principio a fin.</td></tr>
+            <tr><td><strong>Orden de ejecución</strong></td><td>Las celdas pueden ejecutarse en un orden diferente al visual.</td><td>Al ejecutar un archivo, Python comienza normalmente desde su primera instrucción.</td><td>Un Notebook puede conservar un estado que no se reproduce al ejecutar todo desde cero.</td></tr>
+            <tr><td><strong>Estado</strong></td><td>Variables, importaciones y archivos temporales viven en la sesión de ejecución, no en el texto del Notebook.</td><td>El proceso conserva estado mientras se ejecuta; al iniciar de nuevo el programa, reconstruye ese estado desde el código y sus datos.</td><td>Guardar el documento no equivale a guardar la memoria de la ejecución.</td></tr>
+            <tr><td><strong>Archivos</strong></td><td>El Notebook puede persistir, pero los archivos de la máquina virtual suelen ser temporales si no se descargan o guardan aparte.</td><td>Los archivos se encuentran normalmente en el almacenamiento local y permanecen hasta que se modifican o borran.</td><td>Hay que identificar siempre dónde vive cada dato.</td></tr>
             <tr><td><strong>Instalación</strong></td><td>El uso habitual comienza desde un navegador y una cuenta, sin preparar Python en el equipo.</td><td>Requiere instalar la aplicación, aunque ofrece una configuración inicial sencilla.</td><td>Colab reduce preparación local; Thonny ofrece mayor independencia del servicio remoto.</td></tr>
             <tr><td><strong>Bibliotecas</strong></td><td>Incluye muchas bibliotecas y permite instalar otras durante la sesión, con límites y versiones que pueden cambiar.</td><td>Usa las bibliotecas del intérprete configurado; la instalación persiste normalmente en ese entorno local.</td><td>La reproducibilidad exige conocer versiones y repetir la preparación necesaria.</td></tr>
-            <tr><td><strong>Salida y consola</strong></td><td>Cada celda muestra su resultado cerca del código.</td><td>La consola concentra salida, entrada y evaluación interactiva.</td><td>El cuaderno vincula relato y resultados; el IDE separa mejor código fuente y ejecución.</td></tr>
+            <tr><td><strong>Salida y consola</strong></td><td>Cada celda muestra su resultado cerca del código.</td><td>La consola concentra salida, entrada y evaluación interactiva.</td><td>El Notebook vincula relato y resultados; el IDE separa mejor código fuente y ejecución.</td></tr>
             <tr><td><strong>Uso característico</strong></td><td>Explicación ejecutable, análisis de datos, experimentación y trabajo compartido.</td><td>Aprendizaje de Python, scripts locales y observación estructurada de un programa.</td><td>Son modelos complementarios, no una escala de peor a mejor.</td></tr>
           </tbody>
         </table>
       </div>
-      <div class="aviso"><strong>El orden oculto de un cuaderno</strong>Si una celda usa una variable creada por otra que se ejecutó antes, el resultado puede parecer correcto aunque el orden visual no sea reproducible. «Reiniciar y ejecutar todo» comprueba si el cuaderno reconstruye su estado desde cero.</div>
+      <div class="aviso"><strong>El orden oculto de un Notebook</strong>Si una celda usa una variable creada por otra que se ejecutó antes, el resultado puede parecer correcto aunque el orden visual no sea reproducible. «Reiniciar y ejecutar todo» comprueba si el Notebook reconstruye su estado desde cero.</div>
       <div class="cc2-note"><strong>Mismo lenguaje, contexto diferente.</strong> Un programa Python puede expresar el mismo cálculo en ambos entornos, pero cambian la entrada, la salida, la persistencia, el modo de compartirlo y la forma de observar su ejecución.</div>
 
       <h2 id="criterios">3. Criterios para elegir un entorno</h2>
       <p>No existe un entorno mejor para cualquier situación. Elegir implica relacionar las necesidades del programa con las condiciones reales de desarrollo y uso. La familiaridad importa, pero no debería ocultar requisitos esenciales.</p>
       <div class="cc2-grid">
-        <section class="cc2-card"><h3>Tipo de trabajo</h3><p>Un cuaderno encaja bien cuando texto, datos, gráficos y experimentos deben leerse juntos. Un script o una aplicación continuada necesita una ejecución más predecible y una estructura de archivos adecuada.</p></section>
-        <section class="cc2-card"><h3>Destino y distribución</h3><p>No es lo mismo entregar un cuaderno editable, ejecutar un archivo en un ordenador preparado o instalar una aplicación en un teléfono. El destinatario condiciona formato, dependencias y permisos.</p></section>
+        <section class="cc2-card"><h3>Tipo de trabajo</h3><p>Un Notebook encaja bien cuando texto, datos, gráficos y experimentos deben leerse juntos. Un script o una aplicación continuada necesita una ejecución más predecible y una estructura de archivos adecuada.</p></section>
+        <section class="cc2-card"><h3>Destino y distribución</h3><p>No es lo mismo entregar un Notebook editable, ejecutar un archivo en un ordenador preparado o instalar una aplicación en un teléfono. El destinatario condiciona formato, dependencias y permisos.</p></section>
         <section class="cc2-card"><h3>Recursos</h3><p>Procesador, memoria, almacenamiento, aceleradores, batería y conexión limitan qué puede ejecutarse y durante cuánto tiempo. La nube no convierte esos recursos en infinitos.</p></section>
         <section class="cc2-card"><h3>Datos y privacidad</h3><p>Hay que saber dónde se almacenan y procesan los datos, quién puede acceder, qué condiciones aplica el servicio y si está permitido subir información sensible.</p></section>
         <section class="cc2-card"><h3>Bibliotecas y compatibilidad</h3><p>El entorno debe admitir el lenguaje, las versiones, los paquetes y el sistema operativo o dispositivo objetivo. «Funciona en mi sesión» no garantiza que funcione en otra.</p></section>
@@ -120,11 +121,11 @@
         <section class="cc2-card"><h3>Continuidad</h3><p>Conviene valorar funcionamiento sin conexión, copias, formatos exportables, estabilidad del proveedor y posibilidad de abrir el trabajo en otro entorno.</p></section>
       </div>
       <h3>Una decisión explicable</h3>
-      <p>Una buena elección puede formularse como una relación entre requisitos y evidencias: «usaré un cuaderno porque debo combinar explicación y resultados y el grupo dispone de conexión» o «usaré un IDE local porque necesito conservar archivos, trabajar sin red y ejecutar el programa como una unidad». Decir solo «es más fácil» no explica para quién, para qué ni bajo qué condiciones.</p>
+      <p>Una buena elección puede formularse como una relación entre requisitos y evidencias: «usaré un Notebook porque debo combinar explicación y resultados y el grupo dispone de conexión» o «usaré un IDE local porque necesito conservar archivos, trabajar sin red y ejecutar el programa como una unidad». Decir solo «es más fácil» no explica para quién, para qué ni bajo qué condiciones.</p>
       <div class="cc2-think"><strong>Criterio de decisión:</strong> empieza por el programa y su contexto, no por la lista de funciones del entorno. Una característica solo es una ventaja cuando resuelve una necesidad real sin introducir un coste mayor.</div>
 
       <h2 id="local_nube">4. Posibilidades y límites de los entornos locales y en la nube</h2>
-      <p><strong>Local</strong> y <strong>en la nube</strong> describen principalmente dónde se ejecuta el código y dónde residen los recursos, no solo dónde se ve el editor. Existen configuraciones híbridas: una interfaz web conectada a un proceso local, un IDE local que ejecuta en un servidor o un cuaderno remoto que monta almacenamiento externo.</p>
+      <p><strong>Local</strong> y <strong>en la nube</strong> describen principalmente dónde se ejecuta el código y dónde residen los recursos, no solo dónde se ve el editor. Existen configuraciones híbridas: una interfaz web conectada a un proceso local, un IDE local que ejecuta en un servidor o un Notebook remoto que monta almacenamiento externo.</p>
       <div class="tabla_responsiva" tabindex="0" aria-label="Tabla desplazable horizontalmente">
         <table>
           <caption>Ventajas condicionadas, no absolutas</caption>
@@ -140,7 +141,7 @@
           </tbody>
         </table>
       </div>
-      <p>Colab ilustra una distinción importante: el cuaderno guardado y la máquina que lo ejecuta no son lo mismo. Los límites de uso tampoco son fijos ni ilimitados; dependen de disponibilidad y patrones de consumo.<sup><a href="#fuente_101">[101]</a></sup> Antes de confiar en cualquier servicio conviene comprobar qué se conserva, qué caduca, cómo se exporta el trabajo y qué ocurre si el servicio deja de estar accesible.</p>
+      <p>Colab ilustra una distinción importante: el Notebook guardado y la máquina que lo ejecuta no son lo mismo. Los límites de uso tampoco son fijos ni ilimitados; dependen de disponibilidad y patrones de consumo.<sup><a href="#fuente_101">[101]</a></sup> Antes de confiar en cualquier servicio conviene comprobar qué se conserva, qué caduca, cómo se exporta el trabajo y qué ocurre si el servicio deja de estar accesible.</p>
       <div class="cc2-concept"><strong class="cc2-concept-tag">Tres preguntas de persistencia</strong>¿Se ha guardado el código? ¿Se han guardado los datos? ¿Puede reconstruirse el entorno de ejecución? Responder «sí» a una pregunta no responde automáticamente a las otras dos.</div>
       <div class="aviso"><strong>La nube no elimina la responsabilidad</strong>Compartir un enlace puede exponer código, resultados o datos. Antes de subir información personal, credenciales o documentos reservados hay que verificar permisos, finalidad y normas aplicables.</div>
 
@@ -264,7 +265,7 @@
         <dt>Depurador</dt><dd>Herramienta para controlar y observar una ejecución con el fin de comprender su comportamiento.</dd>
         <dt>Biblioteca</dt><dd>Conjunto de código reutilizable que ofrece funciones, clases u otros componentes.</dd>
         <dt>Dependencia</dt><dd>Componente externo y, a menudo, versión concreta que un programa necesita para funcionar.</dd>
-        <dt>Cuaderno</dt><dd>Documento que combina celdas de texto, código ejecutable y resultados.</dd>
+        <dt>Notebook</dt><dd>Documento que combina celdas de texto, código ejecutable y resultados.</dd>
         <dt>Emulador</dt><dd>Software que reproduce características de otro sistema o dispositivo para ejecutar y probar aplicaciones.</dd>
         <dt>Interfaz de usuario</dt><dd>Elementos mediante los que una persona percibe el estado de una aplicación e interactúa con ella.</dd>
         <dt>Evento</dt><dd>Suceso que una aplicación puede detectar y procesar.</dd>
@@ -281,8 +282,8 @@
         <h2 id="resumen">Resumen esencial</h2>
         <ol>
           <li>Editor, ejecución, consola, depurador y bibliotecas cumplen funciones diferentes aunque un IDE los integre.</li>
-          <li>Colab organiza cuadernos por celdas y ejecuta habitualmente en una sesión remota; Thonny organiza programas locales y ofrece una consola y un depurador educativos.</li>
-          <li>Un cuaderno puede ejecutarse fuera de orden; guardar su documento no conserva automáticamente el estado ni los archivos temporales de la sesión.</li>
+          <li>Colab organiza Notebooks por celdas y ejecuta habitualmente en una sesión remota; Thonny organiza programas locales y ofrece una consola y un depurador educativos.</li>
+          <li>Un Notebook puede ejecutarse fuera de orden; guardar su documento no conserva automáticamente el estado ni los archivos temporales de la sesión.</li>
           <li>El entorno se elige según tarea, destino, recursos, datos, compatibilidad, prueba, accesibilidad y continuidad, no por una clasificación universal.</li>
           <li>Los entornos locales ofrecen control y trabajo sin red; los de nube reducen preparación y pueden facilitar compartir, pero dependen del servicio y sus límites.</li>
           <li>Los entornos móviles pueden ser nativos, visuales por bloques, multiplataforma o de bajo código; conocerlos y evaluarlos no exige crear una app ni aprender otro lenguaje.</li>
@@ -298,7 +299,7 @@
         <h2 id="fuentes">Fuentes y recursos fiables</h2>
         <ul>
           <li id="fuente_100">[100] <a href="https://www.bocm.es/boletin/CM_Orden_BOCM/2023/05/31/BOCM-20230531-18.PDF">Comunidad de Madrid — Orden 1736/2023, de 19 de mayo, Anexo IV (PDF)</a>.</li>
-          <li id="fuente_101">[101] <a href="https://research.google.com/colaboratory/faq.html" lang="en">Google Colab — Preguntas frecuentes sobre cuadernos, entornos de ejecución y límites</a> (en inglés).</li>
+          <li id="fuente_101">[101] <a href="https://research.google.com/colaboratory/faq.html" lang="en">Google Colab — Preguntas frecuentes sobre Notebooks, entornos de ejecución y límites</a> (en inglés).</li>
           <li id="fuente_102">[102] <a href="https://thonny.org/" lang="en">Thonny — IDE de Python para principiantes y características</a> (en inglés).</li>
           <li id="fuente_103">[103] <a href="https://developer.android.com/studio/intro" lang="en">Android Developers — Introducción a Android Studio</a> (en inglés).</li>
           <li id="fuente_104">[104] <a href="https://appinventor.mit.edu/about-us" lang="en">MIT App Inventor — Entorno visual para crear aplicaciones móviles</a> (en inglés).</li>
@@ -309,6 +310,7 @@
           <li id="fuente_109">[109] <a href="https://developers.google.com/machine-learning/intro-to-ml/what-is-ml" lang="en">Google for Developers — Qué es el aprendizaje automático</a> (en inglés).</li>
           <li id="fuente_110">[110] <a href="https://cloud.google.com/discover/what-are-ai-agents" lang="en">Google Cloud — Qué son los agentes de IA</a> (en inglés).</li>
           <li id="fuente_111">[111] <a href="https://www.nist.gov/itl/ai-risk-management-framework" lang="en">NIST — Artificial Intelligence Risk Management Framework</a> (en inglés).</li>
+          <li id="fuente_112">[112] <a href="https://docs.jupyter.org/en/latest/what_is_jupyter.html" lang="en">Documentación de Jupyter — Qué es Jupyter y qué significa Jupyter Notebook</a> (en inglés).</li>
         </ul>
       </section>
     </article>

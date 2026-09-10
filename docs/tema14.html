@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Tema 14 de Ciencias de la Computación II: reactivación de Python en Google Colab, funciones, alcance, biblioteca estándar, planificación y desarrollo incremental.">
-  <title>Tema 14. Python en Google Colab · CC2</title>
+  <meta name="description" content="Tema 14 de Ciencias de la Computación II: reactivación de Python en Jupyter Notebook, funciones, alcance, biblioteca estándar, planificación y desarrollo incremental.">
+  <title>Tema 14. Python en Jupyter Notebook · CC2</title>
   <link rel="stylesheet" href="assets/estilos.css">
   <script src="assets/navegacion.js" defer></script>
 </head>
@@ -22,12 +22,12 @@
     <div class="hero-inner">
       <div>
         <p class="kicker">Tema 14 · Bloque D · Programación</p>
-        <h1>Python en Google Colab: reactivación y diseño de programas</h1>
+        <h1>Python en Jupyter Notebook: reactivación y diseño de programas</h1>
         <p class="hero-lead">Cómo recuperar Python programando desde el primer momento y convertir un problema pequeño en funciones claras, comprobables y documentadas.</p>
       </div>
       <aside class="hero-note" aria-label="Pregunta guía del tema 14">
         <strong>Pregunta guía</strong>
-        <p>¿Cómo pasamos de entender un problema a construir en Google Colab un programa que podamos ejecutar, comprobar y mejorar por partes?</p>
+        <p>¿Cómo pasamos de entender un problema a construir en un Jupyter Notebook un programa que podamos ejecutar, comprobar y mejorar por partes?</p>
       </aside>
     </div>
   </section>
@@ -36,7 +36,7 @@
     <nav class="toc" aria-label="Índice del tema">
       <strong>En este tema</strong>
       <ol>
-        <li><a href="#colab">Cuadernos, celdas y sesión</a></li>
+        <li><a href="#notebook">Jupyter Notebook, celdas y sesión</a></li>
         <li><a href="#datos">Datos, operadores y entrada/salida</a></li>
         <li><a href="#control">Decisiones y repeticiones</a></li>
         <li><a href="#funciones">Funciones y retorno</a></li>
@@ -67,11 +67,12 @@
         </ul>
       </div>
 
-      <h2 id="colab">1. Google Colab: cuadernos, celdas, ejecución y estado de la sesión</h2>
-      <p><strong>Google Colab</strong> permite escribir y ejecutar Python en un cuaderno desde el navegador. Un cuaderno combina <strong>celdas de texto</strong>, útiles para explicar decisiones, y <strong>celdas de código</strong>, que se envían a un entorno de ejecución. Puede guardarse en Google Drive o cargarse desde otras fuentes compatibles.<sup><a href="#fuente_62">[62]</a></sup></p>
+      <h2 id="notebook">1. Jupyter Notebook: qué es un Notebook, celdas, ejecución y estado de la sesión</h2>
+      <p>Un <strong>Notebook</strong> —o cuaderno computacional— es un documento que combina <strong>celdas de texto</strong>, útiles para explicar decisiones, y <strong>celdas de código</strong>, que se envían a un entorno de ejecución. En el ecosistema Jupyter, <strong>Jupyter Notebook</strong> puede referirse tanto a la aplicación web clásica como, de forma habitual, a un documento guardado en formato <code>.ipynb</code>.<sup><a href="#fuente_69">[69]</a></sup></p>
+      <p>En la asignatura trabajaremos mayoritariamente con <strong>Google Colab</strong>, un servicio alojado de Jupyter Notebooks que permite escribir y ejecutar Python desde el navegador sin instalar el entorno en el equipo. El Notebook puede guardarse en Google Drive o cargarse desde otras fuentes compatibles.<sup><a href="#fuente_62">[62]</a></sup></p>
       <div class="comparacion">
         <div>
-          <h3>Cuaderno: el documento</h3>
+          <h3>Notebook: el documento</h3>
           <p>Conserva texto, código y resultados guardados. Organiza una explicación en una secuencia legible y puede volver a abrirse más tarde.</p>
         </div>
         <div>
@@ -79,7 +80,7 @@
           <p>Mantiene temporalmente variables, funciones importadas o definidas y archivos de la máquina virtual. Ese estado puede desaparecer al reiniciar o desconectar el entorno.</p>
         </div>
       </div>
-      <p>Las celdas pueden ejecutarse en cualquier orden. Por eso el orden visual del cuaderno y el orden real de ejecución no siempre coinciden. Si una celda usa <code>precio</code>, funcionará únicamente si antes se ejecutó otra que asignó ese nombre en la sesión actual.</p>
+      <p>Las celdas pueden ejecutarse en cualquier orden. Por eso el orden visual del Notebook y el orden real de ejecución no siempre coinciden. Si una celda usa <code>precio</code>, funcionará únicamente si antes se ejecutó otra que asignó ese nombre en la sesión actual.</p>
       <pre tabindex="0" aria-label="Código Python desplazable horizontalmente"><code># Celda 1
 precio = 12.50
 unidades = 4
@@ -88,14 +89,14 @@ unidades = 4
 total = precio * unidades
 print(f"Total: {total:.2f} €")
 # Salida: Total: 50.00 €</code></pre>
-      <p>Si se cambia <code>precio</code> en la primera celda pero no se vuelve a ejecutar, la segunda conserva el valor anterior de la sesión. Los números que Colab muestra junto a las celdas ayudan a reconocer el orden de ejecución, pero la comprobación más fiable es <strong>reiniciar y ejecutar todo</strong> desde el principio. Un cuaderno reproducible no debe depender de una acción olvidada.</p>
+      <p>Si se cambia <code>precio</code> en la primera celda pero no se vuelve a ejecutar, la segunda conserva el valor anterior de la sesión. Los números que Colab muestra junto a las celdas ayudan a reconocer el orden de ejecución, pero la comprobación más fiable es <strong>reiniciar y ejecutar todo</strong> desde el principio. Un Notebook reproducible no debe depender de una acción olvidada.</p>
       <div class="cc2-timeline">
         <div class="cc2-tl-item"><div class="cc2-tl-year">1 — Leer</div><p>Revisar la explicación y las entradas esperadas antes de ejecutar.</p></div>
         <div class="cc2-tl-item"><div class="cc2-tl-year">2 — Ejecutar en orden</div><p>Empezar arriba y avanzar hacia abajo cuando las celdas dependen unas de otras.</p></div>
         <div class="cc2-tl-item"><div class="cc2-tl-year">3 — Interpretar la salida</div><p>Distinguir entre el valor mostrado, un mensaje producido por <code>print</code> y un error con su traza.</p></div>
-        <div class="cc2-tl-item"><div class="cc2-tl-year">4 — Reiniciar y comprobar</div><p>Ejecutar todo en una sesión limpia para confirmar que el cuaderno contiene realmente lo necesario.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">4 — Reiniciar y comprobar</div><p>Ejecutar todo en una sesión limpia para confirmar que el Notebook contiene realmente lo necesario.</p></div>
       </div>
-      <div class="aviso"><strong>El cuaderno no es la máquina virtual</strong>Colab ejecuta el código en una máquina virtual privada para la cuenta, pero esas máquinas se eliminan tras un periodo de inactividad y tienen una duración máxima. Las variables y los archivos temporales no deben confundirse con el contenido guardado del cuaderno.<sup><a href="#fuente_63">[63]</a></sup></div>
+      <div class="aviso"><strong>El Notebook no es la máquina virtual</strong>Colab ejecuta el código en una máquina virtual privada para la cuenta, pero esas máquinas se eliminan tras un periodo de inactividad y tienen una duración máxima. Las variables y los archivos temporales no deben confundirse con el contenido guardado del Notebook.<sup><a href="#fuente_63">[63]</a></sup></div>
 
       <h2 id="datos">2. Repaso aplicado de variables, tipos, operadores, entrada y salida</h2>
       <p>Una <strong>variable</strong> vincula un nombre con un valor. El tipo del valor determina qué operaciones tienen sentido: se pueden sumar números, concatenar textos o combinar condiciones booleanas, pero no sumar directamente una cadena y un entero. Python incluye funciones como <code>input</code>, <code>print</code>, <code>int</code>, <code>float</code>, <code>str</code> y <code>round</code>, disponibles sin importar ninguna biblioteca.<sup><a href="#fuente_64">[64]</a></sup></p>
@@ -177,7 +178,7 @@ print(f"Coste previsto: {coste:.2f} €")
       <div class="cc2-think"><strong>Analogía:</strong> una función se parece a una máquina con una entrada y una salida. Los parámetros describen las conexiones disponibles; los argumentos son lo que se introduce en una ejecución; el valor de retorno es el producto que puede utilizar otra parte del programa.</div>
 
       <h2 id="alcance">5. Alcance de las variables y separación entre cálculo, entrada y presentación</h2>
-      <p>El <strong>alcance</strong> indica la región del programa donde un nombre puede utilizarse directamente. Los parámetros y nombres asignados dentro de una función son normalmente <strong>locales</strong>: se crean para esa llamada. Los nombres definidos en el nivel principal del cuaderno son globales para las funciones allí definidas, aunque depender de ellos sin necesidad oculta las entradas reales de una función.<sup><a href="#fuente_66">[66]</a></sup></p>
+      <p>El <strong>alcance</strong> indica la región del programa donde un nombre puede utilizarse directamente. Los parámetros y nombres asignados dentro de una función son normalmente <strong>locales</strong>: se crean para esa llamada. Los nombres definidos en el nivel principal del Notebook son globales para las funciones allí definidas, aunque depender de ellos sin necesidad oculta las entradas reales de una función.<sup><a href="#fuente_66">[66]</a></sup></p>
       <pre tabindex="0" aria-label="Código Python desplazable horizontalmente"><code>iva = 0.21
 
 def precio_final(precio_base, tipo_iva):
@@ -205,7 +206,7 @@ print(f"Media: {media:.1f}")</code></pre>
       <div class="aviso"><strong>Evita modificar globales desde una función</strong>Puede hacerse con <code>global</code>, pero en programas sencillos suele aumentar el acoplamiento y esconder cambios de estado. Recibir los datos como parámetros y devolver el resultado hace visible el recorrido de la información.</div>
 
       <h2 id="reutilizacion">6. Biblioteca estándar, reutilización de funciones y docstrings básicos</h2>
-      <p>Python incorpora una <strong>biblioteca estándar</strong> con módulos preparados para tareas frecuentes. <code>import</code> permite reutilizarlos sin copiar su implementación. En este tema se usan módulos existentes dentro de un solo cuaderno; todavía no se crean módulos propios ni programas distribuidos en varios archivos.<sup><a href="#fuente_67">[67]</a></sup></p>
+      <p>Python incorpora una <strong>biblioteca estándar</strong> con módulos preparados para tareas frecuentes. <code>import</code> permite reutilizarlos sin copiar su implementación. En este tema se usan módulos existentes dentro de un solo Notebook; todavía no se crean módulos propios ni programas distribuidos en varios archivos.<sup><a href="#fuente_67">[67]</a></sup></p>
       <pre tabindex="0" aria-label="Código Python desplazable horizontalmente"><code>import math
 
 
@@ -273,7 +274,7 @@ assert aplicar_descuento(80, 120) is None</code></pre>
         <div class="cc2-tl-item"><div class="cc2-tl-year">Incremento 2 — Una función</div><p>Encapsular el cálculo en <code>aplicar_descuento(importe, porcentaje)</code> y repetir el caso conocido.</p></div>
         <div class="cc2-tl-item"><div class="cc2-tl-year">Incremento 3 — Límites</div><p>Añadir la regla de 0 a 100 y comprobar casos normales, límites y un valor no válido.</p></div>
         <div class="cc2-tl-item"><div class="cc2-tl-year">Incremento 4 — Interacción</div><p>Incorporar <code>input</code> y presentación solo después de comprobar el cálculo aislado.</p></div>
-        <div class="cc2-tl-item"><div class="cc2-tl-year">Incremento 5 — Revisión limpia</div><p>Reiniciar la sesión de Colab, ejecutar todas las celdas en orden y confirmar los resultados.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">Incremento 5 — Revisión limpia</div><p>Reiniciar la sesión del Notebook, ejecutar todas las celdas en orden y confirmar los resultados.</p></div>
       </div>
       <div class="tabla_responsiva" tabindex="0" aria-label="Tabla desplazable horizontalmente">
         <table>
@@ -288,12 +289,12 @@ assert aplicar_descuento(80, 120) is None</code></pre>
           </tbody>
         </table>
       </div>
-      <p>«Breve» no significa un número obligatorio de líneas. Una función tiene una longitud adecuada cuando su finalidad se puede nombrar con precisión, sus entradas y salida son reconocibles y no mezcla responsabilidades sin relación. Dividir demasiado también perjudica: una función diminuta que solo oculta una operación evidente puede obligar a saltar continuamente por el cuaderno.</p>
+      <p>«Breve» no significa un número obligatorio de líneas. Una función tiene una longitud adecuada cuando su finalidad se puede nombrar con precisión, sus entradas y salida son reconocibles y no mezcla responsabilidades sin relación. Dividir demasiado también perjudica: una función diminuta que solo oculta una operación evidente puede obligar a saltar continuamente por el Notebook.</p>
       <div class="cc2-concept"><strong class="cc2-concept-tag">Ciclo de trabajo</strong>Ejemplo conocido → fragmento mínimo → ejecución → comparación con lo esperado → siguiente incremento → ejecución completa desde una sesión limpia. Cada paso reduce la distancia entre el fallo y la causa que lo introdujo.</div>
 
       <h2 id="glosario">Glosario del tema</h2>
       <dl class="cc2-glosario">
-        <dt>Cuaderno</dt><dd>Documento que combina celdas de texto, código y resultados.</dd>
+        <dt>Notebook</dt><dd>Cuaderno computacional que combina celdas de texto, código ejecutable y resultados; suele guardarse como archivo <code>.ipynb</code>.</dd>
         <dt>Entorno de ejecución</dt><dd>Sistema que ejecuta el código y mantiene temporalmente el estado de la sesión.</dd>
         <dt>Estado</dt><dd>Conjunto de valores, definiciones y recursos disponibles en un momento de la ejecución.</dd>
         <dt>Variable</dt><dd>Nombre vinculado a un valor durante la ejecución de un programa.</dd>
@@ -314,7 +315,7 @@ assert aplicar_descuento(80, 120) is None</code></pre>
       <section class="summary">
         <h2 id="resumen">Resumen esencial</h2>
         <ol>
-          <li>Google Colab combina un cuaderno guardable con una sesión temporal que mantiene el estado de ejecución.</li>
+          <li>Jupyter Notebook combina un documento <code>.ipynb</code> guardable con una sesión que mantiene el estado de ejecución; en clase utilizaremos principalmente Google Colab para trabajar con estos Notebooks.</li>
           <li>Ejecutar celdas fuera de orden puede dejar un estado engañoso; reiniciar y ejecutar todo comprueba la reproducibilidad.</li>
           <li>Variables, tipos, operadores, entrada y salida adquieren sentido dentro de un programa con datos y unidades claros.</li>
           <li>Los condicionales seleccionan rutas; los bucles recorren o repiten; ambos expresan necesidades del problema.</li>
@@ -338,6 +339,7 @@ assert aplicar_descuento(80, 120) is None</code></pre>
           <li id="fuente_66">[66] <a href="https://docs.python.org/3/tutorial/classes.html#python-scopes-and-namespaces" lang="en">Tutorial de Python — Alcances y espacios de nombres</a> (en inglés).</li>
           <li id="fuente_67">[67] <a href="https://docs.python.org/3/tutorial/modules.html#standard-modules" lang="en">Tutorial de Python — Módulos estándar</a> (en inglés).</li>
           <li id="fuente_68">[68] <a href="https://docs.python.org/3/library/random.html" lang="en">Documentación de Python — Módulo random</a> (en inglés).</li>
+          <li id="fuente_69">[69] <a href="https://docs.jupyter.org/en/latest/what_is_jupyter.html" lang="en">Documentación de Jupyter — Qué es Jupyter y qué significa Jupyter Notebook</a> (en inglés).</li>
         </ul>
       </section>
     </article>

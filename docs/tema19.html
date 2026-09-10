@@ -70,7 +70,7 @@
 
       <h2 id="eleccion">1. Elegir un problema concreto y viable</h2>
       <p>Una idea de proyecto empieza a ser programable cuando expresa <strong>qué situación quiere mejorar</strong>, <strong>para quién</strong> y <strong>qué resultado observable</strong> produciría. «Hacer una aplicación de música» es un territorio demasiado amplio; «organizar una colección personal de canciones y obtener listas filtradas por intérprete o duración» describe ya datos, acciones y una utilidad reconocible.</p>
-      <p>El interés personal importa porque sostiene la curiosidad cuando aparecen dificultades, pero no basta. La viabilidad depende del tiempo, los conocimientos, el entorno, los datos y los dispositivos disponibles. Colab ofrece un cuaderno alojado que se ejecuta desde el navegador y facilita empezar sin una instalación local, aunque sus sesiones de cálculo y sus archivos temporales no deben confundirse con almacenamiento permanente.<sup><a href="#fuente_112">[112]</a></sup></p>
+      <p>El interés personal importa porque sostiene la curiosidad cuando aparecen dificultades, pero no basta. La viabilidad depende del tiempo, los conocimientos, el entorno, los datos y los dispositivos disponibles. Google Colab ofrece Jupyter Notebooks alojados que se ejecutan desde el navegador y facilitan empezar sin una instalación local, aunque sus sesiones de cálculo y sus archivos temporales no deben confundirse con almacenamiento permanente.<sup><a href="#fuente_112">[112]</a></sup></p>
       <div class="tabla_responsiva" tabindex="0" aria-label="Tabla desplazable horizontalmente">
         <table>
           <caption>De un campo amplio a una idea viable</caption>
@@ -170,7 +170,7 @@
         <div class="cc2-tl-item"><div class="cc2-tl-year">Estado 4 — persistencia</div><p>Se guardan y recuperan datos, incluidos los casos de fichero ausente o contenido no válido.</p></div>
         <div class="cc2-tl-item"><div class="cc2-tl-year">Estado 5 — presentación y mejoras</div><p>Se aclara la interacción y solo después se consideran capacidades secundarias.</p></div>
       </div>
-      <p><strong>Conservar versiones</strong> significa poder regresar a un estado anterior conocido. En un proyecto de esta escala puede resolverse con copias del cuaderno o del archivo, nombres fechados y descriptivos, descargas periódicas del <code>.ipynb</code> y el historial de versiones disponible en el entorno. Los cuadernos de Colab pueden almacenarse en Drive; Drive permite consultar actividad y versiones anteriores de los archivos.<sup><a href="#fuente_112">[112]</a></sup><sup><a href="#fuente_120">[120]</a></sup></p>
+      <p><strong>Conservar versiones</strong> significa poder regresar a un estado anterior conocido. En un proyecto de esta escala puede resolverse con copias del Notebook o del archivo, nombres fechados y descriptivos, descargas periódicas del <code>.ipynb</code> y el historial de versiones disponible en el entorno. Los Notebooks creados en Colab pueden almacenarse en Drive; Drive permite consultar actividad y versiones anteriores de los archivos.<sup><a href="#fuente_112">[112]</a></sup><sup><a href="#fuente_120">[120]</a></sup></p>
       <div class="tabla_responsiva" tabindex="0" aria-label="Tabla desplazable horizontalmente">
         <table>
           <caption>Una conservación comprensible de estados</caption>
@@ -183,7 +183,7 @@
         </table>
       </div>
       <p>Una copia útil debe corresponder a un estado que se ejecutó y se comprendió. Acumular archivos llamados «final», «final2» o «último» sin anotar qué cambia no crea un historial aprovechable. Tampoco conviene sobrescribir la única versión estable mientras se explora una modificación arriesgada.</p>
-      <div class="aviso"><strong>El estado de una sesión no es una versión</strong>En un cuaderno, variables y archivos de <code>/content</code> pueden permanecer temporalmente durante la sesión aunque las celdas ya no reflejen cómo se obtuvieron. Reiniciar y ejecutar en orden ayuda a verificar que el cuaderno conservado es reproducible; para probar persistencia hay que recuperar los datos desde Drive, una descarga u otro almacenamiento que sobreviva al cierre del entorno.</div>
+      <div class="aviso"><strong>El estado de una sesión no es una versión</strong>En un Notebook, variables y archivos de <code>/content</code> pueden permanecer temporalmente durante la sesión aunque las celdas ya no reflejen cómo se obtuvieron. Reiniciar y ejecutar en orden ayuda a verificar que el Notebook conservado es reproducible; para probar persistencia hay que recuperar los datos desde Drive, una descarga u otro almacenamiento que sobreviva al cierre del entorno.</div>
 
       <h2 id="calidad">6. Gestión de errores, pruebas y depuración</h2>
       <p>Un programa fiable no es el que nunca encuentra situaciones problemáticas, sino el que distingue las previstas de los defectos y responde de manera comprensible. Python diferencia errores de sintaxis y excepciones durante la ejecución; tratar una excepción exige identificar cuál se espera y en qué punto puede resolverse, en lugar de ocultar cualquier fallo indiscriminadamente.<sup><a href="#fuente_117">[117]</a></sup></p>
@@ -293,7 +293,7 @@
           <li>Ejemplos, casos de uso y tareas representan la planificación directamente, sin pseudocódigo.</li>
           <li>Funciones, colecciones, ficheros y objetos se seleccionan por la necesidad que resuelven, no por su complejidad.</li>
           <li>El desarrollo incremental añade capacidades pequeñas y devuelve con frecuencia el programa a un estado funcional.</li>
-          <li>Copias con nombres informativos y el historial del cuaderno conservan estados anteriores comprensibles.</li>
+          <li>Copias con nombres informativos y el historial del Notebook conservan estados anteriores comprensibles.</li>
           <li>Casos normales, límite, no válidos y de regresión aportan evidencias diferentes sobre el comportamiento.</li>
           <li>Depurar exige reproducir, observar, localizar una causa, corregir lo mínimo y volver a probar.</li>
           <li>La documentación conserva propósito, límites, decisiones e incidencias que el código no explica por sí solo.</li>
@@ -306,7 +306,7 @@
         <h2 id="fuentes">Fuentes y recursos fiables</h2>
         <ul>
           <li id="fuente_111">[111] <a href="https://www.bocm.es/boletin/CM_Orden_BOCM/2023/05/31/BOCM-20230531-18.PDF">Comunidad de Madrid — Orden 1736/2023, de 19 de mayo, Anexo IV (PDF)</a>.</li>
-          <li id="fuente_112">[112] <a href="https://research.google.com/colaboratory/faq.html" lang="en">Google Colab — Preguntas frecuentes sobre cuadernos, sesiones y almacenamiento</a> (en inglés).</li>
+          <li id="fuente_112">[112] <a href="https://research.google.com/colaboratory/faq.html" lang="en">Google Colab — Preguntas frecuentes sobre Notebooks, sesiones y almacenamiento</a> (en inglés).</li>
           <li id="fuente_113">[113] <a href="https://docs.python.org/3/tutorial/controlflow.html#defining-functions" lang="en">Documentación de Python — Defining Functions</a> (en inglés).</li>
           <li id="fuente_114">[114] <a href="https://docs.python.org/3/tutorial/datastructures.html" lang="en">Documentación de Python — Data Structures</a> (en inglés).</li>
           <li id="fuente_115">[115] <a href="https://docs.python.org/3/tutorial/inputoutput.html" lang="en">Documentación de Python — Input and Output: files and JSON</a> (en inglés).</li>

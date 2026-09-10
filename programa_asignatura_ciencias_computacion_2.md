@@ -1,4 +1,4 @@
-# Programa de la asignatura — Ciencias de la Computación II · Versión 3
+# Programa de la asignatura — Ciencias de la Computación II
 
 ## 2.º de Bachillerato · optativa · Comunidad de Madrid
 

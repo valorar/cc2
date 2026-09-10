@@ -1,4 +1,4 @@
-# Análisis y decisiones pedagógicas · Versión 3
+# Análisis y decisiones pedagógicas
 
 ## Decisión: seis temas
 
@@ -15,7 +15,7 @@ La secuencia responde a seis preguntas consecutivas:
 
 ## Qué se toma de cada versión
 
-| Aportación | v1 | v2 | Tratamiento en v3 |
+| Aportación | v1 | v2 | Tratamiento definitivo |
 |---|:---:|:---:|---|
 | Explicación breve y orientada a problemas | ✓ | | Se conserva en preguntas guía, ejemplos y resúmenes. |
 | Señal analógica/digital, ruido y regeneración | ✓ | | Se incorpora al Tema 3. |
@@ -54,7 +54,7 @@ La secuencia responde a cuatro preguntas consecutivas:
 
 ### Qué se toma de cada versión
 
-| Aportación | v1 | v2 | Tratamiento en v3 |
+| Aportación | v1 | v2 | Tratamiento definitivo |
 |---|:---:|:---:|---|
 | Imagen rasterizada y vectorial, resolución, color y formatos | ✓ | ✓ | Se reúne en el Tema 10 como base común. |
 | Edición rasterizada y creación vectorial | ✓ | ✓ | Se desarrolla en el Tema 11 con GIMP e Inkscape. |
@@ -99,7 +99,7 @@ La secuencia responde a seis preguntas:
 
 ### Qué se toma de cada versión
 
-| Aportación | v1 | v2 | Tratamiento en v3 |
+| Aportación | v1 | v2 | Tratamiento definitivo |
 |---|:---:|:---:|---|
 | Reactivación de Python y funciones | ✓ | desarrollada en tres temas | Se concentra en el Tema 14 sin repetir CC I. |
 | Colecciones y ficheros | unidos | separados | Se reúnen en el Tema 15 como ciclo de tratamiento y persistencia de datos. |

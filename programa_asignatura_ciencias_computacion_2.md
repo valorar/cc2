@@ -216,18 +216,18 @@ Cómo localizar la causa de un fallo, comprobar que una corrección funciona y m
 
 ### Tema 18. Entornos, aplicaciones móviles y software adaptativo
 
-Cómo cambia el desarrollo entre un cuaderno, un IDE y un entorno de creación de aplicaciones móviles, y cómo puede un programa adaptar su comportamiento mediante reglas comprensibles y verificables.
+Cómo cambia la programación entre Google Colab y un IDE como Thonny, qué posibilidades ofrecen los entornos de creación de aplicaciones móviles y cómo se relaciona el software adaptativo con la inteligencia artificial, el aprendizaje automático y los agentes.
 
 - componentes de un entorno: editor, ejecución, consola, depurador y bibliotecas.
-- comparación entre cuadernos, IDE y entornos visuales de creación de aplicaciones.
-- posibilidades y límites de Google Colab.
-- interfaces, eventos, estado y respuesta de una aplicación móvil sencilla.
-- exploración guiada de un entorno web para crear y probar aplicaciones móviles.
-- software adaptativo basado en preferencias, historial o resultados.
-- diferencias entre configuración, personalización, adaptación y aprendizaje automático.
-- pruebas con perfiles distintos, privacidad, accesibilidad y control del usuario.
+- Google Colab frente a Thonny: cuadernos, programas, archivos y ejecución.
+- creación y depuración de pequeños programas Python con Thonny.
+- posibilidades y límites de los entornos locales y en la nube.
+- panorama de los entornos para crear aplicaciones móviles.
+- interfaces, eventos y estado de una aplicación móvil.
+- concepto básico y ejemplos de software adaptativo.
+- introducción y relación entre inteligencia artificial, *machine learning* y agentes.
 
-### Tema 19. Proyecto personal de programación — ampliación voluntaria
+### Tema 19. Proyecto personal de programación
 
 Cómo desarrollar una aplicación elegida por el alumno que integre o amplíe lo aprendido. Este tema es voluntario y está dirigido a quienes tengan especial interés en programación; no introduce ningún contenido curricular imprescindible ni condiciona la superación del bloque.
 
@@ -261,3 +261,4 @@ Para el Bloque D, se eligen cinco temas obligatorios y un proyecto voluntario. N
 
 - [Orden 1736/2023, de 19 de mayo, Anexo IV](https://www.bocm.es/boletin/CM_Orden_BOCM/2023/05/31/BOCM-20230531-18.PDF).
 - [Decreto 64/2022, de 20 de julio](https://www.bocm.es/boletin/CM_Orden_BOCM/2022/07/26/BOCM-20220726-1.PDF).
+- [Picuino: transcripción navegable del currículo](https://www.picuino.com/es/ley-ciencias-computacion-bach.html). Recurso de consulta.

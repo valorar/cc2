@@ -86,7 +86,7 @@ La secuencia responde a seis preguntas:
 2. **¿Cómo organizamos y conservamos datos?** Colecciones, procesamiento y ficheros.
 3. **¿Cómo modelamos entidades con estado y comportamiento?** Clases y objetos.
 4. **¿Cómo encontramos fallos y demostramos que una corrección funciona?** Depuración, excepciones y pruebas.
-5. **¿Cómo cambia la programación en otros entornos?** Aplicaciones móviles y software adaptativo.
+5. **¿Cómo cambia la programación en otros entornos?** Google Colab y Thonny, panorama de aplicaciones móviles y una introducción breve al software adaptativo, la inteligencia artificial, el aprendizaje automático y los agentes.
 6. **¿Cómo integramos o ampliamos lo aprendido?** Proyecto personal voluntario.
 
 ### Qué se toma de cada versión
@@ -97,7 +97,7 @@ La secuencia responde a seis preguntas:
 | Colecciones y ficheros | unidos | separados | Se reúnen en el Tema 15 como ciclo de tratamiento y persistencia de datos. |
 | Clases y objetos | ✓ | ✓ | Se conserva como Tema 16 propio y de alcance introductorio. |
 | Depuración, pruebas y mejora | ✓ | ✓ | Se sistematiza en el Tema 17 y se practica desde el inicio. |
-| Entornos móviles y software adaptativo | mención | ✓ | Se trabajan obligatoriamente en el Tema 18. |
+| Entornos móviles y software adaptativo | mención | ✓ | Se conocen y comparan en el Tema 18, sin exigir una aplicación móvil completa; el software adaptativo se trata de forma breve y se relaciona con IA, aprendizaje automático y agentes. |
 | Proyecto final | obligatorio | obligatorio | Se transforma en el Tema 19, ampliación voluntaria. |
 
 ### Por qué cinco temas obligatorios
@@ -109,10 +109,12 @@ La secuencia responde a seis preguntas:
 ### Decisiones metodológicas
 
 - Python se utiliza desde la primera sesión y Google Colab es el entorno principal.
+- Thonny se utiliza brevemente como segundo entorno Python para comparar el trabajo con cuadernos y programas y practicar la depuración paso a paso.
 - No se incluye pseudocódigo. El profesor explica oralmente los algoritmos y la planificación se concreta con ejemplos, entradas, salidas, casos de prueba, funciones y código incremental.
 - Colecciones y ficheros se estudian juntos, pero en secciones diferenciadas.
 - Depuración y pruebas aparecen desde el Tema 14 y se formalizan en el Tema 17.
-- El Tema 18 garantiza la cobertura obligatoria de otros entornos, aplicaciones móviles y software adaptativo.
+- El Tema 18 presenta y compara entornos para aplicaciones móviles, pero no exige desarrollar una aplicación móvil ni aprender otro lenguaje.
+- Los fundamentos del software adaptativo se reducen a una introducción y se conectan con conceptos actuales de inteligencia artificial, *machine learning* y agentes.
 - El Tema 19 solo amplía o integra aprendizajes ya cubiertos; no es necesario para completar el bloque.
 
 ### Cobertura curricular
@@ -121,5 +123,5 @@ La secuencia responde a seis preguntas:
 - El Tema 15 cubre estructuras de almacenamiento y lectura y escritura de datos.
 - El Tema 16 cubre clases, objetos y organización modular.
 - El Tema 17 cubre elaboración, depuración, pruebas y mejora de programas.
-- El Tema 18 cubre la comparación de entornos, los entornos de creación de aplicaciones móviles y los fundamentos del software adaptativo.
+- El Tema 18 cubre el uso breve de Thonny como segundo entorno, el conocimiento y valoración de entornos para aplicaciones móviles y los fundamentos del software adaptativo.
 - Los temas obligatorios 14 a 18 cubren los criterios 4.1, 4.2 y 4.3; el proyecto voluntario no es la única evidencia de ningún contenido ni criterio.

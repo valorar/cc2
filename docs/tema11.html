@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Tema 11 de Ciencias de la Computación II: edición de imágenes rasterizadas con GIMP, creación vectorial con Inkscape, composición, accesibilidad y exportación.">
+  <title>Tema 11. Edición de imágenes y gráficos vectoriales · CC2</title>
+  <link rel="stylesheet" href="assets/estilos.css">
+  <script src="assets/navegacion.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#contenido">Saltar al contenido</a>
+<div class="progress" aria-hidden="true"><span></span></div>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="index.html"><span class="brand-mark">CC2</span><span>Ciencias de la Computación II<small>2.º de Bachillerato · 2026–2027</small></span></a>
+    <nav class="top-nav" aria-label="Navegación principal"><a href="index.html">Índice</a></nav>
+  </div>
+</header>
+<main id="contenido">
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <p class="kicker">Tema 11 · Bloque C · Software: herramientas y aplicaciones</p>
+        <h1>Edición de imágenes y gráficos vectoriales</h1>
+        <p class="hero-lead">Cómo transformar, corregir y combinar imágenes con GIMP, crear gráficos con Inkscape y preparar cada resultado para que comunique con claridad en pantalla o impresión.</p>
+      </div>
+      <aside class="hero-note" aria-label="Pregunta guía del tema 11">
+        <strong>Pregunta guía</strong>
+        <p>¿Cómo pasar de varios recursos visuales a una composición clara, editable, accesible y adecuada para su destino?</p>
+      </aside>
+    </div>
+  </section>
+
+  <div class="layout">
+    <nav class="toc" aria-label="Índice del tema">
+      <strong>En este tema</strong>
+      <ol>
+        <li><a href="#capas">Capas, selecciones y máscaras</a></li>
+        <li><a href="#transformaciones">Recorte, tamaño y transformaciones</a></li>
+        <li><a href="#ajustes">Luz, color y retoque</a></li>
+        <li><a href="#composicion">Filtros y composición</a></li>
+        <li><a href="#vectores">Formas, trazados, nodos y texto</a></li>
+        <li><a href="#integracion">Integrar raster y vector</a></li>
+        <li><a href="#accesibilidad">Accesibilidad al publicar</a></li>
+        <li><a href="#exportacion">Editable y exportado</a></li>
+        <li><a href="#glosario">Glosario</a></li>
+        <li><a href="#resumen">Resumen</a></li>
+        <li><a href="#fuentes">Fuentes</a></li>
+      </ol>
+    </nav>
+
+    <article class="paper">
+      <p class="lesson-intro">Editar no consiste en acumular efectos. Consiste en tomar decisiones reversibles siempre que sea posible, conservar la calidad necesaria y dirigir la atención hacia el mensaje.</p>
+      <div class="question"><strong>Antes de empezar:</strong> una fotografía, un logotipo y un título pueden convivir en un cartel, pero no se construyen igual. La fotografía depende de píxeles; el logotipo puede describirse mediante formas; y el texto debe seguir siendo legible y, cuando sea posible, editable.</div>
+      <div class="objectives">
+        <strong>Al terminar serás capaz de…</strong>
+        <ul>
+          <li>organizar una composición mediante capas, selecciones, máscaras y transparencia;</li>
+          <li>distinguir recortar, escalar, cambiar el lienzo y transformar;</li>
+          <li>corregir luz y color sin confundir corrección con efecto;</li>
+          <li>usar principios de equilibrio, contraste y jerarquía visual;</li>
+          <li>explicar cómo se construyen y editan formas y trazados vectoriales;</li>
+          <li>combinar recursos rasterizados y vectoriales con criterio;</li>
+          <li>considerar contraste, legibilidad y texto alternativo al publicar;</li>
+          <li>separar el archivo de trabajo del archivo final exportado.</li>
+        </ul>
+      </div>
+
+      <h2 id="capas">1. Capas, selecciones, máscaras y transparencia</h2>
+      <p>En una imagen sencilla todos los píxeles podrían estar en una única superficie. En una composición real conviene repartir fondo, fotografía, texto, sombras y correcciones en <strong>capas</strong>. Cada capa se parece a una lámina transparente apilada: puede ocultarse, reordenarse, desplazarse y ajustar su opacidad sin mezclar inmediatamente su contenido con el resto.<sup><a href="#fuente_30">[30]</a></sup></p>
+      <p>La imagen visible es el resultado de combinar la pila de arriba abajo. El <strong>modo de fusión</strong> determina cómo interactúan los valores de una capa con los inferiores; la <strong>opacidad</strong> regula cuánto contribuye. Estos controles son útiles, pero no sustituyen una estructura clara ni una elección de color razonada.</p>
+      <div class="tabla_responsiva">
+        <table>
+          <caption>Herramientas para decidir dónde afecta una edición</caption>
+          <thead><tr><th scope="col">Recurso</th><th scope="col">Qué controla</th><th scope="col">Idea esencial</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Capa</strong></td><td>Un componente de la composición.</td><td>Separa elementos para editarlos y ordenarlos de forma independiente.</td></tr>
+            <tr><td><strong>Selección</strong></td><td>La zona sobre la que puede actuar la siguiente operación.</td><td>Es una delimitación temporal; no es por sí misma un recorte permanente.</td></tr>
+            <tr><td><strong>Máscara de capa</strong></td><td>Qué partes de una capa se muestran, se ocultan o aparecen parcialmente.</td><td>Oculta sin borrar los píxeles originales y permite rectificar.</td></tr>
+            <tr><td><strong>Canal alfa</strong></td><td>La transparencia de cada píxel.</td><td>Permite bordes suaves y zonas totalmente o parcialmente transparentes.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Una selección puede tener un borde gradual para evitar cortes duros. Una máscara expresa esa visibilidad normalmente con valores: blanco muestra, negro oculta y los grises producen transparencia parcial. En GIMP, selecciones y máscara rápida permiten delimitar y refinar zonas complejas.<sup><a href="#fuente_31">[31]</a></sup></p>
+      <div class="cc2-concept"><strong class="cc2-concept-tag">Edición no destructiva</strong>Si ocultamos con una máscara en vez de borrar, mantenemos una vía de regreso. Conservar capas separadas, duplicar antes de un cambio irreversible y nombrar los elementos reduce errores y facilita variantes.</div>
+      <div class="cc2-note"><strong>Transparente no significa blanco.</strong> Un fondo blanco contiene píxeles blancos; una zona transparente deja ver lo que haya debajo. Además, no todos los formatos finales conservan transparencia.</div>
+
+      <h2 id="transformaciones">2. Recorte, cambio de tamaño, resolución y transformaciones</h2>
+      <p>Estas operaciones cambian cosas diferentes. Confundirlas puede deformar la imagen o producir un archivo que no encaja en su destino.</p>
+      <div class="tabla_responsiva">
+        <table>
+          <caption>Operaciones geométricas habituales</caption>
+          <thead><tr><th scope="col">Operación</th><th scope="col">Qué cambia</th><th scope="col">Decisión que exige</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Recortar</strong></td><td>Elimina zonas exteriores y cambia el encuadre.</td><td>Qué información queda dentro y dónde se sitúa el foco.</td></tr>
+            <tr><td><strong>Cambiar el lienzo</strong></td><td>Modifica el área de trabajo sin escalar necesariamente su contenido.</td><td>Si se añade margen o se deja parte del contenido fuera del marco.</td></tr>
+            <tr><td><strong>Escalar</strong></td><td>Cambia las dimensiones en píxeles de una capa o imagen.</td><td>Proporción, método de remuestreo y tamaño final necesario.</td></tr>
+            <tr><td><strong>Cambiar resolución de impresión</strong></td><td>Relaciona los píxeles disponibles con un tamaño físico.</td><td>Si solo cambia la medida impresa o si también se generan/eliminan píxeles.</td></tr>
+            <tr><td><strong>Rotar, inclinar o aplicar perspectiva</strong></td><td>Transforma la geometría y orientación.</td><td>Centro, ángulo, deformación y posible pérdida en los bordes.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Al escalar una imagen rasterizada se realiza un <strong>remuestreo</strong>: el programa calcula una nueva cuadrícula. Reducir suele descartar detalle; ampliar inventa valores intermedios, pero no recupera información que nunca se capturó. Por eso conviene trabajar desde un original suficiente y evitar ampliaciones sucesivas. GIMP reúne herramientas de escala, rotación, inclinación, perspectiva y otras transformaciones geométricas.<sup><a href="#fuente_32">[32]</a></sup></p>
+      <p>Mantener la <strong>relación de aspecto</strong> evita que una cara o un círculo se estiren. La deformación intencionada puede ser un recurso expresivo, pero no debe ocurrir por descuido. En un cartel para pantalla importan sobre todo las dimensiones en píxeles; en impresión también importa el tamaño físico con el que esos píxeles se repartirán.</p>
+      <div class="aviso"><strong>La resolución no repara un original pequeño</strong>Cambiar únicamente el número de píxeles por pulgada puede modificar la interpretación de impresión, pero no añade detalle. Remuestrear sí crea más píxeles, aunque no crea la información fina de una captura de mayor calidad.</div>
+
+      <h2 id="ajustes">3. Luminosidad, contraste y color; reparación y retoque</h2>
+      <p>Una <strong>corrección</strong> busca que la imagen represente mejor la escena o cumpla una finalidad comunicativa: recuperar detalle, neutralizar una dominante o equilibrar tonos. Un <strong>efecto</strong> transforma deliberadamente su aspecto. La frontera depende de la intención, pero conviene saber cuál de las dos decisiones estamos tomando.</p>
+      <div class="cc2-grid">
+        <section class="cc2-card">
+          <h3>Luminosidad y contraste</h3>
+          <p>La luminosidad desplaza la claridad general; el contraste separa tonos. Un ajuste excesivo puede convertir sombras en negro sin detalle o luces en blanco plano.</p>
+        </section>
+        <section class="cc2-card">
+          <h3>Niveles y curvas</h3>
+          <p>Permiten relacionar tonos de entrada y salida con más control. El histograma orienta sobre la distribución tonal, pero la decisión final depende de la imagen y su propósito.</p>
+        </section>
+        <section class="cc2-card">
+          <h3>Balance y saturación</h3>
+          <p>El balance corrige dominantes; tono y saturación cambian familias de color y su intensidad. La saturación alta no equivale automáticamente a mejor color.</p>
+        </section>
+      </div>
+      <p>GIMP dispone de ajustes de brillo-contraste, niveles, curvas, balance de color y tono-saturación. Brillo-contraste resulta directo; niveles y curvas permiten intervenir con mayor precisión sobre distintos rangos tonales.<sup><a href="#fuente_33">[33]</a></sup></p>
+      <h3>Reparar sin borrar la historia</h3>
+      <p>Las herramientas de clonado y saneado pueden eliminar polvo, pequeños objetos o imperfecciones tomando información de una zona cercana. Funcionan mejor si se respeta la dirección de la luz, la textura, el grano y la perspectiva. La reparación debería aplicarse en una capa separada cuando el programa y el flujo lo permitan.</p>
+      <p>El <strong>retoque</strong> también tiene una dimensión ética. Corregir una mota del sensor no equivale a cambiar el cuerpo de una persona, alterar una prueba documental o eliminar a alguien de una escena. En información, ciencia o periodismo, una modificación puede cambiar el significado y debe limitarse o declararse. Una imagen técnicamente convincente no es necesariamente una representación fiel.</p>
+      <div class="cc2-think"><strong>Decisión editorial:</strong> antes de retocar, conviene formular dos preguntas: «¿qué problema visual resuelvo?» y «¿cambia esta modificación lo que el público entenderá que ocurrió?».</div>
+
+      <h2 id="composicion">4. Filtros, efectos y composición visual</h2>
+      <p>Un <strong>filtro</strong> calcula nuevos valores a partir de los píxeles: puede desenfocar, enfocar bordes, reducir ruido, distorsionar o crear una textura. Su nombre describe una operación, no una garantía de mejora. Enfocar demasiado crea halos; reducir ruido en exceso borra textura; repetir compresiones o filtros puede acumular artefactos.</p>
+      <p>Los efectos deben servir a una intención. Un desenfoque puede separar el fondo del motivo principal; una sombra suave puede ayudar a distinguir planos; una dominante común puede dar unidad. Si todos los elementos reclaman atención con sombras, contornos y colores intensos, la jerarquía desaparece.</p>
+      <div class="tabla_responsiva">
+        <table>
+          <caption>Tres principios para organizar una composición</caption>
+          <thead><tr><th scope="col">Principio</th><th scope="col">Qué organiza</th><th scope="col">Cómo puede lograrse</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Equilibrio</strong></td><td>El peso visual entre zonas.</td><td>Distribuir tamaños, masas, espacios vacíos y direcciones de forma estable o con tensión intencionada.</td></tr>
+            <tr><td><strong>Contraste</strong></td><td>La diferencia que permite distinguir y comparar.</td><td>Variar luminosidad, tamaño, forma, grosor, textura o color sin depender solo de uno de ellos.</td></tr>
+            <tr><td><strong>Jerarquía</strong></td><td>El orden en que se descubre la información.</td><td>Dar protagonismo al título o motivo principal y reducir el peso de lo secundario.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>La <strong>alineación</strong>, la proximidad entre elementos relacionados, la repetición de estilos y el espacio vacío refuerzan esos principios. La vista debe encontrar primero lo importante y recorrer después el resto sin esfuerzo.</p>
+      <div class="cc2-concept"><strong class="cc2-concept-tag">Componer es establecer relaciones</strong>Un elemento no es grande, claro o llamativo en términos absolutos: lo es respecto a los demás. La composición surge de esas relaciones, no de una colección de efectos independientes.</div>
+
+      <h2 id="vectores">5. Formas, trazados, nodos y texto en gráficos vectoriales</h2>
+      <p>Inkscape trabaja de forma nativa con <strong>SVG</strong>, un formato vectorial estandarizado. En lugar de fijar el dibujo a una cuadrícula, describe objetos mediante geometría y atributos como relleno, trazo, grosor y color.<sup><a href="#fuente_34">[34]</a></sup></p>
+      <div class="comparacion">
+        <div><h3>Forma paramétrica</h3><p>Rectángulo, elipse, estrella o espiral conservan controles propios: esquinas, radios, puntas o redondeo. Son rápidas y siguen siendo fáciles de reajustar.</p></div>
+        <div><h3>Trazado</h3><p>Es una secuencia de segmentos rectos o curvas. Sus nodos y tiradores permiten controlar posición, dirección y curvatura con precisión.</p></div>
+      </div>
+      <p>Las curvas de Bézier se controlan con <strong>nodos</strong> y <strong>tiradores</strong>. Un nodo de esquina permite un cambio brusco de dirección; uno suave mantiene continuidad. Cuantos menos nodos innecesarios tenga un trazado, más fácil será editarlo y más limpia suele resultar la curva. Las operaciones booleanas —unión, diferencia, intersección— construyen siluetas nuevas a partir de otras.<sup><a href="#fuente_35">[35]</a></sup></p>
+      <p>Todo objeto puede tener <strong>relleno</strong> y <strong>trazo</strong> independientes. También puede agruparse, alinearse, distribuirse, superponerse y organizarse en capas. El orden de apilamiento decide qué aparece delante, igual que en una composición rasterizada, aunque los objetos mantienen su geometría.</p>
+      <h3>Texto editable, texto convertido</h3>
+      <p>Mientras el título sea un objeto de texto, se puede corregir su contenido, cambiar fuente, interlineado y alineación. Convertirlo a trazado evita depender de la fuente para reproducir su silueta, pero elimina la edición como texto y dificulta la accesibilidad. Por eso se conserva una copia editable y solo se convierte cuando el destino técnico lo exige.</p>
+      <div class="cc2-note"><strong>Vectorial no significa automáticamente simple.</strong> Un dibujo con miles de nodos, filtros complejos o imágenes incrustadas puede ser pesado. La ventaja es que las formas geométricas se escalan sin pixelarse, no que cualquier archivo SVG sea pequeño.</div>
+
+      <h2 id="integracion">6. Recursos rasterizados y vectoriales en una misma composición</h2>
+      <p>Muchos trabajos son híbridos: una fotografía rasterizada actúa como fondo, un logotipo vectorial mantiene bordes nítidos y el texto se conserva editable. No hace falta escoger un único tipo para todo; hay que elegir la representación adecuada para cada componente.</p>
+      <div class="tabla_responsiva">
+        <table>
+          <caption>Decisiones al combinar ambos tipos de recurso</caption>
+          <thead><tr><th scope="col">Situación</th><th scope="col">Opción razonable</th><th scope="col">Riesgo que se evita</th></tr></thead>
+          <tbody>
+            <tr><td>Fotografía con muchos matices</td><td>Mantenerla rasterizada con dimensiones suficientes.</td><td>Crear un trazado enorme que no reproduce bien el detalle fotográfico.</td></tr>
+            <tr><td>Logotipo, icono o diagrama</td><td>Conservar formas y texto como vectores.</td><td>Pixelación al ampliar y dificultad para cambiar color o geometría.</td></tr>
+            <tr><td>Fotografía colocada en SVG</td><td>Decidir entre incrustarla o enlazarla y conservar el original.</td><td>Enlaces rotos al mover el SVG o un archivo innecesariamente grande.</td></tr>
+            <tr><td>Vector abierto en un editor raster</td><td>Elegir antes las dimensiones a las que se rasteriza.</td><td>Perder la independencia de resolución demasiado pronto.</td></tr>
+            <tr><td>Resultado híbrido para compartir</td><td>Exportar una copia adaptada al destino.</td><td>Entregar por error dependencias, capas de trabajo o recursos ausentes.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Inkscape puede importar mapas de bits y también vectorizar contornos, pero el trazado automático no reconstruye mágicamente una fotografía: genera curvas aproximadas que deben simplificarse y revisarse.<sup><a href="#fuente_36">[36]</a></sup> Por el camino inverso, al rasterizar un vector se eligen unas dimensiones concretas y se pierde su escalabilidad ilimitada.</p>
+      <div class="cc2-concept"><strong class="cc2-concept-tag">Flujo híbrido</strong>Crear cada recurso con la herramienta que mejor representa su naturaleza, combinar sin destruir los originales y exportar al final. GIMP e Inkscape son referencias del aula, no dos compartimentos aislados.</div>
+
+      <h2 id="accesibilidad">7. Accesibilidad: contraste, legibilidad y texto alternativo</h2>
+      <p>Una imagen eficaz debe poder percibirse y comprenderse en el contexto real de uso: móvil a plena luz, proyección, impresión, baja visión o lector de pantalla. La accesibilidad no es un efecto que se añade al final; influye en color, tipografía, organización y publicación.</p>
+      <h3>Contraste y color</h3>
+      <p>Para texto normal, WCAG 2.2 establece como referencia de nivel AA una relación de contraste mínima de <strong>4,5:1</strong>; para texto grande, <strong>3:1</strong>.<sup><a href="#fuente_37">[37]</a></sup> El contraste se mide entre el texto y el fondo efectivo, también cuando hay una fotografía detrás. Un recuadro, una superposición o una zona menos variable puede mejorar la lectura.</p>
+      <ul>
+        <li>No usar únicamente rojo y verde, o solo diferencias de color, para expresar categorías: añadir etiquetas, patrones, formas o iconos.</li>
+        <li>Evitar tipografías demasiado finas, líneas excesivamente largas, interlineado apretado y cuerpos diminutos.</li>
+        <li>Mantener una jerarquía consistente y suficiente espacio alrededor de los bloques.</li>
+        <li>Preferir texto real a una imagen de texto cuando la plataforma permite maquetarlo: puede ampliarse, seleccionarse y adaptarse mejor.<sup><a href="#fuente_38">[38]</a></sup></li>
+      </ul>
+      <h3>El texto alternativo pertenece a la publicación</h3>
+      <p>El <strong>texto alternativo</strong> comunica la finalidad o la información relevante de una imagen a quien no puede verla. Se redacta según su función en la página: una imagen informativa necesita transmitir su dato esencial; una imagen funcional describe la acción; una puramente decorativa se marca para que la tecnología de apoyo pueda ignorarla. Los gráficos complejos requieren además una explicación extensa en el contenido.<sup><a href="#fuente_39">[39]</a></sup></p>
+      <aside class="aviso" aria-label="Aclaración sobre el texto alternativo"><strong>No es una operación propia de GIMP o Inkscape</strong>GIMP e Inkscape preparan el recurso visual. El texto alternativo se añade normalmente después, en el contexto de publicación: el atributo <code>alt</code> de HTML, el campo correspondiente del gestor de contenidos o las opciones de accesibilidad del documento. El mismo archivo puede necesitar textos distintos si cumple funciones distintas.</aside>
+      <div class="cc2-note"><strong>Ejemplo de criterio:</strong> «Gráfico» dice muy poco. «El consumo baja de 18 a 11 kWh entre enero y abril» transmite la conclusión relevante. Si todos los valores importan, deben aparecer también en una tabla o descripción cercana.</div>
+
+      <h2 id="exportacion">8. Conservar el archivo editable y exportar para el destino</h2>
+      <p><strong>Guardar</strong> conserva el trabajo; <strong>exportar</strong> prepara una copia para usarla fuera del editor. En GIMP, el formato XCF mantiene la estructura de capas y otros datos de edición, mientras que la exportación genera formatos de distribución. La documentación oficial diferencia expresamente ambos procesos.<sup><a href="#fuente_40">[40]</a></sup> En Inkscape, SVG es el formato nativo y conserva objetos vectoriales editables.<sup><a href="#fuente_34">[34]</a></sup></p>
+      <div class="tabla_responsiva">
+        <table>
+          <caption>Archivo de trabajo frente a archivo final</caption>
+          <thead><tr><th scope="col">Aspecto</th><th scope="col">Editable o proyecto</th><th scope="col">Exportado</th></tr></thead>
+          <tbody>
+            <tr><td>Finalidad</td><td>Continuar, corregir, reutilizar y generar variantes.</td><td>Publicar, imprimir, insertar o enviar.</td></tr>
+            <tr><td>Estructura</td><td>Conserva capas, máscaras, objetos, texto y decisiones internas.</td><td>Puede aplanar, rasterizar, simplificar o comprimir.</td></tr>
+            <tr><td>Ejemplos</td><td>XCF en GIMP; SVG editable en Inkscape.</td><td>PNG, JPEG, WebP, PDF o SVG preparado, según el destino.</td></tr>
+            <tr><td>Prioridad</td><td>Reversibilidad y organización.</td><td>Compatibilidad, aspecto, dimensiones, calidad y tamaño.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3>Exportar para pantalla</h3>
+      <p>Se fijan las dimensiones en píxeles que necesita la web, presentación o aplicación. PNG resulta útil para gráficos nítidos y transparencia; JPEG suele ser eficiente en fotografía sin transparencia; WebP puede servir en publicación web cuando la compatibilidad prevista es adecuada. La compresión y la calidad se comprueban sobre una copia, observando bordes, texto, degradados y detalle fino.</p>
+      <h3>Exportar para impresión</h3>
+      <p>Se parte del tamaño físico final y se comprueba que las imágenes rasterizadas tengan detalle suficiente a ese tamaño. Los vectores conservan nitidez, pero las fotografías incrustadas siguen limitadas por sus píxeles. El perfil de color, el sangrado y el formato deben acordarse con el servicio de impresión; una conversión de color no garantiza que todas las tintas o papeles reproduzcan igual la pantalla.</p>
+      <div class="cc2-timeline">
+        <div class="cc2-tl-item"><div class="cc2-tl-year">1 — Definir el destino</div><p>Pantalla o impresión, dimensiones, fondo, transparencia, compatibilidad y límite de tamaño.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">2 — Conservar el original editable</div><p>Guardar XCF o SVG con nombres claros, recursos localizables y, si procede, versiones.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">3 — Exportar una copia</div><p>Elegir formato, dimensiones, perfil y compresión según el uso, no por costumbre.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">4 — Verificar el resultado real</div><p>Abrir el archivo exportado, ampliar bordes y texto, comprobar transparencia y color, y revisar su tamaño.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">5 — Completar la publicación</div><p>Añadir texto alternativo y contexto, comprobar legibilidad y conservar la atribución cuando corresponda.</p></div>
+      </div>
+      <div class="cc2-concept"><strong class="cc2-concept-tag">Regla de conservación</strong>El archivo exportado no sustituye al editable. Entregar una copia final y conservar el proyecto permite corregir una errata, adaptar otro tamaño o cambiar un idioma sin reconstruir la obra.</div>
+
+      <h2 id="glosario">Glosario del tema</h2>
+      <dl class="cc2-glosario">
+        <dt>Capa</dt><dd>Superficie independiente de una composición que puede ordenarse, ocultarse y editarse.</dd>
+        <dt>Selección</dt><dd>Delimitación temporal de la zona a la que afectará una operación.</dd>
+        <dt>Máscara de capa</dt><dd>Mapa que controla la visibilidad de una capa sin borrar necesariamente su contenido.</dd>
+        <dt>Canal alfa</dt><dd>Información que representa la opacidad o transparencia de cada píxel.</dd>
+        <dt>Remuestreo</dt><dd>Cálculo de una nueva cuadrícula de píxeles al cambiar las dimensiones de una imagen rasterizada.</dd>
+        <dt>Histograma</dt><dd>Representación de la distribución de tonos o valores de una imagen.</dd>
+        <dt>Filtro</dt><dd>Operación que calcula nuevos valores visuales para corregir o transformar una imagen.</dd>
+        <dt>Forma paramétrica</dt><dd>Objeto vectorial con controles propios, como radio, redondeo o número de puntas.</dd>
+        <dt>Trazado</dt><dd>Conjunto de segmentos rectos o curvos definido mediante nodos.</dd>
+        <dt>Nodo</dt><dd>Punto de un trazado que controla su posición, continuidad y curvatura.</dd>
+        <dt>Rasterizar</dt><dd>Convertir formas vectoriales en una cuadrícula de píxeles con dimensiones concretas.</dd>
+        <dt>Jerarquía visual</dt><dd>Orden de importancia y lectura que establece una composición.</dd>
+        <dt>Texto alternativo</dt><dd>Texto asociado en la publicación que comunica la finalidad o información relevante de una imagen.</dd>
+        <dt>Archivo editable</dt><dd>Documento de trabajo que conserva estructura y posibilidades de modificación.</dd>
+        <dt>Exportación</dt><dd>Generación de una copia adaptada a un formato y destino concretos.</dd>
+      </dl>
+
+      <section class="summary">
+        <h2 id="resumen">Resumen esencial</h2>
+        <ol>
+          <li>Las capas separan componentes; las selecciones delimitan operaciones; las máscaras controlan visibilidad; el canal alfa representa transparencia.</li>
+          <li>Recortar cambia el encuadre, escalar remuestrea píxeles y transformar altera la geometría.</li>
+          <li>La corrección tonal y de color debe conservar detalle y responder a una intención; el retoque también exige criterio ético.</li>
+          <li>Los filtros son operaciones, no mejoras automáticas. Equilibrio, contraste y jerarquía organizan la atención.</li>
+          <li>Las formas vectoriales conservan controles; los trazados se editan mediante nodos y curvas.</li>
+          <li>Fotografías rasterizadas, logotipos vectoriales y texto editable pueden integrarse sin renunciar a sus originales.</li>
+          <li>Contraste, legibilidad y alternativas que no dependan solo del color se deciden durante el diseño.</li>
+          <li>El texto alternativo se incorpora en la web, gestor o documento donde se publica la imagen, no como una edición propia de GIMP o Inkscape.</li>
+          <li>XCF o SVG conservan el trabajo editable; PNG, JPEG, WebP, PDF o SVG preparado son posibles salidas según el destino.</li>
+          <li>Exportar exige comprobar el archivo final y nunca debe destruir o sustituir el proyecto.</li>
+        </ol>
+      </section>
+
+      <section aria-labelledby="fuentes">
+        <h2 id="fuentes">Fuentes y recursos fiables</h2>
+        <ul>
+          <li id="fuente_30">[30] <a href="https://docs.gimp.org/3.0/en/gimp-image-combining.html" lang="en">Manual oficial de GIMP 3.0: combinación de imágenes y capas</a> (en inglés).</li>
+          <li id="fuente_31">[31] <a href="https://docs.gimp.org/3.0/en/gimp-using-selections.html" lang="en">Manual oficial de GIMP 3.0: creación y uso de selecciones</a> (en inglés).</li>
+          <li id="fuente_32">[32] <a href="https://docs.gimp.org/3.0/en/gimp-tools-transform.html" lang="en">Manual oficial de GIMP 3.0: herramientas de transformación</a> (en inglés).</li>
+          <li id="fuente_33">[33] <a href="https://docs.gimp.org/3.0/en/gimp-colors-menu.html" lang="en">Manual oficial de GIMP 3.0: menú de color</a> (en inglés).</li>
+          <li id="fuente_34">[34] <a href="https://gitlab.com/inkscape/inkscape-docs/documentation" lang="en">Inkscape: repositorio oficial de documentación y manual</a> (en inglés).</li>
+          <li id="fuente_35">[35] <a href="https://inkscape-manuals.readthedocs.io/en/latest/editing-paths.html" lang="en">Manual de Inkscape: edición de trazados con la herramienta de nodos</a> (en inglés).</li>
+          <li id="fuente_36">[36] <a href="https://inkscape-manuals.readthedocs.io/en/latest/tracing-an-image.html" lang="en">Manual de Inkscape: vectorización de una imagen</a> (en inglés).</li>
+          <li id="fuente_37">[37] <a href="https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html" lang="en">W3C WAI: comprensión del contraste mínimo en WCAG 2.2</a> (en inglés).</li>
+          <li id="fuente_38">[38] <a href="https://www.w3.org/WAI/WCAG22/Understanding/images-of-text.html" lang="en">W3C WAI: comprensión del criterio sobre imágenes de texto</a> (en inglés).</li>
+          <li id="fuente_39">[39] <a href="https://www.w3.org/WAI/alt/" lang="en">W3C WAI: recursos sobre texto alternativo para imágenes</a> (en inglés).</li>
+          <li id="fuente_40">[40] <a href="https://docs.gimp.org/3.0/en/gimp-images-out.html" lang="en">Manual oficial de GIMP 3.0: guardar y exportar imágenes</a> (en inglés).</li>
+        </ul>
+      </section>
+    </article>
+  </div>
+</main>
+<nav class="topic-footer" aria-label="Navegación entre temas">
+  <a href="tema10.html">← Tema 10</a>
+  <a href="tema12.html">Tema 12 →</a>
+</nav>
+<footer class="site-footer">Ciencias de la Computación II · 2.º de Bachillerato · Comunidad de Madrid</footer>
+</body>
+</html>

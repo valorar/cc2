@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Tema 12 de Ciencias de la Computación II: audio digital, muestreo, formatos, grabación, edición multipista, mezcla, efectos, licencias y exportación con Audacity.">
+  <title>Tema 12. Audio digital y edición multipista · CC2</title>
+  <link rel="stylesheet" href="assets/estilos.css">
+  <script src="assets/navegacion.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#contenido">Saltar al contenido</a>
+<div class="progress" aria-hidden="true"><span></span></div>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="index.html"><span class="brand-mark">CC2</span><span>Ciencias de la Computación II<small>2.º de Bachillerato · 2026–2027</small></span></a>
+    <nav class="top-nav" aria-label="Navegación principal"><a href="index.html">Índice</a></nav>
+  </div>
+</header>
+<main id="contenido">
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <p class="kicker">Tema 12 · Bloque C · Software: herramientas y aplicaciones</p>
+        <h1>Audio digital y edición multipista</h1>
+        <p class="hero-lead">Cómo se convierte el sonido en datos y cómo se graba, organiza, transforma, mezcla y exporta una pieza sonora clara y adecuada a su propósito.</p>
+      </div>
+      <aside class="hero-note" aria-label="Pregunta guía del tema 12">
+        <strong>Pregunta guía</strong>
+        <p>¿Qué decisiones permiten que voz, música, efectos y silencios formen una sola pieza coherente sin perder la posibilidad de seguir editándola?</p>
+      </aside>
+    </div>
+  </section>
+
+  <div class="layout">
+    <nav class="toc" aria-label="Índice del tema">
+      <strong>En este tema</strong>
+      <ol>
+        <li><a href="#sonido">Onda, frecuencia, amplitud y canales</a></li>
+        <li><a href="#digitalizacion">Muestreo y profundidad de bits</a></li>
+        <li><a href="#formatos">Formatos, conversión y compresión</a></li>
+        <li><a href="#multipista">Grabación y edición multipista</a></li>
+        <li><a href="#ajustes">Volumen, tono, velocidad y limpieza</a></li>
+        <li><a href="#efectos">Fundidos, efectos e intención</a></li>
+        <li><a href="#licencias">Licencias, bancos y atribución</a></li>
+        <li><a href="#exportacion">Creación, compresión y exportación</a></li>
+        <li><a href="#glosario">Glosario</a></li>
+        <li><a href="#resumen">Resumen</a></li>
+        <li><a href="#fuentes">Fuentes</a></li>
+      </ol>
+    </nav>
+
+    <article class="paper">
+      <p class="lesson-intro">Una producción sonora no empieza al pulsar «grabar» ni termina al pulsar «exportar». Primero hay que comprender qué representan las muestras; después, conservar fuentes y pistas separadas mientras se toman decisiones de edición; por último, generar una copia final pensada para un destino concreto. Este recorrido desarrolla los saberes de sonido digital, grabación, edición y exportación previstos en el currículo.<sup><a href="#fuente_40">[40]</a></sup></p>
+      <div class="question"><strong>Antes de empezar:</strong> una forma de onda dibujada en pantalla no es el sonido, sino una representación de cómo cambia la señal con el tiempo. Leerla ayuda, pero la decisión final también exige escuchar con atención.</div>
+      <div class="objectives">
+        <strong>Al terminar serás capaz de…</strong>
+        <ul>
+          <li>relacionar frecuencia, amplitud y canales con lo que se oye;</li>
+          <li>explicar cómo influyen la frecuencia de muestreo y la profundidad de bits;</li>
+          <li>distinguir formato, códec, compresión con pérdida y compresión sin pérdida;</li>
+          <li>organizar conceptualmente una grabación y una edición multipista;</li>
+          <li>diferenciar volumen, tono, velocidad, normalización y reducción de ruido;</li>
+          <li>usar fundidos y efectos con intención comunicativa;</li>
+          <li>comprobar licencias y preparar una atribución;</li>
+          <li>separar el proyecto editable del archivo final exportado.</li>
+        </ul>
+      </div>
+
+      <h2 id="sonido">1. Onda sonora, frecuencia, amplitud y canales</h2>
+      <p>El <strong>sonido</strong> comienza con una vibración. Al propagarse por un medio —por ejemplo, el aire— produce variaciones de presión que un micrófono convierte en una señal eléctrica. Una forma de onda representa la variación de esa señal a lo largo del tiempo: el eje horizontal indica tiempo y el vertical, nivel instantáneo.</p>
+      <div class="cc2-grid">
+        <section class="cc2-card">
+          <h3>Frecuencia</h3>
+          <p>Indica cuántos ciclos se repiten cada segundo y se mide en hercios (Hz). En un tono simple, una frecuencia mayor suele percibirse como un sonido más agudo y una menor, como uno más grave. Los sonidos reales reúnen muchas frecuencias.</p>
+        </section>
+        <section class="cc2-card">
+          <h3>Amplitud</h3>
+          <p>Describe el tamaño de la variación de la señal. Una amplitud mayor suele relacionarse con mayor nivel sonoro, aunque el volumen percibido también depende de la frecuencia, la duración, el entorno y la audición de cada persona.</p>
+        </section>
+        <section class="cc2-card">
+          <h3>Fase</h3>
+          <p>Expresa la posición de una onda respecto a otra. Al sumar señales parecidas, unas partes pueden reforzarse y otras cancelarse. Por eso dos micrófonos mal colocados pueden producir una mezcla más débil o extraña.</p>
+        </section>
+      </div>
+      <p>La amplitud digital suele mostrarse respecto al máximo que el sistema puede representar. Si la señal supera ese límite, los picos se recortan y aparece <strong>saturación digital</strong> o <em>clipping</em>, una distorsión que no se arregla simplemente bajando el volumen después.</p>
+
+      <h3>Mono, estéreo y número de canales</h3>
+      <p>Un <strong>canal</strong> es una señal de audio diferenciada. El audio <strong>mono</strong> contiene un canal; el <strong>estéreo</strong>, dos canales que normalmente alimentan izquierda y derecha. Estéreo no significa automáticamente «mejor»: una voz grabada con un solo micrófono es una fuente mono y duplicarla en dos canales no añade información espacial.</p>
+      <div class="tabla_responsiva">
+        <table>
+          <caption>Elección básica del número de canales</caption>
+          <thead><tr><th scope="col">Situación</th><th scope="col">Elección habitual</th><th scope="col">Razón</th></tr></thead>
+          <tbody>
+            <tr><td>Voz con un micrófono</td><td>Mono</td><td>La fuente y la entrada aportan una sola señal; ocupa menos y puede situarse después en la mezcla.</td></tr>
+            <tr><td>Ambiente con grabadora estéreo</td><td>Estéreo</td><td>Conserva diferencias entre izquierda y derecha que ayudan a representar el espacio.</td></tr>
+            <tr><td>Voz, música y efectos en pistas separadas</td><td>Proyecto multipista</td><td>Cada elemento puede ser mono o estéreo; las pistas no son lo mismo que los canales del archivo final.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="cc2-concept"><strong class="cc2-concept-tag">Pistas y canales no son sinónimos</strong>Un proyecto puede tener diez pistas y terminar exportado como un archivo estéreo de dos canales. Las pistas organizan elementos editables; los canales describen las señales simultáneas que contiene o reproduce el audio.</div>
+
+      <h2 id="digitalizacion">2. Frecuencia de muestreo y profundidad de bits</h2>
+      <p>La señal de un micrófono varía continuamente. Para almacenarla como datos, un conversor toma medidas a intervalos regulares y asigna a cada medida un valor numérico. Este proceso combina <strong>muestreo</strong> en el tiempo y <strong>cuantificación</strong> de la amplitud.</p>
+      <div class="comparacion">
+        <div>
+          <h3>Frecuencia de muestreo: cuántas medidas</h3>
+          <p>Es el número de muestras tomadas cada segundo, expresado en Hz o kHz. Según el criterio de Nyquist, para representar una frecuencia hacen falta más de dos muestras por ciclo; por eso una tasa de 44,1 kHz puede cubrir aproximadamente el intervalo audible habitual.<sup><a href="#fuente_41">[41]</a></sup></p>
+        </div>
+        <div>
+          <h3>Profundidad de bits: cuántos niveles</h3>
+          <p>Es la cantidad de bits disponible para codificar cada muestra. Más bits permiten más niveles de amplitud, reducen el error de cuantificación y amplían el margen dinámico, a cambio de más datos.<sup><a href="#fuente_42">[42]</a></sup></p>
+        </div>
+      </div>
+      <p>El muestreo no consiste en «dibujar escalones» que luego deban oírse como tales: un sistema de conversión y filtrado correctamente diseñado reconstruye una señal continua dentro de su banda de trabajo. Tampoco hay que confundir <strong>frecuencia de muestreo</strong> con <strong>frecuencia del sonido</strong>: la primera es una propiedad de la representación digital; la segunda pertenece al contenido sonoro.</p>
+      <p>Sin compresión y sin contar cabeceras, el tamaño aproximado del audio PCM se obtiene multiplicando <code>muestras por segundo × bits por muestra × canales × segundos</code> y dividiendo entre ocho. Por ejemplo, un minuto a 48 kHz, 24 bits y dos canales ocupa unos 17,28 MB. Duplicar los canales o la profundidad de bits aumenta proporcionalmente la cantidad de datos.</p>
+      <div class="cc2-note"><strong>Más no siempre significa mejor resultado.</strong> Una frecuencia o profundidad mayor puede aportar margen durante la captura y la edición, pero no mejora un micrófono deficiente, una sala con eco ni una señal ya saturada. La cadena completa limita la calidad.</div>
+
+      <h2 id="formatos">3. Formatos de audio, conversión y compresión</h2>
+      <p>Un archivo de audio combina una forma de organizar los datos con un método para codificarlos. En el uso cotidiano se llama «formato» al conjunto, pero conviene distinguir <strong>contenedor</strong> y <strong>códec</strong>: el contenedor estructura pistas y metadatos; el códec define cómo se representa o comprime la señal.</p>
+      <div class="tabla_responsiva">
+        <table>
+          <caption>Ejemplos representativos de audio digital</caption>
+          <thead><tr><th scope="col">Ejemplo</th><th scope="col">Compresión</th><th scope="col">Uso orientativo</th><th scope="col">Precaución</th></tr></thead>
+          <tbody>
+            <tr><td><strong>WAV con PCM</strong></td><td>Normalmente sin compresión con pérdida</td><td>Captura, intercambio de alta calidad y archivo de trabajo</td><td>WAV es un contenedor y puede alojar codificaciones distintas; el archivo suele ser grande.</td></tr>
+            <tr><td><strong>FLAC</strong></td><td>Sin pérdida</td><td>Archivo maestro o distribución cuando importa conservar exactamente la señal</td><td>Reduce menos que un códec con pérdida y no todos los dispositivos antiguos lo admiten.</td></tr>
+            <tr><td><strong>MP3 o AAC</strong></td><td>Con pérdida</td><td>Distribución compatible, música y voz</td><td>Una tasa demasiado baja introduce artefactos; volver a guardar con pérdida acumula deterioro.</td></tr>
+            <tr><td><strong>Ogg Vorbis</strong></td><td>Vorbis con pérdida dentro de Ogg</td><td>Publicación y reproducción con tecnologías abiertas</td><td>«Ogg» por sí solo no identifica el códec.</td></tr>
+            <tr><td><strong>Ogg/Opus</strong></td><td>Opus con pérdida encapsulado en Ogg</td><td>Voz, música, web y transmisión eficiente</td><td>Conviene comprobar la compatibilidad del destino y nombrarlo como Ogg/Opus, no confundirlo con Ogg Vorbis.<sup><a href="#fuente_46">[46]</a></sup></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>La compresión <strong>sin pérdida</strong> permite recuperar exactamente los datos de audio codificados. La compresión <strong>con pérdida</strong> elimina información mediante un modelo perceptivo para reducir mucho más el tamaño. El <strong>bitrate</strong> o tasa de bits indica aproximadamente cuántos bits por segundo dedica el archivo comprimido; no permite comparar de forma absoluta códecs distintos, pero dentro de un mismo códec suele existir un compromiso entre tamaño y fidelidad.</p>
+      <p>Convertir un original sin pérdida a un formato con pérdida puede ser razonable para distribuirlo. Convertir MP3 a Ogg Vorbis, o volver a exportar repetidamente un archivo con pérdida, no recupera detalle: primero se decodifica lo que queda y después otro codificador descarta información adicional.<sup><a href="#fuente_47">[47]</a></sup></p>
+      <div class="cc2-concept"><strong class="cc2-concept-tag">Conserva un maestro</strong>Edita desde el proyecto y desde fuentes sin pérdida siempre que sea posible. Crea las versiones comprimidas al final y desde ese maestro, no encadenando conversiones entre copias con pérdida.</div>
+
+      <h2 id="multipista">4. Grabación, importación, recorte, edición multipista, mezcla y sincronización</h2>
+      <p><strong>Audacity</strong> sirve aquí como referencia de editor de audio, no como una colección de botones que memorizar. Los conceptos —pistas, clips, selección temporal, ganancia, panorama, mezcla y exportación— se transfieren a otros editores.</p>
+      <div class="cc2-timeline">
+        <div class="cc2-tl-item"><div class="cc2-tl-year">1 — Planificar y preparar</div><p>Definir propósito, duración aproximada y elementos necesarios. Elegir un espacio silencioso, colocar el micrófono sin rozarlo, seleccionar la entrada correcta y escuchar con auriculares.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">2 — Ajustar y grabar</div><p>Hacer una prueba con la intensidad real de la interpretación. Los picos deben conservar margen respecto al máximo para evitar <em>clipping</em>. Grabar unos segundos de ambiente puede ayudar a identificar ruido constante.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">3 — Importar y organizar</div><p>Añadir música o efectos como pistas independientes, comprobar sus licencias, nombrar pistas y conservar las fuentes originales. Importar copia datos al proyecto; no debe confundirse con grabar el sonido reproducido por otro programa.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">4 — Seleccionar y recortar</div><p>Eliminar tomas fallidas, silencios innecesarios y golpes, sin cortar respiraciones o finales de palabra. Dividir en clips permite mover fragmentos y dejar alternativas separadas.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">5 — Sincronizar</div><p>Alinear voz, música y efectos en la línea temporal. Una claqueta, palmada o pico común ayuda a hacer coincidir grabaciones; después se comprueba al oído para evitar ecos o desfases.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">6 — Mezclar y revisar</div><p>Ajustar la ganancia relativa, silenciar o escuchar pistas aisladas, situar elementos en el campo estéreo y comprobar el conjunto. La exportación mezcla normalmente las pistas audibles en los canales finales.<sup><a href="#fuente_43">[43]</a></sup></p></div>
+      </div>
+      <p>La edición multipista conserva elementos independientes: puede bajarse la música sin modificar la voz o desplazar un efecto sin rehacer el resto. Tras la mezcla final, separar con precisión los componentes originales suele ser imposible; es como intentar recuperar por separado los ingredientes de un batido.</p>
+      <div class="aviso"><strong>La prevención empieza en la grabación</strong>La reducción de ruido no sustituye una toma limpia. Alejarse del ruido, acercar correctamente el micrófono, evitar reverberación y ajustar bien el nivel suele dar mejor resultado que un procesamiento intenso posterior.</div>
+
+      <h2 id="ajustes">5. Volumen, tono, velocidad, normalización y reducción de ruido</h2>
+      <p>Estas operaciones cambian propiedades distintas. Aplicarlas porque «el audio suena mal» sin identificar antes la causa suele empeorar el resultado.</p>
+      <div class="tabla_responsiva">
+        <table>
+          <caption>Qué corrige —y qué no corrige— cada ajuste</caption>
+          <thead><tr><th scope="col">Ajuste</th><th scope="col">Qué modifica</th><th scope="col">Uso razonable</th><th scope="col">Límite</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Ganancia o amplificación</strong></td><td>Escala la amplitud de una pista o selección.</td><td>Equilibrar voz, música y efectos.</td><td>Subir una toma también sube su ruido y puede provocar <em>clipping</em>.</td></tr>
+            <tr><td><strong>Tono</strong></td><td>Desplaza las frecuencias percibidas como notas más graves o agudas.</td><td>Corrección moderada o efecto expresivo.</td><td>Cambios extremos generan artefactos y no corrigen una interpretación deficiente.</td></tr>
+            <tr><td><strong>Velocidad y tempo</strong></td><td>Modifican la duración. Un cambio de velocidad tradicional altera también el tono; un cambio de tempo intenta conservarlo.</td><td>Ajustar una duración o crear un efecto.</td><td>Los algoritmos que separan tempo y tono no son perfectos.</td></tr>
+            <tr><td><strong>Normalización</strong></td><td>Ajusta el nivel de pico —o, con otra medida, la sonoridad— hacia un objetivo.</td><td>Dejar margen y preparar el nivel final.</td><td>No equilibra por sí sola voz y música ni hace que todas las pistas se perciban igual de fuertes.</td></tr>
+            <tr><td><strong>Reducción de ruido</strong></td><td>Estima un ruido constante y atenúa componentes semejantes.</td><td>Reducir con moderación zumbido, ventilación o siseo estable.</td><td>Ruido variable o mezclado con la voz puede producir sonido metálico y eliminar parte de la señal útil.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Normalizar el pico lleva el máximo de una señal a un valor elegido, pero dos audios con el mismo pico pueden tener sonoridades percibidas muy distintas. Además, normalizar pistas por separado puede destruir el equilibrio intencionado entre ellas. Conviene mezclar primero y controlar después el nivel final.<sup><a href="#fuente_45">[45]</a></sup></p>
+      <p>La reducción de ruido requiere una muestra que represente solo el ruido, estimar su perfil y aplicar la mínima reducción aceptable. Si en el residuo se oye claramente la voz o la música que se quería conservar, el proceso es demasiado agresivo. Toda limpieza debe compararse con el original, a un volumen parecido.</p>
+      <div class="cc2-note"><strong>Escuchar y medir se complementan.</strong> La forma de onda y los medidores permiten detectar picos, silencios y saturación; los auriculares y altavoces revelan claridad, equilibrio y artefactos. Ninguna de las dos comprobaciones basta sola.</div>
+
+      <h2 id="efectos">6. Fundidos, efectos y uso intencionado del sonido</h2>
+      <p>Un <strong>fundido de entrada</strong> aumenta gradualmente el nivel; un <strong>fundido de salida</strong> lo reduce; un <strong>fundido cruzado</strong> hace coincidir la salida de un fragmento con la entrada del siguiente. Evitan comienzos bruscos, disimulan uniones y ayudan a conducir la atención.</p>
+      <div class="cc2-grid">
+        <section class="cc2-card">
+          <h3>Claridad</h3>
+          <p>La voz principal debe entenderse. Ecualización, compresión dinámica o reducción de ruido pueden ayudar de forma moderada, pero la música de fondo no debe competir con el mensaje.</p>
+        </section>
+        <section class="cc2-card">
+          <h3>Espacio</h3>
+          <p>Panorama, reverberación y distancia aparente sitúan los sonidos. Una reverberación ligera puede sugerir un lugar; demasiada reduce inteligibilidad.</p>
+        </section>
+        <section class="cc2-card">
+          <h3>Tiempo y ritmo</h3>
+          <p>Pausas, repeticiones, entradas y silencios organizan la pieza. Un silencio breve puede separar ideas; uno excesivo puede parecer un error.</p>
+        </section>
+        <section class="cc2-card">
+          <h3>Continuidad</h3>
+          <p>Fundidos y ambiente común conectan fragmentos grabados en momentos distintos. El objetivo no es ocultar cualquier corte, sino que cada transición parezca intencionada.</p>
+        </section>
+      </div>
+      <p>Los efectos deben responder a una finalidad: reforzar una emoción, distinguir una sección, recrear un espacio o mejorar la comprensión. Encadenar muchos efectos degrada la señal y distrae. Es preferible conservar margen, previsualizar, comparar antes y después y guardar el proyecto editable.</p>
+      <div class="cc2-think"><strong>Criterio de decisión:</strong> si al retirar un efecto el mensaje se entiende igual o mejor, probablemente el efecto no era necesario. La técnica debe quedar al servicio de la intención, no al revés.</div>
+
+      <h2 id="licencias">7. Licencias de audio, bancos reutilizables y atribución</h2>
+      <p>Que un sonido pueda descargarse o escucharse gratis no significa que pueda incorporarse libremente a cualquier producción. Antes de usarlo hay que identificar quién lo ofrece, con qué licencia, para qué usos y si existen condiciones adicionales.</p>
+      <p>Una grabación musical puede reunir derechos distintos: composición, letra, interpretación y grabación. Tener permiso sobre uno no concede automáticamente los demás. Grabar desde una plataforma de reproducción o citar al artista tampoco sustituye una licencia.</p>
+      <div class="tabla_responsiva">
+        <table>
+          <caption>Lectura práctica de condiciones Creative Commons</caption>
+          <thead><tr><th scope="col">Elemento</th><th scope="col">Idea principal</th><th scope="col">Consecuencia para una mezcla</th></tr></thead>
+          <tbody>
+            <tr><td><strong>CC0</strong></td><td>Dedicación al dominio público, sin obligación de atribución en sus términos.</td><td>Se puede reutilizar; citar autor y fuente sigue siendo una buena práctica académica.</td></tr>
+            <tr><td><strong>BY</strong></td><td>Exige atribución.</td><td>Hay que acreditar la obra de la forma indicada por quien la publica.</td></tr>
+            <tr><td><strong>SA</strong></td><td>Compartir Igual.</td><td>Una adaptación distribuida debe ofrecerse con la misma licencia o una compatible autorizada.</td></tr>
+            <tr><td><strong>NC</strong></td><td>Solo usos no comerciales en los términos de la licencia.</td><td>Un proyecto educativo no convierte cualquier publicación futura en no comercial; hay que valorar el destino.</td></tr>
+            <tr><td><strong>ND</strong></td><td>Sin Derivadas.</td><td>Compartir una versión recortada, remezclada o transformada puede no estar permitido.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Creative Commons recomienda recordar <strong>TASL</strong>: título, autor, fuente y licencia; además, debe indicarse si la obra fue modificada.<sup><a href="#fuente_48">[48]</a></sup> Una atribución puede aparecer en los créditos hablados, la descripción del episodio o una página asociada, siempre que sea accesible y quede vinculada con claridad al recurso.</p>
+      <div class="cc2-concept"><strong class="cc2-concept-tag">Modelo de atribución</strong>«Título», de Autor, fuente enlazada, licencia CC BY 4.0 enlazada; recortado y mezclado con narración. El modelo se adapta a la información real y a las indicaciones de quien concede la licencia.</div>
+      <p><strong>Freesound</strong> es un ejemplo de banco de sonidos, no una licencia única: cada archivo muestra sus propias condiciones y algunos requieren atribución o limitan el uso comercial.<sup><a href="#fuente_49">[49]</a></sup> Conviene guardar junto al proyecto el enlace, autor, título, licencia y fecha de consulta de cada recurso.</p>
+      <div class="aviso"><strong>Licencia compatible antes de editar</strong>No esperes a terminar la mezcla. Si la licencia impide la adaptación o el destino previsto, habrá que sustituir el recurso aunque técnicamente encaje perfectamente.</div>
+
+      <h2 id="exportacion">8. Creación, compresión y exportación según el destino</h2>
+      <p>En Audacity, el <strong>proyecto editable</strong> conserva pistas, clips, etiquetas, envolventes, ganancia y panorama en un archivo <code>.aup3</code>. El <strong>archivo exportado</strong> se prepara para reproducir o compartir y normalmente contiene la mezcla mono o estéreo. Guardar un proyecto no equivale a exportar audio, y exportar no conserva la misma capacidad de edición.<sup><a href="#fuente_44">[44]</a></sup></p>
+      <div class="comparacion">
+        <div>
+          <h3>Proyecto editable</h3>
+          <ul>
+            <li>permite mover y ajustar pistas por separado;</li>
+            <li>conserva decisiones de mezcla y organización;</li>
+            <li>depende del editor y de su compatibilidad;</li>
+            <li>debe guardarse con nombres claros y copia de seguridad.</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Archivo final exportado</h3>
+          <ul>
+            <li>se reproduce fuera del editor;</li>
+            <li>combina las pistas audibles en los canales de salida;</li>
+            <li>usa un formato y calidad elegidos para su destino;</li>
+            <li>no sustituye al proyecto si se quiere revisar la mezcla.</li>
+          </ul>
+        </div>
+      </div>
+      <h3>Elegir sin memorizar una receta única</h3>
+      <div class="tabla_responsiva">
+        <table>
+          <caption>Decisiones de exportación orientadas al destino</caption>
+          <thead><tr><th scope="col">Destino</th><th scope="col">Prioridad</th><th scope="col">Posible elección</th><th scope="col">Comprobación</th></tr></thead>
+          <tbody>
+            <tr><td>Maestro o conservación</td><td>Evitar pérdida generacional</td><td>WAV con PCM o FLAC, además del proyecto</td><td>Que se abre, conserva la duración y no presenta saturación.</td></tr>
+            <tr><td>Pódcast o voz descargable</td><td>Claridad, tamaño y compatibilidad</td><td>MP3, AAC u Ogg/Opus con calidad adecuada</td><td>Escucha de la versión comprimida en auriculares y altavoz pequeño.</td></tr>
+            <tr><td>Música para web</td><td>Fidelidad razonable y transferencia eficiente</td><td>Formato con pérdida compatible, como AAC, MP3, Ogg Vorbis u Ogg/Opus</td><td>Compatibilidad del navegador o plataforma y ausencia de artefactos audibles.</td></tr>
+            <tr><td>Intercambio para seguir editando</td><td>Calidad y compatibilidad entre programas</td><td>Pistas individuales en WAV o FLAC, con mismo inicio y frecuencia de muestreo</td><td>Que todas se sincronizan al importarlas en otro editor.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Antes de exportar hay que fijar el intervalo correcto, comprobar pistas silenciadas, final de la línea temporal, canales, frecuencia de muestreo, metadatos, formato y nivel. Después se abre el archivo final en un reproductor distinto y se escucha de principio a fin: la existencia del archivo no demuestra que la exportación sea correcta.<sup><a href="#fuente_45">[45]</a></sup></p>
+      <div class="cc2-concept"><strong class="cc2-concept-tag">Flujo robusto</strong>Conservar fuentes → editar y mezclar en el proyecto → guardar un maestro sin pérdida → generar desde él las versiones de distribución → verificar cada archivo exportado. Así se puede corregir o cambiar de formato sin acumular pérdidas.</div>
+
+      <h2 id="glosario">Glosario del tema</h2>
+      <dl class="cc2-glosario">
+        <dt>Frecuencia</dt><dd>Número de ciclos por segundo de una oscilación, medido en hercios.</dd>
+        <dt>Amplitud</dt><dd>Tamaño de la variación de una señal respecto a su valor de referencia.</dd>
+        <dt>Canal</dt><dd>Señal de audio diferenciada dentro de una grabación o reproducción.</dd>
+        <dt>Frecuencia de muestreo</dt><dd>Número de muestras de audio digital tomadas o reproducidas cada segundo.</dd>
+        <dt>Profundidad de bits</dt><dd>Cantidad de bits usada para representar el valor de cada muestra.</dd>
+        <dt>Cuantificación</dt><dd>Asignación de cada medida analógica a uno de los valores digitales disponibles.</dd>
+        <dt>Códec</dt><dd>Método que codifica y decodifica una señal, con compresión o sin ella.</dd>
+        <dt>Contenedor</dt><dd>Estructura de archivo que organiza audio, metadatos y, en algunos casos, otros flujos.</dd>
+        <dt>Bitrate</dt><dd>Cantidad de bits por segundo dedicada a representar un flujo comprimido.</dd>
+        <dt>Pista</dt><dd>Unidad editable de un proyecto que contiene clips, grabaciones o elementos sonoros.</dd>
+        <dt>Mezcla</dt><dd>Combinación de varias pistas con sus niveles, panoramas y efectos en los canales finales.</dd>
+        <dt>Normalización</dt><dd>Ajuste global del nivel de una señal hacia un objetivo de pico o sonoridad.</dd>
+        <dt>Clipping</dt><dd>Distorsión causada al superar el nivel máximo representable y recortar los picos.</dd>
+        <dt>Fundido</dt><dd>Cambio gradual de nivel usado para entrar, salir o enlazar fragmentos.</dd>
+        <dt>Atribución</dt><dd>Crédito que identifica la obra, autoría, fuente, licencia y modificaciones cuando corresponda.</dd>
+      </dl>
+
+      <section class="summary">
+        <h2 id="resumen">Resumen esencial</h2>
+        <ol>
+          <li>Frecuencia, amplitud y fase describen aspectos de la señal; los canales y las pistas cumplen funciones distintas.</li>
+          <li>La frecuencia de muestreo mide muestras por segundo y la profundidad de bits determina los niveles disponibles por muestra.</li>
+          <li>La calidad depende de toda la cadena: una cifra mayor no corrige ruido, eco, saturación ni una mala toma.</li>
+          <li>WAV, FLAC, MP3, AAC, Ogg Vorbis y Ogg/Opus responden a necesidades distintas de calidad, tamaño y compatibilidad.</li>
+          <li>Convertir entre formatos con pérdida no recupera información y puede añadir deterioro.</li>
+          <li>La edición multipista permite recortar, sincronizar y equilibrar elementos antes de mezclarlos.</li>
+          <li>Volumen, tono, velocidad, normalización y reducción de ruido modifican propiedades diferentes y tienen límites.</li>
+          <li>Fundidos, silencios y efectos deben mejorar claridad, continuidad o intención, no distraer.</li>
+          <li>Un banco de sonidos reúne recursos con licencias diferentes; hay que comprobar condiciones y atribuir cada obra.</li>
+          <li>El proyecto editable conserva la estructura; el archivo exportado sirve para reproducir o distribuir. Ambos deben guardarse cuando se quiera revisar el trabajo.</li>
+        </ol>
+      </section>
+
+      <section aria-labelledby="fuentes">
+        <h2 id="fuentes">Fuentes y recursos fiables</h2>
+        <ul>
+          <li id="fuente_40">[40] <a href="https://www.bocm.es/boletin/CM_Orden_BOCM/2023/05/31/BOCM-20230531-18.PDF">Comunidad de Madrid: Orden 1736/2023, de 19 de mayo, Anexo IV (PDF)</a>.</li>
+          <li id="fuente_41">[41] <a href="https://manual.audacityteam.org/man/sample_rates.html" lang="en">Manual de Audacity: frecuencias de muestreo</a> (en inglés).</li>
+          <li id="fuente_42">[42] <a href="https://manual.audacityteam.org/man/sample_format_bit_depth.html" lang="en">Manual de Audacity: formato de muestra y profundidad de bits</a> (en inglés).</li>
+          <li id="fuente_43">[43] <a href="https://manual.audacityteam.org/man/mixing.html" lang="en">Manual de Audacity: mezcla de pistas de audio</a> (en inglés).</li>
+          <li id="fuente_44">[44] <a href="https://manual.audacityteam.org/man/saving.html" lang="en">Manual de Audacity: guardar proyectos y exportar audio</a> (en inglés).</li>
+          <li id="fuente_45">[45] <a href="https://manual.audacityteam.org/man/basic_recording_editing_and_exporting.html" lang="en">Manual de Audacity: grabación, edición y exportación básicas</a> (en inglés).</li>
+          <li id="fuente_46">[46] <a href="https://www.rfc-editor.org/rfc/rfc7845.html" lang="en">IETF, RFC 7845: encapsulación Ogg para el códec Opus</a> (en inglés).</li>
+          <li id="fuente_47">[47] <a href="https://xiph.org/vorbis/faq/" lang="en">Xiph.Org: preguntas frecuentes sobre Ogg Vorbis, compresión y conversión</a> (en inglés).</li>
+          <li id="fuente_48">[48] <a href="https://creativecommons.org/reusing-cc-licensed-content/" lang="en">Creative Commons: reutilización y atribución de contenido con licencia CC</a> (en inglés).</li>
+          <li id="fuente_49">[49] <a href="https://freesound.org/help/faq/" lang="en">Freesound: preguntas frecuentes sobre licencias y atribución</a> (en inglés).</li>
+        </ul>
+      </section>
+    </article>
+  </div>
+</main>
+<nav class="topic-footer" aria-label="Navegación entre temas">
+  <a href="tema11.html">← Tema 11</a>
+  <a href="tema13.html">Tema 13 →</a>
+</nav>
+<footer class="site-footer">Ciencias de la Computación II · 2.º de Bachillerato · Comunidad de Madrid</footer>
+</body>
+</html>

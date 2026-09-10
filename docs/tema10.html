@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Tema 10 de Ciencias de la Computación II: fundamentos de la imagen digital, píxeles, vectores, resolución, color, formatos, compresión, exportación y licencias.">
+  <title>Tema 10. Fundamentos de la imagen digital · CC2</title>
+  <link rel="stylesheet" href="assets/estilos.css">
+  <script src="assets/navegacion.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#contenido">Saltar al contenido</a>
+<div class="progress" aria-hidden="true"><span></span></div>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="index.html"><span class="brand-mark">CC2</span><span>Ciencias de la Computación II<small>2.º de Bachillerato · 2026–2027</small></span></a>
+    <nav class="top-nav" aria-label="Navegación principal"><a href="index.html">Índice</a></nav>
+  </div>
+</header>
+<main id="contenido">
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <p class="kicker">Tema 10 · Bloque C · Software: herramientas y aplicaciones</p>
+        <h1>Fundamentos de la imagen digital</h1>
+        <p class="hero-lead">Cómo se representa una imagen y cómo influyen los píxeles, los vectores, el color, la compresión y el formato en su calidad, tamaño y uso.</p>
+      </div>
+      <aside class="hero-note" aria-label="Pregunta guía del tema 10">
+        <strong>Pregunta guía</strong>
+        <p>¿Por qué una fotografía, un logotipo y un cartel que parecen nítidos en pantalla pueden necesitar archivos y decisiones diferentes?</p>
+      </aside>
+    </div>
+  </section>
+
+  <div class="layout">
+    <nav class="toc" aria-label="Índice del tema">
+      <strong>En este tema</strong>
+      <ol>
+        <li><a href="#representacion">Píxeles, dimensiones y tamaño</a></li>
+        <li><a href="#digitalizacion">Digitalización y profundidad</a></li>
+        <li><a href="#raster_vector">Raster frente a vector</a></li>
+        <li><a href="#color">Modos de color</a></li>
+        <li><a href="#formatos">Formatos y transparencia</a></li>
+        <li><a href="#compresion">Compresión y calidad</a></li>
+        <li><a href="#flujo">Crear, conservar y exportar</a></li>
+        <li><a href="#licencias">Licencias y atribución</a></li>
+        <li><a href="#glosario">Glosario</a></li>
+        <li><a href="#resumen">Resumen</a></li>
+        <li><a href="#fuentes">Fuentes</a></li>
+      </ol>
+    </nav>
+
+    <article class="paper">
+      <p class="lesson-intro">Una imagen digital no es solo «una foto guardada». Es información numérica organizada según un modelo. Comprender ese modelo permite elegir con criterio antes de editar, publicar o imprimir y desarrolla los saberes de creación, formatos y exportación del currículo de la asignatura.<sup><a href="#fuente_20">[20]</a></sup></p>
+      <div class="question"><strong>Antes de empezar:</strong> imagina que el mismo dibujo debe aparecer como icono en una web, ocupar una lona y conservarse para modificarlo el curso próximo. El aspecto puede ser parecido, pero el archivo adecuado no tiene por qué ser el mismo.</div>
+      <div class="objectives">
+        <strong>Al terminar serás capaz de…</strong>
+        <ul>
+          <li>relacionar píxel, dimensiones, resolución y tamaño de archivo;</li>
+          <li>explicar cómo la digitalización y la profundidad de color convierten una imagen en datos;</li>
+          <li>elegir entre representación rasterizada y vectorial según la finalidad;</li>
+          <li>distinguir escala de grises, color indexado, RGB, HSV y CMYK;</li>
+          <li>comparar formatos por transparencia, compresión y compatibilidad;</li>
+          <li>diferenciar compresión con pérdida y sin pérdida;</li>
+          <li>separar el archivo editable del archivo exportado para pantalla, web o impresión;</li>
+          <li>reutilizar imágenes respetando licencia, autoría y atribución.</li>
+        </ul>
+      </div>
+
+      <section aria-labelledby="representacion">
+        <h2 id="representacion">1. Imagen digital, píxel, dimensiones, resolución y tamaño</h2>
+        <p>Una <strong>imagen digital</strong> es una representación numérica de información visual. En una imagen rasterizada, esa información se organiza como una cuadrícula. Cada celda es un <strong>píxel</strong> (<em>picture element</em>) y almacena uno o varios valores que describen su color.</p>
+        <p>Las <strong>dimensiones en píxeles</strong> indican cuántas columnas y filas contiene la cuadrícula. Una imagen de 1920 × 1080 tiene 2&nbsp;073&nbsp;600 píxeles. Esa cifra describe la cantidad de muestras espaciales, no el tamaño físico de una pantalla ni de una hoja.</p>
+        <div class="tabla_responsiva">
+          <table>
+            <caption>Magnitudes que se confunden con frecuencia</caption>
+            <thead><tr><th scope="col">Magnitud</th><th scope="col">Qué expresa</th><th scope="col">Ejemplo</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Dimensiones</strong></td><td>Número de píxeles horizontales y verticales.</td><td>1920 × 1080 px.</td></tr>
+              <tr><td><strong>Resolución espacial</strong></td><td>Nivel de detalle que se ha muestreado o que puede reproducirse.</td><td>Una captura con más muestras distingue detalles más pequeños, si el sistema óptico también los conserva.</td></tr>
+              <tr><td><strong>Densidad</strong></td><td>Cuántos píxeles se colocan en una unidad física al mostrar o imprimir.</td><td>300 píxeles por pulgada (ppp o <abbr title="pixels per inch">ppi</abbr>).</td></tr>
+              <tr><td><strong>Tamaño físico</strong></td><td>Anchura y altura reales del resultado.</td><td>10 × 15 cm en papel.</td></tr>
+              <tr><td><strong>Tamaño de archivo</strong></td><td>Espacio que ocupa la información almacenada.</td><td>2,4 MB tras comprimir y añadir metadatos.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Para una impresión, dimensiones, densidad y tamaño físico se relacionan: <strong>píxeles = pulgadas × píxeles por pulgada</strong>. Cambiar el valor de ppp sin añadir ni quitar píxeles solo modifica la interpretación del tamaño de impresión; <strong>remuestrear</strong> sí cambia la cuadrícula al crear o eliminar píxeles.</p>
+        <div class="cc2-concept"><strong class="cc2-concept-tag">Más píxeles no siempre significan mejor imagen</strong>La calidad también depende del enfoque, el ruido, la óptica, el color, la compresión y el destino. Ampliar por interpolación aumenta el número de píxeles, pero no recupera automáticamente detalles que nunca se captaron.</div>
+        <h3>De los datos sin comprimir al archivo real</h3>
+        <p>Como aproximación, una imagen RGB de 8 bits por canal necesita 3 bytes por píxel sin comprimir. La cuadrícula de 1920 × 1080 ocuparía unos 6,22 MB solo para sus muestras de color. El archivo real puede ser mucho menor por la compresión o algo mayor por perfiles de color, metadatos, miniaturas y otras estructuras.</p>
+        <div class="cc2-note"><strong>Megapíxeles y megabytes no son equivalentes.</strong> Los megapíxeles cuentan muestras; los megabytes miden almacenamiento. Dos fotografías con las mismas dimensiones pueden ocupar cantidades muy distintas por su contenido, formato, profundidad y grado de compresión.</div>
+      </section>
+
+      <section aria-labelledby="digitalizacion">
+        <h2 id="digitalizacion">2. Digitalización y profundidad de color</h2>
+        <p>Una escena real varía de forma continua. Para convertirla en una imagen digital, una cámara o un escáner realiza dos decisiones:</p>
+        <ol>
+          <li><strong>Muestreo espacial:</strong> divide la imagen en posiciones discretas, los píxeles.</li>
+          <li><strong>Cuantificación:</strong> asigna a cada muestra uno de los valores numéricos disponibles.</li>
+        </ol>
+        <p>Es parecido a reconstruir un mosaico: el tamaño de las teselas limita el detalle espacial y la variedad de teselas limita los matices que pueden representarse. Si hay pocas muestras, aparecen bordes escalonados o se pierden detalles; si hay pocos niveles, los degradados pueden convertirse en bandas visibles.</p>
+        <p>La <strong>profundidad de bits</strong> indica cuántos bits se emplean para codificar un píxel o cada canal. Con <em>n</em> bits pueden distinguirse hasta 2<sup>n</sup> valores. En escala de grises, 8 bits permiten 256 niveles. En RGB, 8 bits por cada uno de los tres canales forman 24 bits por píxel y permiten combinar más de 16,7 millones de colores. Un canal alfa adicional suele dar lugar a 32 bits por píxel.</p>
+        <div class="tabla_responsiva">
+          <table>
+            <thead><tr><th scope="col">Representación</th><th scope="col">Valores disponibles</th><th scope="col">Consecuencia habitual</th></tr></thead>
+            <tbody>
+              <tr><td>1 bit por píxel</td><td>2 estados</td><td>Adecuado para una imagen estrictamente bitonal, no para grises suaves.</td></tr>
+              <tr><td>8 bits de gris</td><td>256 niveles</td><td>Suficiente para muchas imágenes finales en escala de grises.</td></tr>
+              <tr><td>8 bits por canal RGB</td><td>256 niveles por canal</td><td>Representación habitual para pantalla y publicación web.</td></tr>
+              <tr><td>16 bits por canal</td><td>65&nbsp;536 niveles por canal</td><td>Da más margen para ajustes intensos y degradados durante la edición, a costa de más datos.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="cc2-concept"><strong class="cc2-concept-tag">Profundidad de color</strong>No mide cuántos colores distintos aparecen realmente, sino cuántos valores puede codificar el sistema. Una imagen de dos colores guardada en RGB puede seguir reservando muchos más valores de los que utiliza.</div>
+        <p>La captura también puede introducir <strong>ruido</strong>, desenfoque o desviaciones de color. La digitalización no crea una copia perfecta de la realidad: produce una medición condicionada por el sensor, la iluminación y los ajustes del dispositivo.</p>
+      </section>
+
+      <section aria-labelledby="raster_vector">
+        <h2 id="raster_vector">3. Imagen rasterizada frente a imagen vectorial</h2>
+        <p>Una <strong>imagen rasterizada</strong> o mapa de bits describe el color de cada píxel. Una <strong>imagen vectorial</strong> describe objetos mediante formas, puntos, curvas, rellenos y transformaciones matemáticas. SVG es un formato vectorial abierto definido por el W3C.<sup><a href="#fuente_22">[22]</a></sup></p>
+        <div class="comparacion">
+          <div>
+            <h3>Raster: un mosaico</h3>
+            <p>Representa con naturalidad fotografías, texturas y variaciones complejas. Tiene dimensiones en píxeles concretas y, al ampliarse mucho, los píxeles o la interpolación se hacen perceptibles.</p>
+          </div>
+          <div>
+            <h3>Vector: instrucciones de dibujo</h3>
+            <p>Un círculo se conserva como centro, radio, contorno y relleno. Puede recalcularse a distintos tamaños sin pixelarse, aunque finalmente una pantalla o impresora lo rasteriza para mostrarlo.</p>
+          </div>
+        </div>
+        <div class="tabla_responsiva">
+          <table>
+            <caption>Criterios para elegir una representación</caption>
+            <thead><tr><th scope="col">Necesidad</th><th scope="col">Suele convenir</th><th scope="col">Motivo</th></tr></thead>
+            <tbody>
+              <tr><td>Fotografía o textura compleja</td><td>Raster</td><td>Describe variaciones de tono y detalle píxel a píxel.</td></tr>
+              <tr><td>Logotipo, icono o diagrama</td><td>Vector</td><td>Mantiene formas nítidas y editables a tamaños distintos.</td></tr>
+              <tr><td>Pintura digital</td><td>Raster</td><td>Los pinceles producen matices irregulares y texturas.</td></tr>
+              <tr><td>Rotulación para distintos soportes</td><td>Vector</td><td>Se adapta desde una tarjeta hasta un cartel sin rehacer la geometría.</td></tr>
+              <tr><td>Composición con foto y formas</td><td>Flujo mixto</td><td>Puede incluir una fotografía rasterizada dentro de un documento vectorial.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>«Vectorial» no significa automáticamente pequeño. Una ilustración con miles de nodos, filtros o fotografías incrustadas puede pesar mucho. Tampoco una fotografía se vuelve realmente vectorial por guardarla dentro de un SVG: la cuadrícula continúa siendo rasterizada.</p>
+        <div class="aviso"><strong>Escalable no significa infinitamente detallado</strong>Los contornos vectoriales se recalculan con limpieza, pero una fotografía incrustada, una textura rasterizada o ciertos efectos siguen teniendo una resolución limitada.</div>
+      </section>
+
+      <section aria-labelledby="color">
+        <h2 id="color">4. Modos y modelos de color: gris, indexado, RGB, HSV y CMYK</h2>
+        <p>Un modelo de color establece qué componentes numéricos se usan para describir un color. El modelo adecuado depende de si se captura, se edita, se muestra o se imprime. La documentación de GIMP reúne estos conceptos y distingue, entre otros, RGB, HSV, CMYK y color indexado.<sup><a href="#fuente_21">[21]</a></sup></p>
+        <div class="tabla_responsiva">
+          <table>
+            <thead><tr><th scope="col">Modo o modelo</th><th scope="col">Cómo representa el color</th><th scope="col">Uso y límite principal</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Escala de grises</strong></td><td>Un nivel desde negro hasta blanco.</td><td>Imágenes sin color; ocupa menos datos que RGB a igual profundidad, pero descarta la información cromática.</td></tr>
+              <tr><td><strong>Color indexado</strong></td><td>Cada píxel guarda una referencia a una paleta limitada.</td><td>Útil en gráficos con pocos colores, como ciertos GIF; dificulta fotografías y degradados suaves.</td></tr>
+              <tr><td><strong>RGB</strong></td><td>Suma luz roja, verde y azul con distintas intensidades.</td><td>Modelo aditivo propio de pantallas, cámaras y gran parte del trabajo digital.</td></tr>
+              <tr><td><strong>HSV</strong></td><td>Organiza tono, saturación y valor o brillo.</td><td>Facilita elegir y ajustar colores de forma intuitiva; normalmente se convierte a una representación como RGB para almacenarla o mostrarla.</td></tr>
+              <tr><td><strong>CMYK</strong></td><td>Combina tintas cian, magenta, amarilla y negra.</td><td>Modelo sustractivo de impresión. El resultado depende del papel, las tintas, la máquina y su perfil.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <h3>RGB y CMYK no abarcan exactamente los mismos colores</h3>
+        <p>Una pantalla emite luz; el papel refleja la luz que no absorben sus tintas. Por ello, un color luminoso visible en RGB puede no reproducirse igual con una combinación CMYK. Convertir al final sin conocer el proceso de impresión puede producir colores apagados o desplazados.</p>
+        <p>Un <strong>espacio de color</strong> concreta el alcance y la interpretación de los valores de un modelo. Un <strong>perfil ICC</strong> describe cómo relacionar los valores de un dispositivo o espacio con una referencia común, de modo que un sistema de gestión del color pueda transformar la imagen entre cámara, pantalla e impresora.<sup><a href="#fuente_25">[25]</a></sup></p>
+        <div class="cc2-note"><strong>No basta con escribir «RGB».</strong> Dos espacios RGB pueden asignar colores distintos a los mismos números. En publicación web, sRGB suele ser una elección compatible; en impresión profesional, conviene solicitar a la imprenta el perfil y las condiciones de entrega.</div>
+        <h3>Transparencia: un canal diferente del color</h3>
+        <p>La transparencia suele almacenarse en un <strong>canal alfa</strong>. Un valor alfa puede indicar desde completamente transparente hasta completamente opaco. No debe confundirse con pintar de blanco: un píxel blanco tapa el fondo; uno transparente permite verlo. La cuadrícula gris que muestran muchos editores es solo una convención visual y no forma parte de la imagen.</p>
+      </section>
+
+      <section aria-labelledby="formatos">
+        <h2 id="formatos">5. Formatos gráficos, transparencia y compatibilidad</h2>
+        <p>Un <strong>formato de archivo</strong> define cómo se organizan y codifican los datos. La extensión orienta a los programas, pero cambiar <code>.png</code> por <code>.jpg</code> en el nombre no convierte el contenido. Para convertir hay que decodificar y volver a exportar.</p>
+        <p>No existe un formato universalmente «mejor». Hay que valorar tipo de imagen, transparencia, animación, profundidad, metadatos, compresión, compatibilidad y posibilidad de edición. La guía técnica de MDN compara los formatos habituales admitidos en la Web.<sup><a href="#fuente_23">[23]</a></sup></p>
+        <div class="tabla_responsiva">
+          <table>
+            <caption>Formatos habituales y decisiones de uso</caption>
+            <thead><tr><th scope="col">Formato</th><th scope="col">Representación y compresión habituales</th><th scope="col">Transparencia</th><th scope="col">Uso orientativo</th></tr></thead>
+            <tbody>
+              <tr><td><strong>JPEG / JPG</strong></td><td>Raster, normalmente con pérdida.</td><td>No.</td><td>Fotografías finales con buena relación entre calidad y tamaño; no es idóneo para logotipos con bordes duros ni para guardar ediciones sucesivas.</td></tr>
+              <tr><td><strong>PNG</strong></td><td>Raster, compresión sin pérdida.</td><td>Sí, incluido alfa.</td><td>Capturas, diagramas, ilustraciones y gráficos web que requieren bordes nítidos o transparencia. Su especificación es un estándar del W3C.<sup><a href="#fuente_24">[24]</a></sup></td></tr>
+              <tr><td><strong>GIF</strong></td><td>Raster indexado, sin pérdida dentro de su paleta.</td><td>Limitada a estados transparentes u opacos.</td><td>Animaciones simples y gráficos de paleta reducida; no es buena elección para fotografías estáticas actuales.</td></tr>
+              <tr><td><strong>WebP</strong></td><td>Raster, con opciones con y sin pérdida.</td><td>Sí.</td><td>Publicación web cuando la compatibilidad del público objetivo está comprobada.</td></tr>
+              <tr><td><strong>SVG</strong></td><td>Vectorial basado en XML; puede incluir recursos raster.</td><td>Sí.</td><td>Iconos, logotipos, diagramas y gráficos adaptables. Si contiene texto o enlaces, debe tratarse también como contenido activo y accesible.</td></tr>
+              <tr><td><strong>TIFF</strong></td><td>Contenedor raster flexible, con distintas profundidades y compresiones.</td><td>Depende de la variante y del flujo.</td><td>Intercambio, digitalización e impresión de alta calidad; no tiene soporte web general como imagen incrustada.</td></tr>
+              <tr><td><strong>XCF</strong></td><td>Proyecto editable nativo de GIMP.</td><td>Conserva canales y capas.</td><td>Trabajo en curso y archivo maestro editable; no se usa como entrega web para el público.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="cc2-concept"><strong class="cc2-concept-tag">Formato y contenido deben corresponder</strong>Fotografía no implica siempre JPEG, ni transparencia implica siempre PNG. Una foto que aún va a editarse puede necesitar un archivo maestro de mayor profundidad; un icono geométrico puede funcionar mejor como SVG.</div>
+        <h3>Compatibilidad y degradación razonable</h3>
+        <p>La compatibilidad incluye navegadores, aplicaciones, imprentas y dispositivos reales del público. Un formato reciente puede ahorrar espacio, pero obliga a comprobar si todos los destinatarios pueden abrirlo. Para conservación o intercambio conviene preferir formatos bien documentados y mantener el original de mayor calidad.</p>
+        <p>Los archivos pueden contener metadatos como fecha, cámara, orientación, autor o ubicación. Son útiles para organizar y atribuir, pero antes de publicar hay que revisar si revelan información privada. Eliminar metadatos no elimina la obligación de atribuir una obra ajena.</p>
+      </section>
+
+      <section aria-labelledby="compresion">
+        <h2 id="compresion">6. Compresión con y sin pérdida</h2>
+        <p>La <strong>compresión</strong> reduce el tamaño de los datos aprovechando repeticiones o descartando información. No debe confundirse con reducir dimensiones: una imagen puede conservar 1920 × 1080 píxeles y ocupar menos por estar más comprimida.</p>
+        <div class="comparacion">
+          <div>
+            <h3>Sin pérdida</h3>
+            <p>Al descomprimir se recuperan exactamente los datos codificados. Es apropiada para texto dentro de una imagen, gráficos, capturas, transparencia y etapas donde no se quiere acumular degradación.</p>
+          </div>
+          <div>
+            <h3>Con pérdida</h3>
+            <p>Descarta detalles que el algoritmo considera menos perceptibles. Puede reducir mucho el archivo fotográfico, pero una compresión fuerte crea bloques, halos, borrosidad o bandas que ya no se recuperan desde ese archivo.</p>
+          </div>
+        </div>
+        <p>La pérdida no es necesariamente un error: puede ser una decisión razonable para distribuir una fotografía con rapidez. El objetivo es que la degradación sea aceptable en el tamaño y contexto reales de uso. Un archivo enorme tampoco garantiza calidad si el original estaba desenfocado o ya contenía artefactos.</p>
+        <div class="tabla_responsiva">
+          <table>
+            <thead><tr><th scope="col">Decisión</th><th scope="col">Efecto probable</th><th scope="col">Precaución</th></tr></thead>
+            <tbody>
+              <tr><td>Reducir dimensiones</td><td>Menos píxeles y menor capacidad de ampliación.</td><td>Conservar un original para otros destinos.</td></tr>
+              <tr><td>Aumentar compresión con pérdida</td><td>Menos bytes con la misma cuadrícula.</td><td>Revisar bordes, texturas, texto y degradados al tamaño final.</td></tr>
+              <tr><td>Reducir profundidad o paleta</td><td>Menos valores de color.</td><td>Puede provocar bandas o tramado visible.</td></tr>
+              <tr><td>Eliminar metadatos</td><td>Pequeño ahorro y menor exposición de información.</td><td>Preservar fuera del archivo los datos de autoría y procedencia necesarios.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="aviso"><strong>Evita las recompras de calidad</strong>Abrir y volver a guardar repetidamente un archivo con pérdida puede acumular defectos. Edita desde el archivo maestro y genera de nuevo cada versión final; no uses como nuevo original una copia ya reducida para la web.</div>
+        <p>La relación entre calidad y tamaño se evalúa con la propia imagen. Una foto de cielo uniforme, una escena con hojas y una captura de texto reaccionan de forma distinta al mismo ajuste. Por eso los parámetros concretos son ejemplos, no recetas universales.</p>
+      </section>
+
+      <section aria-labelledby="flujo">
+        <h2 id="flujo">7. Crear, conservar y exportar según el destino</h2>
+        <p>Un flujo fiable separa el <strong>archivo editable o maestro</strong> del <strong>archivo final exportado</strong>. El editable conserva estructura, capas, máscaras, objetos, texto y mayor profundidad para poder corregir decisiones. El exportado adapta el resultado a quien lo verá o imprimirá.</p>
+        <p>En GIMP, por ejemplo, XCF conserva la información propia del proyecto; otros formatos se obtienen mediante exportación y pueden perder capas u otras propiedades.<sup><a href="#fuente_28">[28]</a></sup> La idea es transferible: <strong>guardar el proyecto no es lo mismo que exportar una entrega</strong>.</p>
+        <div class="cc2-timeline">
+          <div class="cc2-tl-item"><div class="cc2-tl-year">1 — Definir el destino</div><p>Determinar tamaño de presentación, soporte, fondo, transparencia, compatibilidad, perfil de color y límite de archivo.</p></div>
+          <div class="cc2-tl-item"><div class="cc2-tl-year">2 — Crear con margen suficiente</div><p>Trabajar con dimensiones, profundidad y recursos que permitan las modificaciones previstas, sin inventar píxeles innecesarios.</p></div>
+          <div class="cc2-tl-item"><div class="cc2-tl-year">3 — Conservar el editable</div><p>Guardar el proyecto con sus elementos separados y una organización comprensible. Mantener también los originales y los datos de licencia.</p></div>
+          <div class="cc2-tl-item"><div class="cc2-tl-year">4 — Preparar una copia para el destino</div><p>Recortar, redimensionar, convertir el espacio de color o aplanar solo cuando el destino lo requiera. No destruir el maestro.</p></div>
+          <div class="cc2-tl-item"><div class="cc2-tl-year">5 — Exportar y comprobar</div><p>Abrir el archivo final fuera del editor, verificar dimensiones, color, transparencia, peso y aspecto en el contexto real.</p></div>
+        </div>
+        <div class="tabla_responsiva">
+          <table>
+            <caption>Prioridades orientativas según el destino</caption>
+            <thead><tr><th scope="col">Destino</th><th scope="col">Preguntas principales</th><th scope="col">Decisión frecuente, no obligatoria</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Pantalla o presentación</strong></td><td>¿Qué dimensiones tendrá en el dispositivo? ¿Hay que ampliar? ¿El fondo exige transparencia?</td><td>RGB, dimensiones próximas al uso y formato compatible.</td></tr>
+              <tr><td><strong>Publicación web</strong></td><td>¿Carga con rapidez? ¿Se adapta a distintos tamaños? ¿Necesita transparencia? ¿Dispone de texto alternativo en la página?</td><td>JPEG o WebP para foto; PNG para ciertos gráficos raster; SVG para geometría, siempre tras comprobar compatibilidad y accesibilidad.</td></tr>
+              <tr><td><strong>Impresión</strong></td><td>¿Qué tamaño físico y densidad efectiva se necesitan? ¿Qué perfil, sangrado y formato solicita la imprenta?</td><td>Archivo de alta calidad preparado según especificaciones del proveedor; no convertir a CMYK a ciegas.</td></tr>
+              <tr><td><strong>Archivo y futura edición</strong></td><td>¿Se conservan capas, objetos, tipografías, originales, permisos y perfil de color?</td><td>Formato editable nativo más una exportación de consulta y documentación de procedencia.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="cc2-note"><strong>Accesibilidad en la publicación.</strong> El texto alternativo se añade normalmente en la web, presentación o plataforma donde se publica la imagen, no al pintar píxeles en GIMP. Debe transmitir la función o información relevante en ese contexto; una imagen decorativa puede marcarse como tal.</div>
+        <div class="cc2-concept"><strong class="cc2-concept-tag">Regla de conservación</strong>Maestro editable + originales + información de licencia → exportaciones específicas. Si cambia el destino, se vuelve al maestro y se genera una nueva copia.</div>
+      </section>
+
+      <section aria-labelledby="licencias">
+        <h2 id="licencias">8. Licencias de imagen, reutilización y atribución</h2>
+        <p>Que una imagen pueda verse o descargarse no significa que pueda reutilizarse sin condiciones. Los derechos de autor nacen con la obra; una <strong>licencia</strong> comunica qué usos permite su titular. Las licencias Creative Commons ofrecen condiciones estandarizadas, pero no todas permiten lo mismo.<sup><a href="#fuente_26">[26]</a></sup></p>
+        <div class="tabla_responsiva">
+          <table>
+            <thead><tr><th scope="col">Marca o condición</th><th scope="col">Qué significa de forma resumida</th><th scope="col">Decisión antes de usar</th></tr></thead>
+            <tbody>
+              <tr><td><strong>BY — Reconocimiento</strong></td><td>Hay que dar crédito de la forma indicada.</td><td>Preparar una atribución clara y vinculada a la obra.</td></tr>
+              <tr><td><strong>SA — CompartirIgual</strong></td><td>La adaptación se distribuye con la misma licencia o una compatible.</td><td>Comprobar que la licencia prevista para el trabajo es compatible.</td></tr>
+              <tr><td><strong>NC — NoComercial</strong></td><td>No autoriza usos principalmente dirigidos a ventaja comercial o compensación económica.</td><td>No suponer que cualquier uso educativo es automáticamente válido en cualquier plataforma o situación.</td></tr>
+              <tr><td><strong>ND — SinDerivadas</strong></td><td>No permite compartir material adaptado.</td><td>Valorar si recortar, mezclar o alterar produce una adaptación; si hay duda, buscar otra obra o pedir permiso.</td></tr>
+              <tr><td><strong>CC0</strong></td><td>El titular renuncia, en la medida legalmente posible, a derechos y restricciones.</td><td>Aun cuando no se exija atribución, citar procedencia es una buena práctica académica.</td></tr>
+              <tr><td><strong>Dominio público</strong></td><td>La obra ya no está protegida por derechos patrimoniales o nunca lo estuvo, según el caso y la jurisdicción.</td><td>Verificar la situación de esa obra concreta y la fiabilidad de la indicación.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Las seis licencias CC combinan condiciones. Por ejemplo, <strong>CC BY</strong> permite reutilizar y adaptar con reconocimiento; <strong>CC BY-SA</strong> añade CompartirIgual; <strong>CC BY-NC-ND</strong> añade restricciones de uso comercial y de difusión de adaptaciones. No basta con leer «Creative Commons»: hay que identificar la licencia exacta y su versión.</p>
+        <h3>Una atribución útil: título, autoría, fuente y licencia</h3>
+        <p>Creative Commons recomienda una atribución razonable que identifique <strong>título, autor, fuente y licencia</strong> —a menudo recordados como TASL por sus iniciales en inglés— y que indique si se hicieron cambios.<sup><a href="#fuente_27">[27]</a></sup></p>
+        <div class="cc2-concept"><strong class="cc2-concept-tag">Modelo de atribución</strong>«<em>Título de la obra</em>», de Nombre de la autora, disponible en URL de origen, licencia CC BY 4.0 (enlace a la licencia). Recortada y ajustada en color.</div>
+        <p>Cuando sea posible, los nombres, la fuente y la licencia deben enlazarse. La atribución puede situarse junto a la imagen o en una sección claramente asociada. No debe sugerir que la autora original respalda el nuevo trabajo.</p>
+        <h3>Comprobar antes de incorporar un recurso</h3>
+        <ul>
+          <li><strong>Procedencia:</strong> llegar a la página original, no quedarse con una miniatura de un buscador.</li>
+          <li><strong>Licencia exacta:</strong> registrar nombre, versión, enlace y condiciones en el momento de descarga.</li>
+          <li><strong>Autoría y título:</strong> conservar los datos pedidos por la fuente.</li>
+          <li><strong>Compatibilidad:</strong> comprobar si se permite adaptar, compartir y usar en el contexto previsto.</li>
+          <li><strong>Otros derechos:</strong> una licencia de autor no resuelve necesariamente derechos de imagen de personas, marcas, privacidad o patrimonio representado.</li>
+          <li><strong>Evidencia:</strong> guardar la URL y, si el proyecto lo requiere, una copia o captura de la información de licencia.</li>
+        </ul>
+        <div class="aviso"><strong>Un filtro de buscador no concede derechos</strong>Los filtros ayudan a localizar candidatos, pero pueden estar mal etiquetados. Hay que abrir la fuente, comprobar quién publica la obra y leer su licencia. Si las condiciones no están claras, no se reutiliza o se solicita permiso.</div>
+        <p>Crear imágenes propias o usar repositorios con licencias bien documentadas reduce incertidumbre, pero las obras propias también pueden incorporar tipografías, fotografías o iconos ajenos. La atribución forma parte del proyecto editable y de su documentación, no es un detalle que se improvisa al final.</p>
+      </section>
+
+      <section aria-labelledby="glosario">
+        <h2 id="glosario">Glosario del tema</h2>
+        <dl class="cc2-glosario">
+          <dt>Imagen rasterizada</dt><dd>Imagen formada por una cuadrícula de píxeles con dimensiones determinadas.</dd>
+          <dt>Imagen vectorial</dt><dd>Imagen descrita mediante objetos y geometría que pueden recalcularse a distintas escalas.</dd>
+          <dt>Píxel</dt><dd>Unidad elemental de una imagen rasterizada; almacena valores de color y, en su caso, transparencia.</dd>
+          <dt>Dimensiones</dt><dd>Cantidad de píxeles horizontales y verticales de una imagen.</dd>
+          <dt>Resolución</dt><dd>Capacidad de representar detalle espacial; según el contexto se expresa mediante dimensiones o densidad.</dd>
+          <dt>Remuestreo</dt><dd>Proceso de cambiar las dimensiones creando o eliminando píxeles mediante un algoritmo.</dd>
+          <dt>Profundidad de bits</dt><dd>Número de bits empleado para representar los valores de un píxel o canal.</dd>
+          <dt>Canal</dt><dd>Componente de información de una imagen, como rojo, verde, azul o alfa.</dd>
+          <dt>Canal alfa</dt><dd>Componente que representa el grado de transparencia u opacidad.</dd>
+          <dt>Color indexado</dt><dd>Modo en el que cada píxel apunta a un color de una paleta limitada.</dd>
+          <dt>Perfil ICC</dt><dd>Datos que describen la relación entre los valores de color de un dispositivo o espacio y una referencia común.</dd>
+          <dt>Compresión sin pérdida</dt><dd>Reducción de datos que permite reconstruir exactamente la información codificada.</dd>
+          <dt>Compresión con pérdida</dt><dd>Reducción que descarta información para disminuir más el archivo.</dd>
+          <dt>Artefacto</dt><dd>Defecto visible introducido por compresión, cuantificación, remuestreo u otro procesamiento.</dd>
+          <dt>Archivo editable</dt><dd>Proyecto que conserva la estructura necesaria para continuar modificándolo.</dd>
+          <dt>Exportación</dt><dd>Generación de un archivo adaptado a un destino, formato y nivel de calidad concretos.</dd>
+          <dt>Licencia</dt><dd>Permiso jurídico que establece condiciones para utilizar una obra.</dd>
+          <dt>Atribución</dt><dd>Reconocimiento de autoría, procedencia y licencia de una obra reutilizada.</dd>
+        </dl>
+      </section>
+
+      <section class="summary" aria-labelledby="resumen">
+        <h2 id="resumen">Resumen esencial</h2>
+        <ol>
+          <li>Una imagen rasterizada organiza muestras de color en píxeles; dimensiones, densidad, tamaño físico y tamaño de archivo son magnitudes relacionadas pero distintas.</li>
+          <li>Digitalizar implica muestrear posiciones y cuantificar valores; una mayor profundidad ofrece más niveles, pero necesita más datos.</li>
+          <li>El raster resulta natural para fotografías y texturas; el vector describe formas escalables y es adecuado para logotipos, iconos y diagramas.</li>
+          <li>Escala de grises, indexado, RGB, HSV y CMYK organizan el color de maneras diferentes; los perfiles ICC ayudan a mantener una reproducción coherente.</li>
+          <li>JPEG, PNG, GIF, WebP, SVG, TIFF y XCF responden a necesidades distintas de compresión, transparencia, compatibilidad y edición.</li>
+          <li>La compresión sin pérdida recupera los datos codificados; la compresión con pérdida sacrifica información a cambio de archivos menores.</li>
+          <li>El archivo editable se conserva como maestro y cada exportación se ajusta a pantalla, web, impresión o intercambio.</li>
+          <li>Reutilizar una imagen exige comprobar la licencia exacta, respetar sus condiciones y atribuir título, autoría, fuente, licencia y cambios cuando corresponda.</li>
+        </ol>
+      </section>
+
+      <section aria-labelledby="fuentes">
+        <h2 id="fuentes">Fuentes y recursos fiables</h2>
+        <ul>
+          <li id="fuente_20">[20] <a href="https://www.bocm.es/boletin/CM_Orden_BOCM/2023/05/31/BOCM-20230531-18.PDF">Comunidad de Madrid — Orden 1736/2023, currículo de Bachillerato (PDF)</a>.</li>
+          <li id="fuente_21">[21] <a href="https://docs.gimp.org/3.0/en/glossary.html" lang="en">Documentación oficial de GIMP 3.0 — Glosario: modelos de color, color indexado, píxel y resolución</a> (en inglés).</li>
+          <li id="fuente_22">[22] <a href="https://www.w3.org/TR/SVG2/" lang="en">W3C — Scalable Vector Graphics (SVG) 2</a> (en inglés).</li>
+          <li id="fuente_23">[23] <a href="https://developer.mozilla.org/en-US/docs/Web/Media/Guides/Formats/Image_types" lang="en">MDN Web Docs — Guía de tipos y formatos de archivo de imagen</a> (en inglés).</li>
+          <li id="fuente_24">[24] <a href="https://www.w3.org/TR/png-3/" lang="en">W3C — Portable Network Graphics (PNG), tercera edición</a> (en inglés).</li>
+          <li id="fuente_25">[25] <a href="https://www.color.org/getting-started/" lang="en">International Color Consortium — Introducción a los perfiles ICC y la gestión del color</a> (en inglés).</li>
+          <li id="fuente_26">[26] <a href="https://creativecommons.org/cc-licenses/" lang="en">Creative Commons — Descripción oficial de las licencias CC</a> (en inglés).</li>
+          <li id="fuente_27">[27] <a href="https://wiki.creativecommons.org/wiki/Recommended_practices_for_attribution" lang="en">Creative Commons — Prácticas recomendadas para la atribución</a> (en inglés).</li>
+          <li id="fuente_28">[28] <a href="https://docs.gimp.org/3.0/en/gimp-images-out.html" lang="en">Documentación oficial de GIMP 3.0 — Guardar el proyecto y exportar imágenes</a> (en inglés).</li>
+        </ul>
+      </section>
+    </article>
+  </div>
+</main>
+<nav class="topic-footer" aria-label="Navegación entre temas">
+  <a href="tema09.html">← Tema 9</a>
+  <a href="tema11.html">Tema 11 →</a>
+</nav>
+<footer class="site-footer">Ciencias de la Computación II · 2.º de Bachillerato · Comunidad de Madrid</footer>
+</body>
+</html>

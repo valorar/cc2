@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Tema 13 de Ciencias de la Computación II: vídeo digital, montaje con Kdenlive, sonido, accesibilidad y lenguaje audiovisual.">
+  <title>Tema 13. Vídeo digital y lenguaje audiovisual · CC2</title>
+  <link rel="stylesheet" href="assets/estilos.css">
+  <script src="assets/navegacion.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#contenido">Saltar al contenido</a>
+<div class="progress" aria-hidden="true"><span></span></div>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="index.html"><span class="brand-mark">CC2</span><span>Ciencias de la Computación II<small>2.º de Bachillerato · 2026–2027</small></span></a>
+    <nav class="top-nav" aria-label="Navegación principal"><a href="index.html">Índice</a></nav>
+  </div>
+</header>
+<main id="contenido">
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <p class="kicker">Tema 13 · Bloque C · Software: herramientas y aplicaciones</p>
+        <h1>Vídeo digital y lenguaje audiovisual</h1>
+        <p class="hero-lead">Cómo organizar imagen, sonido y texto en el tiempo para construir con Kdenlive un montaje técnicamente adecuado y con una intención comunicativa clara.</p>
+      </div>
+      <aside class="hero-note" aria-label="Pregunta guía del tema 13">
+        <strong>Pregunta guía</strong>
+        <p>¿Por qué dos montajes realizados con las mismas imágenes pueden contar historias distintas y provocar sensaciones opuestas?</p>
+      </aside>
+    </div>
+  </section>
+
+  <div class="layout">
+    <nav class="toc" aria-label="Índice del tema">
+      <strong>En este tema</strong>
+      <ol>
+        <li><a href="#representacion">Resolución, proporción y fps</a></li>
+        <li><a href="#formatos">Contenedores, códecs y compresión</a></li>
+        <li><a href="#organizacion">Importación y organización</a></li>
+        <li><a href="#montaje">Línea de tiempo y montaje</a></li>
+        <li><a href="#sonido">Imagen y sonido</a></li>
+        <li><a href="#accesibilidad">Títulos, subtítulos y efectos</a></li>
+        <li><a href="#lenguaje">Lenguaje audiovisual</a></li>
+        <li><a href="#exportacion">Proyecto, renderizado y exportación</a></li>
+        <li><a href="#glosario">Glosario</a></li>
+        <li><a href="#resumen">Resumen</a></li>
+        <li><a href="#fuentes">Fuentes</a></li>
+      </ol>
+    </nav>
+
+    <article class="paper">
+      <p class="lesson-intro">Un vídeo digital no es solo una sucesión de imágenes. Es un sistema temporal en el que plano, palabra, silencio, música, texto y corte se coordinan para dirigir la atención y producir significado. Este recorrido desarrolla los saberes de representación, montaje, integración de medios y lenguaje audiovisual previstos en el currículo.<sup><a href="#fuente_50">[50]</a></sup></p>
+      <div class="question"><strong>Antes de empezar:</strong> imagina una entrevista de un minuto. ¿Cambiaría su sentido si mostrara primero la respuesta, después la pregunta y añadiera una música inquietante? Editar también es tomar decisiones sobre lo que el público entiende y siente.</div>
+      <div class="objectives">
+        <strong>Al terminar serás capaz de…</strong>
+        <ul>
+          <li>relacionar resolución, relación de aspecto y fotogramas por segundo con el destino de un vídeo;</li>
+          <li>distinguir con precisión contenedor, códec, formato y compresión;</li>
+          <li>organizar recursos y construir un montaje multipista no destructivo;</li>
+          <li>integrar imagen y sonido con sincronía, claridad y una mezcla equilibrada;</li>
+          <li>usar títulos, subtítulos, transiciones, filtros y efectos con una finalidad;</li>
+          <li>planificar encuadres y aplicar continuidad, narrativa y ritmo;</li>
+          <li>diferenciar el proyecto editable del archivo renderizado y elegir una exportación adecuada.</li>
+        </ul>
+      </div>
+
+      <h2 id="representacion">1. Resolución, relación de aspecto y fotogramas por segundo</h2>
+      <p>El vídeo digital representa el movimiento mediante una secuencia de imágenes fijas —los <strong>fotogramas</strong>— acompañada normalmente por una o más pistas de audio. Tres propiedades describen buena parte de su estructura visual. En Kdenlive forman parte del perfil del proyecto, que conviene elegir pensando en el resultado final.<sup><a href="#fuente_51">[51]</a></sup></p>
+      <div class="tabla_responsiva">
+        <table>
+          <caption>Propiedades básicas de un vídeo digital</caption>
+          <thead><tr><th scope="col">Propiedad</th><th scope="col">Qué expresa</th><th scope="col">Decisión práctica</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Resolución</strong></td><td>Número de píxeles de cada fotograma, por ejemplo 1920 × 1080.</td><td>Más píxeles pueden mostrar más detalle, pero no reparan una toma desenfocada y suelen exigir más almacenamiento y procesamiento.</td></tr>
+            <tr><td><strong>Relación de aspecto</strong></td><td>Proporción entre anchura y altura, como 16:9, 9:16 o 1:1.</td><td>Debe responder a la pantalla y al canal de publicación; cambiarla sin criterio puede recortar contenido, deformarlo o añadir bandas.</td></tr>
+            <tr><td><strong>Fotogramas por segundo (fps)</strong></td><td>Cantidad de imágenes mostradas cada segundo, como 24, 25, 30, 50 o 60 fps.</td><td>Una frecuencia alta representa movimientos rápidos con mayor detalle temporal, pero genera más datos y no siempre es necesaria.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Resolución y relación de aspecto no son lo mismo. 1920 × 1080 y 1280 × 720 tienen diferente resolución, pero comparten la proporción 16:9. Del mismo modo, los fps no indican nitidez espacial, sino <strong>frecuencia temporal</strong>.</p>
+      <div class="cc2-concept"><strong class="cc2-concept-tag">Coherencia del proyecto</strong>Si el material, el perfil y la exportación usan valores incompatibles, el editor tendrá que adaptar imágenes: puede repetir o descartar fotogramas, redimensionar o recortar. No existe un valor «máximo» que sea siempre mejor; existe una elección adecuada al material y al destino.</div>
+      <h3>Progresivo, entrelazado y orientación</h3>
+      <p>La mayoría de los proyectos actuales para web y dispositivos se trabajan en <strong>escaneo progresivo</strong>: cada fotograma contiene la imagen completa. El vídeo entrelazado procede sobre todo de sistemas de televisión y divide cada imagen en campos; si aparece en material antiguo, puede requerir desentrelazado para evitar bordes en forma de peine.</p>
+      <p>La orientación también se planifica. Un vídeo horizontal 16:9 aprovecha una pantalla panorámica; uno vertical 9:16 responde a ciertos usos móviles. Girar el proyecto al final no recompone el plano: puede dejar al sujeto fuera o reducir demasiado su tamaño.</p>
+
+      <h2 id="formatos">2. Contenedores, códecs y compresión</h2>
+      <p>La extensión de un archivo no describe por sí sola cómo está codificado todo su contenido. Un archivo audiovisual suele combinar varias capas: el <strong>contenedor</strong> reúne pistas y metadatos; los <strong>códecs</strong> codifican y decodifican cada pista. MDN señala que un contenedor puede encapsular audio, vídeo, subtítulos y metadatos, y que una misma familia de contenedores admite distintas combinaciones de códecs.<sup><a href="#fuente_52">[52]</a></sup></p>
+      <div class="comparacion">
+        <div><h3>Contenedor: la caja</h3><p>Organiza las pistas, sus marcas de tiempo y otros datos. <strong>MP4</strong> y <strong>WebM</strong> son ejemplos de contenedores habituales. La extensión orienta sobre la caja, no garantiza qué hay dentro.</p></div>
+        <div><h3>Códec: la forma de empaquetar cada contenido</h3><p>Es el método con el que una pista se comprime y representa. <strong>H.264</strong> puede codificar vídeo dentro de MP4; <strong>VP9</strong>, dentro de WebM; <strong>AAC</strong> y <strong>Opus</strong> son ejemplos de códecs de audio.</p></div>
+      </div>
+      <div class="tabla_responsiva">
+        <table>
+          <caption>Ejemplos de combinaciones, no recetas universales</caption>
+          <thead><tr><th scope="col">Contenedor</th><th scope="col">Vídeo posible</th><th scope="col">Audio posible</th><th scope="col">Uso orientativo</th></tr></thead>
+          <tbody>
+            <tr><td><strong>MP4</strong></td><td>H.264</td><td>AAC</td><td>Combinación de amplia compatibilidad en navegadores y dispositivos.</td></tr>
+            <tr><td><strong>WebM</strong></td><td>VP9</td><td>Opus</td><td>Alternativa abierta y adecuada para publicación web moderna.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Estas combinaciones son ejemplos representativos, no listas cerradas. La compatibilidad depende tanto del contenedor como de los códecs y sus perfiles; por eso debe comprobarse en los dispositivos y plataformas de destino.<sup><a href="#fuente_53">[53]</a></sup></p>
+      <h3>¿Qué hace la compresión?</h3>
+      <p>El vídeo sin comprimir ocupa muchísimo espacio. La <strong>compresión espacial</strong> reduce redundancias dentro de un fotograma y la <strong>compresión temporal</strong> aprovecha semejanzas entre fotogramas próximos. Muchos códecs de distribución trabajan con pérdida: descartan información buscando que el cambio sea poco perceptible.</p>
+      <ul>
+        <li><strong>Tasa de bits o bitrate:</strong> cantidad de datos utilizada por unidad de tiempo. A igualdad de duración y códec, una tasa mayor suele producir un archivo mayor y puede conservar más calidad.</li>
+        <li><strong>Eficiencia del códec:</strong> dos códecs no consiguen necesariamente la misma calidad con el mismo bitrate.</li>
+        <li><strong>Complejidad de la imagen:</strong> lluvia, confeti, grano o movimiento rápido son más difíciles de comprimir que un plano estable y sencillo.</li>
+        <li><strong>Recompresión:</strong> exportar repetidamente con pérdida puede acumular defectos. Conviene conservar fuentes y proyecto.</li>
+      </ul>
+      <div class="aviso"><strong>La extensión no basta</strong>Dos archivos llamados <code>.mp4</code> pueden usar códecs o parámetros distintos y comportarse de forma diferente. «MP4» no es sinónimo de «H.264»: uno nombra el contenedor; el otro, un códec de vídeo.</div>
+
+      <h2 id="organizacion">3. Importación y organización del material</h2>
+      <p>Antes de montar hay que localizar, revisar y nombrar el material. En Kdenlive, la <strong>bandeja del proyecto</strong> reúne los recursos asociados: vídeos, audios, imágenes, títulos y secuencias. Desde ella se seleccionan y llevan a la línea de tiempo. Carpetas, etiquetas y nombres claros permiten encontrar cada toma sin depender de la memoria.<sup><a href="#fuente_54">[54]</a></sup></p>
+      <div class="cc2-timeline">
+        <div class="cc2-tl-item"><div class="cc2-tl-year">1 — Reunir</div><p>Copiar las fuentes a una carpeta estable del proyecto. No editar directamente desde una tarjeta, una carpeta temporal o una unidad que vaya a desconectarse.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">2 — Clasificar</div><p>Separar entrevistas, planos de recurso, voz, música, efectos, imágenes y documentos de licencia. Usar nombres informativos, no una sucesión de «final2_ahora_sí».</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">3 — Revisar</div><p>Detectar tomas movidas, audio saturado, silencios, duplicados, orientaciones y frecuencias de fotogramas diferentes. Marcar las mejores sin borrar todavía alternativas.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">4 — Preparar</div><p>Confirmar el perfil del proyecto, hacer copia de seguridad y, si el equipo va lento, usar archivos proxy: copias ligeras para editar que se sustituyen por los originales al renderizar.</p></div>
+      </div>
+      <p><strong>Importar no significa incrustar.</strong> Un proyecto de Kdenlive guarda normalmente referencias a los archivos originales, no una copia completa de cada medio. Si se renombran, mueven o borran fuera del editor, el proyecto puede perderlos.<sup><a href="#fuente_59">[59]</a></sup></p>
+      <div class="cc2-note"><strong>Una estructura posible:</strong> una carpeta raíz con subcarpetas <code>video</code>, <code>audio</code>, <code>imagenes</code>, <code>titulos</code>, <code>proyecto</code> y <code>exportaciones</code>. Lo importante no es copiar estos nombres, sino mantener un criterio estable y guardar juntos el proyecto y sus recursos.</div>
+
+      <h2 id="montaje">4. Línea de tiempo, pistas, recortes, montaje y transiciones</h2>
+      <p>La <strong>línea de tiempo</strong> representa cuándo empieza y termina cada elemento. Kdenlive separa pistas de vídeo y de audio; al llevar un clip audiovisual a la línea de tiempo puede distribuir su imagen y su sonido en pistas correspondientes.<sup><a href="#fuente_55">[55]</a></sup></p>
+      <div class="tabla_responsiva">
+        <table>
+          <caption>Operaciones fundamentales de montaje</caption>
+          <thead><tr><th scope="col">Operación</th><th scope="col">Qué cambia</th><th scope="col">Pregunta que conviene hacer</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Seleccionar</strong></td><td>Escoge qué tomas entran en el relato.</td><td>¿Aporta información, emoción o contexto?</td></tr>
+            <tr><td><strong>Recortar</strong></td><td>Ajusta los puntos de entrada y salida sin modificar el archivo fuente.</td><td>¿Empieza tarde y termina pronto, sin perder lo necesario?</td></tr>
+            <tr><td><strong>Ordenar</strong></td><td>Construye relaciones temporales, espaciales o de causa.</td><td>¿Se entiende por qué un plano sigue a otro?</td></tr>
+            <tr><td><strong>Superponer</strong></td><td>Combina capas: rótulos, imágenes, recursos o sonido.</td><td>¿La jerarquía deja claro dónde mirar y qué escuchar?</td></tr>
+            <tr><td><strong>Transicionar</strong></td><td>Define el paso entre dos imágenes o sonidos.</td><td>¿La transición expresa algo o solo decora?</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>El <strong>corte directo</strong> suele ser la transición más clara: un plano termina y comienza el siguiente. Un fundido puede sugerir inicio, cierre, pausa o paso del tiempo; un encadenado puede relacionar dos momentos. Usar una transición llamativa entre cada plano distrae y debilita la coherencia visual.</p>
+      <div class="cc2-concept"><strong class="cc2-concept-tag">Edición no destructiva</strong>Recortar un clip en la línea de tiempo modifica su uso dentro del proyecto, no el archivo grabado. El original se conserva y puede reutilizarse con otros puntos de entrada y salida.</div>
+      <h3>Del montaje bruto al montaje fino</h3>
+      <p>Es eficaz trabajar por capas de decisión: primero un <strong>montaje bruto</strong> que compruebe estructura y duración; después un ajuste fino de cortes, continuidad y ritmo; por último, mezcla, títulos, corrección visual y revisión. Pulir un efecto antes de saber si el plano permanecerá en el vídeo desperdicia tiempo.</p>
+
+      <h2 id="sonido">5. Integración, mezcla y sincronización de imagen y sonido</h2>
+      <p>La imagen atrae la mirada, pero un audio confuso puede volver incomprensible todo el vídeo. El montaje puede combinar sonido captado con la cámara, voz en off, ambiente, música y efectos. Cada elemento cumple una función y necesita su espacio.</p>
+      <div class="cc2-grid">
+        <section class="cc2-card"><h3>Diálogo y voz</h3><p>Transportan la información verbal. Deben entenderse con claridad y mantener un nivel coherente entre tomas.</p></section>
+        <section class="cc2-card"><h3>Ambiente</h3><p>Da continuidad y sitúa la acción. Un cambio brusco de ruido de fondo puede revelar un corte aunque la imagen parezca continua.</p></section>
+        <section class="cc2-card"><h3>Música</h3><p>Puede marcar estructura, tono y ritmo. No debe tapar la voz ni imponer una emoción contradictoria sin intención.</p></section>
+        <section class="cc2-card"><h3>Efectos sonoros</h3><p>Refuerzan acciones, llaman la atención o construyen un espacio que no aparece completo en pantalla.</p></section>
+      </div>
+      <h3>Sincronía y mezcla</h3>
+      <p>Sincronizar consiste en alinear un sonido con su acontecimiento visual: labios y voz, una palmada, una puerta o un cambio musical. Una claqueta o una palmada grabada por cámara y micrófono crea un pico fácil de alinear. Después, la <strong>mezcla</strong> equilibra niveles, paneo y transiciones de audio.</p>
+      <ul>
+        <li>Escuchar con auriculares y también con altavoces corrientes.</li>
+        <li>Evitar saturación: si una señal recorta al grabarse, bajar su volumen después no reconstruye lo perdido.</li>
+        <li>Usar fundidos breves para evitar chasquidos y suavizar entradas o salidas.</li>
+        <li>Reducir la música mientras hay voz en lugar de confiar en que el público «se acostumbrará».</li>
+        <li>Conservar algo de ambiente entre planos cuando ayude a mantener el espacio sonoro.</li>
+      </ul>
+      <div class="cc2-think"><strong>Para reflexionar:</strong> mira mentalmente un plano de una puerta cerrándose. El mismo plano con silencio, aplausos o una alarma cuenta tres situaciones distintas. El sonido no acompaña simplemente a la imagen: también produce significado.</div>
+
+      <h2 id="accesibilidad">6. Títulos, subtítulos y accesibilidad; filtros y efectos</h2>
+      <h3>Títulos que se puedan leer</h3>
+      <p>Un título debe permanecer el tiempo suficiente, usar un tamaño legible y contrastar con el fondo. La posición, la tipografía y el movimiento forman parte de la jerarquía: un rótulo informativo no debería competir con la cara de quien habla. Conviene respetar márgenes para evitar que el texto quede pegado al borde o sea ocultado por controles de reproducción.</p>
+      <h3>Subtítulos para comprender el audio</h3>
+      <p>Los subtítulos de accesibilidad ofrecen una versión textual sincronizada del habla y de los sonidos no verbales necesarios para entender el contenido. Ayudan a personas sordas o con dificultades auditivas y también a quienes no pueden activar el sonido. Los subtítulos automáticos son un punto de partida, no un resultado final: deben revisarse por precisión, puntuación, sincronía e identificación de hablantes.<sup><a href="#fuente_56">[56]</a></sup></p>
+      <ul>
+        <li>Transcribir el sentido completo sin omitir información relevante.</li>
+        <li>Indicar quién habla cuando no resulte evidente.</li>
+        <li>Describir sonidos significativos, por ejemplo <em>[suena una alarma]</em>, sin llenar la pantalla de detalles innecesarios.</li>
+        <li>Dividir por unidades de sentido y dejar tiempo real para leer.</li>
+        <li>Comprobar contraste y evitar cubrir información visual importante.</li>
+      </ul>
+      <div class="comparacion">
+        <div><h3>Subtítulos activables</h3><p>Se entregan como pista o archivo sincronizado y el reproductor permite mostrarlos u ocultarlos. Facilitan traducciones, búsqueda y preferencias de presentación si la plataforma los admite.</p></div>
+        <div><h3>Subtítulos incrustados</h3><p>Quedan dibujados dentro de la imagen y siempre se ven. Aseguran su presencia, pero no pueden ocultarse, adaptarse ni reutilizarse como texto.</p></div>
+      </div>
+      <p>La accesibilidad audiovisual no termina en los subtítulos. Si una información visual esencial no se explica en el audio, puede requerir <strong>audiodescripción</strong> o una transcripción descriptiva. También se deben evitar destellos intensos y no comunicar una idea solo mediante color.</p>
+      <h3>Filtros y efectos especiales: corregir antes que decorar</h3>
+      <p>Un <strong>filtro</strong> transforma imagen o sonido —por ejemplo, exposición, color, desenfoque o ecualización— y un efecto puede combinar transformaciones, máscaras o animaciones. En Kdenlive pueden aplicarse a un clip, una pista o la salida general; el nivel elegido cambia su alcance. Un efecto debe resolver una necesidad expresiva o técnica, no ocultar una planificación deficiente.</p>
+      <div class="aviso"><strong>Un efecto no rescata cualquier toma</strong>La estabilización, la reducción de ruido o la corrección de color tienen límites. Una imagen muy desenfocada, un audio saturado o un encuadre que omite la acción no recuperan mágicamente la información perdida.</div>
+
+      <h2 id="lenguaje">7. Planificación, encuadre, composición, continuidad, narrativa y ritmo</h2>
+      <p>El lenguaje audiovisual organiza lo visible y lo audible para comunicar. Sus decisiones empiezan antes de grabar. Un objetivo, una audiencia y una idea central guían el <strong>guion</strong>; el <strong>guion gráfico</strong> o <em>storyboard</em> anticipa los planos; la <strong>lista de planos</strong> convierte esa previsión en una relación de tomas necesarias. Planificar reduce olvidos y permite grabar por localización aunque el relato tenga otro orden.<sup><a href="#fuente_57">[57]</a></sup></p>
+      <div class="cc2-timeline">
+        <div class="cc2-tl-item"><div class="cc2-tl-year">Preproducción — decidir</div><p>Definir propósito, audiencia, duración, estructura, guion, permisos, localizaciones, recursos, sonido, lista de planos y responsabilidades.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">Producción — registrar</div><p>Grabar imagen y sonido, controlar fondo, luz y continuidad, repetir cuando sea necesario y obtener planos de recurso.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">Posproducción — construir</div><p>Seleccionar, montar, mezclar, titular, subtitular, corregir, revisar y exportar. Aquí se concreta el relato, pero depende del material previsto y grabado.</p></div>
+      </div>
+
+      <h3>Encuadre y composición: decidir qué ve el público</h3>
+      <p><strong>Encuadrar</strong> es elegir los límites de la imagen y el punto de vista. La distancia, el ángulo, la altura y la posición de los elementos dirigen la atención y limitan la información disponible. Estos recursos no tienen un significado automático: lo adquieren por su relación con la historia, el sonido y los planos vecinos.<sup><a href="#fuente_58">[58]</a></sup></p>
+      <div class="tabla_responsiva">
+        <table>
+          <caption>Escalas de plano y usos frecuentes</caption>
+          <thead><tr><th scope="col">Encuadre</th><th scope="col">Qué prioriza</th><th scope="col">Uso posible</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Gran plano general</strong></td><td>El espacio domina sobre las personas.</td><td>Situar un lugar, mostrar escala o aislamiento.</td></tr>
+            <tr><td><strong>Plano general</strong></td><td>Persona y entorno se comprenden juntos.</td><td>Presentar una acción completa y sus relaciones espaciales.</td></tr>
+            <tr><td><strong>Plano medio</strong></td><td>Rostro, gesto y parte del cuerpo.</td><td>Conversaciones, explicaciones y entrevistas.</td></tr>
+            <tr><td><strong>Primer plano</strong></td><td>Expresión o elemento principal.</td><td>Intimidad, emoción o información decisiva.</td></tr>
+            <tr><td><strong>Plano detalle</strong></td><td>Una parte pequeña o un objeto.</td><td>Orientar la atención hacia una acción concreta.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Componer es distribuir pesos visuales dentro del encuadre. La regla de los tercios puede ayudar a evitar una composición accidental, pero no es una ley. Importan el centro de interés, el equilibrio, las líneas, la profundidad, el aire hacia donde mira o se mueve un sujeto, el contraste y un fondo que no distraiga.</p>
+
+      <h3>Continuidad: que el espacio y el tiempo se comprendan</h3>
+      <p>La <strong>continuidad</strong> mantiene relaciones comprensibles entre planos: posición de objetos, luz, vestuario, dirección de miradas y movimientos, nivel de sonido y progreso de la acción. No exige que todo sea idéntico; exige que cada cambio resulte entendible o deliberado.</p>
+      <ul>
+        <li><strong>Raccord de movimiento:</strong> una acción iniciada en un plano continúa de forma compatible en el siguiente.</li>
+        <li><strong>Dirección de pantalla:</strong> si alguien sale hacia la derecha, conservar la lógica espacial ayuda a entender hacia dónde se desplaza.</li>
+        <li><strong>Eje de acción o regla de 180°:</strong> mantener la cámara en un lado del eje imaginario conserva las posiciones relativas en una conversación. Cruzarlo puede funcionar si se establece claramente el nuevo espacio.</li>
+        <li><strong>Plano de recurso:</strong> muestra un detalle, una reacción o el entorno; aporta información y puede cubrir una unión difícil.</li>
+        <li><strong>Continuidad sonora:</strong> un ambiente estable puede unir tomas realizadas en momentos distintos.</li>
+      </ul>
+      <p>La continuidad clásica hace que el corte pase casi inadvertido y pone la atención en la acción. La discontinuidad también puede ser válida —un salto brusco, una ruptura espacial— cuando es una decisión expresiva y no un accidente.</p>
+
+      <h3>Narrativa y ritmo: ordenar para producir significado</h3>
+      <p>Una narración organiza información, expectativas y cambios. Incluso una explicación breve puede tener planteamiento, desarrollo y cierre: presenta una pregunta, aporta pruebas y conduce a una conclusión. El montaje puede respetar el orden cronológico, anticipar una consecuencia o reservar datos para crear curiosidad.</p>
+      <p>El <strong>ritmo</strong> nace de la duración de los planos, el movimiento interno, la voz, las pausas, la música y la cantidad de información. Cortes rápidos no equivalen siempre a buen ritmo: una explicación compleja necesita tiempo para leer una gráfica; una reacción puede necesitar una pausa; una secuencia urgente puede acortar progresivamente los planos. La Universidad de York destaca que la longitud de los planos contribuye al ritmo y que imagen, sonido, montaje, ángulo, efectos y condiciones de producción trabajan juntos para comunicar.</p>
+      <div class="cc2-concept"><strong class="cc2-concept-tag">La pregunta del montaje</strong>No es «¿qué transición queda más espectacular?», sino «¿qué necesita comprender, anticipar o sentir el público en este momento?».</div>
+
+      <h2 id="exportacion">8. Creación, renderizado y exportación según el destino</h2>
+      <p>Durante la creación se trabaja con decisiones editables; al final, el <strong>renderizado</strong> calcula los cortes, capas, efectos, títulos y mezcla para generar un archivo reproducible. En Kdenlive se puede renderizar el proyecto completo o una zona concreta, y se elige un perfil de salida según el uso previsto.<sup><a href="#fuente_60">[60]</a></sup></p>
+      <div class="comparacion">
+        <div><h3>Proyecto editable</h3><p>El archivo <code>.kdenlive</code> conserva estructura, referencias a fuentes, posiciones, recortes, efectos y parámetros. Permite cambiar decisiones, pero depende de los medios originales y no es el archivo que se entrega al público.<sup><a href="#fuente_59">[59]</a></sup></p></div>
+        <div><h3>Vídeo renderizado</h3><p>Es el resultado calculado para reproducir o publicar, por ejemplo un MP4 o un WebM. Es autónomo respecto a la línea de tiempo, pero ya no conserva las pistas y cortes como elementos editables.</p></div>
+      </div>
+      <div class="tabla_responsiva">
+        <table>
+          <caption>Criterios para decidir una exportación</caption>
+          <thead><tr><th scope="col">Destino</th><th scope="col">Prioridad</th><th scope="col">Comprobaciones</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Proyección en aula</strong></td><td>Legibilidad, reproducción estable y calidad suficiente para pantalla grande.</td><td>Resolución del proyector, conexión, volumen y reproducción en el equipo real.</td></tr>
+            <tr><td><strong>Publicación web</strong></td><td>Compatibilidad, descarga razonable y subtítulos disponibles.</td><td>Contenedor y códecs admitidos, límite de tamaño, relación de aspecto y tratamiento de subtítulos.</td></tr>
+            <tr><td><strong>Mensajería o móvil</strong></td><td>Tamaño contenido y lectura en pantalla pequeña.</td><td>Duración, orientación, textos, bitrate y límite de la aplicación.</td></tr>
+            <tr><td><strong>Archivo o nueva edición</strong></td><td>Conservar calidad y posibilidad de reconstrucción.</td><td>Proyecto, fuentes, licencias, fuentes tipográficas, subtítulos, copia de seguridad y, si procede, un máster de alta calidad.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3>Un ciclo de exportación responsable</h3>
+      <ol>
+        <li><strong>Revisar el montaje:</strong> comienzo y final, cortes, silencios, rótulos, ortografía, subtítulos, niveles y fotogramas accidentales.</li>
+        <li><strong>Definir el destino:</strong> dispositivo, plataforma, tamaño permitido, orientación y necesidad de subtítulos activables.</li>
+        <li><strong>Elegir el perfil:</strong> resolución, fps, contenedor, códecs y calidad coherentes con el proyecto y el destino.</li>
+        <li><strong>Renderizar una prueba:</strong> comprobar un fragmento difícil antes de calcular un vídeo largo.</li>
+        <li><strong>Verificar el archivo real:</strong> reproducirlo desde el principio hasta el final, comprobar imagen, sonido, duración y subtítulos en otro reproductor o dispositivo.</li>
+        <li><strong>Conservar lo editable:</strong> guardar proyecto y recursos organizados; el archivo exportado no los sustituye.</li>
+      </ol>
+      <div class="aviso"><strong>Renderizado terminado no significa trabajo comprobado</strong>Que el programa no muestre un error solo confirma que creó un archivo. La entrega se valida reproduciendo ese archivo en condiciones parecidas a las de su destino.</div>
+
+      <h2 id="glosario">Glosario del tema</h2>
+      <dl class="cc2-glosario">
+        <dt>Fotograma</dt><dd>Cada imagen fija que forma la secuencia visual de un vídeo.</dd>
+        <dt>Resolución</dt><dd>Dimensiones en píxeles de cada fotograma.</dd>
+        <dt>Relación de aspecto</dt><dd>Proporción entre anchura y altura de la imagen.</dd>
+        <dt>Fps</dt><dd>Número de fotogramas mostrados o registrados por segundo.</dd>
+        <dt>Contenedor</dt><dd>Formato de archivo que organiza pistas de vídeo, audio, subtítulos y metadatos.</dd>
+        <dt>Códec</dt><dd>Método o software que codifica y decodifica una pista de medios.</dd>
+        <dt>Bitrate</dt><dd>Cantidad de datos empleada por unidad de tiempo en una pista o archivo.</dd>
+        <dt>Clip</dt><dd>Fragmento de vídeo, audio, imagen o título utilizado en un proyecto.</dd>
+        <dt>Línea de tiempo</dt><dd>Representación temporal donde se ordenan clips y pistas para construir el montaje.</dd>
+        <dt>Transición</dt><dd>Forma de pasar entre dos clips, como corte, fundido o encadenado.</dd>
+        <dt>Sincronización</dt><dd>Alineación temporal entre sonidos, imágenes y acontecimientos.</dd>
+        <dt>Encuadre</dt><dd>Selección de lo que queda dentro y fuera de los límites de la imagen.</dd>
+        <dt>Continuidad</dt><dd>Coherencia espacial, temporal, visual y sonora entre planos.</dd>
+        <dt>Ritmo</dt><dd>Cadencia producida por duraciones, cortes, movimientos, sonidos y pausas.</dd>
+        <dt>Renderizado</dt><dd>Cálculo que transforma el proyecto y sus decisiones en un archivo audiovisual reproducible.</dd>
+        <dt>Proxy</dt><dd>Copia ligera de un medio usada para editar con fluidez sin sustituir el original en la salida final.</dd>
+      </dl>
+
+      <section class="summary">
+        <h2 id="resumen">Resumen esencial</h2>
+        <ol>
+          <li>Resolución, relación de aspecto y fps describen dimensiones distintas del vídeo y se eligen según material y destino.</li>
+          <li>El contenedor reúne pistas; el códec codifica cada una. MP4/H.264/AAC y WebM/VP9/Opus son combinaciones posibles, no sinónimos ni recetas únicas.</li>
+          <li>Organizar fuentes, nombres y carpetas evita pérdidas; el proyecto suele enlazar los archivos en lugar de incrustarlos.</li>
+          <li>La línea de tiempo permite seleccionar, recortar, ordenar y superponer clips mediante una edición no destructiva.</li>
+          <li>La voz, el ambiente, la música y los efectos producen sentido y deben sincronizarse y mezclarse con claridad.</li>
+          <li>Títulos legibles y subtítulos revisados mejoran la accesibilidad; filtros y efectos deben tener una función.</li>
+          <li>Guion, storyboard y lista de planos conectan propósito y grabación; encuadre y composición dirigen la atención.</li>
+          <li>Continuidad, narrativa y ritmo hacen comprensibles el espacio, el tiempo y la progresión de ideas o acciones.</li>
+          <li>El proyecto editable conserva decisiones y referencias; el render exportado sirve para reproducir y distribuir.</li>
+          <li>Exportar exige decidir según el destino y comprobar el archivo final en condiciones reales.</li>
+        </ol>
+      </section>
+
+      <section aria-labelledby="fuentes">
+        <h2 id="fuentes">Fuentes y recursos fiables</h2>
+        <ul>
+          <li id="fuente_50">[50] <a href="https://www.bocm.es/boletin/CM_Orden_BOCM/2023/05/31/BOCM-20230531-18.PDF">Comunidad de Madrid — Orden 1736/2023, de 19 de mayo, Anexo IV (PDF)</a>.</li>
+          <li id="fuente_51">[51] <a href="https://docs.kdenlive.org/en/project_and_asset_management/project_settings.html" lang="en">Kdenlive Manual — Project Settings</a> (en inglés).</li>
+          <li id="fuente_52">[52] <a href="https://developer.mozilla.org/en-US/docs/Web/Media/Guides/Formats/Containers" lang="en">MDN Web Docs — Media container formats</a> (en inglés).</li>
+          <li id="fuente_53">[53] <a href="https://developer.mozilla.org/en-US/docs/Web/Media/Guides/Formats/Video_codecs" lang="en">MDN Web Docs — Web video codec guide</a> (en inglés).</li>
+          <li id="fuente_54">[54] <a href="https://docs.kdenlive.org/en/project_and_asset_management/project_bin.html" lang="en">Kdenlive Manual — Project Bin</a> (en inglés).</li>
+          <li id="fuente_55">[55] <a href="https://docs.kdenlive.org/en/user_interface/timeline.html" lang="en">Kdenlive Manual — Timeline</a> (en inglés).</li>
+          <li id="fuente_56">[56] <a href="https://www.w3.org/WAI/media/av/captions/" lang="en">W3C Web Accessibility Initiative — Captions/Subtitles</a> (en inglés).</li>
+          <li id="fuente_57">[57] <a href="https://guides.library.vcu.edu/videoproject/planning" lang="en">Virginia Commonwealth University Libraries — Video Project Guide: Planning</a> (en inglés).</li>
+          <li id="fuente_58">[58] <a href="https://www.york.ac.uk/media/english/documents/writingresources/Ways%20of%20Reading%20a%20Film.pdf" lang="en">University of York — Ways of Reading a Film (PDF)</a> (en inglés).</li>
+          <li id="fuente_59">[59] <a href="https://docs.kdenlive.org/en/project_and_asset_management/file_management/project_files.html" lang="en">Kdenlive Manual — Project File Details</a> (en inglés).</li>
+          <li id="fuente_60">[60] <a href="https://docs.kdenlive.org/en/exporting/render.html" lang="en">Kdenlive Manual — Rendering</a> (en inglés).</li>
+        </ul>
+      </section>
+    </article>
+  </div>
+</main>
+<nav class="topic-footer" aria-label="Navegación entre temas">
+  <a href="tema12.html">← Tema 12</a>
+  <a href="index.html">Índice →</a>
+</nav>
+<footer class="site-footer">Ciencias de la Computación II · 2.º de Bachillerato · Comunidad de Madrid</footer>
+</body>
+</html>

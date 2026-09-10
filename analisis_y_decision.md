@@ -119,9 +119,14 @@ La secuencia responde a seis preguntas:
 - Python se utiliza desde la primera sesión y Google Colab es el entorno principal.
 - Thonny se utiliza brevemente como segundo entorno Python para comparar el trabajo con cuadernos y programas y practicar la depuración paso a paso.
 - No se incluye pseudocódigo. El profesor explica oralmente los algoritmos y la planificación se concreta con ejemplos, entradas, salidas, casos de prueba, funciones y código incremental.
+- La biblioteca estándar y los docstrings se introducen de forma básica; los módulos propios y los programas distribuidos en varios archivos se reservan para posibles ampliaciones.
 - Colecciones y ficheros se estudian juntos, pero en secciones diferenciadas.
+- La ordenación forma parte del tratamiento habitual de colecciones; las comprensiones de listas se reservan para el desarrollo del tema y no constituyen un epígrafe del programa.
+- La composición se prioriza frente a la herencia y el polimorfismo, que podrán mencionarse como ampliación sin convertirse en contenido obligatorio.
 - Depuración y pruebas aparecen desde el Tema 14 y se formalizan en el Tema 17.
+- Los puntos de interrupción y la inspección de variables se practican con Thonny; `logging` y la organización en varios archivos no se incorporan al programa obligatorio.
 - El Tema 18 presenta y compara entornos para aplicaciones móviles, pero no exige desarrollar una aplicación móvil ni aprender otro lenguaje.
+- El control de versiones no se añade al Tema 18; la conservación de versiones del proyecto voluntario puede resolverse con copias y el historial del cuaderno.
 - Los fundamentos del software adaptativo se reducen a una introducción y se conectan con conceptos actuales de inteligencia artificial, *machine learning* y agentes.
 - El Tema 19 solo amplía o integra aprendizajes ya cubiertos; no es necesario para completar el bloque.
 

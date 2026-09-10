@@ -166,13 +166,14 @@ Cómo se representa y organiza el vídeo, cómo construir un montaje con Kdenliv
 
 ### Tema 14. Python en Google Colab: reactivación y diseño de programas
 
-Cómo recuperar lo aprendido en Ciencias de la Computación I, trabajar desde el primer momento con código Python ejecutable y dividir un problema en funciones comprobables sin recurrir al pseudocódigo.
+Cómo recuperar lo aprendido en Ciencias de la Computación I, trabajar desde el primer momento con código Python ejecutable y dividir un problema en funciones comprobables y documentadas sin recurrir al pseudocódigo.
 
 - Google Colab: cuadernos, celdas, ejecución y estado de la sesión.
 - repaso aplicado de variables, tipos, operadores, entrada y salida.
 - condicionales y bucles dentro de pequeños programas completos.
 - funciones, parámetros, argumentos y valores de retorno.
 - alcance de las variables y separación entre cálculo, entrada y presentación.
+- biblioteca estándar, reutilización de funciones y documentación básica mediante docstrings.
 - planificación directa con ejemplos, casos de prueba y descomposición en tareas.
 - desarrollo incremental, nombres claros y funciones breves.
 
@@ -181,7 +182,7 @@ Cómo recuperar lo aprendido en Ciencias de la Computación I, trabajar desde el
 Cómo escoger estructuras de almacenamiento, procesar conjuntos de datos y conservar o intercambiar los resultados mediante ficheros desde Google Colab.
 
 - listas, tuplas, diccionarios y conjuntos.
-- acceso, modificación, recorrido, búsqueda, filtrado y agregación.
+- acceso, modificación, recorrido, búsqueda, ordenación, filtrado y agregación.
 - estructuras anidadas sencillas para representar registros.
 - elección de la colección adecuada para cada problema.
 - lectura y escritura de ficheros con gestores de contexto.
@@ -208,7 +209,7 @@ Cómo localizar la causa de un fallo, comprobar que una corrección funciona y m
 
 - errores de sintaxis, excepciones y errores lógicos.
 - lectura de mensajes de error y trazas de ejecución.
-- reproducción del fallo e inspección de variables.
+- depuración paso a paso con Thonny: reproducción del fallo, puntos de interrupción e inspección de variables.
 - gestión de excepciones con `try`, `except`, `else` y `finally`.
 - casos normales, casos límite y entradas no válidas.
 - pruebas de funciones con resultados esperados y aserciones.
@@ -221,7 +222,7 @@ Cómo cambia la programación entre Google Colab y un IDE como Thonny, qué posi
 
 - componentes de un entorno: editor, ejecución, consola, depurador y bibliotecas.
 - Google Colab frente a Thonny: cuadernos, programas, archivos y ejecución.
-- creación y depuración de pequeños programas Python con Thonny.
+- criterios para elegir un entorno según el tipo de programa, los recursos disponibles y la forma de ejecución o distribución.
 - posibilidades y límites de los entornos locales y en la nube.
 - panorama de los entornos para crear aplicaciones móviles.
 - interfaces, eventos y estado de una aplicación móvil.

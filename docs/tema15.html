@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Tema 15 de Ciencias de la Computación II: colecciones de Python, procesamiento, ficheros, texto, CSV, JSON y persistencia temporal en Google Colab.">
+  <title>Tema 15. Colecciones, procesamiento y persistencia de datos · CC2</title>
+  <link rel="stylesheet" href="assets/estilos.css">
+  <script src="assets/navegacion.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#contenido">Saltar al contenido</a>
+<div class="progress" aria-hidden="true"><span></span></div>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="index.html"><span class="brand-mark">CC2</span><span>Ciencias de la Computación II<small>2.º de Bachillerato · 2026–2027</small></span></a>
+    <nav class="top-nav" aria-label="Navegación principal"><a href="index.html">Índice</a></nav>
+  </div>
+</header>
+<main id="contenido">
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <p class="kicker">Tema 15 · Bloque D · Programación</p>
+        <h1>Colecciones, procesamiento y persistencia de datos</h1>
+        <p class="hero-lead">Cómo representar varios datos, transformarlos con Python y conservar o intercambiar los resultados mediante ficheros desde Google Colab.</p>
+      </div>
+      <aside class="hero-note" aria-label="Pregunta guía del tema 15">
+        <strong>Pregunta guía</strong>
+        <p>¿Cómo pasa un programa de recibir datos desordenados a producir información válida, organizada y reutilizable?</p>
+      </aside>
+    </div>
+  </section>
+
+  <div class="layout">
+    <nav class="toc" aria-label="Índice del tema">
+      <strong>En este tema</strong>
+      <ol>
+        <li><a href="#colecciones">Listas, tuplas, diccionarios y conjuntos</a></li>
+        <li><a href="#procesamiento">Operaciones de procesamiento</a></li>
+        <li><a href="#anidadas">Estructuras anidadas</a></li>
+        <li><a href="#eleccion">Elección de la colección</a></li>
+        <li><a href="#ficheros">Ficheros y gestores de contexto</a></li>
+        <li><a href="#formatos">Texto, CSV y JSON</a></li>
+        <li><a href="#rutas">Rutas, codificación y Colab</a></li>
+        <li><a href="#flujo">Carga, validación, transformación y exportación</a></li>
+        <li><a href="#glosario">Glosario</a></li>
+        <li><a href="#resumen">Resumen</a></li>
+        <li><a href="#fuentes">Fuentes</a></li>
+      </ol>
+    </nav>
+
+    <article class="paper">
+      <p class="lesson-intro">Un dato aislado cabe en una variable; un conjunto de observaciones necesita estructura. Python aporta colecciones para representar esos datos y módulos de su biblioteca estándar para leerlos y escribirlos. El objetivo no es memorizar métodos, sino construir un recorrido coherente: representar, procesar, validar y conservar. Este contenido desarrolla el almacenamiento y la lectura y escritura de datos previstos en el currículo.<sup><a href="#fuente_70">[70]</a></sup></p>
+      <div class="question"><strong>Idea de partida:</strong> una colección organiza datos dentro del programa; un fichero permite recuperarlos después o intercambiarlos con otro programa. Elegir bien ambas representaciones evita conversiones innecesarias y errores difíciles de detectar.</div>
+      <div class="objectives">
+        <strong>Al terminar serás capaz de…</strong>
+        <ul>
+          <li>distinguir listas, tuplas, diccionarios y conjuntos por su orden, mutabilidad y forma de acceso;</li>
+          <li>acceder, modificar, recorrer, buscar, ordenar, filtrar y agregar datos;</li>
+          <li>representar registros sencillos mediante estructuras anidadas;</li>
+          <li>elegir una colección de acuerdo con las operaciones necesarias;</li>
+          <li>leer y escribir ficheros de forma segura con <code>with</code>;</li>
+          <li>diferenciar texto plano, CSV y JSON y utilizar sus módulos estándar;</li>
+          <li>trabajar con rutas, UTF-8 y el almacenamiento temporal de Google Colab;</li>
+          <li>organizar un flujo de carga, validación, transformación y exportación.</li>
+        </ul>
+      </div>
+
+      <h2 id="colecciones">1. Listas, tuplas, diccionarios y conjuntos</h2>
+      <p>Una <strong>colección</strong> reúne varios valores bajo una sola variable. Las colecciones integradas de Python resuelven necesidades diferentes: mantener una secuencia, fijar un registro inmutable, asociar claves con valores o conservar elementos sin duplicados. La documentación oficial reúne sus operaciones esenciales y advierte, por ejemplo, que <code>{}</code> crea un diccionario vacío y no un conjunto vacío.<sup><a href="#fuente_71">[71]</a></sup></p>
+      <div class="tabla_responsiva" tabindex="0" aria-label="Tabla desplazable horizontalmente">
+        <table>
+          <caption>Comparación de las cuatro colecciones básicas</caption>
+          <thead><tr><th scope="col">Colección</th><th scope="col">Propiedad principal</th><th scope="col">Acceso</th><th scope="col">Ejemplo</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Lista</strong></td><td>Secuencia ordenada y mutable; admite repetidos.</td><td>Por índice, desde <code>0</code>, y mediante cortes.</td><td><code>["Ana", "Leo", "Ana"]</code></td></tr>
+            <tr><td><strong>Tupla</strong></td><td>Secuencia ordenada e inmutable; admite repetidos.</td><td>Por índice y mediante desempaquetado.</td><td><code>(40.4, -3.7)</code></td></tr>
+            <tr><td><strong>Diccionario</strong></td><td>Asocia claves únicas con valores y conserva el orden de inserción.</td><td>Por clave, no por posición numérica.</td><td><code>{"nombre": "Ana", "nota": 8.5}</code></td></tr>
+            <tr><td><strong>Conjunto</strong></td><td>Elementos únicos, sin acceso posicional.</td><td>Por pertenencia y operaciones de conjuntos.</td><td><code>{"python", "datos"}</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Listas: secuencias que cambian</h3>
+      <p>Una lista resulta adecuada cuando importa el orden y habrá que añadir, eliminar o sustituir elementos. <code>append</code> añade uno al final; <code>extend</code> incorpora varios; <code>insert</code> coloca en una posición; <code>remove</code> elimina la primera coincidencia y <code>pop</code> extrae un elemento. Los índices negativos cuentan desde el final y un corte como <code>notas[1:4]</code> obtiene una nueva lista con las posiciones 1, 2 y 3.</p>
+      <pre tabindex="0" aria-label="Código Python desplazable horizontalmente"><code>notas = [7.5, 6.0, 9.0]
+notas.append(8.5)
+notas[1] = 6.5
+primera, ultima = notas[0], notas[-1]</code></pre>
+      <p>Asignar una lista a otra variable no la copia: ambas variables apuntan al mismo objeto. Si hace falta una copia superficial independiente puede usarse <code>notas.copy()</code> o <code>notas[:]</code>. «Superficial» significa que las colecciones anidadas interiores todavía pueden ser compartidas.</p>
+
+      <h3>Tuplas: una secuencia que no se modifica</h3>
+      <p>Una tupla agrupa valores cuyo número y significado se mantienen, como una coordenada o el resultado múltiple de una función. Es inmutable: no se puede sustituir <code>punto[0]</code>, aunque un objeto mutable guardado dentro sí podría cambiar. En una tupla de un único elemento la coma es imprescindible: <code>(5,)</code>.</p>
+      <pre tabindex="0" aria-label="Código Python desplazable horizontalmente"><code>punto = (40.4168, -3.7038)
+latitud, longitud = punto</code></pre>
+
+      <h3>Diccionarios: valores identificados por claves</h3>
+      <p>Un diccionario modela propiedades con nombre. Cada clave es única y debe ser <strong>hashable</strong>: su valor hash debe permanecer estable, como ocurre con cadenas, números o tuplas formadas por elementos hashables. La expresión <code>alumno["nota"]</code> exige que exista la clave; <code>alumno.get("nota")</code> devuelve <code>None</code> —o el valor alternativo indicado— si falta. Esta diferencia permite decidir si una ausencia es un error o una situación esperada.</p>
+      <pre tabindex="0" aria-label="Código Python desplazable horizontalmente"><code>alumno = {"nombre": "Ana", "nota": 8.5}
+alumno["grupo"] = "2B"
+nota = alumno.get("nota", 0)</code></pre>
+
+      <h3>Conjuntos: unicidad y pertenencia</h3>
+      <p>Un conjunto elimina duplicados y hace explícitas operaciones como unión (<code>|</code>), intersección (<code>&amp;</code>) y diferencia (<code>-</code>). No debe utilizarse cuando sea necesario conservar posiciones o repeticiones. Para crear uno vacío se escribe <code>set()</code>.</p>
+      <pre tabindex="0" aria-label="Código Python desplazable horizontalmente"><code>etiquetas = {"python", "datos", "python"}
+obligatorias = {"python", "json"}
+comunes = etiquetas &amp; obligatorias  # {"python"}</code></pre>
+      <div class="cc2-concept"><strong class="cc2-concept-tag">La sintaxis revela el modelo</strong><code>ventas[2]</code> pide el tercer elemento de una secuencia; <code>venta["precio"]</code> pide una propiedad por su nombre; <code>"python" in etiquetas</code> pregunta por pertenencia. La colección elegida comunica cómo deben interpretarse los datos.</div>
+
+      <h2 id="procesamiento">2. Acceso, modificación, recorrido, búsqueda, ordenación, filtrado y agregación</h2>
+      <p>Procesar una colección consiste en obtener información o producir una representación nueva. Conviene distinguir las operaciones que <strong>modifican</strong> el objeto original de las que <strong>devuelven</strong> otro valor. Por ejemplo, <code>lista.sort()</code> ordena la lista en el sitio y devuelve <code>None</code>, mientras que <code>sorted(iterable)</code> devuelve una lista nueva y acepta cualquier iterable.<sup><a href="#fuente_72">[72]</a></sup></p>
+      <div class="tabla_responsiva" tabindex="0" aria-label="Tabla desplazable horizontalmente">
+        <table>
+          <caption>Operaciones habituales sobre colecciones</caption>
+          <thead><tr><th scope="col">Operación</th><th scope="col">Pregunta que responde</th><th scope="col">Recursos de Python</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Acceso</strong></td><td>¿Qué valor ocupa esta posición o corresponde a esta clave?</td><td>Índices, cortes, claves, <code>get</code>.</td></tr>
+            <tr><td><strong>Modificación</strong></td><td>¿Cómo añado, sustituyo o retiro un valor?</td><td>Asignación, <code>append</code>, <code>update</code>, <code>add</code>, <code>remove</code>.</td></tr>
+            <tr><td><strong>Recorrido</strong></td><td>¿Cómo trato cada elemento?</td><td><code>for</code>, <code>enumerate</code>, <code>dict.items()</code>.</td></tr>
+            <tr><td><strong>Búsqueda</strong></td><td>¿Existe el dato y, si procede, dónde?</td><td><code>in</code>, <code>index</code>, <code>get</code>.</td></tr>
+            <tr><td><strong>Ordenación</strong></td><td>¿En qué secuencia quiero presentar los datos?</td><td><code>sorted</code>, <code>list.sort</code>, parámetros <code>key</code> y <code>reverse</code>.</td></tr>
+            <tr><td><strong>Filtrado</strong></td><td>¿Qué elementos cumplen una condición?</td><td>Bucle con condición o comprensión.</td></tr>
+            <tr><td><strong>Agregación</strong></td><td>¿Qué resumen produce toda la colección?</td><td><code>len</code>, <code>sum</code>, <code>min</code>, <code>max</code>, contador o acumulador.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Recorrer con la información necesaria</h3>
+      <pre tabindex="0" aria-label="Código Python desplazable horizontalmente"><code>temperaturas = [18.2, 21.0, 19.5]
+for posicion, valor in enumerate(temperaturas):
+    print(posicion, valor)
+
+alumno = {"nombre": "Ana", "nota": 8.5}
+for clave, valor in alumno.items():
+    print(clave, valor)</code></pre>
+      <p>Recorrer directamente los elementos suele ser más claro que recorrer índices. El índice tiene sentido si también se necesita la posición; en diccionarios, <code>items()</code> entrega a la vez clave y valor. No conviene añadir o retirar elementos de una colección mientras se recorre esa misma colección, porque se pueden omitir datos o provocar errores.</p>
+
+      <h3>Buscar sin confundir existencia y posición</h3>
+      <p>El operador <code>in</code> devuelve un booleano. En una lista o tupla comprueba valores; en un conjunto, elementos; en un diccionario, claves. <code>list.index(valor)</code> devuelve la primera posición, pero genera una excepción si no existe. Cuando solo hace falta saber si está, <code>in</code> expresa mejor la intención.</p>
+      <pre tabindex="0" aria-label="Código Python desplazable horizontalmente"><code>if "nota" in alumno:
+    print(alumno["nota"])
+
+contiene_aprobado = any(nota &gt;= 5 for nota in temperaturas)</code></pre>
+
+      <h3>Ordenar por un criterio explícito</h3>
+      <p>Una ordenación no cambia el significado de un registro; cambia su posición en la secuencia resultante. El parámetro <code>key</code> calcula para cada elemento la clave usada al comparar. Así se pueden ordenar diccionarios por una propiedad sin perder su estructura.</p>
+      <pre tabindex="0" aria-label="Código Python desplazable horizontalmente"><code>alumnos = [
+    {"nombre": "Leo", "nota": 7.0},
+    {"nombre": "Ana", "nota": 8.5},
+]
+por_nota = sorted(alumnos, key=lambda a: a["nota"], reverse=True)</code></pre>
+
+      <h3>Filtrar, transformar y agregar</h3>
+      <p>Filtrar conserva los elementos que cumplen una condición; transformar calcula una nueva representación; agregar reduce varios datos a un resumen. Una comprensión de listas combina de forma breve transformación y filtrado. Es una técnica útil cuando la expresión sigue siendo legible, no un objetivo separado ni una obligación.</p>
+      <pre tabindex="0" aria-label="Código Python desplazable horizontalmente"><code>notas = [7.0, 4.5, 8.5, 6.0]
+aprobadas = [nota for nota in notas if nota &gt;= 5]
+porcentajes = [nota * 10 for nota in aprobadas]
+media = sum(notas) / len(notas) if notas else None</code></pre>
+      <p>La condición final evita dividir entre cero cuando no hay datos. Una agregación correcta debe definir qué ocurre ante una colección vacía y qué datos se excluyen. <code>min([])</code> y <code>max([])</code>, por ejemplo, no tienen resultado y generan una excepción si no se proporciona un valor por defecto.</p>
+      <div class="cc2-think"><strong>Criterio de claridad:</strong> una operación breve puede expresarse con una comprensión; cuando hay varias condiciones, conversiones o decisiones, un bucle explícito suele ser más fácil de leer, explicar y depurar.</div>
+
+      <h2 id="anidadas">3. Estructuras anidadas sencillas para representar registros</h2>
+      <p>Una colección puede contener otras colecciones. Una <strong>lista de diccionarios</strong> representa bien una tabla sencilla: la lista reúne filas y cada diccionario identifica los campos de una fila. También puede haber listas dentro de cada registro, por ejemplo para guardar etiquetas.</p>
+      <pre tabindex="0" aria-label="Código Python desplazable horizontalmente"><code>registros = [
+    {"nombre": "Ana", "notas": [7.5, 8.0], "activo": True},
+    {"nombre": "Leo", "notas": [6.0, 7.0], "activo": False},
+]
+
+primera_nota = registros[0]["notas"][0]</code></pre>
+      <p>La lectura se hace de fuera hacia dentro: <code>registros[0]</code> obtiene el primer diccionario; <code>["notas"]</code>, su lista de notas; y el último <code>[0]</code>, la primera nota. Una expresión demasiado encadenada puede ocultar dónde falta un dato, por lo que es razonable separar pasos y usar nombres intermedios.</p>
+      <div class="cc2-grid">
+        <section class="cc2-card">
+          <h3>Estructura uniforme</h3>
+          <p>Los registros comparables deberían utilizar las mismas claves y tipos. Si <code>nota</code> es un número en una fila y texto en otra, ordenar o calcular una media puede fallar.</p>
+        </section>
+        <section class="cc2-card">
+          <h3>Ausencia explícita</h3>
+          <p>Un campo opcional puede omitirse o usar <code>None</code>, pero el programa debe adoptar un criterio estable y distinguir «desconocido» de cero o cadena vacía.</p>
+        </section>
+        <section class="cc2-card">
+          <h3>Profundidad limitada</h3>
+          <p>Demasiados niveles dificultan acceso y validación. Para un problema sencillo conviene una estructura sencilla, con cada nivel justificado.</p>
+        </section>
+      </div>
+      <p>Al copiar estructuras anidadas hay que recordar la diferencia entre copia superficial y profunda. <code>registros.copy()</code> crea otra lista exterior, pero sus diccionarios interiores siguen siendo los mismos objetos. Modificar uno de ellos se observará desde ambas listas. Cuando se necesiten objetos interiores independientes puede usarse <code>copy.deepcopy</code>, aunque antes conviene comprobar si el diseño necesita realmente duplicar toda la estructura.</p>
+      <div class="aviso"><strong>Los datos externos no heredan el esquema imaginado</strong>Que el programa espere una lista de registros con <code>nombre</code> y <code>nota</code> no garantiza que el fichero los contenga. La forma y los tipos deben validarse al cargar, antes de ordenar, calcular o exportar.</div>
+
+      <h2 id="eleccion">4. Elección de la colección adecuada para cada problema</h2>
+      <p>No hay una colección «mejor» en términos absolutos. La elección depende de las invariantes del problema: si importa el orden, si se permiten duplicados, si habrá cambios, si el acceso se hace por posición o por nombre y qué operaciones serán frecuentes.</p>
+      <div class="tabla_responsiva" tabindex="0" aria-label="Tabla desplazable horizontalmente">
+        <table>
+          <caption>Decidir a partir de la necesidad</caption>
+          <thead><tr><th scope="col">Necesidad dominante</th><th scope="col">Elección inicial</th><th scope="col">Razón</th></tr></thead>
+          <tbody>
+            <tr><td>Secuencia editable de mediciones</td><td>Lista</td><td>Conserva orden, repetidos y permite añadir o sustituir.</td></tr>
+            <tr><td>Coordenada formada por dos valores que no deben cambiar</td><td>Tupla</td><td>Su tamaño y orden forman una unidad estable.</td></tr>
+            <tr><td>Ficha con campos identificados por nombre</td><td>Diccionario</td><td>Las claves describen cada propiedad y evitan depender de posiciones opacas.</td></tr>
+            <tr><td>Etiquetas únicas o comparación de pertenencia</td><td>Conjunto</td><td>Elimina duplicados y ofrece unión, intersección y diferencia.</td></tr>
+            <tr><td>Varias fichas en un orden determinado</td><td>Lista de diccionarios</td><td>Combina una secuencia exterior con registros de campos nombrados.</td></tr>
+            <tr><td>Localizar rápidamente una ficha por identificador</td><td>Diccionario de diccionarios</td><td>El identificador funciona como clave de acceso directo.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3>Preguntas antes de decidir</h3>
+      <ol>
+        <li><strong>¿Importa el orden?</strong> Si hay primera, siguiente o última posición, se necesita una secuencia; si solo importa pertenencia, puede bastar un conjunto.</li>
+        <li><strong>¿Se permiten duplicados?</strong> Un conjunto los elimina; una lista o tupla los conserva.</li>
+        <li><strong>¿Cambiará la colección?</strong> Lista, diccionario y conjunto son mutables; la tupla no.</li>
+        <li><strong>¿Cómo se identifica cada dato?</strong> Una posición favorece lista o tupla; una clave con significado favorece diccionario.</li>
+        <li><strong>¿Qué debe exportarse?</strong> JSON representa de forma natural listas y diccionarios; un conjunto o una tupla puede requerir conversión y perder parte de su significado.</li>
+      </ol>
+      <p>La eficiencia importa cuando crece el volumen, pero en programas pequeños la claridad del modelo suele ser el primer criterio. Elegir un conjunto solo porque la búsqueda de pertenencia suele ser rápida sería incorrecto si deben conservarse repeticiones y posiciones.</p>
+      <div class="cc2-concept"><strong class="cc2-concept-tag">Representar una regla</strong>La estructura puede hacer visible una regla del dominio: una tupla comunica estabilidad, un conjunto comunica unicidad y un diccionario comunica campos nombrados. Si la estructura contradice el problema, el código necesitará correcciones continuas.</div>
+
+      <h2 id="ficheros">5. Lectura y escritura de ficheros con gestores de contexto</h2>
+      <p>Las variables viven en la memoria del proceso. Un <strong>fichero</strong> permite guardar datos fuera de ese proceso o recibirlos de otra aplicación. <code>open</code> abre un recurso y devuelve un objeto fichero; el gestor de contexto <code>with</code> garantiza su cierre al abandonar el bloque, incluso si se produce una excepción. Es la forma recomendada por el tutorial oficial de Python.<sup><a href="#fuente_73">[73]</a></sup></p>
+      <pre tabindex="0" aria-label="Código Python desplazable horizontalmente"><code>with open("saludo.txt", "w", encoding="utf-8") as fichero:
+    fichero.write("Hola, datos\n")
+
+with open("saludo.txt", "r", encoding="utf-8") as fichero:
+    contenido = fichero.read()</code></pre>
+      <p>La indentación delimita el tiempo durante el que el fichero está abierto. Fuera del bloque se conserva el texto leído en <code>contenido</code>, pero ya no debe intentarse leer o escribir mediante <code>fichero</code>.</p>
+      <div class="tabla_responsiva" tabindex="0" aria-label="Tabla desplazable horizontalmente">
+        <table>
+          <caption>Modos de apertura habituales</caption>
+          <thead><tr><th scope="col">Modo</th><th scope="col">Comportamiento</th><th scope="col">Precaución</th></tr></thead>
+          <tbody>
+            <tr><td><code>"r"</code></td><td>Lee; es el modo predeterminado.</td><td>El fichero debe existir.</td></tr>
+            <tr><td><code>"w"</code></td><td>Escribe desde el principio.</td><td>Trunca el contenido anterior si el fichero existe.</td></tr>
+            <tr><td><code>"a"</code></td><td>Añade al final.</td><td>No sustituye ni corrige líneas ya guardadas.</td></tr>
+            <tr><td><code>"x"</code></td><td>Crea un fichero nuevo.</td><td>Falla si ya existe, lo que evita sobrescribirlo por accidente.</td></tr>
+            <tr><td><code>"b"</code></td><td>Trabaja en binario, combinado como <code>"rb"</code> o <code>"wb"</code>.</td><td>Lee y escribe bytes, no cadenas de texto.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3>Leer todo o procesar línea a línea</h3>
+      <p><code>read()</code> carga el contenido completo y es cómodo para ficheros pequeños. Recorrer el fichero procesa una línea cada vez y evita almacenar todo de golpe. Cada línea puede conservar el salto final; <code>rstrip("\n")</code> retira específicamente ese salto sin borrar otros espacios significativos.</p>
+      <pre tabindex="0" aria-label="Código Python desplazable horizontalmente"><code>with open("nombres.txt", encoding="utf-8") as fichero:
+    for linea in fichero:
+        nombre = linea.rstrip("\n")
+        print(nombre)</code></pre>
+      <p><code>write</code> no añade saltos de línea automáticamente. <code>writelines</code> tampoco: escribe las cadenas tal como se reciben. El programa debe decidir de manera explícita cómo separar los registros.</p>
+      <div class="aviso"><strong>Abrir en escritura puede destruir datos</strong>El modo <code>"w"</code> vacía un fichero existente en el momento de abrirlo. Antes de exportar conviene construir una ruta de salida distinta, comprobar si debe reemplazarse y conservar el original cuando los datos sean importantes.</div>
+
+      <h2 id="formatos">6. Formatos de texto, CSV y JSON</h2>
+      <p>Un formato define cómo se representan los datos dentro del fichero. Elegirlo exige pensar en estructura, destinatario y compatibilidad. Cambiar la extensión no convierte el contenido: para pasar de CSV a JSON hay que leer la estructura de origen y serializarla con las reglas del formato de destino.</p>
+      <div class="tabla_responsiva" tabindex="0" aria-label="Tabla desplazable horizontalmente">
+        <table>
+          <caption>Tres formas de conservar o intercambiar datos</caption>
+          <thead><tr><th scope="col">Formato</th><th scope="col">Estructura</th><th scope="col">Ventaja</th><th scope="col">Límite</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Texto plano</strong></td><td>Caracteres y líneas definidos por el programa.</td><td>Simple, legible y adecuado para notas o un valor por línea.</td><td>Sin un convenio claro, los campos y tipos resultan ambiguos.</td></tr>
+            <tr><td><strong>CSV</strong></td><td>Filas con campos delimitados, a menudo con cabecera.</td><td>Natural para datos tabulares e intercambio con hojas de cálculo.</td><td>Existen dialectos; no representa bien jerarquías y al leer entrega texto.</td></tr>
+            <tr><td><strong>JSON</strong></td><td>Objetos, arrays y valores básicos anidados.</td><td>Representa registros y jerarquías de forma interoperable.</td><td>No admite directamente cualquier objeto de Python y no incluye comentarios estándar.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Texto plano: el programa define el convenio</h3>
+      <p>Un fichero de texto puede contener una frase, un valor por línea o cualquier protocolo sencillo. Su simplicidad es una ventaja solo si quedan claras las reglas: qué significa cada línea, cómo se escapan separadores y cómo se representan datos ausentes. Para una tabla con varios campos es preferible usar el módulo <code>csv</code> en lugar de dividir manualmente por comas.</p>
+
+      <h3>CSV: filas y columnas</h3>
+      <p>CSV parece sencillo, pero un campo puede contener el delimitador, comillas o saltos de línea. El módulo estándar resuelve esas reglas y permite trabajar por posiciones con <code>reader</code>/<code>writer</code> o por cabeceras con <code>DictReader</code>/<code>DictWriter</code>. La documentación indica abrir los ficheros con <code>newline=""</code> para que el módulo gestione correctamente los finales de línea.<sup><a href="#fuente_74">[74]</a></sup></p>
+      <pre tabindex="0" aria-label="Código Python desplazable horizontalmente"><code>import csv
+
+with open("alumnos.csv", newline="", encoding="utf-8") as entrada:
+    alumnos = list(csv.DictReader(entrada))
+
+with open("seleccion.csv", "w", newline="", encoding="utf-8") as salida:
+    escritor = csv.DictWriter(salida, fieldnames=["nombre", "nota"])
+    escritor.writeheader()
+    escritor.writerows(
+        {"nombre": alumno["nombre"], "nota": alumno["nota"]}
+        for alumno in alumnos
+    )</code></pre>
+      <p>Antes de escribir se proyecta cada registro sobre las dos columnas de salida. Así, una columna adicional del fichero de entrada —por ejemplo, <code>grupo</code>— no provoca un error ni aparece por accidente en <code>seleccion.csv</code>. Una clave obligatoria ausente sí debe tratarse como dato no válido. Al leer CSV, los campos se reciben normalmente como cadenas: que una columna se llame <code>nota</code> no la convierte en número, por lo que hay que validar y aplicar <code>float</code> o <code>int</code> cuando corresponda. El delimitador tampoco es siempre una coma; algunos ficheros utilizan punto y coma o tabulador.</p>
+
+      <h3>JSON: datos estructurados</h3>
+      <p>JSON representa objetos, arrays, cadenas, números, booleanos y <code>null</code>. Al cargarlo en Python, los objetos se convierten normalmente en diccionarios, los arrays en listas y <code>null</code> en <code>None</code>. <code>json.load</code> lee desde un fichero y <code>json.dump</code> escribe en él; las variantes <code>loads</code> y <code>dumps</code> trabajan con cadenas.<sup><a href="#fuente_75">[75]</a></sup></p>
+      <pre tabindex="0" aria-label="Código Python desplazable horizontalmente"><code>import json
+
+with open("alumnos.json", encoding="utf-8") as entrada:
+    alumnos = json.load(entrada)
+
+with open("salida.json", "w", encoding="utf-8") as salida:
+    json.dump(alumnos, salida, ensure_ascii=False, indent=2)</code></pre>
+      <p><code>ensure_ascii=False</code> conserva letras como <code>ñ</code> de forma legible en un fichero UTF-8; <code>indent=2</code> facilita la lectura humana a cambio de algunos bytes. Los conjuntos no son serializables directamente en JSON: antes hay que convertirlos, por ejemplo, en listas, y aceptar que JSON no conserva el significado de «conjunto».</p>
+      <div class="cc2-concept"><strong class="cc2-concept-tag">Formato no equivale a contenido válido</strong>Un documento puede ser JSON sintácticamente correcto y aun así carecer de las claves que necesita el programa. El analizador comprueba la sintaxis del formato; la aplicación debe comprobar el esquema y el significado.</div>
+
+      <h2 id="rutas">7. Rutas, codificación y almacenamiento temporal en Google Colab</h2>
+      <h3>Rutas: localizar sin unir cadenas a mano</h3>
+      <p>Una ruta indica dónde se encuentra un fichero dentro del sistema. Puede ser <strong>relativa</strong> al directorio de trabajo o <strong>absoluta</strong> desde la raíz. <code>pathlib.Path</code> representa rutas como objetos y permite unir componentes con <code>/</code>, comprobar existencia y crear carpetas de manera más legible que concatenando separadores manualmente.<sup><a href="#fuente_76">[76]</a></sup></p>
+      <pre tabindex="0" aria-label="Código Python desplazable horizontalmente"><code>from pathlib import Path
+
+carpeta = Path("datos")
+carpeta.mkdir(exist_ok=True)
+ruta_salida = carpeta / "resumen.json"
+print(ruta_salida.resolve())</code></pre>
+      <p>Una ruta relativa idéntica puede apuntar a lugares diferentes si cambia el directorio de trabajo. En Colab puede consultarse con <code>Path.cwd()</code>. Antes de leer, <code>ruta.exists()</code> ayuda a distinguir un fichero ausente de un error posterior de contenido, aunque entre la comprobación y la apertura el estado todavía podría cambiar.</p>
+
+      <h3>Codificación: traducir entre texto y bytes</h3>
+      <p>Un fichero almacena bytes; una cadena de Python contiene caracteres Unicode. La <strong>codificación</strong> establece la traducción. Python usa la codificación indicada en <code>open</code>; declararla como <code>encoding="utf-8"</code> hace el fichero más predecible entre entornos. El HOWTO oficial explica la diferencia entre puntos de código Unicode, cadenas y secuencias de bytes.<sup><a href="#fuente_77">[77]</a></sup></p>
+      <p>Si un fichero fue guardado con otra codificación, abrirlo como UTF-8 puede producir <code>UnicodeDecodeError</code> o caracteres incorrectos. No se debe «arreglar» el problema eliminando tildes: hay que identificar la codificación de origen y convertir conscientemente. En modo binario no se indica <code>encoding</code>, porque el programa recibe y escribe bytes.</p>
+
+      <h3>El disco de ejecución de Colab es temporal</h3>
+      <p>Un cuaderno de Google Colab ejecuta código en una máquina virtual privada para la cuenta. Esa máquina se elimina tras un periodo de inactividad y tiene una vida máxima; por tanto, los ficheros guardados solo en el entorno de ejecución no deben considerarse persistentes. Colab también señala que los límites y tiempos pueden variar.<sup><a href="#fuente_78">[78]</a></sup></p>
+      <div class="comparacion">
+        <div>
+          <h3>Entorno de ejecución</h3>
+          <p>Es apropiado para entradas y resultados temporales de la sesión. En los entornos alojados, el directorio habitual de trabajo es <code>/content</code>. Reiniciar, desconectar o reciclar la máquina puede borrar esos ficheros.</p>
+        </div>
+        <div>
+          <h3>Almacenamiento persistente</h3>
+          <p>El resultado que deba conservarse se descarga al equipo o se copia a un almacenamiento externo autorizado, como Google Drive. Montar Drive da al cuaderno acceso a los archivos del usuario y exige tratar permisos y datos sensibles con cuidado.</p>
+        </div>
+      </div>
+      <p>El cuaderno oficial de E/S de Colab muestra mecanismos para subir ficheros desde el navegador, descargar resultados y montar Google Drive.<sup><a href="#fuente_79">[79]</a></sup> Para entradas pequeñas puede usarse <code>files.upload()</code>; para entregar una salida, <code>files.download(ruta)</code>. La subida debe realizarla una persona en la interfaz y el nombre recibido debe comprobarse, porque no siempre coincide con el que esperaba el programa.</p>
+      <pre tabindex="0" aria-label="Código Python desplazable horizontalmente"><code>from google.colab import files
+
+subidos = files.upload()       # devuelve {nombre: bytes}
+nombre = next(iter(subidos))
+# ... procesar y crear "resumen.json" ...
+files.download("resumen.json")</code></pre>
+      <div class="aviso"><strong>Temporal no significa copia de seguridad</strong>Que un fichero aparezca en el panel lateral de Colab solo confirma que existe en la sesión actual. Si importa conservarlo, debe exportarse antes de que termine el entorno y verificarse en su destino.</div>
+
+      <h2 id="flujo">8. Carga, validación, transformación y exportación de datos</h2>
+      <p>Un programa de datos fiable separa etapas. Así resulta más sencillo saber si un fallo procede del acceso al fichero, del formato, de un valor incorrecto o de la transformación. Las cuatro fases no exigen cuatro programas distintos, pero sí responsabilidades reconocibles.</p>
+      <div class="cc2-timeline">
+        <div class="cc2-tl-item"><div class="cc2-tl-year">1 — Carga</div><p>Localizar la entrada, abrirla con modo y codificación correctos y analizar su formato. El resultado es una colección de Python todavía no confiable.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">2 — Validación</div><p>Comprobar estructura, campos obligatorios, tipos, rangos y reglas del problema. Registrar o comunicar los datos rechazados sin mezclarlos silenciosamente con los válidos.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">3 — Transformación</div><p>Convertir tipos, normalizar textos, filtrar, ordenar, agrupar o calcular agregados. La transformación trabaja sobre una representación ya comprobada.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">4 — Exportación</div><p>Elegir formato y ruta según el destinatario, escribir sin destruir el original y volver a abrir o inspeccionar el resultado para confirmar que se puede utilizar.</p></div>
+      </div>
+
+      <h3>Carga: conservar el origen</h3>
+      <p>La carga debe distinguir entre «no se encontró el fichero» y «se encontró, pero su contenido no cumple el formato». También conviene conservar el fichero original sin modificar. Limpiar directamente la única copia impide revisar qué llegó realmente y repetir el proceso con reglas mejores.</p>
+
+      <h3>Validación: forma, tipo y significado</h3>
+      <p>Validar no consiste solo en capturar cualquier excepción. Primero se comprueba la estructura —por ejemplo, que JSON contenga una lista—; después cada registro y sus claves; a continuación se convierten tipos; por último se aplican reglas de significado, como que una nota esté entre 0 y 10.</p>
+      <pre tabindex="0" aria-label="Código Python desplazable horizontalmente"><code>def convertir_registro(fila):
+    nombre = fila.get("nombre", "").strip()
+    nota = float(fila["nota"])
+    if not nombre or not 0 &lt;= nota &lt;= 10:
+        raise ValueError("registro no válido")
+    return {"nombre": nombre, "nota": nota}</code></pre>
+      <p>La función devuelve un registro nuevo y uniforme o señala que no puede construirlo. El programa que la llama decide si detiene todo el proceso o conserva una relación de filas rechazadas. Sustituir cualquier valor defectuoso por cero sin avisar sería peligroso: convertiría «desconocido» en una medida real.</p>
+
+      <h3>Transformación: una decisión reproducible</h3>
+      <p>Las reglas deben producir el mismo resultado al ejecutarse otra vez sobre el mismo origen. Separar datos originales y datos transformados facilita esa reproducibilidad. Los nombres de las variables pueden reflejar las etapas:</p>
+      <pre tabindex="0" aria-label="Código Python desplazable horizontalmente"><code>validos = [convertir_registro(fila) for fila in filas]
+aprobados = [r for r in validos if r["nota"] &gt;= 5]
+ordenados = sorted(aprobados, key=lambda r: r["nota"], reverse=True)
+media = sum(r["nota"] for r in validos) / len(validos) if validos else None</code></pre>
+      <p>En datos pequeños, crear colecciones nuevas mejora la legibilidad y conserva estados intermedios. En conjuntos grandes puede ser necesario procesar línea a línea, pero el principio se mantiene: cada etapa recibe una entrada definida y produce una salida comprobable.</p>
+
+      <h3>Exportación: adaptar y comprobar</h3>
+      <p>La salida se elige según quién la utilizará. CSV resulta cómodo para una tabla; JSON conserva mejor una estructura anidada; texto plano sirve para un informe muy sencillo. Antes de escribir hay que decidir cabeceras, orden, valores ausentes, separador, codificación y si se reemplaza un fichero existente. Después se comprueba el archivo real, no solo la colección que había en memoria.</p>
+      <ol>
+        <li>Escribir en una ruta de salida distinta de la entrada.</li>
+        <li>Confirmar que el fichero existe y tiene el formato esperado.</li>
+        <li>Volver a cargarlo con el lector correspondiente.</li>
+        <li>Comparar número de registros y campos esenciales.</li>
+        <li>En Colab, descargarlo o copiarlo al destino persistente y abrir esa copia.</li>
+      </ol>
+      <div class="cc2-concept"><strong class="cc2-concept-tag">Flujo completo</strong>Entrada original → carga según el formato → validación de estructura y valores → transformación explícita → exportación a una ruta nueva → recarga y verificación → conservación fuera del almacenamiento temporal.</div>
+
+      <h2 id="glosario">Glosario del tema</h2>
+      <dl class="cc2-glosario">
+        <dt>Colección</dt><dd>Estructura que reúne varios valores y define cómo se organizan y consultan.</dd>
+        <dt>Mutable</dt><dd>Objeto cuyo contenido puede cambiar sin crear otro objeto.</dd>
+        <dt>Inmutable</dt><dd>Objeto cuyo valor no puede modificarse después de su creación.</dd>
+        <dt>Índice</dt><dd>Posición numérica de un elemento dentro de una secuencia.</dd>
+        <dt>Clave</dt><dd>Identificador único que permite acceder a un valor de un diccionario.</dd>
+        <dt>Iterable</dt><dd>Objeto cuyos elementos se pueden recorrer uno tras otro.</dd>
+        <dt>Filtrado</dt><dd>Selección de los elementos que cumplen una condición.</dd>
+        <dt>Agregación</dt><dd>Cálculo que resume varios datos, como una suma, un recuento o una media.</dd>
+        <dt>Registro</dt><dd>Conjunto de campos relacionados que describen una entidad u observación.</dd>
+        <dt>Estructura anidada</dt><dd>Colección que contiene otras colecciones.</dd>
+        <dt>Gestor de contexto</dt><dd>Mecanismo usado por <code>with</code> para preparar un recurso y liberarlo al salir del bloque.</dd>
+        <dt>Serialización</dt><dd>Conversión de una estructura de datos a una representación almacenable o intercambiable.</dd>
+        <dt>CSV</dt><dd>Familia de formatos tabulares que representa registros mediante campos delimitados.</dd>
+        <dt>JSON</dt><dd>Formato textual de intercambio basado en objetos, arrays y valores simples.</dd>
+        <dt>Ruta relativa</dt><dd>Localización interpretada desde el directorio de trabajo actual.</dd>
+        <dt>Codificación</dt><dd>Regla que relaciona caracteres de texto con secuencias de bytes.</dd>
+        <dt>Persistencia</dt><dd>Conservación de datos más allá de la ejecución o sesión que los produjo.</dd>
+        <dt>Validación</dt><dd>Comprobación de que la estructura, los tipos y los valores cumplen reglas definidas.</dd>
+      </dl>
+
+      <section class="summary">
+        <h2 id="resumen">Resumen esencial</h2>
+        <ol>
+          <li>Las listas son secuencias mutables; las tuplas, secuencias inmutables; los diccionarios asocian claves con valores; los conjuntos conservan elementos únicos.</li>
+          <li>Acceder, modificar, recorrer, buscar, ordenar, filtrar y agregar son operaciones distintas que deben expresar una intención clara.</li>
+          <li><code>sort</code> modifica una lista; <code>sorted</code> produce una nueva. Una comprensión puede filtrar o transformar si permanece legible.</li>
+          <li>Las estructuras anidadas representan registros y tablas sencillas, pero deben mantener campos y tipos coherentes.</li>
+          <li>La colección se elige según orden, duplicados, mutabilidad, forma de acceso y operaciones necesarias.</li>
+          <li><code>with open(...)</code> delimita el uso del fichero y asegura su cierre; el modo de apertura determina si se lee, añade o reemplaza contenido.</li>
+          <li>Texto plano requiere un convenio; CSV representa tablas; JSON representa estructuras anidadas con tipos básicos.</li>
+          <li>Las rutas deben construirse de forma portable y el texto debe abrirse con una codificación explícita, normalmente UTF-8.</li>
+          <li>El almacenamiento del entorno de ejecución de Colab es temporal; una salida importante debe descargarse o copiarse y verificarse fuera de la sesión.</li>
+          <li>Un flujo fiable separa carga, validación, transformación y exportación, conserva el original y vuelve a comprobar el fichero producido.</li>
+        </ol>
+      </section>
+
+      <section aria-labelledby="fuentes">
+        <h2 id="fuentes">Fuentes y recursos fiables</h2>
+        <ul>
+          <li id="fuente_70">[70] <a href="https://www.bocm.es/boletin/CM_Orden_BOCM/2023/05/31/BOCM-20230531-18.PDF">Comunidad de Madrid — Orden 1736/2023, de 19 de mayo, Anexo IV (PDF)</a>.</li>
+          <li id="fuente_71">[71] <a href="https://docs.python.org/3/tutorial/datastructures.html" lang="en">Documentación de Python — Estructuras de datos</a> (en inglés).</li>
+          <li id="fuente_72">[72] <a href="https://docs.python.org/3/library/functions.html#sorted" lang="en">Documentación de Python — Función integrada <code>sorted</code></a> (en inglés).</li>
+          <li id="fuente_73">[73] <a href="https://docs.python.org/3/tutorial/inputoutput.html#reading-and-writing-files" lang="en">Documentación de Python — Lectura y escritura de ficheros</a> (en inglés).</li>
+          <li id="fuente_74">[74] <a href="https://docs.python.org/3/library/csv.html" lang="en">Documentación de Python — Módulo <code>csv</code></a> (en inglés).</li>
+          <li id="fuente_75">[75] <a href="https://docs.python.org/3/library/json.html" lang="en">Documentación de Python — Módulo <code>json</code></a> (en inglés).</li>
+          <li id="fuente_76">[76] <a href="https://docs.python.org/3/library/pathlib.html" lang="en">Documentación de Python — Rutas orientadas a objetos con <code>pathlib</code></a> (en inglés).</li>
+          <li id="fuente_77">[77] <a href="https://docs.python.org/3/howto/unicode.html" lang="en">Documentación de Python — Unicode HOWTO</a> (en inglés).</li>
+          <li id="fuente_78">[78] <a href="https://research.google.com/colaboratory/faq.html" lang="en">Google Colab — Preguntas frecuentes sobre entornos de ejecución y límites</a> (en inglés).</li>
+          <li id="fuente_79">[79] <a href="https://colab.research.google.com/notebooks/io.ipynb" lang="en">Google Colab — Cuaderno oficial de carga, descarga y E/S</a> (en inglés).</li>
+        </ul>
+      </section>
+    </article>
+  </div>
+</main>
+<nav class="topic-footer" aria-label="Navegación entre temas">
+  <a href="tema14.html">← Tema 14</a>
+  <a href="tema16.html">Tema 16 →</a>
+</nav>
+<footer class="site-footer">Ciencias de la Computación II · 2.º de Bachillerato · Comunidad de Madrid</footer>
+</body>
+</html>

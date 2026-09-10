@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Tema 18 de Ciencias de la Computación II: entornos de programación, Google Colab y Thonny, aplicaciones móviles, software adaptativo, inteligencia artificial, machine learning y agentes.">
+  <title>Tema 18. Entornos, aplicaciones móviles y software adaptativo · CC2</title>
+  <link rel="stylesheet" href="assets/estilos.css">
+  <script src="assets/navegacion.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#contenido">Saltar al contenido</a>
+<div class="progress" aria-hidden="true"><span></span></div>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="index.html"><span class="brand-mark">CC2</span><span>Ciencias de la Computación II<small>2.º de Bachillerato · 2026–2027</small></span></a>
+    <nav class="top-nav" aria-label="Navegación principal"><a href="index.html">Índice</a></nav>
+  </div>
+</header>
+<main id="contenido">
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <p class="kicker">Tema 18 · Bloque D · Programación</p>
+        <h1>Entornos, aplicaciones móviles y software adaptativo</h1>
+        <p class="hero-lead">Cómo elegir el lugar donde programamos, comprender las particularidades de una aplicación móvil y distinguir adaptación, inteligencia artificial, aprendizaje automático y comportamiento de agentes.</p>
+      </div>
+      <aside class="hero-note" aria-label="Pregunta guía del tema 18">
+        <strong>Pregunta guía</strong>
+        <p>Si el mismo problema puede programarse de varias formas, ¿qué cambia al elegir otro entorno, otro dispositivo de destino o un sistema capaz de ajustar su comportamiento?</p>
+      </aside>
+    </div>
+  </section>
+
+  <div class="layout">
+    <nav class="toc" aria-label="Índice del tema">
+      <strong>En este tema</strong>
+      <ol>
+        <li><a href="#componentes">Componentes de un entorno</a></li>
+        <li><a href="#colab_thonny">Google Colab frente a Thonny</a></li>
+        <li><a href="#criterios">Criterios para elegir</a></li>
+        <li><a href="#local_nube">Entornos locales y en la nube</a></li>
+        <li><a href="#moviles">Panorama de entornos móviles</a></li>
+        <li><a href="#interfaz_estado">Interfaces, eventos y estado</a></li>
+        <li><a href="#adaptativo">Software adaptativo</a></li>
+        <li><a href="#ia_ml_agentes">IA, machine learning y agentes</a></li>
+        <li><a href="#glosario">Glosario</a></li>
+        <li><a href="#resumen">Resumen</a></li>
+        <li><a href="#fuentes">Fuentes</a></li>
+      </ol>
+    </nav>
+
+    <article class="paper">
+      <p class="lesson-intro">Programar no consiste solo en escribir instrucciones: también implica escoger herramientas, ejecutar en un contexto concreto y comprender cómo la aplicación recibe eventos y conserva su estado. Este tema amplía el trabajo en Python con una comparación de entornos, presenta el desarrollo móvil como panorama y ofrece una introducción prudente al software adaptativo y a conceptos actuales de inteligencia artificial. Con ello se desarrollan los saberes y criterios del Bloque D sin exigir la creación de una aplicación móvil completa.<sup><a href="#fuente_100">[100]</a></sup></p>
+      <div class="question"><strong>Antes de empezar:</strong> piensa en un cuaderno de Colab, un programa abierto en Thonny y una aplicación del teléfono. Los tres contienen software, pero no organizan igual la edición, la ejecución, los archivos, la interacción ni la distribución.</div>
+      <div class="objectives">
+        <strong>Al terminar serás capaz de…</strong>
+        <ul>
+          <li>distinguir editor, sistema de ejecución, consola, depurador y bibliotecas;</li>
+          <li>comparar Google Colab y Thonny sin declarar uno universalmente mejor;</li>
+          <li>elegir un entorno según el programa, los recursos y su forma de uso;</li>
+          <li>valorar posibilidades, dependencias y límites del trabajo local y en la nube;</li>
+          <li>reconocer distintos tipos de entornos para crear aplicaciones móviles;</li>
+          <li>explicar la relación entre interfaz, eventos y estado;</li>
+          <li>describir con cautela qué hace adaptativo a un sistema;</li>
+          <li>relacionar y diferenciar inteligencia artificial, aprendizaje automático y agentes.</li>
+        </ul>
+      </div>
+
+      <h2 id="componentes">1. Componentes de un entorno: editor, ejecución, consola, depurador y bibliotecas</h2>
+      <p>Un <strong>entorno de programación</strong> reúne herramientas para transformar una idea en un programa ejecutable y observar su comportamiento. Cuando editor, ejecución, navegación del proyecto y depuración aparecen integrados en una misma aplicación suele hablarse de <strong>IDE</strong>, siglas inglesas de entorno de desarrollo integrado. La integración ahorra cambios de herramienta, pero no altera la función de cada componente.</p>
+      <div class="tabla_responsiva" tabindex="0" aria-label="Tabla desplazable horizontalmente">
+        <table>
+          <caption>Componentes que conviene distinguir</caption>
+          <thead><tr><th scope="col">Componente</th><th scope="col">Función</th><th scope="col">Qué no debe confundirse con él</th><th scope="col">Manifestación posible</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Editor</strong></td><td>Permite escribir y modificar código; puede añadir coloreado, sangría, autocompletado y avisos.</td><td>Editar no ejecuta necesariamente el programa ni demuestra que sea correcto.</td><td>Una celda de código en Colab o la ventana de edición de un archivo <code>.py</code> en Thonny.</td></tr>
+            <tr><td><strong>Sistema de ejecución</strong></td><td>Interpreta o ejecuta el código en un proceso, una máquina o un dispositivo determinados.</td><td>La interfaz visible puede estar en un equipo y la ejecución ocurrir en otro.</td><td>El entorno de ejecución remoto de Colab o el intérprete de Python configurado en Thonny.</td></tr>
+            <tr><td><strong>Consola</strong></td><td>Muestra salidas y errores y, si es interactiva, acepta expresiones u órdenes breves.</td><td>No sustituye al editor para conservar un programa estructurado.</td><td>La salida bajo una celda o la consola interactiva de Python.</td></tr>
+            <tr><td><strong>Depurador</strong></td><td>Permite pausar, avanzar y observar valores para entender una ejecución.</td><td>No corrige por sí solo la causa del fallo ni sustituye las pruebas.</td><td>Ejecución paso a paso, pila de llamadas, variables o puntos de interrupción.</td></tr>
+            <tr><td><strong>Bibliotecas y gestor de paquetes</strong></td><td>Aportan código reutilizable y mecanismos para instalar o seleccionar versiones.</td><td>Importar una biblioteca no garantiza que esté instalada, sea compatible o pueda usarse en el destino.</td><td>Biblioteca estándar de Python, paquetes preinstalados o dependencias añadidas.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>A estos componentes pueden sumarse explorador de archivos, documentación, pruebas, diseñador de interfaces, emulador, perfilador o herramientas de empaquetado. Un entorno educativo puede ocultar parte de esa complejidad; uno profesional puede exponerla. Más paneles no significan automáticamente una herramienta mejor: la cuestión es qué información necesita la tarea sin sobrecargar a quien programa.</p>
+      <div class="cc2-concept"><strong class="cc2-concept-tag">Interfaz y ejecución pueden estar separadas</strong>En un servicio de nube, el navegador presenta el editor, pero el código puede ejecutarse en una máquina remota. En un IDE local, editor e intérprete suelen estar en el mismo ordenador. Esta diferencia afecta a archivos, recursos, permisos y continuidad de la sesión.</div>
+
+      <h2 id="colab_thonny">2. Google Colab frente a Thonny: cuadernos, programas, archivos y ejecución</h2>
+      <p><strong>Google Colab</strong> organiza el trabajo como un cuaderno Jupyter formado por celdas de texto y código. El documento se guarda en formato <code>.ipynb</code>, mientras que el código se ejecuta en un entorno de ejecución que puede reiniciarse o desaparecer. Google advierte que las máquinas virtuales administradas se eliminan tras un periodo de inactividad, tienen una vida máxima y aplican límites de recursos variables.<sup><a href="#fuente_101">[101]</a></sup></p>
+      <p><strong>Thonny</strong> es un IDE orientado al aprendizaje de Python. Integra editor de archivos, consola, ejecución y un depurador visual simplificado; su distribución puede incluir Python para reducir la dificultad de instalación inicial.<sup><a href="#fuente_102">[102]</a></sup> Aquí interesa comparar su modelo de trabajo con el cuaderno, no repetir el procedimiento de depuración paso a paso desarrollado en el Tema 17.</p>
+      <div class="tabla_responsiva" tabindex="0" aria-label="Tabla desplazable horizontalmente">
+        <table>
+          <caption>Comparación razonada entre Colab y Thonny</caption>
+          <thead><tr><th scope="col">Aspecto</th><th scope="col">Google Colab</th><th scope="col">Thonny</th><th scope="col">Consecuencia</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Unidad principal</strong></td><td>Cuaderno con celdas de texto, código y resultados.</td><td>Programa guardado normalmente como archivo <code>.py</code>.</td><td>Colab favorece explicación y exploración por bloques; Thonny se aproxima a un programa ejecutado de principio a fin.</td></tr>
+            <tr><td><strong>Orden de ejecución</strong></td><td>Las celdas pueden ejecutarse en un orden diferente al visual.</td><td>Al ejecutar un archivo, Python comienza normalmente desde su primera instrucción.</td><td>Un cuaderno puede conservar un estado que no se reproduce al ejecutar todo desde cero.</td></tr>
+            <tr><td><strong>Estado</strong></td><td>Variables, importaciones y archivos temporales viven en la sesión de ejecución, no en el texto del cuaderno.</td><td>El proceso conserva estado mientras se ejecuta; al iniciar de nuevo el programa, reconstruye ese estado desde el código y sus datos.</td><td>Guardar el documento no equivale a guardar la memoria de la ejecución.</td></tr>
+            <tr><td><strong>Archivos</strong></td><td>El cuaderno puede persistir, pero los archivos de la máquina virtual suelen ser temporales si no se descargan o guardan aparte.</td><td>Los archivos se encuentran normalmente en el almacenamiento local y permanecen hasta que se modifican o borran.</td><td>Hay que identificar siempre dónde vive cada dato.</td></tr>
+            <tr><td><strong>Instalación</strong></td><td>El uso habitual comienza desde un navegador y una cuenta, sin preparar Python en el equipo.</td><td>Requiere instalar la aplicación, aunque ofrece una configuración inicial sencilla.</td><td>Colab reduce preparación local; Thonny ofrece mayor independencia del servicio remoto.</td></tr>
+            <tr><td><strong>Bibliotecas</strong></td><td>Incluye muchas bibliotecas y permite instalar otras durante la sesión, con límites y versiones que pueden cambiar.</td><td>Usa las bibliotecas del intérprete configurado; la instalación persiste normalmente en ese entorno local.</td><td>La reproducibilidad exige conocer versiones y repetir la preparación necesaria.</td></tr>
+            <tr><td><strong>Salida y consola</strong></td><td>Cada celda muestra su resultado cerca del código.</td><td>La consola concentra salida, entrada y evaluación interactiva.</td><td>El cuaderno vincula relato y resultados; el IDE separa mejor código fuente y ejecución.</td></tr>
+            <tr><td><strong>Uso característico</strong></td><td>Explicación ejecutable, análisis de datos, experimentación y trabajo compartido.</td><td>Aprendizaje de Python, scripts locales y observación estructurada de un programa.</td><td>Son modelos complementarios, no una escala de peor a mejor.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="aviso"><strong>El orden oculto de un cuaderno</strong>Si una celda usa una variable creada por otra que se ejecutó antes, el resultado puede parecer correcto aunque el orden visual no sea reproducible. «Reiniciar y ejecutar todo» comprueba si el cuaderno reconstruye su estado desde cero.</div>
+      <div class="cc2-note"><strong>Mismo lenguaje, contexto diferente.</strong> Un programa Python puede expresar el mismo cálculo en ambos entornos, pero cambian la entrada, la salida, la persistencia, el modo de compartirlo y la forma de observar su ejecución.</div>
+
+      <h2 id="criterios">3. Criterios para elegir un entorno</h2>
+      <p>No existe un entorno mejor para cualquier situación. Elegir implica relacionar las necesidades del programa con las condiciones reales de desarrollo y uso. La familiaridad importa, pero no debería ocultar requisitos esenciales.</p>
+      <div class="cc2-grid">
+        <section class="cc2-card"><h3>Tipo de trabajo</h3><p>Un cuaderno encaja bien cuando texto, datos, gráficos y experimentos deben leerse juntos. Un script o una aplicación continuada necesita una ejecución más predecible y una estructura de archivos adecuada.</p></section>
+        <section class="cc2-card"><h3>Destino y distribución</h3><p>No es lo mismo entregar un cuaderno editable, ejecutar un archivo en un ordenador preparado o instalar una aplicación en un teléfono. El destinatario condiciona formato, dependencias y permisos.</p></section>
+        <section class="cc2-card"><h3>Recursos</h3><p>Procesador, memoria, almacenamiento, aceleradores, batería y conexión limitan qué puede ejecutarse y durante cuánto tiempo. La nube no convierte esos recursos en infinitos.</p></section>
+        <section class="cc2-card"><h3>Datos y privacidad</h3><p>Hay que saber dónde se almacenan y procesan los datos, quién puede acceder, qué condiciones aplica el servicio y si está permitido subir información sensible.</p></section>
+        <section class="cc2-card"><h3>Bibliotecas y compatibilidad</h3><p>El entorno debe admitir el lenguaje, las versiones, los paquetes y el sistema operativo o dispositivo objetivo. «Funciona en mi sesión» no garantiza que funcione en otra.</p></section>
+        <section class="cc2-card"><h3>Observación y prueba</h3><p>Mensajes claros, consola, depurador, pruebas y, en móvil, emulador o dispositivo real, determinan cuánto cuesta detectar un comportamiento incorrecto.</p></section>
+        <section class="cc2-card"><h3>Accesibilidad y aprendizaje</h3><p>Legibilidad, navegación por teclado, lector de pantalla, idioma, complejidad visual y documentación influyen en que la herramienta sea realmente utilizable.</p></section>
+        <section class="cc2-card"><h3>Continuidad</h3><p>Conviene valorar funcionamiento sin conexión, copias, formatos exportables, estabilidad del proveedor y posibilidad de abrir el trabajo en otro entorno.</p></section>
+      </div>
+      <h3>Una decisión explicable</h3>
+      <p>Una buena elección puede formularse como una relación entre requisitos y evidencias: «usaré un cuaderno porque debo combinar explicación y resultados y el grupo dispone de conexión» o «usaré un IDE local porque necesito conservar archivos, trabajar sin red y ejecutar el programa como una unidad». Decir solo «es más fácil» no explica para quién, para qué ni bajo qué condiciones.</p>
+      <div class="cc2-think"><strong>Criterio de decisión:</strong> empieza por el programa y su contexto, no por la lista de funciones del entorno. Una característica solo es una ventaja cuando resuelve una necesidad real sin introducir un coste mayor.</div>
+
+      <h2 id="local_nube">4. Posibilidades y límites de los entornos locales y en la nube</h2>
+      <p><strong>Local</strong> y <strong>en la nube</strong> describen principalmente dónde se ejecuta el código y dónde residen los recursos, no solo dónde se ve el editor. Existen configuraciones híbridas: una interfaz web conectada a un proceso local, un IDE local que ejecuta en un servidor o un cuaderno remoto que monta almacenamiento externo.</p>
+      <div class="tabla_responsiva" tabindex="0" aria-label="Tabla desplazable horizontalmente">
+        <table>
+          <caption>Ventajas condicionadas, no absolutas</caption>
+          <thead><tr><th scope="col">Dimensión</th><th scope="col">Entorno local</th><th scope="col">Entorno en la nube</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Inicio</strong></td><td>Puede exigir instalación y configuración.</td><td>Puede comenzar rápidamente desde un navegador, aunque requiere cuenta, servicio y conexión.</td></tr>
+            <tr><td><strong>Conectividad</strong></td><td>Puede seguir funcionando sin Internet una vez instalado.</td><td>Depende normalmente de la red y de la disponibilidad del proveedor.</td></tr>
+            <tr><td><strong>Recursos</strong></td><td>Usa el hardware y el almacenamiento del equipo.</td><td>Puede ofrecer máquinas remotas más capaces, pero con cuotas, desconexiones y disponibilidad variable.</td></tr>
+            <tr><td><strong>Persistencia</strong></td><td>Los archivos suelen permanecer en el disco local y requieren copias propias.</td><td>Documento, datos y sesión pueden tener persistencias diferentes; hay que leer las condiciones del servicio.</td></tr>
+            <tr><td><strong>Control</strong></td><td>Permite decidir versiones, permisos y conexión con dispositivos, a cambio de mantener la instalación.</td><td>El proveedor prepara gran parte del sistema, pero puede actualizar componentes o limitar configuraciones.</td></tr>
+            <tr><td><strong>Colaboración</strong></td><td>Requiere un mecanismo adicional para intercambiar copias o coordinar cambios.</td><td>Puede facilitar compartir y comentar, sujeto a permisos y política de la plataforma.</td></tr>
+            <tr><td><strong>Datos</strong></td><td>Evita una subida automática, aunque el equipo también debe protegerse.</td><td>Obliga a valorar ubicación, permisos, condiciones, confidencialidad y eliminación de los datos.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Colab ilustra una distinción importante: el cuaderno guardado y la máquina que lo ejecuta no son lo mismo. Los límites de uso tampoco son fijos ni ilimitados; dependen de disponibilidad y patrones de consumo.<sup><a href="#fuente_101">[101]</a></sup> Antes de confiar en cualquier servicio conviene comprobar qué se conserva, qué caduca, cómo se exporta el trabajo y qué ocurre si el servicio deja de estar accesible.</p>
+      <div class="cc2-concept"><strong class="cc2-concept-tag">Tres preguntas de persistencia</strong>¿Se ha guardado el código? ¿Se han guardado los datos? ¿Puede reconstruirse el entorno de ejecución? Responder «sí» a una pregunta no responde automáticamente a las otras dos.</div>
+      <div class="aviso"><strong>La nube no elimina la responsabilidad</strong>Compartir un enlace puede exponer código, resultados o datos. Antes de subir información personal, credenciales o documentos reservados hay que verificar permisos, finalidad y normas aplicables.</div>
+
+      <h2 id="moviles">5. Panorama de los entornos para crear aplicaciones móviles</h2>
+      <p>Crear para un teléfono añade condiciones que no aparecen del mismo modo en un script de escritorio: pantalla táctil pequeña, cambios de orientación, batería, permisos, sensores, interrupciones, diversidad de dispositivos y reglas de instalación. En este tema se pide <strong>conocer y evaluar</strong> los entornos; no se exige construir una aplicación completa ni aprender otro lenguaje.</p>
+      <div class="tabla_responsiva" tabindex="0" aria-label="Tabla desplazable horizontalmente">
+        <table>
+          <caption>Familias de entornos móviles</caption>
+          <thead><tr><th scope="col">Familia</th><th scope="col">Cómo se trabaja</th><th scope="col">Posibilidades</th><th scope="col">Límites que evaluar</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Entorno nativo</strong></td><td>Usa las herramientas y componentes de una plataforma concreta.</td><td>Acceso amplio a funciones del dispositivo, integración y pruebas específicas.</td><td>Mayor complejidad inicial y trabajo diferenciado entre plataformas.</td></tr>
+            <tr><td><strong>Entorno visual por bloques</strong></td><td>Combina componentes de interfaz con bloques que representan eventos y operaciones.</td><td>Hace visibles la lógica de eventos y la relación entre pantalla y comportamiento.</td><td>No elimina la necesidad de diseñar estado, validar entradas, probar permisos y comprender límites de componentes.</td></tr>
+            <tr><td><strong>Entorno multiplataforma</strong></td><td>Comparte gran parte del proyecto y genera aplicaciones para más de una plataforma.</td><td>Reduce duplicación y unifica parte del diseño.</td><td>Puede requerir adaptaciones, herramientas adicionales y comprobación separada en cada sistema.</td></tr>
+            <tr><td><strong>Constructor de bajo código</strong></td><td>Configura pantallas, datos y automatizaciones con componentes prefabricados.</td><td>Permite prototipos rápidos y aplicaciones sencillas.</td><td>Dependencia del proveedor, costes, exportación, privacidad y menor control sobre casos no previstos.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p><strong>Android Studio</strong> ejemplifica un IDE nativo completo: integra editor, sistema de construcción, emulador, herramientas de prueba y conexión con dispositivos Android.<sup><a href="#fuente_103">[103]</a></sup> <strong>MIT App Inventor</strong> ejemplifica un entorno visual en el que se construyen interfaces con componentes y se programa su comportamiento mediante bloques; permite explorar aplicaciones para Android e iOS desde un enfoque educativo.<sup><a href="#fuente_104">[104]</a></sup> Son ejemplos de familias distintas, no una comparación directa de productos equivalentes.</p>
+      <h3>Qué conviene valorar</h3>
+      <ul>
+        <li><strong>Plataformas de destino:</strong> qué sistemas y versiones admite realmente.</li>
+        <li><strong>Prueba:</strong> si ofrece vista previa, emulador y conexión con dispositivos físicos.</li>
+        <li><strong>Funciones del dispositivo:</strong> cámara, ubicación, acelerómetro, notificaciones o almacenamiento y cómo gestiona sus permisos.</li>
+        <li><strong>Accesibilidad:</strong> soporte para lectores de pantalla, tamaños de texto, contraste, áreas táctiles y navegación comprensible.</li>
+        <li><strong>Datos y privacidad:</strong> qué información recoge la aplicación, dónde se procesa y qué permisos solicita.</li>
+        <li><strong>Distribución:</strong> cómo se instala, firma, actualiza y publica; crear un prototipo no equivale a poder distribuirlo.</li>
+        <li><strong>Portabilidad:</strong> si el proyecto y sus datos pueden exportarse y mantenerse fuera del servicio.</li>
+      </ul>
+      <div class="cc2-note"><strong>Emulador y teléfono real se complementan.</strong> El emulador facilita repetir configuraciones y observar errores; el dispositivo real revela tacto, batería, rendimiento, permisos, sensores y condiciones de uso que una simulación no reproduce por completo.</div>
+
+      <h2 id="interfaz_estado">6. Interfaces, eventos y estado de una aplicación móvil</h2>
+      <p>Un programa lineal sencillo recibe datos, calcula y termina. Una aplicación móvil permanece a la espera de interacciones y cambios del sistema. Su comportamiento se entiende mediante tres ideas conectadas: <strong>interfaz</strong>, <strong>eventos</strong> y <strong>estado</strong>.</p>
+      <div class="cc2-grid">
+        <section class="cc2-card"><h3>Interfaz</h3><p>Es la parte con la que la persona percibe e interactúa: pantallas, texto, botones, campos, listas, imágenes y mensajes. Debe mostrar qué puede hacerse y comunicar el resultado de cada acción.</p></section>
+        <section class="cc2-card"><h3>Evento</h3><p>Es algo que ocurre y puede requerir respuesta: tocar un botón, escribir, recibir datos, cambiar la orientación, perder conexión o conceder un permiso.</p></section>
+        <section class="cc2-card"><h3>Estado</h3><p>Es la información relevante en un momento: texto introducido, elemento seleccionado, datos cargados, sesión iniciada o petición en curso.</p></section>
+      </div>
+      <p>La documentación de arquitectura de Android distingue los eventos producidos por la persona o por otras partes de la aplicación y recomienda que la capa de interfaz los procese de forma coherente.<sup><a href="#fuente_105">[105]</a></sup> Cuando un evento cambia el estado, la interfaz debe reflejar el nuevo estado. Esta relación puede resumirse así: <strong>evento → actualización del estado → actualización de la interfaz</strong>.</p>
+      <div class="cc2-timeline">
+        <div class="cc2-tl-item"><div class="cc2-tl-year">Estado inicial</div><p>La pantalla muestra una lista vacía y el botón «Guardar» está desactivado.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">Evento</div><p>La persona escribe un nombre válido en el campo.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">Transición</div><p>La aplicación actualiza el texto almacenado y determina que la entrada ya es válida.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">Nueva interfaz</div><p>El campo muestra el texto y el botón pasa a estar disponible. Si se guarda, otro evento modifica la lista.</p></div>
+      </div>
+      <h3>Estado temporal y estado persistente</h3>
+      <p>No todo estado debe durar lo mismo. Una animación o el panel abierto pueden ser temporales; una preferencia o una nota guardada deben recuperarse después. Los dispositivos pueden pausar, detener o recrear partes de una aplicación por rotación, falta de memoria o cambio de tarea. Por eso el estado importante no debe depender únicamente de lo que aparece ahora en pantalla. La guía de Android sobre responsables del estado explica cómo separar el estado de la interfaz, su lógica y sus mecanismos de conservación.<sup><a href="#fuente_106">[106]</a></sup></p>
+      <div class="tabla_responsiva" tabindex="0" aria-label="Tabla desplazable horizontalmente">
+        <table>
+          <caption>Preguntas de diseño para una interacción móvil</caption>
+          <thead><tr><th scope="col">Pregunta</th><th scope="col">Por qué importa</th></tr></thead>
+          <tbody>
+            <tr><td>¿Qué evento inicia la acción?</td><td>Evita que un mismo gesto tenga efectos ambiguos o que una acción ocurra sin causa visible.</td></tr>
+            <tr><td>¿Qué estado se consulta y cuál cambia?</td><td>Permite razonar sobre la transición y detectar datos contradictorios.</td></tr>
+            <tr><td>¿Qué muestra la interfaz mientras espera?</td><td>Una carga silenciosa puede parecer un bloqueo; una indicación clara evita repetir acciones.</td></tr>
+            <tr><td>¿Qué ocurre si falla o se interrumpe?</td><td>La pérdida de red, la denegación de un permiso o una entrada inválida son estados esperables.</td></tr>
+            <tr><td>¿Qué debe conservarse al volver?</td><td>Distingue información efímera de datos que requieren persistencia.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="cc2-concept"><strong class="cc2-concept-tag">La pantalla no es el estado</strong>La interfaz representa una parte del estado, pero no debería ser su única copia. Si el sistema recrea la pantalla, la aplicación necesita reconstruir lo importante desde datos bien definidos.</div>
+
+      <h2 id="adaptativo">7. Concepto básico y ejemplos de software adaptativo</h2>
+      <p>De forma introductoria, llamaremos <strong>software adaptativo</strong> al que observa información relevante de su uso o entorno y modifica algún aspecto de su comportamiento para mantener o mejorar un objetivo. La literatura técnica sobre sistemas auto-adaptativos describe este ciclo mediante monitorización, análisis, decisión y cambio, guiados por objetivos y frente a variaciones del contexto.<sup><a href="#fuente_107">[107]</a></sup></p>
+      <div class="cc2-timeline">
+        <div class="cc2-tl-item"><div class="cc2-tl-year">1 — Observar</div><p>Recoger una señal pertinente: calidad de red, consumo, errores, preferencia explícita o resultado de una interacción.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">2 — Interpretar</div><p>Distinguir un cambio significativo del ruido y relacionarlo con un objetivo, como legibilidad, rendimiento o disponibilidad.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">3 — Decidir</div><p>Elegir entre opciones permitidas según reglas, un modelo o una combinación de ambos.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">4 — Actuar y comprobar</div><p>Ajustar el comportamiento y observar si el resultado cumple el objetivo sin introducir efectos inaceptables.</p></div>
+      </div>
+      <div class="tabla_responsiva" tabindex="0" aria-label="Tabla desplazable horizontalmente">
+        <table>
+          <caption>Ejemplos y matices de adaptación</caption>
+          <thead><tr><th scope="col">Sistema</th><th scope="col">Señal</th><th scope="col">Posible ajuste</th><th scope="col">Cautela</th></tr></thead>
+          <tbody>
+            <tr><td>Reproductor multimedia</td><td>Ancho de banda o interrupciones.</td><td>Cambiar la calidad del flujo.</td><td>Una bajada agresiva reduce calidad y puede ocultar un problema de red.</td></tr>
+            <tr><td>Aplicación accesible</td><td>Preferencias del sistema indicadas por la persona.</td><td>Aumentar texto, reducir movimiento o ajustar contraste.</td><td>Respetar una preferencia explícita no requiere inferir una condición personal.</td></tr>
+            <tr><td>Sistema de energía</td><td>Batería, temperatura o inactividad.</td><td>Limitar tareas de fondo o frecuencia de actualización.</td><td>Debe informar si el ahorro impide una función importante.</td></tr>
+            <tr><td>Aplicación educativa</td><td>Respuestas y progreso observados.</td><td>Proponer explicación o dificultad diferente.</td><td>Una inferencia incompleta no debe etiquetar de forma permanente al estudiante.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>No toda personalización es adaptación automática. Un tema oscuro elegido manualmente es una configuración; puede formar parte de un sistema adaptativo si el programa también responde a condiciones definidas. Tampoco toda adaptación usa inteligencia artificial: muchas decisiones útiles se expresan con reglas transparentes, como reducir calidad cuando la conexión cae por debajo de un umbral.</p>
+      <p>Adaptar no garantiza mejorar. El sistema puede medir una señal equivocada, perseguir objetivos incompatibles, oscilar entre configuraciones o perjudicar a ciertos usuarios. Por eso deben definirse límites, posibilidad de corrección humana, privacidad, explicaciones suficientes y una forma de volver a un estado seguro.</p>
+      <div class="aviso"><strong>Adaptativo no significa infalible ni autónomo sin límites</strong>Un cambio automático debe poder evaluarse por su efecto. Cuanto mayor sea el impacto sobre personas o recursos, más importantes son la supervisión, el registro de decisiones, la seguridad y la opción de intervenir.</div>
+
+      <h2 id="ia_ml_agentes">8. Introducción y relación entre inteligencia artificial, machine learning y agentes</h2>
+      <p><strong>Inteligencia artificial (IA)</strong> es el término más amplio. NIST reúne definiciones de sistemas basados en máquinas que, para objetivos definidos por seres humanos, realizan predicciones, recomendaciones o decisiones que influyen en entornos reales o virtuales.<sup><a href="#fuente_108">[108]</a></sup> Es una familia de técnicas y sistemas, no una propiedad mágica ni una única tecnología.</p>
+      <p>El <strong>aprendizaje automático</strong> o <em>machine learning</em> (ML) es un campo dentro de la IA en el que se entrena un modelo a partir de datos para producir predicciones o contenido ante datos nuevos. Google lo presenta precisamente como el proceso de entrenar software —un modelo— para predecir o generar usando datos.<sup><a href="#fuente_109">[109]</a></sup> El modelo aprendido no equivale al programa completo: una aplicación también necesita entradas, validación, interfaz, reglas, almacenamiento y control de errores.</p>
+      <p>Un <strong>agente</strong> es un sistema que percibe información de un entorno, decide y actúa para avanzar hacia un objetivo. Puede ser tan sencillo como un controlador basado en reglas. Un <strong>agente de IA</strong> incorpora técnicas de IA en alguna parte de ese ciclo; los agentes actuales pueden combinar un modelo, memoria o estado, planificación y herramientas para ejecutar acciones.<sup><a href="#fuente_110">[110]</a></sup></p>
+      <div class="tabla_responsiva" tabindex="0" aria-label="Tabla desplazable horizontalmente">
+        <table>
+          <caption>Conceptos relacionados, pero no equivalentes</caption>
+          <thead><tr><th scope="col">Concepto</th><th scope="col">Pregunta central</th><th scope="col">Puede existir sin…</th><th scope="col">Ejemplo conceptual</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Software adaptativo</strong></td><td>¿Ajusta su comportamiento cuando cambia el contexto o el uso?</td><td>ML: puede adaptarse mediante reglas.</td><td>Un reproductor cambia la calidad según la red.</td></tr>
+            <tr><td><strong>IA</strong></td><td>¿Realiza tareas de percepción, predicción, recomendación, decisión o generación asociadas a capacidades inteligentes?</td><td>ML: existen sistemas de IA basados en reglas o búsqueda.</td><td>Un planificador explora acciones para alcanzar un objetivo.</td></tr>
+            <tr><td><strong>Machine learning</strong></td><td>¿Se ha entrenado un modelo a partir de datos?</td><td>Adaptación durante el uso: un modelo puede quedar fijo después del entrenamiento.</td><td>Un modelo clasifica mensajes a partir de ejemplos.</td></tr>
+            <tr><td><strong>Agente</strong></td><td>¿Percibe, decide y actúa en un ciclo orientado a objetivos?</td><td>IA avanzada: puede seguir reglas sencillas.</td><td>Un controlador activa una acción al detectar una condición.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3>Cómo pueden combinarse</h3>
+      <ul>
+        <li>Un sistema adaptativo puede usar reglas y no contener ML.</li>
+        <li>Un modelo de ML puede hacer una predicción sin adaptar por sí mismo la aplicación.</li>
+        <li>Una aplicación puede usar la predicción de un modelo como señal para decidir un ajuste.</li>
+        <li>Un agente puede usar un modelo de IA para interpretar una petición y herramientas para actuar.</li>
+        <li>Un agente puede mantener estado entre pasos sin aprender permanentemente de cada interacción.</li>
+        <li>Un sistema puede pertenecer a varias categorías, pero hay que justificar cada una por su funcionamiento real.</li>
+      </ul>
+      <p>Los términos describen capacidades, no garantizan calidad. Datos sesgados, objetivos mal definidos, errores de medición, acciones excesivas o falta de supervisión pueden producir daños. El Marco de Gestión de Riesgos de IA de NIST propone abordar la fiabilidad a lo largo del diseño, desarrollo, uso y evaluación del sistema, no como una comprobación añadida al final.<sup><a href="#fuente_111">[111]</a></sup></p>
+      <div class="cc2-concept"><strong class="cc2-concept-tag">Pregunta final</strong>No basta con preguntar «¿usa IA?». Conviene preguntar qué información recibe, qué objetivo persigue, qué decisión toma, qué acción puede ejecutar, cómo se comprueba y quién puede corregirla.</div>
+
+      <h2 id="glosario">Glosario del tema</h2>
+      <dl class="cc2-glosario">
+        <dt>Entorno de programación</dt><dd>Conjunto de herramientas y recursos usados para escribir, ejecutar, observar y preparar software.</dd>
+        <dt>IDE</dt><dd>Entorno de desarrollo integrado que reúne editor y otras herramientas de programación en una misma aplicación.</dd>
+        <dt>Editor</dt><dd>Herramienta para crear y modificar el código fuente.</dd>
+        <dt>Entorno de ejecución</dt><dd>Sistema y proceso concretos donde se ejecuta el código.</dd>
+        <dt>Consola</dt><dd>Interfaz textual que muestra salidas y errores y puede aceptar entradas u órdenes.</dd>
+        <dt>Depurador</dt><dd>Herramienta para controlar y observar una ejecución con el fin de comprender su comportamiento.</dd>
+        <dt>Biblioteca</dt><dd>Conjunto de código reutilizable que ofrece funciones, clases u otros componentes.</dd>
+        <dt>Dependencia</dt><dd>Componente externo y, a menudo, versión concreta que un programa necesita para funcionar.</dd>
+        <dt>Cuaderno</dt><dd>Documento que combina celdas de texto, código ejecutable y resultados.</dd>
+        <dt>Emulador</dt><dd>Software que reproduce características de otro sistema o dispositivo para ejecutar y probar aplicaciones.</dd>
+        <dt>Interfaz de usuario</dt><dd>Elementos mediante los que una persona percibe el estado de una aplicación e interactúa con ella.</dd>
+        <dt>Evento</dt><dd>Suceso que una aplicación puede detectar y procesar.</dd>
+        <dt>Estado</dt><dd>Información que describe la situación relevante de un programa en un momento.</dd>
+        <dt>Persistencia</dt><dd>Conservación de datos más allá de una ejecución o sesión temporal.</dd>
+        <dt>Software adaptativo</dt><dd>Software que observa cambios relevantes y ajusta parte de su comportamiento para atender objetivos definidos.</dd>
+        <dt>Inteligencia artificial</dt><dd>Campo y conjunto de técnicas para construir sistemas que realizan tareas como predecir, recomendar, decidir, percibir o generar.</dd>
+        <dt>Machine learning</dt><dd>Campo de la IA que entrena modelos a partir de datos para producir predicciones o contenido ante datos nuevos.</dd>
+        <dt>Modelo</dt><dd>Representación entrenada o construida que transforma entradas en predicciones, decisiones intermedias o contenido.</dd>
+        <dt>Agente</dt><dd>Sistema que percibe información, decide y actúa en un entorno para avanzar hacia un objetivo.</dd>
+      </dl>
+
+      <section class="summary">
+        <h2 id="resumen">Resumen esencial</h2>
+        <ol>
+          <li>Editor, ejecución, consola, depurador y bibliotecas cumplen funciones diferentes aunque un IDE los integre.</li>
+          <li>Colab organiza cuadernos por celdas y ejecuta habitualmente en una sesión remota; Thonny organiza programas locales y ofrece una consola y un depurador educativos.</li>
+          <li>Un cuaderno puede ejecutarse fuera de orden; guardar su documento no conserva automáticamente el estado ni los archivos temporales de la sesión.</li>
+          <li>El entorno se elige según tarea, destino, recursos, datos, compatibilidad, prueba, accesibilidad y continuidad, no por una clasificación universal.</li>
+          <li>Los entornos locales ofrecen control y trabajo sin red; los de nube reducen preparación y pueden facilitar compartir, pero dependen del servicio y sus límites.</li>
+          <li>Los entornos móviles pueden ser nativos, visuales por bloques, multiplataforma o de bajo código; conocerlos y evaluarlos no exige crear una app ni aprender otro lenguaje.</li>
+          <li>En una aplicación móvil, los eventos pueden cambiar el estado y la interfaz debe representar el nuevo estado de forma comprensible.</li>
+          <li>El software adaptativo observa señales y ajusta su comportamiento, pero puede funcionar con reglas y no garantiza por sí mismo una mejora.</li>
+          <li>El machine learning pertenece al campo de la IA; un modelo entrenado no constituye por sí solo una aplicación completa ni tiene que aprender durante cada uso.</li>
+          <li>Un agente percibe, decide y actúa hacia un objetivo; puede usar IA y herramientas, pero también existen agentes sencillos basados en reglas.</li>
+          <li>La fiabilidad exige examinar datos, objetivos, decisiones, acciones, riesgos, supervisión y posibilidad de corrección.</li>
+        </ol>
+      </section>
+
+      <section aria-labelledby="fuentes">
+        <h2 id="fuentes">Fuentes y recursos fiables</h2>
+        <ul>
+          <li id="fuente_100">[100] <a href="https://www.bocm.es/boletin/CM_Orden_BOCM/2023/05/31/BOCM-20230531-18.PDF">Comunidad de Madrid — Orden 1736/2023, de 19 de mayo, Anexo IV (PDF)</a>.</li>
+          <li id="fuente_101">[101] <a href="https://research.google.com/colaboratory/faq.html" lang="en">Google Colab — Preguntas frecuentes sobre cuadernos, entornos de ejecución y límites</a> (en inglés).</li>
+          <li id="fuente_102">[102] <a href="https://thonny.org/" lang="en">Thonny — IDE de Python para principiantes y características</a> (en inglés).</li>
+          <li id="fuente_103">[103] <a href="https://developer.android.com/studio/intro" lang="en">Android Developers — Introducción a Android Studio</a> (en inglés).</li>
+          <li id="fuente_104">[104] <a href="https://appinventor.mit.edu/about-us" lang="en">MIT App Inventor — Entorno visual para crear aplicaciones móviles</a> (en inglés).</li>
+          <li id="fuente_105">[105] <a href="https://developer.android.com/topic/architecture/ui-layer/events" lang="en">Android Developers — Eventos de la interfaz de usuario</a> (en inglés).</li>
+          <li id="fuente_106">[106] <a href="https://developer.android.com/topic/architecture/ui-layer/stateholders" lang="en">Android Developers — Estado de la interfaz y responsables del estado</a> (en inglés).</li>
+          <li id="fuente_107">[107] <a href="https://people.cs.kuleuven.be/~danny.weyns/papers/2017HSE.pdf" lang="en">KU Leuven — Software Engineering of Self-Adaptive Systems (PDF)</a> (en inglés).</li>
+          <li id="fuente_108">[108] <a href="https://csrc.nist.gov/glossary/term/artificial_intelligence" lang="en">NIST — Glosario: inteligencia artificial</a> (en inglés).</li>
+          <li id="fuente_109">[109] <a href="https://developers.google.com/machine-learning/intro-to-ml/what-is-ml" lang="en">Google for Developers — Qué es el aprendizaje automático</a> (en inglés).</li>
+          <li id="fuente_110">[110] <a href="https://cloud.google.com/discover/what-are-ai-agents" lang="en">Google Cloud — Qué son los agentes de IA</a> (en inglés).</li>
+          <li id="fuente_111">[111] <a href="https://www.nist.gov/itl/ai-risk-management-framework" lang="en">NIST — Artificial Intelligence Risk Management Framework</a> (en inglés).</li>
+        </ul>
+      </section>
+    </article>
+  </div>
+</main>
+<nav class="topic-footer" aria-label="Navegación entre temas">
+  <a href="tema17.html">← Tema 17</a>
+  <a href="tema19.html">Tema 19 →</a>
+</nav>
+<footer class="site-footer">Ciencias de la Computación II · 2.º de Bachillerato · Comunidad de Madrid</footer>
+</body>
+</html>

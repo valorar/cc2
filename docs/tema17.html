@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Tema 17 de Ciencias de la Computación II: depuración, errores y excepciones, pruebas de funciones, aserciones, refactorización, estilo y mantenimiento de programas Python.">
+  <title>Tema 17. Depuración, pruebas y mejora de programas · CC2</title>
+  <link rel="stylesheet" href="assets/estilos.css">
+  <script src="assets/navegacion.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#contenido">Saltar al contenido</a>
+<div class="progress" aria-hidden="true"><span></span></div>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="index.html"><span class="brand-mark">CC2</span><span>Ciencias de la Computación II<small>2.º de Bachillerato · 2026–2027</small></span></a>
+    <nav class="top-nav" aria-label="Navegación principal"><a href="index.html">Índice</a></nav>
+  </div>
+</header>
+<main id="contenido">
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <p class="kicker">Tema 17 · Bloque D · Programación</p>
+        <h1>Depuración, pruebas y mejora de programas</h1>
+        <p class="hero-lead">Cómo pasar de «algo falla» a una causa concreta, comprobar la corrección y dejar un programa más claro, robusto y fácil de mantener.</p>
+      </div>
+      <aside class="hero-note" aria-label="Pregunta guía del tema 17">
+        <strong>Pregunta guía</strong>
+        <p>¿Cómo podemos aportar pruebas de que hemos corregido la causa de un fallo y no solo ocultado uno de sus síntomas?</p>
+      </aside>
+    </div>
+  </section>
+
+  <div class="layout">
+    <nav class="toc" aria-label="Índice del tema">
+      <strong>En este tema</strong>
+      <ol>
+        <li><a href="#tipos-errores">Sintaxis, excepciones y lógica</a></li>
+        <li><a href="#trazas">Mensajes de error y trazas</a></li>
+        <li><a href="#thonny">Depuración paso a paso con Thonny</a></li>
+        <li><a href="#excepciones">try, except, else y finally</a></li>
+        <li><a href="#casos">Casos normales, límite y no válidos</a></li>
+        <li><a href="#pruebas">Pruebas de funciones y assert</a></li>
+        <li><a href="#refactorizacion">Refactorización y nuevas pruebas</a></li>
+        <li><a href="#mantenimiento">Documentación, estilo y mantenimiento</a></li>
+        <li><a href="#glosario">Glosario</a></li>
+        <li><a href="#resumen">Resumen</a></li>
+        <li><a href="#fuentes">Fuentes</a></li>
+      </ol>
+    </nav>
+
+    <article class="paper">
+      <p class="lesson-intro">Programar no consiste solo en conseguir una salida correcta una vez. También exige comprender los fallos, anticipar entradas difíciles, comprobar funciones y mejorar el código sin alterar por accidente su comportamiento. Este recorrido desarrolla la elaboración, depuración y prueba de programas prevista en el currículo.<sup><a href="#fuente_90">[90]</a></sup></p>
+      <div class="question"><strong>Antes de empezar:</strong> un programa que supera tres ejemplos puede seguir siendo incorrecto. La pregunta útil no es únicamente «¿funciona?», sino «¿en qué condiciones funciona, cómo lo sé y qué ocurrirá cuando cambie?».</div>
+      <div class="objectives">
+        <strong>Al terminar serás capaz de…</strong>
+        <ul>
+          <li>distinguir errores de sintaxis, excepciones y errores lógicos;</li>
+          <li>leer un mensaje de error y seguir una traza hasta el punto relevante;</li>
+          <li>reproducir un fallo e inspeccionar la ejecución paso a paso en Thonny;</li>
+          <li>gestionar errores previsibles con <code>try</code>, <code>except</code>, <code>else</code> y <code>finally</code>;</li>
+          <li>diseñar casos normales, casos límite y entradas no válidas;</li>
+          <li>comprobar funciones mediante resultados esperados y aserciones;</li>
+          <li>refactorizar y volver a ejecutar las pruebas para detectar regresiones;</li>
+          <li>documentar y dar estilo al código pensando en su mantenimiento.</li>
+        </ul>
+      </div>
+
+      <h2 id="tipos-errores">1. Errores de sintaxis, excepciones y errores lógicos</h2>
+      <p>Un <strong>fallo</strong> es el comportamiento observable que no coincide con lo esperado; su <strong>causa</strong> es la condición del código o de los datos que lo provoca. Cambiar líneas al azar puede hacer desaparecer el síntoma, pero depurar significa formular una explicación y comprobarla.</p>
+      <div class="tabla_responsiva" tabindex="0" aria-label="Tabla desplazable horizontalmente">
+        <table>
+          <caption>Tres familias de problemas que requieren respuestas diferentes</caption>
+          <thead><tr><th scope="col">Tipo</th><th scope="col">Qué sucede</th><th scope="col">Ejemplo</th><th scope="col">Primera pista</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Error de sintaxis</strong></td><td>El código no respeta la gramática de Python y no puede empezar a ejecutarse.</td><td>Falta <code>:</code> tras un <code>if</code> o queda un paréntesis abierto.</td><td><code>SyntaxError</code>, línea señalada y posición aproximada.</td></tr>
+            <tr><td><strong>Excepción</strong></td><td>La sintaxis es válida, pero durante la ejecución ocurre una operación que no puede completarse.</td><td>Convertir <code>"dos"</code> con <code>int()</code> o dividir entre cero.</td><td>Tipo, mensaje y traza de la excepción.</td></tr>
+            <tr><td><strong>Error lógico</strong></td><td>El programa termina, pero calcula o decide algo incorrecto.</td><td>Usar <code>&gt;</code> cuando el límite también debería admitirse con <code>&gt;=</code>.</td><td>Una prueba falla o el resultado contradice el esperado.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>La documentación de Python distingue expresamente los errores de sintaxis de las excepciones detectadas durante la ejecución.<sup><a href="#fuente_91">[91]</a></sup> Los errores lógicos son más silenciosos: como el intérprete puede ejecutar el programa, hay que descubrirlos comparando el resultado real con un resultado previsto.</p>
+      <pre tabindex="0" aria-label="Código Python o salida desplazable horizontalmente"><code>def precio_con_descuento(precio, porcentaje):
+    # Falla lógicamente: suma el descuento en vez de restarlo.
+    return precio + precio * porcentaje / 100
+
+print(precio_con_descuento(80, 25))  # 100.0; se esperaba 60.0</code></pre>
+      <div class="cc2-concept"><strong class="cc2-concept-tag">Analogía: médico, no adivino</strong>El síntoma «sale 100» no identifica la causa. Como en un diagnóstico, se reúnen indicios, se propone una hipótesis —«el signo es incorrecto»—, se modifica una causa concreta y se repite la comprobación.</div>
+
+      <h2 id="trazas">2. Lectura de mensajes de error y trazas de ejecución</h2>
+      <p>Cuando una excepción no se gestiona, Python muestra un <em>traceback</em> o <strong>traza de pila</strong>. La última línea suele indicar el tipo de excepción y su mensaje; las líneas anteriores muestran la cadena de llamadas que llevó hasta ella. La documentación oficial señala que el nombre de la excepción aparece en el mensaje y que la traza aporta el contexto de ejecución.<sup><a href="#fuente_91">[91]</a></sup></p>
+      <pre tabindex="0" aria-label="Código Python o salida desplazable horizontalmente"><code>Traceback (most recent call last):
+  File "notas.py", line 8, in &lt;module&gt;
+    print(media([]))
+  File "notas.py", line 5, in media
+    return sum(valores) / len(valores)
+ZeroDivisionError: division by zero</code></pre>
+      <div class="cc2-timeline">
+        <div class="cc2-tl-item"><div class="cc2-tl-year">1 — Leer el final</div><p><code>ZeroDivisionError</code> clasifica el problema y <code>division by zero</code> lo concreta. No es todavía una explicación completa de por qué la lista quedó vacía.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">2 — Localizar el último marco propio</div><p>La línea 5 de <code>media</code> intentó dividir entre <code>len(valores)</code>. Si la traza incluyera código de bibliotecas, convendría buscar primero el marco perteneciente al programa.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">3 — Subir por las llamadas</div><p>La línea 8 llamó a <code>media([])</code>. La traza se lee como un itinerario: cada marco indica archivo, línea y función.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">4 — Formular una hipótesis</div><p>La función no define qué debe hacer con una colección vacía. Hay que decidir su contrato: rechazarla claramente o asignarle un resultado con significado, no esconder la división.</p></div>
+      </div>
+      <p>Una flecha o una línea señalada indica dónde se detectó el error, que no siempre coincide con el lugar donde nació la causa. Un paréntesis abierto en una línea anterior puede producir un aviso más tarde; un dato incorrecto puede recorrer varias funciones antes de causar una excepción.</p>
+      <div class="aviso"><strong>No borres la evidencia demasiado pronto</strong>Antes de editar, conserva el mensaje completo, la entrada usada y los pasos que reproducen el fallo. «Ha dado error» pierde la información necesaria para investigar; copiar solo la última línea puede ocultar cómo se llegó hasta ella.</div>
+
+      <h2 id="thonny">3. Depuración paso a paso con Thonny</h2>
+      <p>En este tema, Thonny se usa de forma puntual como segundo entorno: permite repetir un fallo en un programa <code>.py</code>, detener la ejecución, ver variables y avanzar instrucción a instrucción. Su sitio oficial presenta una vista de variables y un depurador que sigue la estructura del programa y permite observar la evaluación de expresiones.<sup><a href="#fuente_94">[94]</a></sup></p>
+      <pre tabindex="0" aria-label="Código Python o salida desplazable horizontalmente"><code>def contar_aprobados(notas):
+    total = 0
+    for nota in notas:
+        if nota &gt; 5:       # Sospecha: ¿qué ocurre con 5?
+            total += 1
+    return total
+
+print(contar_aprobados([4, 5, 7]))  # Se espera 2, devuelve 1</code></pre>
+      <div class="cc2-timeline">
+        <div class="cc2-tl-item"><div class="cc2-tl-year">Reproducir</div><p>Ejecutar el mismo archivo con la entrada mínima <code>[4, 5, 7]</code> y confirmar que devuelve <code>1</code>. Si no se reproduce, todavía no se está investigando el mismo fallo.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">Detener</div><p>Colocar un punto de interrupción en el <code>if</code> para evitar recorrer a mano todo el programa. Thonny permite añadir puntos de interrupción desde el margen de números de línea.<sup><a href="#fuente_95">[95]</a></sup></p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">Inspeccionar</div><p>Observar <code>nota</code> y <code>total</code> en cada vuelta. Cuando <code>nota</code> vale <code>5</code>, la condición es falsa y el contador no cambia.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">Avanzar paso a paso</div><p>Entrar en la función cuando interese su interior, avanzar sobre una llamada cuando no sea relevante y continuar hasta el siguiente punto. El objetivo es relacionar cada instrucción con el cambio de estado.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">Corregir y repetir</div><p>Cambiar <code>&gt;</code> por <code>&gt;=</code>, ejecutar de nuevo el caso que fallaba y después el conjunto completo de pruebas.</p></div>
+      </div>
+      <div class="cc2-note"><strong>Depurar no es mirar una animación completa.</strong> Detén el programa cerca del lugar donde el estado pasa de correcto a incorrecto. Compara el valor que ves con el que debería existir en ese instante; esa diferencia convierte la observación en evidencia.</div>
+
+      <h2 id="excepciones">4. Gestión de excepciones con try, except, else y finally</h2>
+      <p>Algunos problemas son previsibles: una persona puede escribir texto donde se espera un entero o un archivo puede no estar disponible. Gestionar una excepción permite responder de forma controlada. No significa envolver todo el programa para que «nunca falle», sino capturar solo aquello que se sabe interpretar.</p>
+      <pre tabindex="0" aria-label="Código Python o salida desplazable horizontalmente"><code>def leer_edad(texto):
+    try:
+        edad = int(texto)
+    except ValueError:
+        return "La edad debe ser un número entero."
+    else:
+        if edad &lt; 0:
+            return "La edad no puede ser negativa."
+        return edad
+    finally:
+        print("Entrada revisada")</code></pre>
+      <div class="tabla_responsiva" tabindex="0" aria-label="Tabla desplazable horizontalmente">
+        <table>
+          <caption>Responsabilidad de cada parte</caption>
+          <thead><tr><th scope="col">Cláusula</th><th scope="col">Cuándo se ejecuta</th><th scope="col">Uso adecuado en el ejemplo</th></tr></thead>
+          <tbody>
+            <tr><td><code>try</code></td><td>Siempre, hasta completarse o producir una excepción.</td><td>Contiene la conversión que puede lanzar <code>ValueError</code>.</td></tr>
+            <tr><td><code>except ValueError</code></td><td>Solo si aparece ese tipo compatible de excepción.</td><td>Traduce el fallo previsto a un mensaje útil.</td></tr>
+            <tr><td><code>else</code></td><td>Si el bloque <code>try</code> termina sin excepción.</td><td>Trabaja con el entero ya convertido y valida su significado.</td></tr>
+            <tr><td><code>finally</code></td><td>Al abandonar la estructura, haya o no excepción.</td><td>Realiza una acción que debe ocurrir siempre; en casos reales suele reservarse para limpieza necesaria.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Conviene capturar tipos concretos. Python organiza las excepciones incorporadas en una jerarquía, de modo que una cláusula que menciona una clase también alcanza sus subclases.<sup><a href="#fuente_92">[92]</a></sup> Un <code>except Exception:</code> demasiado amplio puede ocultar un defecto inesperado —por ejemplo, un nombre mal escrito— como si fuese una entrada corriente.</p>
+      <div class="comparacion">
+        <div><h3>Excepción</h3><p>Indica que una operación no pudo completarse, como convertir <code>"dos"</code> a entero. Se gestiona si el programa sabe responder de forma útil.</p></div>
+        <div><h3>Validación</h3><p>Comprueba si un valor ya obtenido cumple las reglas del problema, como que una edad sea no negativa. No todas las entradas no válidas necesitan provocar una excepción.</p></div>
+      </div>
+      <div class="aviso"><strong>Silenciar no es solucionar</strong>Un bloque <code>except: pass</code> descarta el tipo, el mensaje y la traza. El programa puede continuar con datos incompletos y fallar después, lejos de la causa original.</div>
+
+      <h2 id="casos">5. Casos normales, casos límite y entradas no válidas</h2>
+      <p>Una prueba comienza antes de ejecutar código: hay que elegir una entrada y escribir el resultado esperado. Los casos se seleccionan por lo que representan, no para acumular ejemplos parecidos.</p>
+      <div class="tabla_responsiva" tabindex="0" aria-label="Tabla desplazable horizontalmente">
+        <table>
+          <caption>Diseño de casos para una función <code>es_nota_valida(nota)</code> que admite valores entre 0 y 10, ambos incluidos</caption>
+          <thead><tr><th scope="col">Familia</th><th scope="col">Entrada</th><th scope="col">Resultado esperado</th><th scope="col">Qué comprueba</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Normal</strong></td><td><code>7</code></td><td><code>True</code></td><td>Un valor claramente situado dentro del intervalo.</td></tr>
+            <tr><td><strong>Límite inferior</strong></td><td><code>0</code></td><td><code>True</code></td><td>Que el extremo inferior está incluido.</td></tr>
+            <tr><td><strong>Límite superior</strong></td><td><code>10</code></td><td><code>True</code></td><td>Que el extremo superior está incluido.</td></tr>
+            <tr><td><strong>Junto al límite</strong></td><td><code>-0.1</code> y <code>10.1</code></td><td><code>False</code> y <code>False</code></td><td>Que no se aceptan valores apenas exteriores.</td></tr>
+            <tr><td><strong>No válida por tipo</strong></td><td><code>"notable"</code></td><td>Rechazo definido por el contrato</td><td>Que la función no interpreta texto arbitrario como nota.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Un <strong>caso normal</strong> representa el uso habitual. Un <strong>caso límite</strong> se sitúa en un borde o cerca de él: cero elementos, primer o último índice, mínimo o máximo permitido. Una <strong>entrada no válida</strong> incumple el tipo, el formato o las reglas del problema. También conviene distinguir una entrada válida pero excepcional —por ejemplo, una lista con un único elemento— de una entrada que el contrato prohíbe.</p>
+      <div class="cc2-concept"><strong class="cc2-concept-tag">Analogía: probar un puente</strong>No basta con cruzarlo una vez con un coche medio. Se comprueba la carga habitual, las condiciones cercanas al límite y lo que debe rechazarse. Las pruebas útiles exploran fronteras donde suelen cambiar las decisiones del programa.</div>
+      <h3>La especificación decide el resultado</h3>
+      <p>Para una lista vacía, una media podría rechazarse con <code>ValueError</code>, devolver <code>None</code> o adoptar otra regla acordada. Ninguna opción es correcta por sí sola: debe estar definida, documentada y probada. Sin un resultado esperado, ejecutar un caso produce una observación, pero no una prueba concluyente.</p>
+      <div class="cc2-think"><strong>Pregunta de diseño:</strong> ¿qué valores hacen cambiar de rama a la condición? Si el código contiene <code>0 &lt;= nota &lt;= 10</code>, los puntos 0 y 10 y sus vecinos son más informativos que probar cinco valores centrales.</div>
+
+      <h2 id="pruebas">6. Pruebas de funciones con resultados esperados y aserciones</h2>
+      <p>Las funciones breves con entradas y retornos claros se pueden comprobar de forma aislada. Una prueba prepara datos, ejecuta la función y compara el resultado real con el esperado. La sentencia <code>assert</code> expresa esa condición: si es falsa, lanza <code>AssertionError</code>; puede incluir un mensaje que explique la expectativa.<sup><a href="#fuente_93">[93]</a></sup></p>
+      <pre tabindex="0" aria-label="Código Python o salida desplazable horizontalmente"><code>def es_nota_valida(nota):
+    return (isinstance(nota, (int, float))
+            and not isinstance(nota, bool)
+            and 0 &lt;= nota &lt;= 10)
+
+assert es_nota_valida(7) is True
+assert es_nota_valida(0) is True
+assert es_nota_valida(10) is True
+assert es_nota_valida(-0.1) is False
+assert es_nota_valida(True) is False
+assert es_nota_valida("notable") is False</code></pre>
+      <p>La exclusión explícita de <code>bool</code> evita aceptar <code>True</code> como si fuera <code>1</code>: en Python los booleanos son una subclase de los enteros. Si todas las aserciones se cumplen, el programa no muestra nada. Ese silencio significa únicamente que esos casos concretos han pasado; no demuestra que la función sea correcta para cualquier entrada. Si una aserción falla, Python señala qué expectativa no se cumplió y se conserva el caso como protección frente a futuros cambios.</p>
+      <div class="cc2-grid">
+        <section class="cc2-card"><h3>Preparar</h3><p>Elegir entradas pequeñas y representativas. Cada caso debe tener una razón: uso normal, frontera, error observado o regla importante.</p></section>
+        <section class="cc2-card"><h3>Ejecutar</h3><p>Llamar directamente a la función. Separar cálculo de <code>input()</code> y <code>print()</code> evita tener que simular toda la conversación.</p></section>
+        <section class="cc2-card"><h3>Comparar</h3><p>Escribir el esperado antes de aceptar el resultado real. Si difieren, se investiga; no se cambia la expectativa solo para que la prueba pase.</p></section>
+        <section class="cc2-card"><h3>Conservar</h3><p>Mantener la prueba después de corregir el fallo. Así avisa si una modificación futura vuelve a introducirlo.</p></section>
+      </div>
+      <p>Las aserciones de prueba no sustituyen la validación de datos de una aplicación. La referencia de Python explica que <code>assert</code> depende de <code>__debug__</code> y que su código puede omitirse al solicitar optimización.<sup><a href="#fuente_93">[93]</a></sup> Por eso no deben ser la única barrera para una entrada real ni usarse para errores que el programa necesita gestionar siempre.</p>
+      <div class="cc2-note"><strong>Una prueba debe poder repetirse.</strong> Mismas entradas y mismo estado inicial deberían producir el mismo resultado esperado. Si depende de una respuesta manual o de mirar la pantalla, es más difícil repetirla tras cada cambio.</div>
+
+      <h2 id="refactorizacion">7. Refactorización, eliminación de duplicación y nueva ejecución de las pruebas</h2>
+      <p><strong>Refactorizar</strong> es cambiar la estructura interna del código sin cambiar su comportamiento observable. Se hace para reducir duplicación, aclarar nombres, acortar funciones o separar responsabilidades. Corregir una fórmula y añadir una función nueva cambian el comportamiento; pueden ser mejoras necesarias, pero no son por sí solas refactorización.</p>
+      <div class="comparacion">
+        <div>
+          <h3>Antes: regla duplicada</h3>
+          <pre tabindex="0" aria-label="Código Python o salida desplazable horizontalmente"><code>if nota1 &gt;= 5:
+    print("Aprobada")
+else:
+    print("No aprobada")
+
+if nota2 &gt;= 5:
+    print("Aprobada")
+else:
+    print("No aprobada")</code></pre>
+        </div>
+        <div>
+          <h3>Después: una sola decisión</h3>
+          <pre tabindex="0" aria-label="Código Python o salida desplazable horizontalmente"><code>def resultado(nota):
+    if nota &gt;= 5:
+        return "Aprobada"
+    return "No aprobada"
+
+print(resultado(nota1))
+print(resultado(nota2))</code></pre>
+        </div>
+      </div>
+      <p>La segunda versión concentra la regla en una función y evita que dos copias evolucionen de forma distinta. Sin embargo, que parezca más limpia no garantiza que conserve el comportamiento: antes de cambiar se necesitan pruebas que describan el contrato.</p>
+      <div class="cc2-timeline">
+        <div class="cc2-tl-item"><div class="cc2-tl-year">1 — Establecer una base</div><p>Ejecutar las pruebas y comprobar que pasan. Si alguna ya falla, hay que registrarlo para no atribuir el problema a la refactorización.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">2 — Hacer un cambio pequeño</div><p>Extraer una regla duplicada, renombrar una variable o dividir una función. Cambios pequeños permiten localizar con rapidez qué modificación introdujo una diferencia.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">3 — Repetir todas las pruebas</div><p>No solo la prueba cercana al cambio: otra función puede depender del comportamiento modificado. Un fallo nuevo es una posible <strong>regresión</strong>.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">4 — Continuar o deshacer</div><p>Si el comportamiento se conserva, se realiza el siguiente cambio. Si no, se investiga antes de acumular más modificaciones.</p></div>
+      </div>
+      <div class="aviso"><strong>No mezcles objetivos innecesariamente</strong>Corregir un fallo, cambiar resultados y reorganizar muchas partes a la vez hace difícil saber qué modificación tuvo cada efecto. Primero fija el comportamiento esperado; después mejora la estructura en pasos comprobables.</div>
+
+      <h2 id="mantenimiento">8. Documentación, estilo y mantenimiento del código</h2>
+      <p>El código se mantiene cuando otra persona —o su autor semanas después— puede entender qué promete, modificar una parte y comprobar que el resto sigue funcionando. La claridad no se añade al final como decoración: reduce errores durante toda la vida del programa.</p>
+      <div class="tabla_responsiva" tabindex="0" aria-label="Tabla desplazable horizontalmente">
+        <table>
+          <caption>Elementos que facilitan comprender y cambiar un programa</caption>
+          <thead><tr><th scope="col">Elemento</th><th scope="col">Aporta</th><th scope="col">Evita</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Nombres precisos</strong></td><td><code>total_aprobados</code> expresa mejor su función que <code>x</code>.</td><td>Tener que reconstruir el significado en cada lectura.</td></tr>
+            <tr><td><strong>Funciones breves</strong></td><td>Cada función tiene una responsabilidad y un retorno identificables.</td><td>Mezclar entrada, cálculo, presentación y tratamiento de errores.</td></tr>
+            <tr><td><strong>Docstrings</strong></td><td>Describen el propósito, parámetros, retorno y condiciones importantes del contrato.</td><td>Comentarios dispersos que contradicen la interfaz real.</td></tr>
+            <tr><td><strong>Comentarios útiles</strong></td><td>Explican una razón, una decisión o una limitación no evidente.</td><td>Repetir literalmente lo que ya dice una instrucción clara.</td></tr>
+            <tr><td><strong>Estilo coherente</strong></td><td>Hace previsible la lectura: sangría, espacios, nombres y estructura.</td><td>Diferencias visuales que ocultan la lógica.</td></tr>
+            <tr><td><strong>Pruebas conservadas</strong></td><td>Documentan ejemplos del comportamiento y detectan regresiones.</td><td>Confiar solo en recordar qué funcionaba antes.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <pre tabindex="0" aria-label="Código Python o salida desplazable horizontalmente"><code>def calcular_media(notas):
+    """Devuelve la media de una secuencia no vacía de notas."""
+    if not notas:
+        raise ValueError("Se necesita al menos una nota")
+    return sum(notas) / len(notas)</code></pre>
+      <p>PEP 8 reúne convenciones destinadas a mejorar la legibilidad y la coherencia del código Python; también recuerda que la coherencia dentro de un proyecto es especialmente importante.<sup><a href="#fuente_96">[96]</a></sup> Entre las pautas iniciales están usar cuatro espacios por nivel de sangría, separar visualmente partes y elegir nombres comprensibles. Una guía orienta: no justifica reescribir código estable solo para producir cambios cosméticos.</p>
+      <div class="cc2-concept"><strong class="cc2-concept-tag">Analogía: un sendero mantenido</strong>Los nombres son señales, las funciones delimitan tramos, la documentación explica el destino y las pruebas comprueban que el camino sigue abierto tras una obra. Sin mantenimiento, cada cambio obliga a explorar de nuevo.</div>
+      <h3>Un ciclo de mantenimiento responsable</h3>
+      <ol>
+        <li><strong>Comprender:</strong> leer contrato, código, ejemplos y pruebas antes de modificar.</li>
+        <li><strong>Reproducir:</strong> conservar la entrada y el resultado que muestran el problema.</li>
+        <li><strong>Proteger:</strong> añadir o identificar una prueba que fallaría si el defecto reapareciese.</li>
+        <li><strong>Cambiar:</strong> aplicar la modificación más pequeña que responda a la causa.</li>
+        <li><strong>Revisar:</strong> actualizar nombres o documentación que hayan quedado inexactos.</li>
+        <li><strong>Comprobar:</strong> ejecutar todas las pruebas relevantes, incluidas las antiguas.</li>
+      </ol>
+      <div class="cc2-think"><strong>Código y documentación deben coincidir.</strong> Un comentario desactualizado puede ser peor que su ausencia. Cuando cambia el contrato de una función, deben revisarse su docstring, sus llamadas, sus casos límite y sus pruebas.</div>
+
+      <h2 id="glosario">Glosario del tema</h2>
+      <dl class="cc2-glosario">
+        <dt>Fallo</dt><dd>Comportamiento observable que no coincide con el resultado esperado.</dd>
+        <dt>Error de sintaxis</dt><dd>Incumplimiento de la gramática de Python que impide iniciar la ejecución del código.</dd>
+        <dt>Excepción</dt><dd>Objeto que representa una situación anómala detectada durante la ejecución y que puede propagarse o gestionarse.</dd>
+        <dt>Error lógico</dt><dd>Defecto por el que el programa se ejecuta, pero produce una decisión o un resultado incorrecto.</dd>
+        <dt>Traza</dt><dd>Relación de marcos de llamada que muestra el recorrido de ejecución hasta una excepción.</dd>
+        <dt>Depuración</dt><dd>Proceso sistemático de reproducir un fallo, localizar su causa, corregirla y verificar el resultado.</dd>
+        <dt>Punto de interrupción</dt><dd>Marca que detiene la ejecución en un lugar elegido para inspeccionar el estado.</dd>
+        <dt>Contrato</dt><dd>Descripción de las entradas admitidas, el resultado y las condiciones que una función promete cumplir.</dd>
+        <dt>Caso límite</dt><dd>Entrada situada en un extremo o cerca de una frontera donde cambia el comportamiento.</dd>
+        <dt>Aserción</dt><dd>Comprobación que provoca <code>AssertionError</code> cuando una condición esperada es falsa.</dd>
+        <dt>Refactorización</dt><dd>Mejora de la estructura interna del código sin cambiar su comportamiento observable.</dd>
+        <dt>Regresión</dt><dd>Reaparición de un defecto o pérdida de un comportamiento correcto tras una modificación.</dd>
+        <dt>Docstring</dt><dd>Cadena situada al comienzo de un módulo, clase o función para documentar su uso y propósito.</dd>
+        <dt>Mantenimiento</dt><dd>Trabajo de comprender, corregir, adaptar y comprobar un programa a lo largo del tiempo.</dd>
+      </dl>
+
+      <section class="summary">
+        <h2 id="resumen">Resumen esencial</h2>
+        <ol>
+          <li>Los errores de sintaxis impiden ejecutar; las excepciones aparecen durante la ejecución; los errores lógicos producen resultados incorrectos sin detener necesariamente el programa.</li>
+          <li>Una traza se interpreta desde el tipo y mensaje final hacia los marcos de llamada, sin confundir el lugar de detección con la causa.</li>
+          <li>Depurar exige reproducir el fallo, detenerse cerca de él, inspeccionar variables, avanzar paso a paso y contrastar una hipótesis.</li>
+          <li><code>try</code>, <code>except</code>, <code>else</code> y <code>finally</code> tienen responsabilidades distintas; conviene capturar excepciones concretas.</li>
+          <li>Los casos normales muestran el uso habitual; los casos límite examinan fronteras; las entradas no válidas comprueban el rechazo definido.</li>
+          <li>Una prueba compara un resultado real con otro esperado; <code>assert</code> ayuda a expresar esa comparación, pero no sustituye la validación.</li>
+          <li>Refactorizar mejora la estructura sin cambiar el comportamiento y siempre debe ir seguido de una nueva ejecución de las pruebas.</li>
+          <li>Nombres claros, funciones breves, docstrings, comentarios con propósito, estilo coherente y pruebas facilitan el mantenimiento.</li>
+        </ol>
+      </section>
+
+      <section aria-labelledby="fuentes">
+        <h2 id="fuentes">Fuentes y recursos fiables</h2>
+        <ul>
+          <li id="fuente_90">[90] <a href="https://www.bocm.es/boletin/CM_Orden_BOCM/2023/05/31/BOCM-20230531-18.PDF">Comunidad de Madrid — Orden 1736/2023, de 19 de mayo, Anexo IV (PDF)</a>.</li>
+          <li id="fuente_91">[91] <a href="https://docs.python.org/3/tutorial/errors.html" lang="en">Documentación de Python — Errors and Exceptions</a> (en inglés).</li>
+          <li id="fuente_92">[92] <a href="https://docs.python.org/3/library/exceptions.html" lang="en">Documentación de Python — Built-in Exceptions</a> (en inglés).</li>
+          <li id="fuente_93">[93] <a href="https://docs.python.org/3/reference/simple_stmts.html#the-assert-statement" lang="en">Referencia del lenguaje Python — The assert statement</a> (en inglés).</li>
+          <li id="fuente_94">[94] <a href="https://thonny.org/" lang="en">Thonny — Python IDE for beginners: variables and simple debugger</a> (en inglés).</li>
+          <li id="fuente_95">[95] <a href="https://thonny.org/blog/2018/08/11/version_3_0_beta.html" lang="en">Blog oficial de Thonny — Debugging enhancements and breakpoints</a> (en inglés).</li>
+          <li id="fuente_96">[96] <a href="https://peps.python.org/pep-0008/" lang="en">Python Enhancement Proposals — PEP 8, Style Guide for Python Code</a> (en inglés).</li>
+        </ul>
+      </section>
+    </article>
+  </div>
+</main>
+<nav class="topic-footer" aria-label="Navegación entre temas">
+  <a href="tema16.html">← Tema 16</a>
+  <a href="tema18.html">Tema 18 →</a>
+</nav>
+<footer class="site-footer">Ciencias de la Computación II · 2.º de Bachillerato · Comunidad de Madrid</footer>
+</body>
+</html>

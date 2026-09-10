@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Tema 16 de Ciencias de la Computación II: clases y objetos en Python para modelar un problema mediante estado, comportamiento, encapsulación, composición y colecciones de objetos.">
+  <title>Tema 16. Clases y objetos: modelar un problema · CC2</title>
+  <link rel="stylesheet" href="assets/estilos.css">
+  <script src="assets/navegacion.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#contenido">Saltar al contenido</a>
+<div class="progress" aria-hidden="true"><span></span></div>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="index.html"><span class="brand-mark">CC2</span><span>Ciencias de la Computación II<small>2.º de Bachillerato · 2026–2027</small></span></a>
+    <nav class="top-nav" aria-label="Navegación principal"><a href="index.html">Índice</a></nav>
+  </div>
+</header>
+<main id="contenido">
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <p class="kicker">Tema 16 · Bloque D · Programación</p>
+        <h1>Clases y objetos: modelar un problema</h1>
+        <p class="hero-lead">Cómo reunir datos y operaciones en modelos sencillos, crear entidades con estados independientes y hacer que colaboren sin convertir el programa en una maraña de variables.</p>
+      </div>
+      <aside class="hero-note" aria-label="Pregunta guía del tema 16">
+        <strong>Pregunta guía</strong>
+        <p>¿Cuándo deja de bastar una colección de datos y resulta útil representar cada entidad del problema como un objeto responsable de su propio estado?</p>
+      </aside>
+    </div>
+  </section>
+
+  <div class="layout">
+    <nav class="toc" aria-label="Índice del tema">
+      <strong>En este tema</strong>
+      <ol>
+        <li><a href="#conceptos">Clase, objeto, instancia, atributo y método</a></li>
+        <li><a href="#definicion">Definición, <code>__init__</code> y <code>self</code></a></li>
+        <li><a href="#instancias">Creación y uso de varias instancias</a></li>
+        <li><a href="#estado">Estado, comportamiento y consistencia</a></li>
+        <li><a href="#encapsulacion">Encapsulación y composición</a></li>
+        <li><a href="#colecciones">Colecciones, funciones y ficheros</a></li>
+        <li><a href="#comparacion">Diccionarios, funciones y clases</a></li>
+        <li><a href="#organizacion">Organización modular de una aplicación</a></li>
+        <li><a href="#glosario">Glosario</a></li>
+        <li><a href="#resumen">Resumen</a></li>
+        <li><a href="#fuentes">Fuentes</a></li>
+      </ol>
+    </nav>
+
+    <article class="paper">
+      <p class="lesson-intro">Programar también consiste en decidir cómo representar la realidad que importa para una solución. En este tema seguiremos la historia de una pequeña biblioteca: primero describiremos libros con datos sueltos; después construiremos objetos que saben prestar y devolver ejemplares; finalmente los reuniremos en un catálogo que puede colaborar con funciones y ficheros. El recorrido desarrolla la introducción a clases, objetos y organización modular prevista en el currículo.<sup><a href="#fuente_80">[80]</a></sup></p>
+      <div class="question"><strong>Antes de empezar:</strong> una ficha de un libro contiene datos; una biblioteca, además, necesita mantener reglas. No basta con recordar si un ejemplar está prestado: también hay que impedir que se preste dos veces y conservar una organización comprensible cuando hay muchos ejemplares.</div>
+      <div class="objectives">
+        <strong>Al terminar serás capaz de…</strong>
+        <ul>
+          <li>distinguir clase, objeto, instancia, atributo y método;</li>
+          <li>definir una clase sencilla y explicar el papel de <code>__init__</code> y <code>self</code>;</li>
+          <li>crear varias instancias con estados independientes;</li>
+          <li>relacionar estado, comportamiento y reglas de consistencia;</li>
+          <li>aplicar encapsulación básica y elegir composición para construir modelos;</li>
+          <li>manejar colecciones de objetos y conectarlas con funciones y ficheros;</li>
+          <li>decidir entre diccionarios, funciones y clases según el problema;</li>
+          <li>describir una organización modular sencilla sin perder de vista el conjunto.</li>
+        </ul>
+      </div>
+
+      <h2 id="conceptos">1. Clase, objeto, instancia, atributo y método</h2>
+      <p>Una <strong>clase</strong> define una clase de entidades: indica qué datos guardan y qué operaciones pueden realizar. Un <strong>objeto</strong> es una entidad concreta creada a partir de esa definición. Por eso también se dice que es una <strong>instancia</strong> de la clase. En Python, las clases permiten agrupar datos y funcionalidad, y cada instancia puede mantener su propio estado.<sup><a href="#fuente_81">[81]</a></sup></p>
+      <div class="comparacion">
+        <div>
+          <h3>La ficha y el ejemplar</h3>
+          <p>La clase se parece al diseño de una ficha bibliográfica: establece que habrá un título, una autoría y un estado de préstamo. Un objeto es una ficha ya cumplimentada para un ejemplar concreto.</p>
+        </div>
+        <div>
+          <h3>El plano y la casa</h3>
+          <p>Un mismo plano puede guiar la construcción de muchas casas. Comparten estructura, pero cada casa tiene dirección, habitantes y estado propios. Del mismo modo, varias instancias comparten clase sin compartir necesariamente sus datos.</p>
+        </div>
+      </div>
+      <div class="tabla_responsiva" tabindex="0" aria-label="Tabla desplazable horizontalmente">
+        <table>
+          <caption>Vocabulario básico aplicado a una biblioteca</caption>
+          <thead><tr><th scope="col">Concepto</th><th scope="col">Qué representa</th><th scope="col">Ejemplo</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Clase</strong></td><td>Definición común de datos y operaciones.</td><td><code>Libro</code></td></tr>
+            <tr><td><strong>Objeto o instancia</strong></td><td>Entidad concreta creada con esa clase.</td><td>El ejemplar de <em>Frankenstein</em> del catálogo.</td></tr>
+            <tr><td><strong>Atributo</strong></td><td>Dato asociado a una instancia.</td><td><code>libro.titulo</code> o <code>libro.prestado</code></td></tr>
+            <tr><td><strong>Método</strong></td><td>Función definida en la clase que opera sobre una instancia.</td><td><code>libro.prestar()</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>En Python, todo objeto tiene una identidad, un tipo y un valor; el estado que nos interesa forma parte de ese valor y puede cambiar si el objeto es mutable.<sup><a href="#fuente_82">[82]</a></sup> En nuestro modelo no intentaremos copiar una biblioteca real con todos sus detalles: elegiremos únicamente lo necesario para resolver el problema.</p>
+      <div class="cc2-concept"><strong class="cc2-concept-tag">Modelar es seleccionar</strong>Un modelo no es la realidad completa. Si la aplicación solo gestiona préstamos, quizá necesite título, identificador y disponibilidad, pero no el color de la cubierta. Cada atributo debe justificar su presencia por alguna decisión del programa.</div>
+
+      <h2 id="definicion">2. Definición de clases, <code>__init__</code> y <code>self</code></h2>
+      <p>Una clase se define con la palabra <code>class</code>. Dentro se escriben métodos. El método especial <code>__init__</code> se ejecuta después de crear una instancia y sirve para dejarla en un estado inicial válido. Python pasa la nueva instancia como primer argumento; por convención ese parámetro se llama <code>self</code>.<sup><a href="#fuente_81">[81]</a></sup></p>
+      <pre tabindex="0" aria-label="Código Python desplazable horizontalmente"><code>class Libro:
+    def __init__(self, titulo, autoria):
+        self.titulo = titulo
+        self.autoria = autoria
+        self.prestado = False
+
+    def descripcion(self):
+        return f"{self.titulo}, de {self.autoria}"</code></pre>
+      <p>La asignación <code>self.titulo = titulo</code> reúne dos elementos con nombres parecidos pero funciones distintas. El <code>titulo</code> de la derecha es el argumento recibido; <code>self.titulo</code> es el atributo que quedará guardado en esa instancia. <code>self</code> no es una palabra reservada, pero usar ese nombre hace que el código sea reconocible para otras personas.</p>
+      <div class="cc2-grid">
+        <section class="cc2-card">
+          <h3><code>class Libro</code></h3>
+          <p>Crea una nueva clase llamada <code>Libro</code>. Los nombres de clases suelen escribirse con inicial mayúscula.</p>
+        </section>
+        <section class="cc2-card">
+          <h3><code>__init__</code></h3>
+          <p>Recibe los datos iniciales y establece atributos. No «fabrica» por sí solo el objeto: inicializa la instancia recién creada.</p>
+        </section>
+        <section class="cc2-card">
+          <h3><code>self</code></h3>
+          <p>Permite que el método consulte o cambie la instancia concreta que recibió la llamada.</p>
+        </section>
+        <section class="cc2-card">
+          <h3>Método</h3>
+          <p>Se define como una función dentro de la clase. Al llamar <code>libro.descripcion()</code>, Python vincula <code>libro</code> con <code>self</code>.</p>
+        </section>
+      </div>
+      <p>Los dobles guiones bajos de nombres como <code>__init__</code> indican métodos especiales con un significado definido por el modelo de datos de Python. No conviene inventar nombres propios con esa forma.<sup><a href="#fuente_83">[83]</a></sup></p>
+      <div class="aviso"><strong>Evita atributos compartidos por accidente</strong>Los datos que deben pertenecer a cada ejemplar se asignan normalmente a <code>self</code> dentro de <code>__init__</code>. Colocar una lista mutable directamente en el cuerpo de la clase podría hacer que todas las instancias compartieran la misma lista.</div>
+
+      <h2 id="instancias">3. Creación y uso de varias instancias</h2>
+      <p>Llamar a la clase crea una instancia. Cada llamada puede recibir datos distintos y produce un objeto con identidad propia. Los nombres de variables solo nos permiten referirnos a esos objetos.</p>
+      <pre tabindex="0" aria-label="Código Python desplazable horizontalmente"><code>libro_1 = Libro("Frankenstein", "Mary Shelley")
+libro_2 = Libro("Nada", "Carmen Laforet")
+
+print(libro_1.descripcion())
+print(libro_2.descripcion())</code></pre>
+      <p>Ambos objetos entienden el método <code>descripcion</code> porque comparten la clase <code>Libro</code>, pero sus atributos contienen valores diferentes. Cambiar el estado de uno no debería alterar el otro:</p>
+      <pre tabindex="0" aria-label="Código Python desplazable horizontalmente"><code>libro_1.prestado = True
+
+print(libro_1.prestado)  # True
+print(libro_2.prestado)  # False</code></pre>
+      <div class="cc2-note"><strong>Variables y objetos no son lo mismo.</strong> Una variable contiene una referencia a un objeto. Si hacemos <code>favorito = libro_1</code>, no se crea otro libro: ambos nombres se refieren a la misma instancia. Un cambio observado a través de uno también se verá a través del otro.</div>
+      <p>Comparar objetos también exige intención. <code>is</code> pregunta si dos referencias señalan exactamente al mismo objeto; <code>==</code> pregunta si se consideran iguales. En una clase sencilla que no define una regla especial de igualdad, dos instancias con los mismos títulos pueden seguir siendo objetos distintos.<sup><a href="#fuente_82">[82]</a></sup></p>
+      <div class="tabla_responsiva" tabindex="0" aria-label="Tabla desplazable horizontalmente">
+        <table>
+          <caption>Tres situaciones que no conviene confundir</caption>
+          <thead><tr><th scope="col">Código conceptual</th><th scope="col">Relación</th><th scope="col">Interpretación</th></tr></thead>
+          <tbody>
+            <tr><td><code>favorito = libro_1</code></td><td>Dos nombres, una instancia</td><td>No duplica el libro.</td></tr>
+            <tr><td><code>Libro("Nada", "Carmen Laforet")</code> dos veces</td><td>Dos instancias</td><td>Pueden contener los mismos datos, pero tienen identidades distintas.</td></tr>
+            <tr><td><code>libro_1.prestado = True</code></td><td>Cambio de una instancia</td><td>El estado de <code>libro_2</code> permanece independiente.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 id="estado">4. Estado, comportamiento y reglas básicas de consistencia</h2>
+      <p>El <strong>estado</strong> es el conjunto de datos relevantes que un objeto mantiene en un momento dado. El <strong>comportamiento</strong> son las operaciones que puede realizar. En un buen modelo, los métodos expresan acciones del dominio y protegen sus reglas: un libro disponible puede prestarse; uno ya prestado no debe volver a prestarse.</p>
+      <pre tabindex="0" aria-label="Código Python desplazable horizontalmente"><code>class Libro:
+    def __init__(self, titulo, autoria):
+        self.titulo = titulo
+        self.autoria = autoria
+        self.prestado = False
+
+    def prestar(self):
+        if self.prestado:
+            return False
+        self.prestado = True
+        return True
+
+    def devolver(self):
+        self.prestado = False</code></pre>
+      <p>La regla está cerca del dato que protege. En lugar de repartir asignaciones como <code>libro.prestado = True</code> por todo el programa, las demás partes solicitan <code>libro.prestar()</code>. El valor de retorno informa de si la transición pudo realizarse.</p>
+      <div class="cc2-timeline">
+        <div class="cc2-tl-item"><div class="cc2-tl-year">Estado inicial — disponible</div><p><code>prestado</code> vale <code>False</code> al terminar <code>__init__</code>.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">Acción — prestar</div><p>El método comprueba la regla. Si el libro está disponible, cambia su estado y comunica éxito.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">Estado posterior — prestado</div><p>Una segunda petición no altera el objeto y comunica que la operación no era válida.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">Acción — devolver</div><p>El objeto vuelve a quedar disponible para otra operación.</p></div>
+      </div>
+      <p>Una <strong>regla de consistencia</strong> o invariante expresa algo que debe seguir siendo cierto durante la vida del objeto. Por ejemplo, si se modelara un número de copias, no debería ser negativo. <code>__init__</code> establece un punto de partida coherente y los métodos preservan las reglas al cambiar el estado.</p>
+      <div class="cc2-think"><strong>Idea de diseño:</strong> un objeto no es solo una bolsa de atributos con una etiqueta. Su valor aparece cuando reúne el estado con las operaciones que tienen sentido y evita transiciones imposibles o contradictorias.</div>
+
+      <h2 id="encapsulacion">5. Encapsulación y composición a nivel introductorio</h2>
+      <h3>Encapsular para reducir dependencias</h3>
+      <p><strong>Encapsular</strong> consiste en reunir una responsabilidad y ofrecer una forma clara de usarla sin obligar al resto del programa a conocer cada detalle interno. Python no impone privacidad absoluta: un nombre que empieza por un guion bajo, como <code>_libros</code>, comunica que es un detalle interno y no debería manipularse desde fuera, aunque el lenguaje permita acceder a él.<sup><a href="#fuente_84">[84]</a></sup></p>
+      <p>La encapsulación introductoria se apoya más en acuerdos y métodos bien elegidos que en barreras. La biblioteca podrá ofrecer <code>añadir</code> y <code>buscar</code>; quien la use no necesita recorrer o modificar directamente su almacenamiento interno.</p>
+      <h3>Componer: construir un objeto con otros objetos</h3>
+      <p>La <strong>composición</strong> expresa una relación «tiene»: una <code>Biblioteca</code> tiene una colección de objetos <code>Libro</code>. Cada clase mantiene una responsabilidad: <code>Libro</code> controla el estado de un ejemplar y <code>Biblioteca</code> organiza varios ejemplares.</p>
+      <pre tabindex="0" aria-label="Código Python desplazable horizontalmente"><code>class Biblioteca:
+    def __init__(self, nombre):
+        self.nombre = nombre
+        self._libros = []
+
+    def añadir(self, libro):
+        self._libros.append(libro)
+
+    def disponibles(self):
+        return [libro for libro in self._libros
+                if not libro.prestado]</code></pre>
+      <pre tabindex="0" aria-label="Código Python desplazable horizontalmente"><code>biblioteca = Biblioteca("Biblioteca del instituto")
+biblioteca.añadir(libro_1)
+biblioteca.añadir(libro_2)</code></pre>
+      <div class="cc2-concept"><strong class="cc2-concept-tag">La composición es el centro de este tema</strong>Una aplicación se entiende mejor cuando colaboran piezas pequeñas: la biblioteca no hereda de libro ni el libro hereda de biblioteca. La primera contiene libros y les pide que realicen sus propias operaciones.</div>
+      <div class="tabla_responsiva" tabindex="0" aria-label="Tabla desplazable horizontalmente">
+        <table>
+          <caption>Reparto de responsabilidades mediante composición</caption>
+          <thead><tr><th scope="col">Objeto</th><th scope="col">Sabe</th><th scope="col">Hace</th><th scope="col">No debería decidir</th></tr></thead>
+          <tbody>
+            <tr><td><code>Libro</code></td><td>Su título, autoría y disponibilidad.</td><td>Prestarse y devolverse sin romper sus reglas.</td><td>Cómo se guardan todos los libros en un fichero.</td></tr>
+            <tr><td><code>Biblioteca</code></td><td>Su nombre y qué libros contiene.</td><td>Añadir, localizar y seleccionar libros.</td><td>Cómo se presenta un menú o se pregunta al usuario.</td></tr>
+            <tr><td>Interfaz o función externa</td><td>Qué información necesita mostrar.</td><td>Recibir entrada y presentar resultados.</td><td>Modificar atributos internos saltándose los métodos.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="cc2-note"><strong>Ampliación no obligatoria:</strong> la herencia permite definir una clase a partir de otra y el polimorfismo permite tratar de forma común objetos con comportamientos compatibles. Son ideas útiles, pero no se exigen en este tema: para el modelo de la biblioteca priorizamos composición y responsabilidades claras.</div>
+
+      <h2 id="colecciones">6. Colecciones de objetos y colaboración con funciones y ficheros</h2>
+      <p>Los objetos no sustituyen a las colecciones: colaboran con ellas. Una lista puede contener objetos <code>Libro</code>, y los recorridos, filtros y búsquedas aprendidos anteriormente siguen siendo válidos. La diferencia es que cada elemento reúne ahora sus datos con su comportamiento.</p>
+      <pre tabindex="0" aria-label="Código Python desplazable horizontalmente"><code>def buscar_por_titulo(libros, texto):
+    texto = texto.casefold()
+    return [libro for libro in libros
+            if texto in libro.titulo.casefold()]</code></pre>
+      <p>Esta función no necesita convertirse en método si resulta útil con cualquier colección de libros y no modifica el interior de una biblioteca. Las clases y las funciones no compiten: una clase concentra responsabilidades ligadas a una entidad; una función puede coordinar datos, transformar una colección o separar entrada y presentación.</p>
+      <h3>Guardar datos, no objetos «mágicamente»</h3>
+      <p>Para conservar el catálogo en JSON, primero se traduce cada objeto a tipos que el formato conoce: diccionarios, listas, cadenas, números, booleanos y valores nulos. El módulo <code>json</code> serializa esos tipos básicos, pero un objeto <code>Libro</code> necesita una conversión explícita.<sup><a href="#fuente_85">[85]</a></sup></p>
+      <pre tabindex="0" aria-label="Código Python desplazable horizontalmente"><code>def libro_a_dict(libro):
+    return {
+        "titulo": libro.titulo,
+        "autoria": libro.autoria,
+        "prestado": libro.prestado,
+    }
+
+
+def libro_desde_dict(datos):
+    libro = Libro(datos["titulo"], datos["autoria"])
+    prestado = datos.get("prestado", False)
+    if not isinstance(prestado, bool):
+        raise ValueError("El estado 'prestado' debe ser booleano")
+    if prestado:
+        libro.prestar()
+    return libro</code></pre>
+      <p>La escritura y la lectura quedan en funciones de frontera. Así, <code>Libro</code> no necesita saber en qué carpeta vive el archivo ni cómo funciona JSON:</p>
+      <pre tabindex="0" aria-label="Código Python desplazable horizontalmente"><code>import json
+
+
+def guardar_catalogo(ruta, libros):
+    datos = [libro_a_dict(libro) for libro in libros]
+    with open(ruta, "w", encoding="utf-8") as fichero:
+        json.dump(datos, fichero, ensure_ascii=False, indent=2)
+
+
+def cargar_catalogo(ruta):
+    with open(ruta, encoding="utf-8") as fichero:
+        datos = json.load(fichero)
+    return [libro_desde_dict(dato) for dato in datos]</code></pre>
+      <p>El gestor de contexto <code>with</code> asegura el cierre del fichero al terminar el bloque, incluso si ocurre un error durante el trabajo con él.<sup><a href="#fuente_86">[86]</a></sup> Al cargar, los datos externos deben validarse antes de aceptarse como estado del programa: un fichero puede estar incompleto, tener tipos inesperados o haber sido modificado.</p>
+      <div class="aviso"><strong>JSON no conserva métodos</strong>El fichero guarda una representación de los datos, no el comportamiento de la clase. Al cargarlo, el programa reconstruye nuevas instancias de <code>Libro</code> usando el código actual de la aplicación.</div>
+
+      <h2 id="comparacion">7. Comparación entre diccionarios, funciones y clases</h2>
+      <p>Una clase no es automáticamente la mejor solución. Para dos valores que solo se muestran una vez, un diccionario puede ser más claro. Si una transformación no necesita mantener estado, una función suele bastar. Las clases ganan sentido cuando aparecen muchas entidades del mismo tipo, estados que cambian y reglas que deben aplicarse de forma coherente.</p>
+      <div class="tabla_responsiva" tabindex="0" aria-label="Tabla desplazable horizontalmente">
+        <table>
+          <caption>Tres maneras de organizar una solución</caption>
+          <thead><tr><th scope="col">Recurso</th><th scope="col">Resulta adecuado cuando…</th><th scope="col">Ventaja principal</th><th scope="col">Señal de límite</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Diccionario</strong></td><td>Hay un registro de datos sencillo, flexible o destinado a intercambio.</td><td>Representación directa mediante claves y valores; encaja bien con JSON.<sup><a href="#fuente_87">[87]</a></sup></td><td>Las mismas reglas y operaciones se repiten alrededor de muchos diccionarios.</td></tr>
+            <tr><td><strong>Función</strong></td><td>Se transforma una entrada en una salida o se coordina una tarea concreta.</td><td>Responsabilidad breve, explícita y fácil de reutilizar.</td><td>Necesita recibir y devolver continuamente un grupo creciente de datos relacionados.</td></tr>
+            <tr><td><strong>Clase</strong></td><td>Muchas entidades comparten estructura y comportamiento, mantienen estado y deben respetar reglas.</td><td>Une datos y métodos bajo un vocabulario del problema.</td><td>Solo agrupa funciones sin estado o añade capas que no aclaran la solución.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3>La misma acción, dos enfoques</h3>
+      <div class="comparacion">
+        <div>
+          <h3>Diccionario más función</h3>
+          <pre tabindex="0" aria-label="Código Python desplazable horizontalmente"><code>libro = {
+    "titulo": "Nada",
+    "prestado": False
+}
+
+def prestar(datos):
+    if datos["prestado"]:
+        return False
+    datos["prestado"] = True
+    return True</code></pre>
+        </div>
+        <div>
+          <h3>Objeto con método</h3>
+          <pre tabindex="0" aria-label="Código Python desplazable horizontalmente"><code>libro = Libro(
+    "Nada",
+    "Carmen Laforet"
+)
+
+exito = libro.prestar()</code></pre>
+        </div>
+      </div>
+      <p>Las dos versiones pueden funcionar. La primera es razonable para datos sencillos; la segunda da un nombre al tipo de entidad y coloca la regla junto a su estado. La decisión se toma por claridad y necesidades del problema, no por el deseo de usar la técnica más nueva.</p>
+      <div class="cc2-think"><strong>Criterio práctico:</strong> empieza con la representación más sencilla que mantenga el programa claro. Considera una clase cuando puedas nombrar una entidad, describir su estado, identificar comportamientos propios y formular reglas que deban cumplirse en todas sus instancias.</div>
+
+      <h2 id="organizacion">8. Organización modular de una aplicación sencilla</h2>
+      <p>Una aplicación es <strong>modular</strong> cuando se divide en partes con responsabilidades comprensibles y relaciones explícitas. Un módulo de Python es un archivo que contiene definiciones y sentencias; otros módulos pueden reutilizar sus nombres mediante <code>import</code>.<sup><a href="#fuente_88">[88]</a></sup> En este tema importa primero la organización conceptual: aunque todo se escriba inicialmente en un cuaderno o un solo archivo, conviene reconocer las capas.</p>
+      <div class="cc2-grid">
+        <section class="cc2-card">
+          <h3>Modelo</h3>
+          <p><code>Libro</code> y <code>Biblioteca</code>: representan entidades, mantienen estado y protegen reglas.</p>
+        </section>
+        <section class="cc2-card">
+          <h3>Persistencia</h3>
+          <p><code>guardar_catalogo</code> y <code>cargar_catalogo</code>: traducen entre objetos y datos del fichero.</p>
+        </section>
+        <section class="cc2-card">
+          <h3>Aplicación</h3>
+          <p>Coordina el caso de uso: pedir una búsqueda, solicitar un préstamo y comunicar el resultado.</p>
+        </section>
+        <section class="cc2-card">
+          <h3>Presentación</h3>
+          <p>Se ocupa de entradas y salidas. No debería contener las reglas que determinan si un préstamo es válido.</p>
+        </section>
+      </div>
+      <div class="cc2-timeline">
+        <div class="cc2-tl-item"><div class="cc2-tl-year">1 — Cargar</div><p>La frontera de persistencia lee el fichero, valida sus datos y reconstruye objetos.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">2 — Coordinar</div><p>La aplicación localiza el libro solicitado y pide al objeto que realice la operación.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">3 — Proteger reglas</div><p>El modelo acepta o rechaza el préstamo según su estado, sin depender de cómo se mostrará el resultado.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">4 — Presentar y guardar</div><p>La interfaz comunica el resultado y la persistencia conserva el nuevo estado.</p></div>
+      </div>
+      <div class="cc2-note"><strong>Ampliación no obligatoria:</strong> si la aplicación creciera, estas responsabilidades podrían separarse en archivos como <code>modelos.py</code>, <code>persistencia.py</code> y <code>app.py</code>. En el trabajo obligatorio basta reconocer y aplicar la organización conceptual dentro de un cuaderno o un solo archivo. Dividir sin criterio puede esconder el recorrido de los datos y complicar un programa pequeño.</div>
+      <div class="cc2-concept"><strong class="cc2-concept-tag">Una historia completa</strong>Los datos entran desde un fichero, se convierten en objetos, colaboran dentro de una colección, cambian mediante métodos que preservan reglas y vuelven a una representación guardable. La modularidad consiste en que cada parte conozca lo necesario, no en multiplicar archivos.</div>
+
+      <h2 id="glosario">Glosario del tema</h2>
+      <dl class="cc2-glosario">
+        <dt>Clase</dt><dd>Definición que reúne atributos y métodos comunes para un tipo de objetos.</dd>
+        <dt>Objeto</dt><dd>Entidad concreta con identidad, tipo y valor que existe durante la ejecución.</dd>
+        <dt>Instancia</dt><dd>Objeto creado a partir de una clase determinada.</dd>
+        <dt>Atributo</dt><dd>Dato asociado a una instancia o a una clase y accesible mediante un nombre.</dd>
+        <dt>Método</dt><dd>Función definida dentro de una clase que suele operar sobre una instancia.</dd>
+        <dt><code>__init__</code></dt><dd>Método especial que inicializa una instancia recién creada.</dd>
+        <dt><code>self</code></dt><dd>Nombre convencional del parámetro que representa la instancia en un método.</dd>
+        <dt>Estado</dt><dd>Conjunto de valores relevantes que mantiene un objeto en un momento dado.</dd>
+        <dt>Comportamiento</dt><dd>Operaciones que un objeto ofrece mediante sus métodos.</dd>
+        <dt>Consistencia</dt><dd>Cumplimiento de las reglas que mantienen válido el estado de un objeto.</dd>
+        <dt>Encapsulación</dt><dd>Agrupación de una responsabilidad tras una forma clara de uso, ocultando detalles innecesarios.</dd>
+        <dt>Composición</dt><dd>Construcción de un objeto que contiene o colabora con otros objetos.</dd>
+        <dt>Serialización</dt><dd>Conversión de datos en una representación que puede almacenarse o transmitirse.</dd>
+        <dt>Módulo</dt><dd>Archivo de Python que agrupa definiciones y sentencias reutilizables.</dd>
+      </dl>
+
+      <section class="summary">
+        <h2 id="resumen">Resumen esencial</h2>
+        <ol>
+          <li>Una clase define estructura y comportamiento; un objeto es una instancia concreta con identidad y estado propios.</li>
+          <li>Los atributos guardan datos y los métodos expresan operaciones relacionadas con la entidad.</li>
+          <li><code>__init__</code> deja cada nueva instancia en un estado inicial y <code>self</code> identifica la instancia sobre la que actúa un método.</li>
+          <li>Varias instancias comparten definición, pero mantienen estados independientes; dos nombres también pueden señalar el mismo objeto.</li>
+          <li>Los métodos deben preservar reglas de consistencia al cambiar el estado.</li>
+          <li>La encapsulación reduce dependencias; en Python se apoya en interfaces claras y convenciones como el guion bajo inicial.</li>
+          <li>La composición modela relaciones «tiene» y permite repartir responsabilidades entre objetos pequeños que colaboran.</li>
+          <li>Las colecciones pueden contener objetos; las funciones siguen siendo útiles para coordinar, transformar, presentar y gestionar ficheros.</li>
+          <li>JSON conserva datos básicos, no métodos: al cargar se validan los datos y se reconstruyen instancias.</li>
+          <li>Diccionarios, funciones y clases son opciones complementarias; se elige la solución más sencilla que mantenga claros el estado y las reglas.</li>
+          <li>Una organización modular separa conceptualmente modelo, persistencia, aplicación y presentación antes de decidir cuántos archivos necesita.</li>
+          <li>Herencia y polimorfismo quedan como ampliación no obligatoria; el núcleo introductorio es modelar mediante composición.</li>
+        </ol>
+      </section>
+
+      <section aria-labelledby="fuentes">
+        <h2 id="fuentes">Fuentes y recursos fiables</h2>
+        <ul>
+          <li id="fuente_80">[80] <a href="https://www.bocm.es/boletin/CM_Orden_BOCM/2023/05/31/BOCM-20230531-18.PDF">Comunidad de Madrid — Orden 1736/2023, de 19 de mayo, Anexo IV (PDF)</a>.</li>
+          <li id="fuente_81">[81] <a href="https://docs.python.org/3/tutorial/classes.html" lang="en">Documentación oficial de Python — Classes</a> (en inglés).</li>
+          <li id="fuente_82">[82] <a href="https://docs.python.org/3/reference/datamodel.html#objects-values-and-types" lang="en">Documentación oficial de Python — Objects, values and types</a> (en inglés).</li>
+          <li id="fuente_83">[83] <a href="https://docs.python.org/3/reference/datamodel.html#special-method-names" lang="en">Documentación oficial de Python — Special method names</a> (en inglés).</li>
+          <li id="fuente_84">[84] <a href="https://docs.python.org/3/tutorial/classes.html#private-variables" lang="en">Documentación oficial de Python — Private variables</a> (en inglés).</li>
+          <li id="fuente_85">[85] <a href="https://docs.python.org/3/library/json.html" lang="en">Documentación oficial de Python — <code>json</code>, codificador y decodificador JSON</a> (en inglés).</li>
+          <li id="fuente_86">[86] <a href="https://docs.python.org/3/tutorial/inputoutput.html#reading-and-writing-files" lang="en">Documentación oficial de Python — Reading and writing files</a> (en inglés).</li>
+          <li id="fuente_87">[87] <a href="https://docs.python.org/3/tutorial/datastructures.html#dictionaries" lang="en">Documentación oficial de Python — Dictionaries</a> (en inglés).</li>
+          <li id="fuente_88">[88] <a href="https://docs.python.org/3/tutorial/modules.html" lang="en">Documentación oficial de Python — Modules</a> (en inglés).</li>
+        </ul>
+      </section>
+    </article>
+  </div>
+</main>
+<nav class="topic-footer" aria-label="Navegación entre temas">
+  <a href="tema15.html">← Tema 15</a>
+  <a href="tema17.html">Tema 17 →</a>
+</nav>
+<footer class="site-footer">Ciencias de la Computación II · 2.º de Bachillerato · Comunidad de Madrid</footer>
+</body>
+</html>

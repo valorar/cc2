@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Tema 14 de Ciencias de la Computación II: reactivación de Python en Google Colab, funciones, alcance, biblioteca estándar, planificación y desarrollo incremental.">
+  <title>Tema 14. Python en Google Colab · CC2</title>
+  <link rel="stylesheet" href="assets/estilos.css">
+  <script src="assets/navegacion.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#contenido">Saltar al contenido</a>
+<div class="progress" aria-hidden="true"><span></span></div>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="index.html"><span class="brand-mark">CC2</span><span>Ciencias de la Computación II<small>2.º de Bachillerato · 2026–2027</small></span></a>
+    <nav class="top-nav" aria-label="Navegación principal"><a href="index.html">Índice</a></nav>
+  </div>
+</header>
+<main id="contenido">
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <p class="kicker">Tema 14 · Bloque D · Programación</p>
+        <h1>Python en Google Colab: reactivación y diseño de programas</h1>
+        <p class="hero-lead">Cómo recuperar Python programando desde el primer momento y convertir un problema pequeño en funciones claras, comprobables y documentadas.</p>
+      </div>
+      <aside class="hero-note" aria-label="Pregunta guía del tema 14">
+        <strong>Pregunta guía</strong>
+        <p>¿Cómo pasamos de entender un problema a construir en Google Colab un programa que podamos ejecutar, comprobar y mejorar por partes?</p>
+      </aside>
+    </div>
+  </section>
+
+  <div class="layout">
+    <nav class="toc" aria-label="Índice del tema">
+      <strong>En este tema</strong>
+      <ol>
+        <li><a href="#colab">Cuadernos, celdas y sesión</a></li>
+        <li><a href="#datos">Datos, operadores y entrada/salida</a></li>
+        <li><a href="#control">Decisiones y repeticiones</a></li>
+        <li><a href="#funciones">Funciones y retorno</a></li>
+        <li><a href="#alcance">Alcance y separación de responsabilidades</a></li>
+        <li><a href="#reutilizacion">Biblioteca estándar y docstrings</a></li>
+        <li><a href="#planificacion">Ejemplos, pruebas y descomposición</a></li>
+        <li><a href="#incremental">Desarrollo incremental y claridad</a></li>
+        <li><a href="#glosario">Glosario</a></li>
+        <li><a href="#resumen">Resumen</a></li>
+        <li><a href="#fuentes">Fuentes</a></li>
+      </ol>
+    </nav>
+
+    <article class="paper">
+      <p class="lesson-intro">Este tema no repite variables, decisiones, bucles y funciones como unidades aisladas: los reactiva al construir programas pequeños y completos. El objetivo es elaborar soluciones sencillas, estructuradas y verificables, de acuerdo con los saberes de programación del currículo.<sup><a href="#fuente_61">[61]</a></sup></p>
+      <div class="question"><strong>Antes de empezar:</strong> un programa no queda bien diseñado solo porque «funcione una vez». También debe dejar claro qué datos recibe, qué resultado produce, cómo se divide y con qué casos se ha comprobado.</div>
+      <div class="objectives">
+        <strong>Al terminar serás capaz de…</strong>
+        <ul>
+          <li>trabajar con celdas de código y texto sin perder de vista el estado de la sesión;</li>
+          <li>integrar variables, tipos, operadores, entrada y salida en programas breves;</li>
+          <li>usar condicionales y bucles para expresar reglas y recorridos;</li>
+          <li>definir funciones con parámetros y valores de retorno;</li>
+          <li>distinguir variables locales y globales y separar cálculo, entrada y presentación;</li>
+          <li>reutilizar la biblioteca estándar y escribir docstrings básicos;</li>
+          <li>planificar con ejemplos, entradas, salidas, casos de prueba y funciones;</li>
+          <li>desarrollar de forma incremental con nombres claros y funciones breves.</li>
+        </ul>
+      </div>
+
+      <h2 id="colab">1. Google Colab: cuadernos, celdas, ejecución y estado de la sesión</h2>
+      <p><strong>Google Colab</strong> permite escribir y ejecutar Python en un cuaderno desde el navegador. Un cuaderno combina <strong>celdas de texto</strong>, útiles para explicar decisiones, y <strong>celdas de código</strong>, que se envían a un entorno de ejecución. Puede guardarse en Google Drive o cargarse desde otras fuentes compatibles.<sup><a href="#fuente_62">[62]</a></sup></p>
+      <div class="comparacion">
+        <div>
+          <h3>Cuaderno: el documento</h3>
+          <p>Conserva texto, código y resultados guardados. Organiza una explicación en una secuencia legible y puede volver a abrirse más tarde.</p>
+        </div>
+        <div>
+          <h3>Sesión: la ejecución viva</h3>
+          <p>Mantiene temporalmente variables, funciones importadas o definidas y archivos de la máquina virtual. Ese estado puede desaparecer al reiniciar o desconectar el entorno.</p>
+        </div>
+      </div>
+      <p>Las celdas pueden ejecutarse en cualquier orden. Por eso el orden visual del cuaderno y el orden real de ejecución no siempre coinciden. Si una celda usa <code>precio</code>, funcionará únicamente si antes se ejecutó otra que asignó ese nombre en la sesión actual.</p>
+      <pre tabindex="0" aria-label="Código Python desplazable horizontalmente"><code># Celda 1
+precio = 12.50
+unidades = 4
+
+# Celda 2, ejecutada después de la anterior
+total = precio * unidades
+print(f"Total: {total:.2f} €")
+# Salida: Total: 50.00 €</code></pre>
+      <p>Si se cambia <code>precio</code> en la primera celda pero no se vuelve a ejecutar, la segunda conserva el valor anterior de la sesión. Los números que Colab muestra junto a las celdas ayudan a reconocer el orden de ejecución, pero la comprobación más fiable es <strong>reiniciar y ejecutar todo</strong> desde el principio. Un cuaderno reproducible no debe depender de una acción olvidada.</p>
+      <div class="cc2-timeline">
+        <div class="cc2-tl-item"><div class="cc2-tl-year">1 — Leer</div><p>Revisar la explicación y las entradas esperadas antes de ejecutar.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">2 — Ejecutar en orden</div><p>Empezar arriba y avanzar hacia abajo cuando las celdas dependen unas de otras.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">3 — Interpretar la salida</div><p>Distinguir entre el valor mostrado, un mensaje producido por <code>print</code> y un error con su traza.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">4 — Reiniciar y comprobar</div><p>Ejecutar todo en una sesión limpia para confirmar que el cuaderno contiene realmente lo necesario.</p></div>
+      </div>
+      <div class="aviso"><strong>El cuaderno no es la máquina virtual</strong>Colab ejecuta el código en una máquina virtual privada para la cuenta, pero esas máquinas se eliminan tras un periodo de inactividad y tienen una duración máxima. Las variables y los archivos temporales no deben confundirse con el contenido guardado del cuaderno.<sup><a href="#fuente_63">[63]</a></sup></div>
+
+      <h2 id="datos">2. Repaso aplicado de variables, tipos, operadores, entrada y salida</h2>
+      <p>Una <strong>variable</strong> vincula un nombre con un valor. El tipo del valor determina qué operaciones tienen sentido: se pueden sumar números, concatenar textos o combinar condiciones booleanas, pero no sumar directamente una cadena y un entero. Python incluye funciones como <code>input</code>, <code>print</code>, <code>int</code>, <code>float</code>, <code>str</code> y <code>round</code>, disponibles sin importar ninguna biblioteca.<sup><a href="#fuente_64">[64]</a></sup></p>
+      <p>La reactivación resulta más útil dentro de una situación completa. Este programa recibe una distancia y un consumo medio, calcula los litros previstos y presenta el resultado:</p>
+      <pre tabindex="0" aria-label="Código Python desplazable horizontalmente"><code>distancia_km = float(input("Distancia del viaje (km): "))
+consumo_100_km = float(input("Consumo (L/100 km): "))
+
+litros = distancia_km * consumo_100_km / 100
+print(f"Combustible previsto: {litros:.2f} L")
+
+# Con 250 y 6.4, la salida es:
+# Combustible previsto: 16.00 L</code></pre>
+      <div class="tabla_responsiva" tabindex="0" aria-label="Tabla desplazable horizontalmente">
+        <table>
+          <caption>Lectura del programa de consumo</caption>
+          <thead><tr><th scope="col">Elemento</th><th scope="col">Ejemplo</th><th scope="col">Papel que cumple</th></tr></thead>
+          <tbody>
+            <tr><td>Entrada</td><td><code>250</code> y <code>6.4</code></td><td>Datos que cambian entre ejecuciones.</td></tr>
+            <tr><td>Conversión</td><td><code>float(...)</code></td><td>Transforma el texto devuelto por <code>input</code> en un número decimal.</td></tr>
+            <tr><td>Cálculo</td><td><code>distancia_km * consumo_100_km / 100</code></td><td>Aplica operadores a los datos.</td></tr>
+            <tr><td>Salida</td><td><code>16.00 L</code></td><td>Presenta el resultado con una unidad y dos decimales.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Los nombres incluyen la unidad porque <code>distancia</code> sería ambiguo. La expresión calcula con toda la precisión disponible y el formato <code>:.2f</code> limita solo la presentación. Redondear después de cada operación puede acumular diferencias innecesarias.</p>
+      <div class="cc2-note"><strong>Entrada no equivale a dato válido.</strong> <code>float</code> convierte un texto numérico, pero una distancia negativa sigue siendo numéricamente válida para Python y conceptualmente incorrecta para este problema. La validación sistemática de errores se desarrollará en el Tema 17.</div>
+
+      <h2 id="control">3. Condicionales y bucles dentro de pequeños programas completos</h2>
+      <p>Una estructura de control responde a una necesidad del problema. Un <code>if</code> selecciona una ruta según una condición; un <code>for</code> recorre elementos; un <code>while</code> repite mientras se mantenga una condición. La indentación define qué instrucciones pertenecen a cada bloque.<sup><a href="#fuente_65">[65]</a></sup></p>
+      <p>El siguiente programa recorre temperaturas ya registradas, cuenta cuántas superan el umbral y clasifica el resultado. La lista permite ver el programa completo sin convertir esta sección en un manual de colecciones, que se estudiarán en el Tema 15.</p>
+      <pre tabindex="0" aria-label="Código Python desplazable horizontalmente"><code>temperaturas = [18.5, 21.0, 23.5, 19.0]
+umbral = 20.0
+dias_calidos = 0
+
+for temperatura in temperaturas:
+    if temperatura &gt; umbral:
+        dias_calidos += 1
+
+if dias_calidos == 0:
+    mensaje = "Ningún registro supera el umbral"
+elif dias_calidos == 1:
+    mensaje = "Un registro supera el umbral"
+else:
+    mensaje = f"{dias_calidos} registros superan el umbral"
+
+print(mensaje)
+# Salida: 2 registros superan el umbral</code></pre>
+      <div class="cc2-grid">
+        <section class="cc2-card"><h3>La decisión</h3><p><code>temperatura &gt; umbral</code> produce <code>True</code> o <code>False</code>. Solo cuando es verdadera aumenta el contador.</p></section>
+        <section class="cc2-card"><h3>El recorrido</h3><p>El <code>for</code> aplica la misma regla a cada temperatura y termina al agotar la secuencia.</p></section>
+        <section class="cc2-card"><h3>El estado</h3><p><code>dias_calidos</code> resume lo observado hasta ese momento y cambia durante el recorrido.</p></section>
+        <section class="cc2-card"><h3>La presentación</h3><p>El segundo condicional adapta el texto a cero, uno o varios registros.</p></section>
+      </div>
+      <p>Un <code>while</code> es preferible cuando no se sabe de antemano cuántas repeticiones harán falta, por ejemplo al solicitar una entrada hasta que cumpla una condición. Debe existir alguna operación que acerque el bucle a su final; de lo contrario puede no terminar.</p>
+      <div class="cc2-concept"><strong class="cc2-concept-tag">No elijas primero la palabra de Python</strong>Pregunta primero si el problema necesita escoger, recorrer o repetir hasta que ocurra algo. Después elige <code>if</code>, <code>for</code> o <code>while</code>. La estructura expresa la lógica; no es un adorno sintáctico.</div>
+
+      <h2 id="funciones">4. Funciones, parámetros, argumentos y valores de retorno</h2>
+      <p>Una <strong>función</strong> reúne instrucciones bajo un nombre y permite ejecutarlas cuando se necesiten. En la definición, los <strong>parámetros</strong> nombran los datos que recibirá; en una llamada, los <strong>argumentos</strong> son los valores concretos enviados. <code>return</code> termina la llamada y devuelve un resultado al punto desde el que se invocó.<sup><a href="#fuente_65">[65]</a></sup></p>
+      <pre tabindex="0" aria-label="Código Python desplazable horizontalmente"><code>def coste_viaje(distancia_km, consumo_100_km, precio_litro):
+    litros = distancia_km * consumo_100_km / 100
+    return litros * precio_litro
+
+coste = coste_viaje(250, 6.4, 1.62)
+print(f"Coste previsto: {coste:.2f} €")
+# Salida: Coste previsto: 25.92 €</code></pre>
+      <div class="tabla_responsiva" tabindex="0" aria-label="Tabla desplazable horizontalmente">
+        <table>
+          <caption>Definición y llamada de la función</caption>
+          <thead><tr><th scope="col">Concepto</th><th scope="col">En el fragmento</th><th scope="col">Significado</th></tr></thead>
+          <tbody>
+            <tr><td>Nombre</td><td><code>coste_viaje</code></td><td>Expresa la operación que realiza la función.</td></tr>
+            <tr><td>Parámetros</td><td><code>distancia_km</code>, <code>consumo_100_km</code>, <code>precio_litro</code></td><td>Nombres locales que recibirán datos en cada llamada.</td></tr>
+            <tr><td>Argumentos</td><td><code>250</code>, <code>6.4</code>, <code>1.62</code></td><td>Valores usados en esta llamada concreta.</td></tr>
+            <tr><td>Retorno</td><td><code>litros * precio_litro</code></td><td>Valor calculado que puede guardarse, comparar o presentar.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p><code>print</code> y <code>return</code> no son equivalentes. <code>print</code> muestra texto y devuelve <code>None</code>; <code>return</code> entrega un valor al resto del programa. Si la función solo imprimiera el coste, resultaría más difícil compararlo con un presupuesto, redondearlo para otro uso o comprobarlo mediante pruebas.</p>
+      <div class="cc2-think"><strong>Analogía:</strong> una función se parece a una máquina con una entrada y una salida. Los parámetros describen las conexiones disponibles; los argumentos son lo que se introduce en una ejecución; el valor de retorno es el producto que puede utilizar otra parte del programa.</div>
+
+      <h2 id="alcance">5. Alcance de las variables y separación entre cálculo, entrada y presentación</h2>
+      <p>El <strong>alcance</strong> indica la región del programa donde un nombre puede utilizarse directamente. Los parámetros y nombres asignados dentro de una función son normalmente <strong>locales</strong>: se crean para esa llamada. Los nombres definidos en el nivel principal del cuaderno son globales para las funciones allí definidas, aunque depender de ellos sin necesidad oculta las entradas reales de una función.<sup><a href="#fuente_66">[66]</a></sup></p>
+      <pre tabindex="0" aria-label="Código Python desplazable horizontalmente"><code>iva = 0.21
+
+def precio_final(precio_base, tipo_iva):
+    impuesto = precio_base * tipo_iva
+    return precio_base + impuesto
+
+resultado = precio_final(80, iva)
+print(f"Precio final: {resultado:.2f} €")
+# Salida: Precio final: 96.80 €
+# Fuera de la función, 'impuesto' no está definido.</code></pre>
+      <p>La función recibe <code>tipo_iva</code> de forma explícita. Así puede comprobarse con diferentes tipos y no depende secretamente de que exista una variable global llamada <code>iva</code>. <code>impuesto</code> es un detalle local del cálculo y deja de estar disponible cuando termina la llamada.</p>
+      <h3>Tres responsabilidades distintas</h3>
+      <div class="comparacion">
+        <div><h3>Entrada</h3><p>Obtiene datos mediante <code>input</code>, una celda o una fuente externa. Su responsabilidad es recogerlos y, cuando proceda, convertirlos.</p></div>
+        <div><h3>Cálculo</h3><p>Recibe valores, aplica reglas y retorna resultados. Evita preguntar o imprimir si esas acciones no forman parte del cálculo.</p></div>
+        <div><h3>Presentación</h3><p>Transforma resultados en mensajes comprensibles, con etiquetas, unidades y formato adecuado.</p></div>
+      </div>
+      <pre tabindex="0" aria-label="Código Python desplazable horizontalmente"><code>def calcular_media(nota_1, nota_2):
+    return (nota_1 + nota_2) / 2
+
+primera = float(input("Primera nota: "))
+segunda = float(input("Segunda nota: "))
+media = calcular_media(primera, segunda)
+print(f"Media: {media:.1f}")</code></pre>
+      <div class="aviso"><strong>Evita modificar globales desde una función</strong>Puede hacerse con <code>global</code>, pero en programas sencillos suele aumentar el acoplamiento y esconder cambios de estado. Recibir los datos como parámetros y devolver el resultado hace visible el recorrido de la información.</div>
+
+      <h2 id="reutilizacion">6. Biblioteca estándar, reutilización de funciones y docstrings básicos</h2>
+      <p>Python incorpora una <strong>biblioteca estándar</strong> con módulos preparados para tareas frecuentes. <code>import</code> permite reutilizarlos sin copiar su implementación. En este tema se usan módulos existentes dentro de un solo cuaderno; todavía no se crean módulos propios ni programas distribuidos en varios archivos.<sup><a href="#fuente_67">[67]</a></sup></p>
+      <pre tabindex="0" aria-label="Código Python desplazable horizontalmente"><code>import math
+
+
+def longitud_circunferencia(radio):
+    """Devuelve la longitud de una circunferencia dado su radio."""
+    return 2 * math.pi * radio
+
+longitud = longitud_circunferencia(3)
+print(f"Longitud: {longitud:.2f}")
+# Salida: Longitud: 18.85</code></pre>
+      <p><code>math.pi</code> reutiliza una constante del módulo <code>math</code>. Escribir el prefijo <code>math.</code> deja clara su procedencia. Otros módulos estándar apropiados para programas breves son <code>statistics</code> para cálculos estadísticos sencillos, <code>datetime</code> para fechas y horas y <code>random</code> para selecciones pseudoaleatorias. La documentación de <code>random</code> advierte que sus generadores no deben usarse con fines de seguridad.<sup><a href="#fuente_68">[68]</a></sup></p>
+      <div class="cc2-concept"><strong class="cc2-concept-tag">Reutilizar no es copiar y pegar</strong>Una llamada a una función —propia, incorporada o importada— expresa qué servicio se necesita. Copiar el mismo cálculo en varios lugares crea versiones que pueden separarse cuando haya que corregirlo.</div>
+      <h3>Documentación mínima de una función</h3>
+      <p>Un <strong>docstring</strong> es una cadena situada como primera instrucción del cuerpo de una función. Su primera línea debe resumir qué hace la función. En funciones sencillas puede bastar una frase; si los parámetros, el retorno o las condiciones no son evidentes, se añaden de forma breve.<sup><a href="#fuente_65">[65]</a></sup></p>
+      <pre tabindex="0" aria-label="Código Python desplazable horizontalmente"><code>def convertir_minutos(minutos):
+    """Convierte una duración entera en horas y minutos.
+
+    Devuelve una tupla (horas, minutos_restantes).
+    """
+    return divmod(minutos, 60)
+
+print(convertir_minutos(135))
+# Salida: (2, 15)</code></pre>
+      <p>El docstring explica el contrato; no repite línea por línea el código. Puede consultarse con <code>help(convertir_minutos)</code> o mediante <code>convertir_minutos.__doc__</code>. Los comentarios, en cambio, aclaran decisiones internas concretas cuando el código por sí solo no basta.</p>
+
+      <h2 id="planificacion">7. Planificación directa con ejemplos, casos de prueba y descomposición en tareas</h2>
+      <p>Planificar no exige traducir el programa a otro lenguaje. Puede hacerse directamente con una descripción breve del objetivo, ejemplos de entrada y salida, casos de prueba y una división en funciones. Esta representación conecta la intención con código Python ejecutable.</p>
+      <div class="question"><strong>Problema de referencia:</strong> dado un importe y un porcentaje de descuento, calcular el precio final. Si el descuento queda fuera del intervalo de 0 a 100, no se puede obtener un resultado válido.</div>
+      <div class="tabla_responsiva" tabindex="0" aria-label="Tabla desplazable horizontalmente">
+        <table>
+          <caption>Planificación mediante ejemplos y casos de prueba</caption>
+          <thead><tr><th scope="col">Caso</th><th scope="col">Entrada: importe, descuento</th><th scope="col">Salida esperada</th><th scope="col">Qué comprueba</th></tr></thead>
+          <tbody>
+            <tr><td>Normal</td><td><code>80</code>, <code>25</code></td><td><code>60.0</code></td><td>Aplica un descuento habitual.</td></tr>
+            <tr><td>Sin descuento</td><td><code>80</code>, <code>0</code></td><td><code>80.0</code></td><td>Comprueba el límite inferior.</td></tr>
+            <tr><td>Descuento total</td><td><code>80</code>, <code>100</code></td><td><code>0.0</code></td><td>Comprueba el límite superior.</td></tr>
+            <tr><td>No válido</td><td><code>80</code>, <code>120</code></td><td><code>None</code></td><td>Rechaza un porcentaje fuera del intervalo.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3>Descomposición antes del código</h3>
+      <ol>
+        <li><strong>Calcular:</strong> una función recibe importe y porcentaje, valida el intervalo y retorna el precio o <code>None</code>.</li>
+        <li><strong>Recoger:</strong> el nivel principal obtiene y convierte las dos entradas.</li>
+        <li><strong>Presentar:</strong> el nivel principal distingue entre resultado válido y dato rechazado.</li>
+        <li><strong>Comprobar:</strong> las llamadas de prueba comparan el resultado real con el esperado.</li>
+      </ol>
+      <pre tabindex="0" aria-label="Código Python desplazable horizontalmente"><code>def aplicar_descuento(importe, porcentaje):
+    """Devuelve el precio final o None si el porcentaje no es válido."""
+    if not 0 &lt;= porcentaje &lt;= 100:
+        return None
+    return importe * (1 - porcentaje / 100)
+
+assert aplicar_descuento(80, 25) == 60.0
+assert aplicar_descuento(80, 0) == 80.0
+assert aplicar_descuento(80, 100) == 0.0
+assert aplicar_descuento(80, 120) is None</code></pre>
+      <p>Las cuatro aserciones no producen salida cuando se cumplen; si una comparación es falsa, Python detiene esa ejecución con <code>AssertionError</code>. Aquí sirven para hacer visibles las expectativas durante el diseño. Las técnicas de prueba y el tratamiento sistemático de entradas no válidas se ampliarán en el Tema 17.</p>
+      <div class="cc2-think"><strong>Un caso de prueba es una afirmación concreta:</strong> «con estas entradas espero esta salida». No se limita a ejecutar y mirar; permite detectar si una modificación rompe un comportamiento que ya estaba decidido.</div>
+
+      <h2 id="incremental">8. Desarrollo incremental, nombres claros y funciones breves</h2>
+      <p>El <strong>desarrollo incremental</strong> construye una solución en pasos pequeños que se ejecutan y comprueban. No consiste en escribir todo el programa y depurarlo al final, sino en conservar una versión que funciona mientras se añade una sola decisión cada vez.</p>
+      <div class="cc2-timeline">
+        <div class="cc2-tl-item"><div class="cc2-tl-year">Incremento 1 — Un cálculo conocido</div><p>Escribir la expresión para un ejemplo concreto y confirmar a mano el resultado: <code>80 * (1 - 25 / 100)</code> produce <code>60.0</code>.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">Incremento 2 — Una función</div><p>Encapsular el cálculo en <code>aplicar_descuento(importe, porcentaje)</code> y repetir el caso conocido.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">Incremento 3 — Límites</div><p>Añadir la regla de 0 a 100 y comprobar casos normales, límites y un valor no válido.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">Incremento 4 — Interacción</div><p>Incorporar <code>input</code> y presentación solo después de comprobar el cálculo aislado.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">Incremento 5 — Revisión limpia</div><p>Reiniciar la sesión de Colab, ejecutar todas las celdas en orden y confirmar los resultados.</p></div>
+      </div>
+      <div class="tabla_responsiva" tabindex="0" aria-label="Tabla desplazable horizontalmente">
+        <table>
+          <caption>Señales de claridad en un programa pequeño</caption>
+          <thead><tr><th scope="col">Decisión</th><th scope="col">Menos claro</th><th scope="col">Más claro</th><th scope="col">Razón</th></tr></thead>
+          <tbody>
+            <tr><td>Nombre de dato</td><td><code>x</code></td><td><code>porcentaje_descuento</code></td><td>Permite entender qué representa y reduce confusiones.</td></tr>
+            <tr><td>Nombre de función</td><td><code>hacer</code></td><td><code>aplicar_descuento</code></td><td>Describe una acción concreta.</td></tr>
+            <tr><td>Responsabilidad</td><td>Una función pregunta, calcula e imprime.</td><td>Una función calcula y retorna.</td><td>Facilita reutilizar y comprobar el cálculo.</td></tr>
+            <tr><td>Duplicación</td><td>La misma fórmula en tres celdas.</td><td>Una función llamada tres veces.</td><td>La corrección se realiza en un solo lugar.</td></tr>
+            <tr><td>Longitud</td><td>Un bloque con varias tareas mezcladas.</td><td>Funciones breves con una finalidad reconocible.</td><td>Permite leer, probar y cambiar cada parte.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>«Breve» no significa un número obligatorio de líneas. Una función tiene una longitud adecuada cuando su finalidad se puede nombrar con precisión, sus entradas y salida son reconocibles y no mezcla responsabilidades sin relación. Dividir demasiado también perjudica: una función diminuta que solo oculta una operación evidente puede obligar a saltar continuamente por el cuaderno.</p>
+      <div class="cc2-concept"><strong class="cc2-concept-tag">Ciclo de trabajo</strong>Ejemplo conocido → fragmento mínimo → ejecución → comparación con lo esperado → siguiente incremento → ejecución completa desde una sesión limpia. Cada paso reduce la distancia entre el fallo y la causa que lo introdujo.</div>
+
+      <h2 id="glosario">Glosario del tema</h2>
+      <dl class="cc2-glosario">
+        <dt>Cuaderno</dt><dd>Documento que combina celdas de texto, código y resultados.</dd>
+        <dt>Entorno de ejecución</dt><dd>Sistema que ejecuta el código y mantiene temporalmente el estado de la sesión.</dd>
+        <dt>Estado</dt><dd>Conjunto de valores, definiciones y recursos disponibles en un momento de la ejecución.</dd>
+        <dt>Variable</dt><dd>Nombre vinculado a un valor durante la ejecución de un programa.</dd>
+        <dt>Tipo</dt><dd>Categoría de un valor que determina sus operaciones y comportamiento.</dd>
+        <dt>Condición</dt><dd>Expresión cuyo resultado se interpreta como verdadero o falso.</dd>
+        <dt>Iteración</dt><dd>Cada repetición de las instrucciones de un bucle.</dd>
+        <dt>Función</dt><dd>Bloque de código con nombre que puede recibir datos y devolver un resultado.</dd>
+        <dt>Parámetro</dt><dd>Nombre declarado por una función para recibir un dato.</dd>
+        <dt>Argumento</dt><dd>Valor concreto proporcionado en una llamada a una función.</dd>
+        <dt>Valor de retorno</dt><dd>Resultado que una función entrega mediante <code>return</code>.</dd>
+        <dt>Alcance</dt><dd>Región del programa desde la que un nombre es accesible directamente.</dd>
+        <dt>Biblioteca estándar</dt><dd>Conjunto de módulos distribuidos con Python para resolver tareas comunes.</dd>
+        <dt>Docstring</dt><dd>Cadena inicial de una función, clase o módulo que documenta su finalidad.</dd>
+        <dt>Caso de prueba</dt><dd>Entradas concretas asociadas a un resultado o comportamiento esperado.</dd>
+        <dt>Desarrollo incremental</dt><dd>Construcción y comprobación de un programa mediante cambios pequeños sucesivos.</dd>
+      </dl>
+
+      <section class="summary">
+        <h2 id="resumen">Resumen esencial</h2>
+        <ol>
+          <li>Google Colab combina un cuaderno guardable con una sesión temporal que mantiene el estado de ejecución.</li>
+          <li>Ejecutar celdas fuera de orden puede dejar un estado engañoso; reiniciar y ejecutar todo comprueba la reproducibilidad.</li>
+          <li>Variables, tipos, operadores, entrada y salida adquieren sentido dentro de un programa con datos y unidades claros.</li>
+          <li>Los condicionales seleccionan rutas; los bucles recorren o repiten; ambos expresan necesidades del problema.</li>
+          <li>Los parámetros describen entradas de una función, los argumentos aportan valores y <code>return</code> entrega el resultado.</li>
+          <li>Las variables locales aíslan detalles; separar entrada, cálculo y presentación reduce dependencias.</li>
+          <li>La biblioteca estándar reutiliza soluciones existentes; un docstring básico explica el contrato de una función.</li>
+          <li>Ejemplos, entradas, salidas, casos de prueba y funciones permiten planificar directamente sin pseudocódigo.</li>
+          <li>El desarrollo incremental añade una decisión cada vez y vuelve a ejecutar las comprobaciones.</li>
+          <li>Nombres claros y funciones breves hacen visible la intención, pero dividir sin propósito también dificulta la lectura.</li>
+        </ol>
+      </section>
+
+      <section aria-labelledby="fuentes">
+        <h2 id="fuentes">Fuentes y recursos fiables</h2>
+        <ul>
+          <li id="fuente_61">[61] <a href="https://www.bocm.es/boletin/CM_Orden_BOCM/2023/05/31/BOCM-20230531-18.PDF">Comunidad de Madrid — Orden 1736/2023, de 19 de mayo, Anexo IV (PDF)</a>.</li>
+          <li id="fuente_62">[62] <a href="https://colab.research.google.com/notebooks/intro.ipynb">Google Colab — Introducción a Colab</a>.</li>
+          <li id="fuente_63">[63] <a href="https://research.google.com/colaboratory/faq.html" lang="en">Google Colab — Preguntas frecuentes</a> (en inglés).</li>
+          <li id="fuente_64">[64] <a href="https://docs.python.org/3/library/functions.html" lang="en">Documentación de Python — Funciones incorporadas</a> (en inglés).</li>
+          <li id="fuente_65">[65] <a href="https://docs.python.org/3/tutorial/controlflow.html" lang="en">Tutorial de Python — Herramientas de control de flujo</a> (en inglés).</li>
+          <li id="fuente_66">[66] <a href="https://docs.python.org/3/tutorial/classes.html#python-scopes-and-namespaces" lang="en">Tutorial de Python — Alcances y espacios de nombres</a> (en inglés).</li>
+          <li id="fuente_67">[67] <a href="https://docs.python.org/3/tutorial/modules.html#standard-modules" lang="en">Tutorial de Python — Módulos estándar</a> (en inglés).</li>
+          <li id="fuente_68">[68] <a href="https://docs.python.org/3/library/random.html" lang="en">Documentación de Python — Módulo random</a> (en inglés).</li>
+        </ul>
+      </section>
+    </article>
+  </div>
+</main>
+<nav class="topic-footer" aria-label="Navegación entre temas">
+  <a href="tema13.html">← Tema 13</a>
+  <a href="tema15.html">Tema 15 →</a>
+</nav>
+<footer class="site-footer">Ciencias de la Computación II · 2.º de Bachillerato · Comunidad de Madrid</footer>
+</body>
+</html>

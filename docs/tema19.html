@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Tema 19 de Ciencias de la Computación II: ampliación voluntaria sobre cómo orientar un proyecto personal de programación viable, incremental, probado, documentado y explicado.">
+  <title>Tema 19. Proyecto personal de programación · CC2</title>
+  <link rel="stylesheet" href="assets/estilos.css">
+  <script src="assets/navegacion.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#contenido">Saltar al contenido</a>
+<div class="progress" aria-hidden="true"><span></span></div>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="index.html"><span class="brand-mark">CC2</span><span>Ciencias de la Computación II<small>2.º de Bachillerato · 2026–2027</small></span></a>
+    <nav class="top-nav" aria-label="Navegación principal"><a href="index.html">Índice</a></nav>
+  </div>
+</header>
+<main id="contenido">
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <p class="kicker">Tema 19 · Bloque D · Programación · Ampliación voluntaria</p>
+        <h1>Proyecto personal de programación</h1>
+        <p class="hero-lead">Una orientación metodológica para quien quiera integrar o ampliar lo aprendido mediante una idea propia. Es una ampliación voluntaria para alumnado especialmente interesado: no contiene saberes curriculares imprescindibles ni condiciona la superación del bloque.</p>
+      </div>
+      <aside class="hero-note" aria-label="Pregunta guía del tema 19">
+        <strong>Pregunta guía</strong>
+        <p>¿Cómo se transforma una idea que interesa en un programa pequeño, comprensible y fiable que su autor puede demostrar y explicar con sus propias decisiones?</p>
+      </aside>
+    </div>
+  </section>
+
+  <div class="layout">
+    <nav class="toc" aria-label="Índice del tema">
+      <strong>En este tema</strong>
+      <ol>
+        <li><a href="#eleccion">Elegir un problema viable</a></li>
+        <li><a href="#definicion">Objetivos, entradas, salidas y MVP</a></li>
+        <li><a href="#planificacion">Ejemplos, casos de uso y tareas</a></li>
+        <li><a href="#seleccion">Seleccionar recursos de Python</a></li>
+        <li><a href="#incrementos">Incrementos y versiones</a></li>
+        <li><a href="#calidad">Errores, pruebas y depuración</a></li>
+        <li><a href="#documentacion">Decisiones e incidencias</a></li>
+        <li><a href="#demostracion">Demostrar y explicar</a></li>
+        <li><a href="#glosario">Glosario</a></li>
+        <li><a href="#resumen">Resumen</a></li>
+        <li><a href="#fuentes">Fuentes</a></li>
+      </ol>
+    </nav>
+
+    <article class="paper">
+      <p class="lesson-intro">Este tema reúne una forma de pensar el desarrollo de un proyecto personal: delimitar una necesidad, describir un resultado mínimo, construirlo por incrementos, comprobarlo y conservar las razones de las decisiones. Es una <strong>ampliación voluntaria</strong>, no una práctica obligatoria ni un instrumento de evaluación. Los contenidos y criterios oficiales del Bloque D ya quedan cubiertos en los temas 14 a 18; por tanto, no realizar un proyecto personal no impide superar el bloque.<sup><a href="#fuente_111">[111]</a></sup></p>
+      <div class="question"><strong>Idea central:</strong> un proyecto valioso no es necesariamente grande. Su calidad se reconoce en la relación entre propósito, alcance, decisiones, pruebas y explicación, no en la cantidad de pantallas, opciones o líneas de código.</div>
+      <div class="objectives">
+        <strong>Orientación voluntaria: al terminar podrás…</strong>
+        <ul>
+          <li>valorar si una idea personal es concreta, útil y realizable con los recursos disponibles;</li>
+          <li>distinguir propósito, objetivos, entradas, salidas y versión mínima funcional;</li>
+          <li>representar una planificación con ejemplos, casos de uso y tareas, sin pseudocódigo;</li>
+          <li>razonar cuándo convienen funciones, colecciones, ficheros u objetos;</li>
+          <li>comprender el desarrollo incremental y la conservación de copias o estados anteriores;</li>
+          <li>integrar prevención de errores, pruebas y depuración en el proceso;</li>
+          <li>documentar decisiones e incidencias para entender la evolución del programa;</li>
+          <li>preparar una demostración breve y una explicación personal del resultado.</li>
+        </ul>
+        <p><strong>Ninguno de estos objetivos añade una exigencia para superar el Bloque D:</strong> sirven exclusivamente de guía a quien, por especial interés en programación, decida profundizar de manera voluntaria.</p>
+      </div>
+
+      <h2 id="eleccion">1. Elegir un problema concreto y viable</h2>
+      <p>Una idea de proyecto empieza a ser programable cuando expresa <strong>qué situación quiere mejorar</strong>, <strong>para quién</strong> y <strong>qué resultado observable</strong> produciría. «Hacer una aplicación de música» es un territorio demasiado amplio; «organizar una colección personal de canciones y obtener listas filtradas por intérprete o duración» describe ya datos, acciones y una utilidad reconocible.</p>
+      <p>El interés personal importa porque sostiene la curiosidad cuando aparecen dificultades, pero no basta. La viabilidad depende del tiempo, los conocimientos, el entorno, los datos y los dispositivos disponibles. Colab ofrece un cuaderno alojado que se ejecuta desde el navegador y facilita empezar sin una instalación local, aunque sus sesiones de cálculo y sus archivos temporales no deben confundirse con almacenamiento permanente.<sup><a href="#fuente_112">[112]</a></sup></p>
+      <div class="tabla_responsiva" tabindex="0" aria-label="Tabla desplazable horizontalmente">
+        <table>
+          <caption>De un campo amplio a una idea viable</caption>
+          <thead><tr><th scope="col">Campo de interés</th><th scope="col">Idea todavía difusa</th><th scope="col">Núcleo concreto</th><th scope="col">Límite que la hace viable</th></tr></thead>
+          <tbody>
+            <tr><td>Lectura</td><td>Una aplicación de libros</td><td>Registrar lecturas y consultar páginas leídas por mes</td><td>Entrada textual y datos locales; sin cuentas ni catálogo externo</td></tr>
+            <tr><td>Deporte</td><td>Un entrenador inteligente</td><td>Guardar sesiones y resumir duración por actividad</td><td>Sin sensores, predicciones ni conexión a relojes</td></tr>
+            <tr><td>Juegos</td><td>Un videojuego completo</td><td>Una aventura textual con inventario y tres situaciones</td><td>Sin gráficos, red ni mundo abierto</td></tr>
+            <tr><td>Organización</td><td>Una agenda para todo</td><td>Gestionar tareas con estado y fecha</td><td>Una sola persona y fichero local; sin avisos móviles</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Reducir alcance no empobrece necesariamente la idea: permite que su mecanismo principal llegue a funcionar. Una ampliación posterior solo tiene sentido cuando ese núcleo está entendido y comprobado.</p>
+      <div class="cc2-concept"><strong class="cc2-concept-tag">Analogía de la excursión</strong>Elegir proyecto se parece a elegir una ruta: el paisaje puede atraer, pero también cuentan las horas de luz, la experiencia y el material disponible. Acortar el recorrido antes de salir es planificación; tener que abandonar a mitad por ignorar esos límites es un problema de alcance.</div>
+      <div class="aviso"><strong>Dependencias ocultas</strong>Una idea puede parecer sencilla y depender en realidad de cuentas, claves de servicios, conexión constante, datos difíciles de obtener o bibliotecas desconocidas. Reconocer esas dependencias al principio ayuda a sustituirlas por datos de ejemplo o por una versión local más controlable.</div>
+
+      <h2 id="definicion">2. Definir objetivos, entradas, salidas y versión mínima funcional</h2>
+      <p>La definición inicial convierte el propósito en un comportamiento que puede observarse. El <strong>propósito</strong> explica por qué interesa el proyecto; los <strong>objetivos</strong> describen capacidades concretas; las <strong>entradas</strong> son los datos que recibe; las <strong>salidas</strong>, la información o los cambios que produce.</p>
+      <div class="cc2-grid">
+        <section class="cc2-card"><h3>Propósito</h3><p>Da sentido al conjunto. Por ejemplo: comprender mejor cómo se distribuye el tiempo dedicado a varias actividades.</p></section>
+        <section class="cc2-card"><h3>Objetivos</h3><p>Traducen el propósito en capacidades: registrar una sesión, corregirla, agrupar duraciones y mostrar un resumen.</p></section>
+        <section class="cc2-card"><h3>Entradas</h3><p>Identifican lo que el programa necesita: actividad, fecha y minutos, junto con las reglas que hacen válidos esos datos.</p></section>
+        <section class="cc2-card"><h3>Salidas</h3><p>Concretan qué se podrá observar: confirmación del registro, lista ordenada y totales por actividad.</p></section>
+      </div>
+      <p>La <strong>versión mínima funcional</strong> o <strong>MVP</strong> es la forma más pequeña del programa que recorre de principio a fin su utilidad principal. «Mínima» no significa simulada, descuidada ni incompleta: significa que prescinde de mejoras secundarias mientras conserva un flujo útil y comprobable.</p>
+      <div class="tabla_responsiva" tabindex="0" aria-label="Tabla desplazable horizontalmente">
+        <table>
+          <caption>Ejemplo conceptual: registro personal de actividades</caption>
+          <thead><tr><th scope="col">Nivel</th><th scope="col">Qué incluye</th><th scope="col">Qué se deja para después</th></tr></thead>
+          <tbody>
+            <tr><td><strong>MVP</strong></td><td>Añadir registros válidos, guardarlos y mostrar un total por actividad</td><td>Gráficas, usuarios, sincronización y recomendaciones</td></tr>
+            <tr><td><strong>Mejora cercana</strong></td><td>Editar y eliminar registros; filtrar por fechas</td><td>Interfaz gráfica y conexión con servicios externos</td></tr>
+            <tr><td><strong>Ampliación posible</strong></td><td>Representar resúmenes visuales o importar un formato conocido</td><td>Cualquier función que no apoye el propósito original</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Una buena definición también señala lo que queda <strong>fuera de alcance</strong>. Esta frontera evita que cada idea nueva parezca imprescindible y permite distinguir un cambio de objetivo de una mejora compatible.</p>
+      <div class="cc2-think"><strong>Una frase que orienta:</strong> «El programa recibe…, permite… y produce…; la primera versión no incluye…». Si esa frase es concreta, resulta más fácil imaginar ejemplos, tareas y pruebas.</div>
+
+      <h2 id="planificacion">3. Planificar mediante ejemplos, casos de uso y tareas, sin pseudocódigo</h2>
+      <p>Planificar no exige escribir un algoritmo en un lenguaje intermedio. En este enfoque, el comportamiento se aclara mediante <strong>ejemplos de entrada y salida</strong>, <strong>casos de uso</strong> y <strong>tareas pequeñas</strong>. Las funciones de Python permiten después convertir responsabilidades delimitadas en piezas con parámetros y valores de retorno.<sup><a href="#fuente_113">[113]</a></sup></p>
+      <h3>Ejemplos antes que generalidades</h3>
+      <p>Un ejemplo obliga a precisar palabras ambiguas. Si el programa «ordena actividades», conviene indicar si las ordena por nombre, fecha o duración; si «guarda datos», hay que saber cuáles, con qué campos y qué ocurre cuando falta alguno.</p>
+      <div class="tabla_responsiva" tabindex="0" aria-label="Tabla desplazable horizontalmente">
+        <table>
+          <caption>Ejemplos que revelan decisiones en un organizador de lecturas</caption>
+          <thead><tr><th scope="col">Situación</th><th scope="col">Entrada representativa</th><th scope="col">Resultado esperado</th><th scope="col">Decisión revelada</th></tr></thead>
+          <tbody>
+            <tr><td>Registro normal</td><td>Título, 25 páginas y fecha válida</td><td>La sesión queda incorporada al historial</td><td>Los tres datos forman el registro mínimo</td></tr>
+            <tr><td>Límite</td><td>0 páginas</td><td>No aumenta el total; se informa con claridad</td><td>Se define si cero es válido o no</td></tr>
+            <tr><td>Entrada no válida</td><td>«muchas» como número de páginas</td><td>Se rechaza sin perder registros anteriores</td><td>La conversión y la validación son responsabilidades distintas</td></tr>
+            <tr><td>Consulta vacía</td><td>Mes sin sesiones</td><td>Se muestra un total de cero y no se produce un fallo</td><td>La ausencia de datos es un caso previsto</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3>Casos de uso y tareas</h3>
+      <p>Un <strong>caso de uso</strong> cuenta una interacción desde la intención de una persona hasta un resultado: «consulta el resumen de un mes y reconoce qué actividad acumuló más tiempo». No describe botones ni código; describe una capacidad completa. Cada caso puede dividirse después en tareas suficientemente pequeñas para comprobarlas por separado.</p>
+      <div class="cc2-timeline">
+        <div class="cc2-tl-item"><div class="cc2-tl-year">Caso de uso — consultar un resumen</div><p>Existe un conjunto de registros; la persona elige un intervalo y obtiene totales comprensibles.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">Tarea 1 — representar un registro</div><p>Decidir campos, tipos y reglas de validez con varios ejemplos.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">Tarea 2 — seleccionar registros</div><p>Separar los que pertenecen al intervalo sin alterar los originales.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">Tarea 3 — agregar resultados</div><p>Acumular duraciones por actividad y ordenar el resumen con un criterio explícito.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">Tarea 4 — presentar la salida</div><p>Convertir el resultado en texto claro, incluyendo el caso en el que no hay datos.</p></div>
+      </div>
+      <div class="cc2-note"><strong>El plan es un mapa, no una promesa rígida.</strong> Si un ejemplo descubre una decisión incorrecta, cambiar el plan es una mejora. Lo importante es mantener alineados propósito, casos, tareas y resultado actual.</div>
+
+      <h2 id="seleccion">4. Seleccionar funciones, colecciones, ficheros u objetos</h2>
+      <p>Las herramientas se eligen por el problema que resuelven, no para demostrar que se conocen. Python ofrece listas, tuplas, diccionarios y conjuntos con propiedades diferentes; escoger entre ellos depende de si importan el orden, la modificación, las claves o la ausencia de duplicados.<sup><a href="#fuente_114">[114]</a></sup> Del mismo modo, una función, un fichero o una clase debe aportar una responsabilidad reconocible.</p>
+      <div class="tabla_responsiva" tabindex="0" aria-label="Tabla desplazable horizontalmente">
+        <table>
+          <caption>Criterios de selección para un proyecto pequeño</caption>
+          <thead><tr><th scope="col">Recurso</th><th scope="col">Conviene cuando…</th><th scope="col">Ejemplo conceptual</th><th scope="col">Señal de uso innecesario</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Función</strong></td><td>una transformación o acción tiene nombre, entradas y resultado claros</td><td>validar un registro o calcular un resumen</td><td>la pieza solo oculta una línea sin aportar significado</td></tr>
+            <tr><td><strong>Lista</strong></td><td>hay una secuencia de elementos y puede importar su orden</td><td>historial de sesiones</td><td>se busca cada elemento por una clave única una y otra vez</td></tr>
+            <tr><td><strong>Tupla</strong></td><td>un grupo pequeño de valores se trata como unidad y no debe cambiar</td><td>un intervalo con fecha inicial y final</td><td>sus posiciones dejan de ser comprensibles o necesitan modificación frecuente</td></tr>
+            <tr><td><strong>Diccionario</strong></td><td>los datos se identifican por claves o se acumulan valores por categoría</td><td>totales asociados a cada actividad</td><td>todas las claves son números consecutivos y solo se recorre en orden</td></tr>
+            <tr><td><strong>Conjunto</strong></td><td>interesan pertenencia y elementos únicos, no repeticiones</td><td>etiquetas distintas presentes en los registros</td><td>hay que conservar duplicados o una posición concreta</td></tr>
+            <tr><td><strong>Fichero</strong></td><td>los datos deben sobrevivir al final de una ejecución o intercambiarse</td><td>registros en texto, CSV o JSON</td><td>solo se necesitan durante un cálculo breve y reproducible</td></tr>
+            <tr><td><strong>Clase y objetos</strong></td><td>varias entidades mantienen estado propio y comparten comportamiento o reglas</td><td>varios libros con progreso y operaciones coherentes</td><td>un diccionario y funciones expresan el modelo con mayor sencillez</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Los ficheros introducen decisiones sobre formato, codificación, ruta y posibles fallos de lectura o escritura. La documentación de Python distingue la apertura mediante gestores de contexto y formatos como JSON, que conservan estructuras básicas de datos de forma intercambiable.<sup><a href="#fuente_115">[115]</a></sup> Las clases, por su parte, crean objetos con estado y comportamiento asociados, pero no son una obligación: resultan útiles cuando hacen el modelo más claro que una combinación de colecciones y funciones.<sup><a href="#fuente_116">[116]</a></sup></p>
+      <div class="comparacion">
+        <div><h3>Modelo sencillo con datos y funciones</h3><p>Suele bastar cuando el programa transforma colecciones, calcula resultados y apenas necesita conservar reglas propias para cada entidad.</p></div>
+        <div><h3>Modelo con objetos</h3><p>Puede aclarar el diseño cuando existen varias entidades independientes, cada una con atributos y operaciones que deben mantener un estado coherente.</p></div>
+      </div>
+      <div class="cc2-concept"><strong class="cc2-concept-tag">Analogía de la caja de herramientas</strong>Un destornillador más complejo no mejora una tarea que necesita una llave. En programación, añadir clases, ficheros o bibliotecas sin una necesidad concreta aumenta piezas que comprender y comprobar.</div>
+
+      <h2 id="incrementos">5. Desarrollo incremental y conservación de versiones</h2>
+      <p>El desarrollo incremental construye el programa en estados pequeños que vuelven a funcionar con frecuencia. Cada incremento añade una capacidad limitada, la conecta con lo anterior y comprueba que no rompe el comportamiento ya conseguido. Así, cuando aparece un fallo, el conjunto de cambios sospechosos es menor.</p>
+      <div class="cc2-timeline">
+        <div class="cc2-tl-item"><div class="cc2-tl-year">Estado 1 — ejemplo fijo</div><p>El programa representa unos pocos datos conocidos y produce manualmente una salida comprensible.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">Estado 2 — cálculo principal</div><p>Una función transforma esos datos y se contrasta con resultados esperados.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">Estado 3 — entrada y validación</div><p>Se aceptan nuevos datos sin comprometer lo que ya funcionaba.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">Estado 4 — persistencia</div><p>Se guardan y recuperan datos, incluidos los casos de fichero ausente o contenido no válido.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">Estado 5 — presentación y mejoras</div><p>Se aclara la interacción y solo después se consideran capacidades secundarias.</p></div>
+      </div>
+      <p><strong>Conservar versiones</strong> significa poder regresar a un estado anterior conocido. En un proyecto de esta escala puede resolverse con copias del cuaderno o del archivo, nombres fechados y descriptivos, descargas periódicas del <code>.ipynb</code> y el historial de versiones disponible en el entorno. Los cuadernos de Colab pueden almacenarse en Drive; Drive permite consultar actividad y versiones anteriores de los archivos.<sup><a href="#fuente_112">[112]</a></sup><sup><a href="#fuente_120">[120]</a></sup></p>
+      <div class="tabla_responsiva" tabindex="0" aria-label="Tabla desplazable horizontalmente">
+        <table>
+          <caption>Una conservación comprensible de estados</caption>
+          <thead><tr><th scope="col">Nombre informativo</th><th scope="col">Estado que identifica</th><th scope="col">Comprobación asociada</th></tr></thead>
+          <tbody>
+            <tr><td><code>lecturas_01_registros.ipynb</code></td><td>representación y listado inicial</td><td>tres registros conocidos se muestran completos</td></tr>
+            <tr><td><code>lecturas_02_resumen.ipynb</code></td><td>cálculo de totales</td><td>los ejemplos normales y el conjunto vacío producen lo esperado</td></tr>
+            <tr><td><code>lecturas_03_fichero.ipynb</code></td><td>guardado y recuperación</td><td>reiniciar el entorno, volver a ejecutar y recuperar los datos desde Drive u otro destino persistente</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Una copia útil debe corresponder a un estado que se ejecutó y se comprendió. Acumular archivos llamados «final», «final2» o «último» sin anotar qué cambia no crea un historial aprovechable. Tampoco conviene sobrescribir la única versión estable mientras se explora una modificación arriesgada.</p>
+      <div class="aviso"><strong>El estado de una sesión no es una versión</strong>En un cuaderno, variables y archivos de <code>/content</code> pueden permanecer temporalmente durante la sesión aunque las celdas ya no reflejen cómo se obtuvieron. Reiniciar y ejecutar en orden ayuda a verificar que el cuaderno conservado es reproducible; para probar persistencia hay que recuperar los datos desde Drive, una descarga u otro almacenamiento que sobreviva al cierre del entorno.</div>
+
+      <h2 id="calidad">6. Gestión de errores, pruebas y depuración</h2>
+      <p>Un programa fiable no es el que nunca encuentra situaciones problemáticas, sino el que distingue las previstas de los defectos y responde de manera comprensible. Python diferencia errores de sintaxis y excepciones durante la ejecución; tratar una excepción exige identificar cuál se espera y en qué punto puede resolverse, en lugar de ocultar cualquier fallo indiscriminadamente.<sup><a href="#fuente_117">[117]</a></sup></p>
+      <div class="comparacion">
+        <div><h3>Prevenir y gestionar</h3><p>Validar una fecha, comprobar que una cantidad no sea negativa o informar de que falta un fichero son respuestas diseñadas para situaciones previsibles.</p></div>
+        <div><h3>Probar y depurar</h3><p>Una prueba compara un resultado con una expectativa. Si no coinciden, la depuración reproduce el fallo, observa el estado y localiza su causa.</p></div>
+      </div>
+      <div class="tabla_responsiva" tabindex="0" aria-label="Tabla desplazable horizontalmente">
+        <table>
+          <caption>Familias de casos que aportan información diferente</caption>
+          <thead><tr><th scope="col">Familia</th><th scope="col">Ejemplo</th><th scope="col">Qué permite comprobar</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Normal</strong></td><td>varios registros válidos con categorías repetidas</td><td>que el recorrido principal calcula y presenta lo esperado</td></tr>
+            <tr><td><strong>Límite</strong></td><td>colección vacía, un único elemento o valor cero</td><td>que los extremos definidos no crean divisiones, índices o resultados ambiguos</td></tr>
+            <tr><td><strong>No válido</strong></td><td>texto donde se espera un número o fecha imposible</td><td>que se rechaza la entrada sin corromper los datos anteriores</td></tr>
+            <tr><td><strong>Persistencia</strong></td><td>fichero ausente, vacío o con un registro incompleto</td><td>que la carga y la recuperación tienen respuestas previstas</td></tr>
+            <tr><td><strong>Regresión</strong></td><td>casos que ya funcionaban antes de una mejora</td><td>que el cambio nuevo no rompe capacidades existentes</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Las aserciones y las pruebas unitarias formalizan la relación entre una entrada y un resultado esperado; la biblioteca <code>unittest</code> organiza casos, preparación y comprobaciones repetibles.<sup><a href="#fuente_118">[118]</a></sup> No todas las comprobaciones necesitan automatizarse en un proyecto pequeño: una interacción o una presentación también puede revisarse manualmente, pero sus condiciones y resultados deberían estar definidos.</p>
+      <h3>Depurar es investigar, no cambiar al azar</h3>
+      <p>La depuración comienza con un ejemplo que reproduce el fallo. Después se reduce el recorrido, se localiza el primer punto en el que el estado se aparta de lo esperado y se propone una causa. Un depurador permite detener la ejecución, avanzar paso a paso e inspeccionar variables; la documentación de <code>pdb</code> describe precisamente ese control interactivo del programa.<sup><a href="#fuente_119">[119]</a></sup></p>
+      <div class="cc2-timeline">
+        <div class="cc2-tl-item"><div class="cc2-tl-year">1 — Reproducir</div><p>Conservar la entrada mínima que provoca el comportamiento inesperado.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">2 — Localizar</div><p>Comparar valores esperados y reales en puntos relevantes, no en todo el programa a la vez.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">3 — Explicar una causa</div><p>Relacionar el primer valor incorrecto con una regla, condición o transformación concreta.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">4 — Corregir lo mínimo</div><p>Cambiar la causa identificada y evitar reformas simultáneas que oculten qué funcionó.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">5 — Volver a probar</div><p>Repetir el caso del fallo y los casos anteriores para comprobar la corrección y evitar regresiones.</p></div>
+      </div>
+      <div class="cc2-concept"><strong class="cc2-concept-tag">Analogía del diagnóstico médico</strong>Un síntoma señala que algo no va bien, pero no identifica por sí solo la causa. Probar cambios aleatorios puede ocultarlo temporalmente; reunir evidencias y aislar variables permite explicar por qué la corrección funciona.</div>
+
+      <h2 id="documentacion">7. Documentar decisiones e incidencias relevantes</h2>
+      <p>La documentación de un proyecto no consiste en repetir cada línea del programa. Su función es conservar el contexto que el código por sí solo no muestra: qué problema se decidió resolver, qué alternativas se descartaron, qué significan los datos, qué límites se aceptaron y qué incidentes cambiaron el diseño.</p>
+      <div class="tabla_responsiva" tabindex="0" aria-label="Tabla desplazable horizontalmente">
+        <table>
+          <caption>Dos registros complementarios y breves</caption>
+          <thead><tr><th scope="col">Registro</th><th scope="col">Contenido útil</th><th scope="col">Ejemplo</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Decisión</strong></td><td>fecha, necesidad, alternativas, elección y consecuencia</td><td>Se usa JSON porque los registros tienen campos y deben recuperarse con sus tipos básicos; se descarta CSV por las etiquetas múltiples.</td></tr>
+            <tr><td><strong>Incidencia</strong></td><td>síntoma, ejemplo que lo reproduce, causa, cambio y prueba posterior</td><td>Un fichero vacío causaba un error al cargar; se distinguió de un fichero inexistente y se comprobaron ambos casos.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Las decisiones importantes suelen aparecer en fronteras: elección de colección, estructura del fichero, definición de dato válido, responsabilidad de una función o criterio para recortar alcance. Los incidentes más informativos son los que revelan una suposición falsa. Registrarlos evita repetir la misma investigación y permite explicar la evolución.</p>
+      <div class="cc2-grid">
+        <section class="cc2-card"><h3>Documento de orientación</h3><p>Resume propósito, alcance, entradas, salidas, estructura de datos, forma de ejecución y límites conocidos.</p></section>
+        <section class="cc2-card"><h3>Texto junto al código</h3><p>Nombres claros y docstrings describen responsabilidades, parámetros, retornos y condiciones que no resultan evidentes.</p></section>
+        <section class="cc2-card"><h3>Historial de cambios</h3><p>Relaciona cada copia significativa con la capacidad añadida y las pruebas que seguían funcionando.</p></section>
+        <section class="cc2-card"><h3>Bitácora de incidencias</h3><p>Conserva evidencias de los fallos relevantes y de cómo se comprobó su resolución.</p></section>
+      </div>
+      <div class="cc2-note"><strong>Documentar para una lectura futura.</strong> La medida útil es sencilla: después de varias semanas, la propia persona autora debería poder reconstruir qué hace el proyecto, cómo ejecutarlo y por qué tomó sus decisiones principales.</div>
+      <div class="aviso"><strong>No confundir explicación con decoración</strong>Un documento extenso que no coincide con el estado real desorienta más que una nota breve y actualizada. Cuando cambia una entrada, un formato o un límite, también debe cambiar la explicación correspondiente.</div>
+
+      <h2 id="demostracion">8. Demostración y explicación personal del resultado</h2>
+      <p>Demostrar un programa es construir una evidencia comprensible de su propósito y de su comportamiento. No consiste en recorrer todas las celdas ni leer el código de principio a fin. Una demostración clara selecciona pocos casos que enseñan el flujo principal, un límite significativo y la respuesta ante una entrada no válida.</p>
+      <div class="cc2-timeline">
+        <div class="cc2-tl-item"><div class="cc2-tl-year">Contexto — qué problema</div><p>Se presenta en una frase la necesidad, la persona destinataria y el límite elegido.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">Recorrido — qué ocurre</div><p>Se parte de datos preparados, se ejecuta el flujo principal y se conecta cada salida con el objetivo correspondiente.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">Contraste — cómo responde</div><p>Se muestra un caso límite o no válido y se explica por qué la respuesta es deliberada.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">Arquitectura — cómo se organiza</div><p>Se señalan las funciones, colecciones, ficheros u objetos decisivos y la razón de su elección.</p></div>
+        <div class="cc2-tl-item"><div class="cc2-tl-year">Evolución — qué se aprendió</div><p>Se describe una incidencia real, la evidencia que permitió localizarla y una mejora futura compatible con el alcance.</p></div>
+      </div>
+      <p>La explicación personal muestra comprensión cuando conecta una decisión con una consecuencia: «separé validación y cálculo para probarlos con entradas distintas» informa más que «usé varias funciones». También reconoce límites: una parte no terminada o una condición no contemplada se explica con precisión, sin atribuirle capacidades que el programa no tiene.</p>
+      <div class="tabla_responsiva" tabindex="0" aria-label="Tabla desplazable horizontalmente">
+        <table>
+          <caption>Diferencia entre enseñar una pantalla y explicar un proyecto</caption>
+          <thead><tr><th scope="col">Demostración débil</th><th scope="col">Demostración informativa</th></tr></thead>
+          <tbody>
+            <tr><td>Ejecuta solo el ejemplo que ya estaba cargado.</td><td>Usa datos preparados y muestra también un caso diferente que confirma la generalidad prevista.</td></tr>
+            <tr><td>Enumera herramientas sin relacionarlas con el problema.</td><td>Justifica una colección, función, fichero u objeto por la necesidad que resuelve.</td></tr>
+            <tr><td>Oculta un fallo o cambia de tema cuando aparece.</td><td>Distingue si es un error de uso, un límite conocido o un defecto pendiente.</td></tr>
+            <tr><td>Afirma que «todo funciona».</td><td>Indica qué casos se comprobaron, qué resultado se esperaba y qué queda fuera del alcance.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="cc2-think"><strong>Autoría comprensible:</strong> poder explicar por qué existe cada parte principal es más importante que usar técnicas llamativas. Si una pieza incorporada no puede explicarse, todavía no está integrada intelectualmente en el proyecto.</div>
+      <div class="cc2-concept"><strong class="cc2-concept-tag">El proyecto como relato de decisiones</strong>La idea inicial, el MVP, los incrementos, las pruebas, las incidencias y la demostración forman una misma historia: qué se quería conseguir, qué se eligió, qué evidencia se obtuvo y qué se aprendió.</div>
+
+      <h2 id="glosario">Glosario del tema</h2>
+      <dl class="cc2-glosario">
+        <dt>Alcance</dt><dd>Frontera que establece qué capacidades forman parte del proyecto y cuáles quedan fuera.</dd>
+        <dt>Viabilidad</dt><dd>Posibilidad realista de desarrollar una idea con el tiempo, conocimientos, datos y recursos disponibles.</dd>
+        <dt>Objetivo</dt><dd>Capacidad concreta y observable que contribuye al propósito del programa.</dd>
+        <dt>Entrada</dt><dd>Dato, acción o recurso que recibe el programa para realizar un proceso.</dd>
+        <dt>Salida</dt><dd>Información, cambio o resultado que el programa produce y puede comprobarse.</dd>
+        <dt>MVP</dt><dd>Versión mínima funcional que completa el recorrido útil principal sin mejoras secundarias.</dd>
+        <dt>Caso de uso</dt><dd>Descripción de una interacción completa desde una intención hasta un resultado observable.</dd>
+        <dt>Incremento</dt><dd>Cambio pequeño que añade una capacidad y deja de nuevo el programa en un estado comprobable.</dd>
+        <dt>Versión</dt><dd>Estado identificable y conservado del proyecto al que es posible volver.</dd>
+        <dt>Validación</dt><dd>Comprobación de que una entrada cumple las reglas necesarias antes de procesarla.</dd>
+        <dt>Caso límite</dt><dd>Situación situada en un extremo válido, como una colección vacía o un único elemento.</dd>
+        <dt>Regresión</dt><dd>Fallo introducido por un cambio en un comportamiento que antes funcionaba.</dd>
+        <dt>Depuración</dt><dd>Proceso de reproducir, localizar y explicar la causa de un comportamiento incorrecto.</dd>
+        <dt>Persistencia</dt><dd>Conservación de datos más allá de una ejecución, habitualmente mediante ficheros.</dd>
+        <dt>Decisión de diseño</dt><dd>Elección razonada entre alternativas que afecta a la estructura o al comportamiento del programa.</dd>
+        <dt>Incidencia</dt><dd>Problema relevante registrado junto con sus síntomas, causa, tratamiento y comprobación posterior.</dd>
+        <dt>Demostración</dt><dd>Presentación preparada de casos que hace observable el propósito y el comportamiento del programa.</dd>
+      </dl>
+
+      <section class="summary">
+        <h2 id="resumen">Resumen esencial</h2>
+        <ol>
+          <li>El Tema 19 es una ampliación voluntaria para alumnado especialmente interesado y no condiciona la superación del Bloque D.</li>
+          <li>Una idea viable concreta problema, destinatario, resultado y límites de recursos o dependencias.</li>
+          <li>Propósito, objetivos, entradas y salidas permiten definir un MVP pequeño pero funcional.</li>
+          <li>Ejemplos, casos de uso y tareas representan la planificación directamente, sin pseudocódigo.</li>
+          <li>Funciones, colecciones, ficheros y objetos se seleccionan por la necesidad que resuelven, no por su complejidad.</li>
+          <li>El desarrollo incremental añade capacidades pequeñas y devuelve con frecuencia el programa a un estado funcional.</li>
+          <li>Copias con nombres informativos y el historial del cuaderno conservan estados anteriores comprensibles.</li>
+          <li>Casos normales, límite, no válidos y de regresión aportan evidencias diferentes sobre el comportamiento.</li>
+          <li>Depurar exige reproducir, observar, localizar una causa, corregir lo mínimo y volver a probar.</li>
+          <li>La documentación conserva propósito, límites, decisiones e incidencias que el código no explica por sí solo.</li>
+          <li>Una demostración relaciona casos observables con objetivos, decisiones, pruebas y límites conocidos.</li>
+          <li>La explicación personal acredita comprensión cuando justifica cada pieza principal y reconoce con precisión lo pendiente.</li>
+        </ol>
+      </section>
+
+      <section aria-labelledby="fuentes">
+        <h2 id="fuentes">Fuentes y recursos fiables</h2>
+        <ul>
+          <li id="fuente_111">[111] <a href="https://www.bocm.es/boletin/CM_Orden_BOCM/2023/05/31/BOCM-20230531-18.PDF">Comunidad de Madrid — Orden 1736/2023, de 19 de mayo, Anexo IV (PDF)</a>.</li>
+          <li id="fuente_112">[112] <a href="https://research.google.com/colaboratory/faq.html" lang="en">Google Colab — Preguntas frecuentes sobre cuadernos, sesiones y almacenamiento</a> (en inglés).</li>
+          <li id="fuente_113">[113] <a href="https://docs.python.org/3/tutorial/controlflow.html#defining-functions" lang="en">Documentación de Python — Defining Functions</a> (en inglés).</li>
+          <li id="fuente_114">[114] <a href="https://docs.python.org/3/tutorial/datastructures.html" lang="en">Documentación de Python — Data Structures</a> (en inglés).</li>
+          <li id="fuente_115">[115] <a href="https://docs.python.org/3/tutorial/inputoutput.html" lang="en">Documentación de Python — Input and Output: files and JSON</a> (en inglés).</li>
+          <li id="fuente_116">[116] <a href="https://docs.python.org/3/tutorial/classes.html" lang="en">Documentación de Python — Classes</a> (en inglés).</li>
+          <li id="fuente_117">[117] <a href="https://docs.python.org/3/tutorial/errors.html" lang="en">Documentación de Python — Errors and Exceptions</a> (en inglés).</li>
+          <li id="fuente_118">[118] <a href="https://docs.python.org/3/library/unittest.html" lang="en">Biblioteca estándar de Python — unittest</a> (en inglés).</li>
+          <li id="fuente_119">[119] <a href="https://docs.python.org/3/library/pdb.html" lang="en">Biblioteca estándar de Python — pdb, el depurador de Python</a> (en inglés).</li>
+          <li id="fuente_120">[120] <a href="https://support.google.com/drive/answer/2409045?hl=es">Ayuda de Google Drive — Consultar la actividad y las versiones de archivos</a>.</li>
+        </ul>
+      </section>
+    </article>
+  </div>
+</main>
+<nav class="topic-footer" aria-label="Navegación entre temas">
+  <a href="tema18.html">← Tema 18</a>
+  <a href="index.html">Índice →</a>
+</nav>
+<footer class="site-footer">Ciencias de la Computación II · 2.º de Bachillerato · Comunidad de Madrid</footer>
+</body>
+</html>

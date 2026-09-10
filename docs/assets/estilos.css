@@ -79,6 +79,7 @@ td { padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: t
 tr:nth-child(even) td { background: #f6f8f6; }
 code { padding: .12em .35em; color: #6e3141; background: #f3e9e6; border-radius: 4px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .9em; }
 pre { overflow-x: auto; padding: 18px 20px; background: #142b3b; color: #e8f4f5; border-radius: 10px; line-height: 1.55; }
+pre:focus-visible, .tabla_responsiva:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
 pre code { padding: 0; color: inherit; background: transparent; }
 .cc2-timeline { margin: 20px 0 20px 10px; padding-left: 24px; border-left: 3px solid var(--teal); }
 .cc2-tl-item { position: relative; margin-bottom: 20px; }
@@ -94,7 +95,7 @@ pre code { padding: 0; color: inherit; background: transparent; }
 .index-shell { max-width: 1180px; margin: 0 auto; padding: 56px 24px 84px; }
 .index-intro { max-width: 780px; font-size: 1.1rem; color: var(--muted); }
 .index-section + .index-section { margin-top: 72px; }
-.index-kicker { color: var(--teal); }
+.index-kicker { color: var(--blue); }
 .index-heading { margin: .3rem 0; color: var(--navy); font-size: 2.2rem; }
 .topic-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 34px; }
 .topic-card { min-height: 240px; padding: 26px; display: flex; flex-direction: column; color: inherit; background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); text-decoration: none; box-shadow: 0 10px 30px rgba(23,38,45,.05); transition: transform .18s ease, box-shadow .18s ease; }

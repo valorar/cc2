@@ -76,6 +76,14 @@ La secuencia responde a cuatro preguntas consecutivas:
 - El Tema 13 cubre edición de vídeo, sonido, títulos, filtros, transiciones, efectos y lenguaje audiovisual.
 - Los cuatro temas incorporan creación, compresión y exportación y, en conjunto, cubren los criterios 3.1 y 3.2.
 
+### Contenidos transversales y nivel de detalle
+
+- La elección de formatos se vincula a la calidad, el tamaño de archivo, la compatibilidad y el destino, sin convertir el programa en una lista cerrada de formatos y códecs.
+- Las licencias, la atribución y el uso de recursos reutilizables se integran en imagen y audio.
+- La accesibilidad se incorpora mediante contraste, legibilidad, texto alternativo y subtítulos en sus contextos de publicación.
+- El vídeo conserva una progresión desde la representación y el montaje técnico hasta la narrativa y el uso intencionado del lenguaje audiovisual.
+- Los ejemplos concretos, parámetros de exportación y procedimientos de GIMP, Inkscape, Audacity y Kdenlive se reservan para el desarrollo de las páginas teóricas y las prácticas.
+
 ## Bloque D — Decisión: cinco temas obligatorios y uno voluntario
 
 Se crean **cinco temas obligatorios**, del 14 al 18, y un **Tema 19 voluntario** para desarrollar un proyecto personal. La estructura evita repetir como unidades completas la sintaxis, las estructuras de control y las funciones ya estudiadas en Ciencias de la Computación I, pero reserva una reactivación práctica al comienzo.

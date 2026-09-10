@@ -112,15 +112,16 @@ Cómo se defiende el perímetro de una red y se vigila su tráfico, por qué las
 
 ### Tema 10. Fundamentos de la imagen digital
 
-Cómo se representa una imagen digital, qué diferencias existen entre mapas de bits y gráficos vectoriales y cómo influyen la resolución, el color, la compresión y el formato en su calidad y uso.
+Cómo se representa una imagen digital, qué diferencias existen entre mapas de bits y gráficos vectoriales y cómo influyen la resolución, el color, la compresión y el formato en su calidad, su tamaño de archivo y su uso.
 
-- imagen digital, píxel, dimensiones, resolución y tamaño.
+- imagen digital, píxel, dimensiones, resolución y tamaño de archivo.
 - digitalización y profundidad de color.
-- imagen rasterizada frente a imagen vectorial.
+- imagen rasterizada frente a imagen vectorial y criterios para elegir entre ambas.
 - modos de color: escala de grises, color indexado, RGB, HSV y CMYK.
-- formatos gráficos, transparencia y compatibilidad.
-- compresión con y sin pérdida.
-- creación, compresión, exportación y elección del formato según el destino.
+- formatos gráficos habituales, transparencia y compatibilidad.
+- compresión con y sin pérdida y equilibrio entre calidad y tamaño de archivo.
+- creación, compresión, exportación y elección del formato según el destino: pantalla, impresión o publicación web.
+- licencias de imagen, recursos reutilizables y atribución de la autoría.
 
 ### Tema 11. Edición de imágenes y gráficos vectoriales
 
@@ -128,11 +129,11 @@ Cómo transformar, corregir y combinar imágenes con GIMP, crear gráficos con I
 
 - capas, selecciones, máscaras y transparencia.
 - recorte, cambio de tamaño, resolución y transformaciones.
-- ajustes de luminosidad, contraste y color.
-- reparación, retoque, filtros y efectos.
-- composición, equilibrio, contraste y jerarquía visual.
+- ajustes de luminosidad, contraste y color; reparación y retoque.
+- filtros, efectos y composición: equilibrio, contraste y jerarquía visual.
 - formas, trazados, nodos y texto en gráficos vectoriales.
-- relación entre recursos rasterizados y vectoriales.
+- relación entre recursos rasterizados y vectoriales dentro de una misma composición.
+- accesibilidad de las imágenes: contraste, legibilidad y texto alternativo en los contextos de publicación.
 - conservación del archivo editable y exportación para pantalla o impresión.
 
 ### Tema 12. Audio digital y edición multipista
@@ -141,24 +142,24 @@ Cómo se digitaliza el sonido, qué determina su calidad y cómo grabarlo, edita
 
 - onda sonora, frecuencia, amplitud y canales.
 - frecuencia de muestreo y profundidad de bits.
-- formatos de audio, conversión y compresión.
-- grabación, importación, selección y recorte.
-- edición multipista, mezcla y sincronización.
+- formatos de audio, conversión, compresión y equilibrio entre calidad y tamaño de archivo.
+- grabación, importación, recorte, edición multipista, mezcla y sincronización.
 - volumen, tono, velocidad, normalización y reducción de ruido.
 - fundidos, efectos y uso intencionado del sonido.
+- licencias de audio, bancos de sonidos reutilizables y atribución de la autoría.
 - creación, compresión y exportación según la calidad, el tamaño y el destino.
 
 ### Tema 13. Vídeo digital y lenguaje audiovisual
 
-Cómo se representa y organiza el vídeo, cómo construir un montaje con Kdenlive y cómo utilizar imagen, sonido, títulos y ritmo con una intención comunicativa.
+Cómo se representa y organiza el vídeo, cómo construir un montaje con Kdenlive y cómo emplear imagen, sonido, encuadre, ritmo y narrativa con una intención comunicativa.
 
 - resolución, relación de aspecto y fotogramas por segundo.
 - formatos, códecs, contenedores y compresión.
-- planificación, encuadre, composición, continuidad y ritmo.
 - importación y organización del material.
 - línea de tiempo, pistas, recortes, montaje y transiciones.
-- incorporación, mezcla y sincronización del sonido.
-- títulos, subtítulos, filtros y efectos especiales.
+- integración, mezcla y sincronización de imagen y sonido.
+- títulos, subtítulos y accesibilidad; filtros y efectos especiales.
+- planificación, encuadre, composición, continuidad, narrativa y ritmo del montaje.
 - creación, renderizado y exportación según la calidad, el tamaño y el destino.
 
 ## Bloque D — Programación

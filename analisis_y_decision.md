@@ -75,3 +75,51 @@ La secuencia responde a cuatro preguntas consecutivas:
 - El Tema 12 cubre digitalización, formatos, conversión, grabación, edición y mezcla de audio.
 - El Tema 13 cubre edición de vídeo, sonido, títulos, filtros, transiciones, efectos y lenguaje audiovisual.
 - Los cuatro temas incorporan creación, compresión y exportación y, en conjunto, cubren los criterios 3.1 y 3.2.
+
+## Bloque D — Decisión: cinco temas obligatorios y uno voluntario
+
+Se crean **cinco temas obligatorios**, del 14 al 18, y un **Tema 19 voluntario** para desarrollar un proyecto personal. La estructura evita repetir como unidades completas la sintaxis, las estructuras de control y las funciones ya estudiadas en Ciencias de la Computación I, pero reserva una reactivación práctica al comienzo.
+
+La secuencia responde a seis preguntas:
+
+1. **¿Cómo retomamos Python y estructuramos una solución?** Código ejecutable, funciones y casos de prueba en Google Colab.
+2. **¿Cómo organizamos y conservamos datos?** Colecciones, procesamiento y ficheros.
+3. **¿Cómo modelamos entidades con estado y comportamiento?** Clases y objetos.
+4. **¿Cómo encontramos fallos y demostramos que una corrección funciona?** Depuración, excepciones y pruebas.
+5. **¿Cómo cambia la programación en otros entornos?** Aplicaciones móviles y software adaptativo.
+6. **¿Cómo integramos o ampliamos lo aprendido?** Proyecto personal voluntario.
+
+### Qué se toma de cada versión
+
+| Aportación | v1 | v2 | Tratamiento en v3 |
+|---|:---:|:---:|---|
+| Reactivación de Python y funciones | ✓ | desarrollada en tres temas | Se concentra en el Tema 14 sin repetir CC I. |
+| Colecciones y ficheros | unidos | separados | Se reúnen en el Tema 15 como ciclo de tratamiento y persistencia de datos. |
+| Clases y objetos | ✓ | ✓ | Se conserva como Tema 16 propio y de alcance introductorio. |
+| Depuración, pruebas y mejora | ✓ | ✓ | Se sistematiza en el Tema 17 y se practica desde el inicio. |
+| Entornos móviles y software adaptativo | mención | ✓ | Se trabajan obligatoriamente en el Tema 18. |
+| Proyecto final | obligatorio | obligatorio | Se transforma en el Tema 19, ampliación voluntaria. |
+
+### Por qué cinco temas obligatorios
+
+- **Cuatro temas** obligarían a mezclar contenidos nuevos y distintos, o a dejar entornos móviles y software adaptativo como menciones marginales.
+- **Cinco temas** permiten una progresión práctica y cubren todo el currículo sin depender del proyecto personal.
+- **Seis o más temas obligatorios** reproducirían la fragmentación de la versión 2 y dedicarían demasiado espacio a contenidos básicos ya estudiados en CC I.
+
+### Decisiones metodológicas
+
+- Python se utiliza desde la primera sesión y Google Colab es el entorno principal.
+- No se incluye pseudocódigo. El profesor explica oralmente los algoritmos y la planificación se concreta con ejemplos, entradas, salidas, casos de prueba, funciones y código incremental.
+- Colecciones y ficheros se estudian juntos, pero en secciones diferenciadas.
+- Depuración y pruebas aparecen desde el Tema 14 y se formalizan en el Tema 17.
+- El Tema 18 garantiza la cobertura obligatoria de otros entornos, aplicaciones móviles y software adaptativo.
+- El Tema 19 solo amplía o integra aprendizajes ya cubiertos; no es necesario para completar el bloque.
+
+### Cobertura curricular
+
+- El Tema 14 cubre el uso de Google Colab, la elaboración de programas sencillos y su planificación y estructuración.
+- El Tema 15 cubre estructuras de almacenamiento y lectura y escritura de datos.
+- El Tema 16 cubre clases, objetos y organización modular.
+- El Tema 17 cubre elaboración, depuración, pruebas y mejora de programas.
+- El Tema 18 cubre la comparación de entornos, los entornos de creación de aplicaciones móviles y los fundamentos del software adaptativo.
+- Los temas obligatorios 14 a 18 cubren los criterios 4.1, 4.2 y 4.3; el proyecto voluntario no es la única evidencia de ningún contenido ni criterio.

@@ -2,7 +2,7 @@
 
 ## 2.º de Bachillerato · optativa · Comunidad de Madrid
 
-Documento de referencia de los contenidos teóricos de la asignatura, organizado según los bloques oficiales del currículo. Esta versión integra los bloques A, B y C (temas 1 a 13); el Bloque D se incorporará cuando su programa esté definido. No incluye prácticas ni instrumentos de evaluación, que se tratarán por separado.
+Documento de referencia de los contenidos teóricos de la asignatura, organizado según los bloques oficiales del currículo. Esta versión integra los cuatro bloques (temas 1 a 19). El Tema 19 es una ampliación voluntaria; los contenidos y criterios oficiales del Bloque D quedan cubiertos en los temas obligatorios 14 a 18. No incluye prácticas ni instrumentos de evaluación, que se tratarán por separado.
 
 ## Bloque A — Las redes informáticas
 
@@ -163,7 +163,82 @@ Cómo se representa y organiza el vídeo, cómo construir un montaje con Kdenliv
 
 ## Bloque D — Programación
 
-Pendiente de desarrollo: programación en Python. Se incorporará a este documento cuando su programa esté definido.
+### Tema 14. Python en Google Colab: reactivación y diseño de programas
+
+Cómo recuperar lo aprendido en Ciencias de la Computación I, trabajar desde el primer momento con código Python ejecutable y dividir un problema en funciones comprobables sin recurrir al pseudocódigo.
+
+- Google Colab: cuadernos, celdas, ejecución y estado de la sesión.
+- repaso aplicado de variables, tipos, operadores, entrada y salida.
+- condicionales y bucles dentro de pequeños programas completos.
+- funciones, parámetros, argumentos y valores de retorno.
+- alcance de las variables y separación entre cálculo, entrada y presentación.
+- planificación directa con ejemplos, casos de prueba y descomposición en tareas.
+- desarrollo incremental, nombres claros y funciones breves.
+
+### Tema 15. Colecciones, procesamiento y persistencia de datos
+
+Cómo escoger estructuras de almacenamiento, procesar conjuntos de datos y conservar o intercambiar los resultados mediante ficheros desde Google Colab.
+
+- listas, tuplas, diccionarios y conjuntos.
+- acceso, modificación, recorrido, búsqueda, filtrado y agregación.
+- estructuras anidadas sencillas para representar registros.
+- elección de la colección adecuada para cada problema.
+- lectura y escritura de ficheros con gestores de contexto.
+- formatos de texto, CSV y JSON.
+- rutas, codificación y almacenamiento temporal en Google Colab.
+- carga, validación, transformación y exportación de datos.
+
+### Tema 16. Clases y objetos: modelar un problema
+
+Cómo reunir datos y comportamiento en clases sencillas, crear objetos con estados independientes y decidir cuándo este modelo mejora una solución basada en funciones y colecciones.
+
+- clase, objeto, instancia, atributo y método.
+- definición de clases, `__init__` y `self`.
+- creación y uso de varias instancias.
+- estado, comportamiento y reglas básicas de consistencia.
+- encapsulación y composición a nivel introductorio.
+- colecciones de objetos y colaboración con funciones y ficheros.
+- comparación entre diccionarios, funciones y clases.
+- organización modular de una aplicación sencilla.
+
+### Tema 17. Depuración, pruebas y mejora de programas
+
+Cómo localizar la causa de un fallo, comprobar que una corrección funciona y mejorar el código para que resulte más claro, robusto y fácil de mantener.
+
+- errores de sintaxis, excepciones y errores lógicos.
+- lectura de mensajes de error y trazas de ejecución.
+- reproducción del fallo e inspección de variables.
+- gestión de excepciones con `try`, `except`, `else` y `finally`.
+- casos normales, casos límite y entradas no válidas.
+- pruebas de funciones con resultados esperados y aserciones.
+- refactorización, eliminación de duplicación y nueva ejecución de las pruebas.
+- documentación, estilo y mantenimiento del código.
+
+### Tema 18. Entornos, aplicaciones móviles y software adaptativo
+
+Cómo cambia el desarrollo entre un cuaderno, un IDE y un entorno de creación de aplicaciones móviles, y cómo puede un programa adaptar su comportamiento mediante reglas comprensibles y verificables.
+
+- componentes de un entorno: editor, ejecución, consola, depurador y bibliotecas.
+- comparación entre cuadernos, IDE y entornos visuales de creación de aplicaciones.
+- posibilidades y límites de Google Colab.
+- interfaces, eventos, estado y respuesta de una aplicación móvil sencilla.
+- exploración guiada de un entorno web para crear y probar aplicaciones móviles.
+- software adaptativo basado en preferencias, historial o resultados.
+- diferencias entre configuración, personalización, adaptación y aprendizaje automático.
+- pruebas con perfiles distintos, privacidad, accesibilidad y control del usuario.
+
+### Tema 19. Proyecto personal de programación — ampliación voluntaria
+
+Cómo desarrollar una aplicación elegida por el alumno que integre o amplíe lo aprendido. Este tema es voluntario y está dirigido a quienes tengan especial interés en programación; no introduce ningún contenido curricular imprescindible ni condiciona la superación del bloque.
+
+- elección de un problema concreto y viable.
+- definición de objetivos, entradas, salidas y versión mínima funcional.
+- planificación mediante ejemplos, casos de uso y tareas, sin pseudocódigo.
+- selección razonada de funciones, colecciones, ficheros u objetos.
+- desarrollo incremental y conservación de versiones.
+- gestión de errores, pruebas y depuración.
+- documentación de decisiones e incidencias relevantes.
+- demostración y explicación personal del resultado.
 
 ## Cobertura y procedencia
 
@@ -173,11 +248,14 @@ Para el Bloque B, los tres temas de la propuesta se renumeran como temas 7 a 9 �
 
 Para el Bloque C, se eligen cuatro temas en lugar de agrupar imagen, audio y vídeo en solo tres. La imagen necesita distinguir sus fundamentos —representación, resolución, color, formatos y compresión— de la edición rasterizada y la creación vectorial. Audio y vídeo permanecen separados porque poseen procesos, formatos y lenguajes propios. La secuencia comprender → crear recursos visuales → producir sonido → integrar un montaje audiovisual distribuye mejor la carga y aprovecha el software disponible en el aula: GIMP, Inkscape, Audacity y Kdenlive.
 
+Para el Bloque D, se eligen cinco temas obligatorios y un proyecto voluntario. No se repiten en unidades independientes la sintaxis, las estructuras de control y las funciones ya trabajadas en Ciencias de la Computación I: se reactivan programando desde la primera sesión en Google Colab. Colecciones y ficheros forman una misma secuencia de tratamiento y persistencia de datos; clases y objetos, depuración y calidad, y la exploración de otros entornos conservan temas propios. El alumnado planifica mediante ejemplos, casos de prueba, funciones y organización incremental del código, sin convertir el pseudocódigo en contenido del curso. Los entornos móviles y el software adaptativo se trabajan de forma obligatoria en el Tema 18, de modo que ningún saber ni criterio oficial depende del proyecto voluntario.
+
 ## Alineación con los criterios de evaluación
 
 - Bloque A (temas 1–6): criterios 1.1, 1.2, 2.1 y 2.2.
 - Bloque B (temas 7–9): criterio 2.3.
 - Bloque C (temas 10–13): criterios 3.1 y 3.2.
+- Bloque D (temas obligatorios 14–18): criterios 4.1, 4.2 y 4.3. El Tema 19 es una ampliación voluntaria.
 
 ## Fuentes curriculares mantenidas
 
